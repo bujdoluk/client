@@ -1,0 +1,11 @@
+{
+    "views": {
+        "suggestions": {
+            "sidebar": {
+                "title": "FrontEnd Mentor",
+                "subtitle": "FrontEnd Feedback"
+            }
+        }
+    },
+    "all": "LOL"
+}

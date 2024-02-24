@@ -1,5 +1,17 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+/**
+ * @file Entry point of the application.
+ */
+import App from './App.vue';
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import i18n from '@/plugins/i18n';
+import router from '@/router/index';
+import vuetify from '@/plugins/vuetify';
 
-createApp(App).mount('#app')
+createApp(App)
+    .use(router)
+    .use(i18n)
+    .use(createPinia())
+    .use(vuetify)
+    .mount('#app');
+

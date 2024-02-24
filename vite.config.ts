@@ -4,6 +4,7 @@ import Components from 'unplugin-vue-components/vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const config = (env: ConfigEnv): UserConfig => {
   process.env = { ...process.env, ...loadEnv(env.mode, process.cwd()) };
@@ -34,6 +35,9 @@ const config = (env: ConfigEnv): UserConfig => {
       strictPort: true
     },
     resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      },
       extensions: [
         '.json',
         '.js',

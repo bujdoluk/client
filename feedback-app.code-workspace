@@ -1,0 +1,63 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "name": "feedback-app"
+        }
+    ],
+    "settings": {
+        "stylelint.validate": [
+            "css",
+            "scss",
+            "sass",
+            "vue"
+        ],
+        "files.eol": "\n",
+        "eslint.format.enable": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        },
+        "eslint.validate": [
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "html",
+            "vue",
+            "markdown",
+            "json",
+            "jsonc",
+            "json5"
+        ],
+        "typescript.tsdk": "node_modules/typescript/lib"
+    },
+    "extensions": {
+        "recommendations": [
+            "vue.volar",
+            "vue.vscode-typescript-vue-plugin",
+            "vivaxy.vscode-conventional-commits",
+            "dbaeumer.vscode-eslint",
+            "eamodio.gitlens",
+            "davidanson.vscode-markdownlint",
+            "christian-kohler.npm-intellisense",
+            "syler.sass-indented",
+            "stylelint.vscode-stylelint",
+            "vscode-icons-team.vscode-icons",
+        ],
+        "unwantedRecommendations": [
+            "octref.vetur"
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "type": "chrome",
+                "request": "launch",
+                "name": "Debug: Client",
+                "url": "http://localhost:8080",
+                "webRoot": "${workspaceFolder}"
+            }
+        ]
+    }
+}
