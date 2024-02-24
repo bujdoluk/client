@@ -1,7 +1,17 @@
 <template>
-    <v-container fluid class="bg-background">
-        <v-row class="row mx-auto">
-            <v-col cols="3" xxl="3" xl="3" lg="3" md="3" sm="12">
+    <v-container
+        fluid
+        class="bg-background"
+    >
+        <v-row class="mx-auto row">
+            <v-col
+                cols="3"
+                xxl="3"
+                xl="3"
+                lg="3"
+                md="3"
+                sm="12"
+            >
                 <v-container fluid>
                     <v-row>
                         <v-col>
@@ -93,22 +103,22 @@
                                 <v-container fluid>
                                     <v-row>
                                         <v-col>Roadmap</v-col>
-                                        <v-spacer></v-spacer>
+                                        <v-spacer />
                                         <v-col>View</v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col>Planned</v-col>
-                                        <v-spacer></v-spacer>
+                                        <v-spacer />
                                         <v-col>2</v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col>Planned</v-col>
-                                        <v-spacer></v-spacer>
+                                        <v-spacer />
                                         <v-col>2</v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col>Planned</v-col>
-                                        <v-spacer></v-spacer>
+                                        <v-spacer />
                                         <v-col>2</v-col>
                                     </v-row>
                                 </v-container>
@@ -117,7 +127,14 @@
                     </v-row>
                 </v-container>
             </v-col>
-            <v-col cols="9" xxl="9" xl="9" lg="9" md="9" sm="12">
+            <v-col
+                cols="9"
+                xxl="9"
+                xl="9"
+                lg="9"
+                md="9"
+                sm="12"
+            >
                 <v-container fluid>
                     <v-row>
                         <v-col>
@@ -129,7 +146,7 @@
                                         <v-col>Light bulb</v-col>
                                         <v-col>6 Suggestions</v-col>
                                         <v-col>Sort by: Most upvoted</v-col>
-                                        <v-spacer></v-spacer>
+                                        <v-spacer />
                                         <v-col>
                                             <FeedbackDialog />
                                         </v-col>
@@ -139,12 +156,21 @@
                         </v-col>
                     </v-row>
                     <v-row v-if="feedbacks.length > 0">
-                        <v-col  v-for="feedback in 10" :key="feedback">
+                        <v-col
+                            v-for="feedback in 10"
+                            :key="feedback"
+                        >
                             <v-card>
                                 <v-container>
                                     <v-row>
-                                        <v-col class="d-flex align-top justify-center" cols="2">
-                                            <v-btn stacked class="bg-btn-default">
+                                        <v-col
+                                            class="align-top d-flex justify-center"
+                                            cols="2"
+                                        >
+                                            <v-btn
+                                                stacked
+                                                class="bg-btn-default"
+                                            >
                                                 LOL
                                             </v-btn>
                                         </v-col>
@@ -166,8 +192,11 @@
                                                 </v-card-actions>
                                             </v-card>
                                         </v-col>
-                                        <v-col class="d-flex align-center" cols="2">
-                                            <v-icon :icon="mdiChat"></v-icon>
+                                        <v-col
+                                            class="align-center d-flex"
+                                            cols="2"
+                                        >
+                                            <v-icon :icon="mdiChat" />
                                             2
                                         </v-col>
                                     </v-row>
@@ -178,7 +207,10 @@
                     <v-row v-else>
                         <v-col>
                             <v-card>
-                                <v-container fluid class="height d-flex flex-column align-center">
+                                <v-container
+                                    fluid
+                                    class="align-center d-flex flex-column height"
+                                >
                                     <v-row align="end">
                                         <v-col class="text-h5">
                                             There is no feedback yet.
@@ -211,21 +243,21 @@
 /**
  * @file Suggestions View.
  */
-import { ref } from "vue";
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiChat } from '@mdi/js';
-import FeedbackDialog from "@/components/FeedbackDialog.vue";
+import FeedbackDialog from '@/components/FeedbackDialog.vue';
 
 const { t } = useI18n();
 
 export interface Feedback {
-    id: number;
-    title: string;
-    description: string;
     category: string;
-    upvotes: number;
     comments: number;
+    description: string;
+    id: number;
     isActive: boolean;
+    title: string;
+    upvotes: number;
 }
 
 const isActive = ref<boolean>(false);
