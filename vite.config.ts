@@ -1,4 +1,4 @@
-import { type ConfigEnv, UserConfig, defineConfig, loadEnv } from 'vite'
+import { type ConfigEnv, type UserConfig, defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';

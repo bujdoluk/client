@@ -214,7 +214,7 @@
 import { ref } from "vue";
 import { useI18n } from 'vue-i18n';
 import { mdiChat } from '@mdi/js';
-import FeedbackDialog from "@/Components/FeedbackDialog.vue";
+import FeedbackDialog from "@/components/FeedbackDialog.vue";
 
 const { t } = useI18n();
 
