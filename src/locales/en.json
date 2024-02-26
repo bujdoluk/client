@@ -1,11 +1,44 @@
 {
-    "views": {
-        "suggestions": {
-            "sidebar": {
-                "title": "FrontEnd Mentor",
-                "subtitle": "FrontEnd Feedback"
-            }
+    "all": "LOL",
+    "buttons": {
+        "addFeedback": "Add Feedback",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "editFeedback": "Edit Feedback",
+        "goBack": "Go Back",
+        "postComment": "Post Comment"
+    },
+    "components": {
+        "comment": {
+            "addComment": "Add Comment",
+            "typeComment": "Type your comment here"
         }
     },
-    "all": "LOL"
+    "views": {
+        "suggestions": {
+            "emptyFeedback": {
+                "subtitle": "Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.",
+                "title": "There is no feedback yet."
+            },
+            "roadmap": {
+                "inProgress": "In-Progress",
+                "live": "Live",
+                "planned": "Planned",
+                "title": "Roadmap",
+                "view": "View"
+            },
+            "sidebar": {
+                "subtitle": "FrontEnd Feedback",
+                "title": "FrontEnd Mentor"
+            },
+            "topbar": {
+                "leastComments": "Least Comments",
+                "leastUpvotes": "Least Upvotes",
+                "mostComments": "Most Comments",
+                "mostUpvotes": "Most Upvotes",
+                "sortBy": "Sort by:",
+                "suggestions": "Suggestions"
+            }
+        }
+    }
 }

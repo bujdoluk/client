@@ -15,18 +15,17 @@ import { useI18n } from 'vue-i18n';
 const feedbackApp: ThemeDefinition = {
     colors: {
         'background': '#F7F8FD',
+        'blue': '#4661E6',
+        'blue-hover': '#7C91F9',
+        'darkBlue': '#373F68',
+        'darkBlue-hover': '#656EA3',
         'error': '#DB1F35',
         'info': '#1994C1',
-        'primary': '#373F68',
-        'primary-dark': '#7C1F10',
-        'primary-light': '#EC725D',
-        'row-selected-background': '#A4FFD5',
-        'row-selected-background-hover': '#6BD49F',
-        'secondary': '#2E9D6B',
-        'secondary-dark': '#13804F',
-        'secondary-light': '#98DBAF',
+        'purple': '#AD1FEA',
+        'purple-hover': '#C75AF6',
         'success': '#50B246',
-        'warning': '#E68418'
+        'warning': '#E68418',
+        'white': '#FFFFFF'
     },
     dark: false
 };
@@ -36,7 +35,8 @@ export default createVuetify(
         components: { ...labs },
         defaults: {
             VBtn: {
-                class: 'text-none'
+                class: 'text-none',
+                ripple: false
             },
             VCard: {
                 elevation: 0

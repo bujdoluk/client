@@ -2,6 +2,7 @@
     <v-container
         fluid
         class="bg-background"
+        width="100vw"
     >
         <v-row class="mx-auto row">
             <v-col
@@ -12,11 +13,14 @@
                 md="3"
                 sm="12"
             >
-                <v-container fluid>
+                <v-container>
                     <v-row>
                         <v-col>
-                            <v-card class="special-background">
-                                <v-card-title>
+                            <v-card 
+                                class="special-background text-white"
+                                :min-height="110"
+                            >
+                                <v-card-title class="font-weight-bold">
                                     {{ t('views.suggestions.sidebar.title') }}
                                 </v-card-title>
                                 <v-card-subtitle>
@@ -24,11 +28,17 @@
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>
+                    </v-row>
+                    <v-row>
                         <v-col>
                             <v-card>
                                 <v-container fluid>
                                     <v-row>
-                                        <v-col>
+                                        <v-col
+                                            v-for="category in allCategories"
+                                            :key="category"
+                                            class="pa-2"
+                                        >
                                             <v-btn 
                                                 :active="isActive"
                                                 variant="tonal"
@@ -36,90 +46,70 @@
                                                 density="default"
                                                 size="small"
                                             >
-                                                {{ t('all') }}
-                                            </v-btn>
-                                        </v-col>
-                                        <v-col>
-                                            <v-btn 
-                                                :active="isActive"
-                                                variant="tonal"
-                                                color="bg-btn-default"
-                                                density="default"
-                                                size="small"
-                                            >
-                                                UI
-                                            </v-btn>
-                                        </v-col>
-                                        <v-col>
-                                            <v-btn 
-                                                :active="isActive"
-                                                variant="tonal"
-                                                class="bg-btn-default"
-                                                density="default"
-                                                size="small"
-                                            >
-                                                UX
-                                            </v-btn>
-                                        </v-col>
-                                        <v-col>
-                                            <v-btn 
-                                                :active="isActive"
-                                                variant="tonal"
-                                                class="bg-btn-default"
-                                                density="default"
-                                                size="small"
-                                            >
-                                                Enhancement
-                                            </v-btn>
-                                        </v-col>
-                                        <v-col>
-                                            <v-btn 
-                                                :active="isActive"
-                                                variant="tonal"
-                                                class="bg-btn-default"
-                                                density="default"
-                                                size="small"
-                                            >
-                                                Bug
-                                            </v-btn>
-                                        </v-col>
-                                        <v-col>
-                                            <v-btn 
-                                                :active="isActive"
-                                                variant="tonal"
-                                                class="bg-btn-default"
-                                                density="default"
-                                                size="small"
-                                            >
-                                                Feature
+                                                {{ category }}
                                             </v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card>
                         </v-col>
+                    </v-row>
+                    <v-row>
                         <v-col>
                             <v-card>
                                 <v-container fluid>
                                     <v-row>
-                                        <v-col>Roadmap</v-col>
+                                        <v-col>
+                                            {{ t('views.suggestions.roadmap.title') }}
+                                        </v-col>
                                         <v-spacer />
-                                        <v-col>View</v-col>
+                                        <v-col>
+                                            <span class="cursor text-decoration-underline">
+                                                {{ t('views.suggestions.roadmap.view') }}
+                                            </span>
+                                        </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>Planned</v-col>
-                                        <v-spacer />
-                                        <v-col>2</v-col>
+                                        <v-col cols="1">
+                                            <span class="dot-orange" />
+                                        </v-col>
+                                        <v-col>
+                                            {{ t('views.suggestions.roadmap.planned') }}
+                                        </v-col>
+                                        <v-col 
+                                            cols="2"
+                                            class="font-weight-bold"
+                                        >
+                                            {{ plannedFeedbacks.length }}
+                                        </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>Planned</v-col>
-                                        <v-spacer />
-                                        <v-col>2</v-col>
+                                        <v-col cols="1">
+                                            <span class="dot-pink" />
+                                        </v-col>
+                                        <v-col>
+                                            {{ t('views.suggestions.roadmap.inProgress') }}
+                                        </v-col>
+                                        <v-col 
+                                            cols="2"
+                                            class="font-weight-bold"
+                                        >
+                                            {{ inProgressFeedbacks.length }}
+                                        </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>Planned</v-col>
-                                        <v-spacer />
-                                        <v-col>2</v-col>
+                                        <v-col cols="1">
+                                            <span class="dot-teal" />
+                                        </v-col>
+                                        <v-col>
+                                            {{ t('views.suggestions.roadmap.live') }}
+                                        </v-col>
+                                        <v-col 
+                                            cols="2"
+                                            class="font-weight-bold"
+                                        >
+                                            {{ liveFeedbacks.length }}
+                                        </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card>
@@ -138,29 +128,47 @@
                 <v-container fluid>
                     <v-row>
                         <v-col>
-                            <v-card 
-                                class="bg-black"
-                            >
+                            <v-card class="bg-darkBlue">
                                 <v-container>
                                     <v-row align="center">
-                                        <v-col>Light bulb</v-col>
-                                        <v-col>6 Suggestions</v-col>
-                                        <v-col>Sort by: Most upvoted</v-col>
+                                        <v-col cols="1">
+                                            <v-icon :icon="mdiLightbulbOnOutline" />
+                                        </v-col>
+                                        <v-col cols="2">
+                                            {{ feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
+                                        </v-col>
+                                        <v-col cols="4">
+                                            <span class="text-caption">
+                                                {{ t('views.suggestions.topbar.sortBy') }} 
+                                            </span>
+                                            <v-select
+                                                :items="items"
+                                                variant="solo"
+                                                density="compact"
+                                            />
+                                        </v-col>
                                         <v-spacer />
                                         <v-col>
-                                            <FeedbackDialog />
+                                            <v-btn 
+                                                class="bg-purple"
+                                                :prepend-icon="mdiPlus"
+                                            >
+                                                {{ t('buttons.addFeedback') }}
+                                            </v-btn>
                                         </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card>
                         </v-col>
                     </v-row>
-                    <v-row v-if="feedbacks.length > 0">
-                        <v-col
-                            v-for="feedback in 10"
-                            :key="feedback"
-                        >
-                            <v-card>
+                    <v-row
+                        v-for="feedback in feedbacks"
+                        :key="feedback.id"
+                        class="cursor"
+                        @click="onRedirect(feedback.id)"
+                    >
+                        <v-col v-if="feedbacks.length !== 0">
+                            <v-card :min-height="130">
                                 <v-container>
                                     <v-row>
                                         <v-col
@@ -169,25 +177,34 @@
                                         >
                                             <v-btn
                                                 stacked
-                                                class="bg-btn-default"
+                                                class="bg-btn-default text-caption"
+                                                :prepend-icon="mdiChevronUp"
+                                                density="compact"
+                                                variant="tonal"
+                                                flat
+                                                size="40"
                                             >
-                                                LOL
+                                                {{ feedback.upvotes }}
                                             </v-btn>
                                         </v-col>
-                                        <v-col class="pt-0">
+                                        <v-col
+                                            class="pt-0"
+                                            cols="8"
+                                        >
                                             <v-card>
                                                 <v-card-title>
-                                                    FrontEnd Mentor
+                                                    {{ feedback.title }}
                                                 </v-card-title>
-                                                <v-card-subtitle>
-                                                    Feedback Board
-                                                </v-card-subtitle>
+                                                <v-card-text class="text-truncate width">
+                                                    {{ feedback.description }}
+                                                </v-card-text>
                                                 <v-card-actions>
-                                                    <v-btn>
-                                                        Feature
-                                                    </v-btn>
-                                                    <v-btn>
-                                                        Feature
+                                                    <v-btn 
+                                                        density="compact"
+                                                        variant="tonal"
+                                                        flat
+                                                    >
+                                                        {{ feedback.category }}
                                                     </v-btn>
                                                 </v-card-actions>
                                             </v-card>
@@ -197,15 +214,14 @@
                                             cols="2"
                                         >
                                             <v-icon :icon="mdiChat" />
-                                            2
+                                            {{ feedback.comments }}
                                         </v-col>
                                     </v-row>
                                 </v-container>
                             </v-card>
                         </v-col>
-                    </v-row>
-                    <v-row v-else>
-                        <v-col>
+             
+                        <v-col v-else>
                             <v-card>
                                 <v-container
                                     fluid
@@ -213,19 +229,21 @@
                                 >
                                     <v-row align="end">
                                         <v-col class="text-h5">
-                                            There is no feedback yet.
+                                            {{ t('views.suggestions.emptyFeedback.title') }}
                                         </v-col>
                                     </v-row>
                                     <v-row>
                                         <v-col class="text-caption">
-                                            Got a suggestion? Found a bug that needs to be squashed? 
-                                            We love hearing about new ideas to improve our app.
+                                            {{ t('views.suggestions.emptyFeedback.subtitle') }}
                                         </v-col>
                                     </v-row>
                                     <v-row align="start">
                                         <v-col>
-                                            <v-btn class="bg-btn-pink">
-                                                + Add Feedback
+                                            <v-btn 
+                                                class="bg-purple"
+                                                :prepend-icon="mdiPlus"
+                                            >
+                                                {{ t('buttons.addFeedback') }}
                                             </v-btn>
                                         </v-col>
                                     </v-row>
@@ -243,25 +261,94 @@
 /**
  * @file Suggestions View.
  */
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { mdiChat } from '@mdi/js';
-import FeedbackDialog from '@/components/FeedbackDialog.vue';
+import { mdiChat, mdiPlus, mdiChevronUp, mdiLightbulbOnOutline } from '@mdi/js';
+import { type Feedback } from '@/models/Feedback';
+import router from '@/router';
 
 const { t } = useI18n();
 
-export interface Feedback {
-    category: string;
-    comments: number;
-    description: string;
-    id: number;
-    isActive: boolean;
-    title: string;
-    upvotes: number;
-}
-
 const isActive = ref<boolean>(false);
-const feedbacks = ref<Array<Feedback>>([]);
+const feedbacks = ref<Array<Feedback>>([{
+    category: 'Feature',
+    color: 'orange',
+    comments: 5,
+    description: 'Description 1',
+    id: '1',
+    status: 'Planned',
+    title: 'Feedback 1',
+    upvotes: 10
+}, {
+    category: 'All',
+    color: 'orange',
+    comments: 5,
+    description: 'Description 2 LDSKLKASD LDSKALDK SDADASDAS DASDASD DSADAS',
+    id: '2',
+    status: 'Planned',
+    title: 'Feedback 2',
+    upvotes: 10
+}, {
+    category: 'UX',
+    color: 'pink',
+    comments: 5,
+    description: 'Description 2 LDSKLKASD LDSKALDK SDADASDAS DASDASD DSADAS',
+    id: '3',
+    status: 'In-Progress',
+    title: 'Feedback 3',
+    upvotes: 10
+}, {
+    category: 'UI',
+    color: 'pink',
+    comments: 5,
+    description: 'Description 4',
+    id: '4',
+    status: 'In-Progress',
+    title: 'Feedback 4',
+    upvotes: 10
+}, {
+    category: 'Feature',
+    color: 'pink',
+    comments: 5,
+    description: 'Description 5',
+    id: '5',
+    status: 'In-Progress',
+    title: 'Feedback 5',
+    upvotes: 10
+}, {
+    category: 'Feature',
+    color: 'teal',
+    comments: 5,
+    description: 'Description 6',
+    id: '6',
+    status: 'Live',
+    title: 'Feedback 6',
+    upvotes: 10
+}, {
+    category: 'Feature',
+    color: 'pink',
+    comments: 5,
+    description: 'Description 7',
+    id: '7',
+    status: 'In-Progress',
+    title: 'Feedback 7',
+    upvotes: 10
+}]);
+
+const allCategories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+const plannedFeedbacks = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Planned'));
+const inProgressFeedbacks = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'In-Progress'));
+const liveFeedbacks = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Live'));
+const items = [
+    { title: t('views.suggestions.topbar.mostUpvotes') },
+    { title: t('views.suggestions.topbar.leastUpvotes') },
+    { title: t('views.suggestions.topbar.mostComments') },
+    { title: t('views.suggestions.topbar.leastComments') }
+];
+
+const onRedirect = (id: string): void => {
+    router.push({ name: 'feedback-detail', params: { id } });
+};
 </script>
 
 <style scoped>
@@ -276,5 +363,36 @@ const feedbacks = ref<Array<Feedback>>([]);
 
 .height{
     height: 70vh;
+}
+
+.width {
+    max-width: 95%;
+}
+
+.dot-orange {
+  height: 10px;
+  width: 10px;
+  background-color: #F49F85;
+  border-radius: 50%;
+  display: inline-flex;
+}
+
+.dot-pink {
+  height: 10px;
+  width: 10px;
+  background-color: #AD1FEA;
+  border-radius: 50%;
+  display: inline-flex;
+}
+
+.dot-teal {
+  height: 10px;
+  width: 10px;
+  background-color: #62BCFA;
+  border-radius: 50%;
+  display: inline-flex;
+}
+.cursor {
+    cursor: pointer;
 }
 </style>

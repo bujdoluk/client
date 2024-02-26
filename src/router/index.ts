@@ -3,7 +3,7 @@
  * @file Router config.
  * @see https://router.vuejs.org/.
  */
-import { createRouter, createWebHistory, type RouteComponent, } from 'vue-router';
+import { createRouter, createWebHistory, type RouteComponent } from 'vue-router';
 
 const FeedbackDetailView = async (): Promise<RouteComponent> => import('@/views/FeedbackDetailView.vue');
 const LandingView = async (): Promise<RouteComponent> => import('@/views/LandingView.vue');
