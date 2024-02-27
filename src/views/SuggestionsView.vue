@@ -149,12 +149,7 @@
                                         </v-col>
                                         <v-spacer />
                                         <v-col>
-                                            <v-btn 
-                                                class="bg-purple"
-                                                :prepend-icon="mdiPlus"
-                                            >
-                                                {{ t('buttons.addFeedback') }}
-                                            </v-btn>
+                                            <AddFeedbackDialog />
                                         </v-col>
                                     </v-row>
                                 </v-container>
@@ -266,6 +261,7 @@ import { useI18n } from 'vue-i18n';
 import { mdiChat, mdiPlus, mdiChevronUp, mdiLightbulbOnOutline } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
+import AddFeedbackDialog from '@/components/Dialogs/AddFeedbackDialog.vue';
 
 const { t } = useI18n();
 

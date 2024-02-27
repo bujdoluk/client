@@ -15,12 +15,9 @@
                     {{ t('buttons.goBack') }}
                 </v-btn>
             </v-col>
-            
             <v-spacer />
             <v-col>
-                <v-btn>
-                    {{ t('buttons.editFeedback') }}
-                </v-btn>
+                <EditFeedbackDialog />
             </v-col>
         </v-row>
         <v-row class="mx-auto row">
@@ -134,6 +131,7 @@ import { useI18n } from 'vue-i18n';
 import { mdiChat, mdiChevronUp, mdiChevronLeft } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
+import EditFeedbackDialog from '@/components/Dialogs/EditFeedbackDialog.vue';
 
 const { t } = useI18n();
 

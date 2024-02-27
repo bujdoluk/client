@@ -15,6 +15,7 @@ import { useI18n } from 'vue-i18n';
 const feedbackApp: ThemeDefinition = {
     colors: {
         'background': '#F7F8FD',
+        'background-secondary': '#F7F8FD',
         'blue': '#4661E6',
         'blue-hover': '#7C91F9',
         'darkBlue': '#373F68',

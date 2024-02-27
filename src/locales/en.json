@@ -3,12 +3,24 @@
     "buttons": {
         "addFeedback": "Add Feedback",
         "cancel": "Cancel",
+        "closeDialog": "Close Dialog",
         "delete": "Delete",
         "editFeedback": "Edit Feedback",
         "goBack": "Go Back",
         "postComment": "Post Comment"
     },
     "components": {
+        "Dialog": {
+            "category": "Category",
+            "categorySubtitle": "Choose a category for your feedback",
+            "feedbackDetail": "Feedback Detail",
+            "feedbackDetailSubtitle": "Include any specific comments on what should be improved, added, etc.",
+            "feedbackSubtitle": "Add a short, descriptive headline",
+            "feedbackTitle": "Feedback Title",
+            "title": "Create New Feedback",
+            "updateStatus": "Update Status",
+            "updateStatusSubtitle": "Change feedback state"
+        },
         "comment": {
             "addComment": "Add Comment",
             "typeComment": "Type your comment here"

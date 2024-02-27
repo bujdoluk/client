@@ -14,5 +14,12 @@
  * @description Main application component.
  */
 import AppToolbar from '@/components/AppToolbar/AppToolbar.vue';
-import LandingView from './views/LandingView.vue';
+import LandingView from '@/views/LandingView.vue';
+
 </script>
+
+<style>
+.cursor {
+    cursor: pointer;
+}
+</style>
