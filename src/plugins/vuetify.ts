@@ -15,7 +15,8 @@ import { useI18n } from 'vue-i18n';
 const feedbackApp: ThemeDefinition = {
     colors: {
         'background': '#F7F8FD',
-        'background-secondary': '#F7F8FD',
+        'background-primary': '#CDD2EE',
+        'background-secondary': '#F2F4FF',
         'blue': '#4661E6',
         'blue-hover': '#7C91F9',
         'darkBlue': '#373F68',
@@ -37,6 +38,7 @@ export default createVuetify(
         defaults: {
             VBtn: {
                 class: 'text-none',
+                elevation: 0,
                 ripple: false
             },
             VCard: {

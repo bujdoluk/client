@@ -64,9 +64,15 @@
                                         </v-col>
                                         <v-spacer />
                                         <v-col>
-                                            <span class="cursor text-decoration-underline">
+                                            <v-btn 
+                                                class="cursor text-decoration-underline"
+                                                density="compact"
+                                                variant="tonal"
+                                                flat
+                                                @click="onRedirect('roadmap')"
+                                            >
                                                 {{ t('views.suggestions.roadmap.view') }}
-                                            </span>
+                                            </v-btn>
                                         </v-col>
                                     </v-row>
                                     <v-row>
@@ -160,91 +166,13 @@
                         v-for="feedback in feedbacks"
                         :key="feedback.id"
                         class="cursor"
-                        @click="onRedirect(feedback.id)"
                     >
-                        <v-col v-if="feedbacks.length !== 0">
-                            <v-card :min-height="130">
-                                <v-container>
-                                    <v-row>
-                                        <v-col
-                                            class="align-top d-flex justify-center"
-                                            cols="2"
-                                        >
-                                            <v-btn
-                                                stacked
-                                                class="bg-btn-default text-caption"
-                                                :prepend-icon="mdiChevronUp"
-                                                density="compact"
-                                                variant="tonal"
-                                                flat
-                                                size="40"
-                                            >
-                                                {{ feedback.upvotes }}
-                                            </v-btn>
-                                        </v-col>
-                                        <v-col
-                                            class="pt-0"
-                                            cols="8"
-                                        >
-                                            <v-card>
-                                                <v-card-title>
-                                                    {{ feedback.title }}
-                                                </v-card-title>
-                                                <v-card-text class="text-truncate width">
-                                                    {{ feedback.description }}
-                                                </v-card-text>
-                                                <v-card-actions>
-                                                    <v-btn 
-                                                        density="compact"
-                                                        variant="tonal"
-                                                        flat
-                                                    >
-                                                        {{ feedback.category }}
-                                                    </v-btn>
-                                                </v-card-actions>
-                                            </v-card>
-                                        </v-col>
-                                        <v-col
-                                            class="align-center d-flex"
-                                            cols="2"
-                                        >
-                                            <v-icon :icon="mdiChat" />
-                                            {{ feedback.comments }}
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-card>
-                        </v-col>
-             
-                        <v-col v-else>
-                            <v-card>
-                                <v-container
-                                    fluid
-                                    class="align-center d-flex flex-column height"
-                                >
-                                    <v-row align="end">
-                                        <v-col class="text-h5">
-                                            {{ t('views.suggestions.emptyFeedback.title') }}
-                                        </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col class="text-caption">
-                                            {{ t('views.suggestions.emptyFeedback.subtitle') }}
-                                        </v-col>
-                                    </v-row>
-                                    <v-row align="start">
-                                        <v-col>
-                                            <v-btn 
-                                                class="bg-purple"
-                                                :prepend-icon="mdiPlus"
-                                            >
-                                                {{ t('buttons.addFeedback') }}
-                                            </v-btn>
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-card>
-                        </v-col>
+                        <FeedbackComponent
+                            v-if="feedbacks.length > 0" 
+                            :feedback="feedback"
+                            @click="onRedirect('feedback-detail', feedback.id)"
+                        />
+                        <EmptyFeedbackComponent v-else />
                     </v-row>
                 </v-container>
             </v-col>
@@ -258,10 +186,12 @@
  */
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { mdiChat, mdiPlus, mdiChevronUp, mdiLightbulbOnOutline } from '@mdi/js';
+import { mdiLightbulbOnOutline } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
 import AddFeedbackDialog from '@/components/Dialogs/AddFeedbackDialog.vue';
+import FeedbackComponent from '@/components/Feedback/FeedbackComponent.vue';
+import EmptyFeedbackComponent from '@/components/Feedback/EmptyFeedbackComponent.vue';
 
 const { t } = useI18n();
 
@@ -342,9 +272,10 @@ const items = [
     { title: t('views.suggestions.topbar.leastComments') }
 ];
 
-const onRedirect = (id: string): void => {
-    router.push({ name: 'feedback-detail', params: { id } });
+const onRedirect = (name: string, id?: string): void => {
+    router.push({ name, params: { id } });
 };
+
 </script>
 
 <style scoped>

@@ -21,59 +21,7 @@
             </v-col>
         </v-row>
         <v-row class="mx-auto row">
-            <v-col>
-                <v-card :min-height="130">
-                    <v-container>
-                        <v-row>
-                            <v-col
-                                class="align-top d-flex justify-center"
-                                cols="2"
-                            >
-                                <v-btn
-                                    stacked
-                                    class="bg-btn-default text-caption"
-                                    :prepend-icon="mdiChevronUp"
-                                    density="compact"
-                                    variant="tonal"
-                                    flat
-                                    size="40"
-                                >
-                                    {{ feedback.upvotes }}
-                                </v-btn>
-                            </v-col>
-                            <v-col
-                                class="pt-0"
-                                cols="8"
-                            >
-                                <v-card>
-                                    <v-card-title>
-                                        {{ feedback.title }}
-                                    </v-card-title>
-                                    <v-card-text class="text-truncate width">
-                                        {{ feedback.description }}
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-btn 
-                                            density="compact"
-                                            variant="tonal"
-                                            flat
-                                        >
-                                            {{ feedback.category }}
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-col>
-                            <v-col
-                                class="align-center d-flex"
-                                cols="2"
-                            >
-                                <v-icon :icon="mdiChat" />
-                                {{ feedback.comments }}
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card>
-            </v-col>
+            <FeedbackComponent :feedback="feedback" />
         </v-row>
         <v-row class="mx-auto row">
             <v-container>
@@ -128,9 +76,10 @@
  */
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { mdiChat, mdiChevronUp, mdiChevronLeft } from '@mdi/js';
+import { mdiChevronLeft } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
+import FeedbackComponent from '@/components/Feedback/FeedbackComponent.vue';
 import EditFeedbackDialog from '@/components/Dialogs/EditFeedbackDialog.vue';
 
 const { t } = useI18n();

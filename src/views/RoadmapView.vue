@@ -14,6 +14,7 @@
                                     variant="tonal"
                                     density="default"
                                     size="small"
+                                    @click="onRedirect('suggestions')"
                                 >
                                     {{ t('buttons.goBack') }}
                                 </v-btn>
@@ -213,6 +214,7 @@
 import { computed, ref } from 'vue';
 import { mdiPlus } from '@mdi/js';
 import { useI18n } from 'vue-i18n';
+import router from '@/router';
 
 const { t } = useI18n();
 
@@ -295,6 +297,10 @@ const feedbacks = ref<Array<Feedback>>([{
 const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Planned'));
 const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'In-Progress'));
 const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Live'));
+
+const onRedirect = (name: string, id?: string): void => {
+    router.push({ name, params: { id } });
+};
 </script>
 
 <style scoped>
