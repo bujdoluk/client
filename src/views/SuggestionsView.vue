@@ -1,10 +1,9 @@
 <template>
     <v-container
-        fluid
         class="bg-background"
-        width="100vw"
+        fluid
     >
-        <v-row class="mx-auto row">
+        <v-row class="grid">
             <v-col
                 cols="3"
                 xxl="3"
@@ -17,15 +16,17 @@
                     <v-row>
                         <v-col>
                             <v-card 
-                                class="special-background text-white"
+                                class="align-end d-flex special-background text-white"
                                 :min-height="110"
                             >
-                                <v-card-title class="font-weight-bold">
-                                    {{ t('views.suggestions.sidebar.title') }}
-                                </v-card-title>
-                                <v-card-subtitle>
-                                    {{ t('views.suggestions.sidebar.subtitle') }}
-                                </v-card-subtitle>
+                                <v-card-item>
+                                    <v-card-title class="font-weight-bold">
+                                        {{ t('views.suggestions.sidebar.title') }}
+                                    </v-card-title>
+                                    <v-card-subtitle>
+                                        {{ t('views.suggestions.sidebar.subtitle') }}
+                                    </v-card-subtitle>
+                                </v-card-item>
                             </v-card>
                         </v-col>
                     </v-row>
@@ -35,16 +36,19 @@
                                 <v-container fluid>
                                     <v-row>
                                         <v-col
-                                            v-for="category in allCategories"
+                                            v-for="category in categories"
                                             :key="category"
                                             class="pa-2"
                                         >
                                             <v-btn 
                                                 :active="isActive"
                                                 variant="tonal"
-                                                class="bg-btn-blue"
                                                 density="default"
                                                 size="small"
+                                                :color="isActive ? 'white' : 'blue'"
+                                                class="font-weight-bold"
+                                                :class="isActive ? 'bg-background' : 'bg-blue'"
+                                                @click="isActive = !isActive"
                                             >
                                                 {{ category }}
                                             </v-btn>
@@ -261,7 +265,7 @@ const feedbacks = ref<Array<Feedback>>([{
     upvotes: 10
 }]);
 
-const allCategories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
 const plannedFeedbacks = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Planned'));
 const inProgressFeedbacks = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'In-Progress'));
 const liveFeedbacks = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Live'));
@@ -279,21 +283,9 @@ const onRedirect = (name: string, id?: string): void => {
 </script>
 
 <style scoped>
-.row {
-    min-height: 113px;
-    width: 60%;
-}
 .special-background {
     background: rgb(96,81,231);
     background: radial-gradient(circle, rgba(96,81,231,1) 10%, rgba(171,33,234,1) 45%, rgba(244,159,133,1) 100%); 
-}
-
-.height{
-    height: 70vh;
-}
-
-.width {
-    max-width: 95%;
 }
 
 .dot-orange {
@@ -319,7 +311,9 @@ const onRedirect = (name: string, id?: string): void => {
   border-radius: 50%;
   display: inline-flex;
 }
-.cursor {
-    cursor: pointer;
+
+.grid {
+    width: 70% !important;
+    margin: 0 auto;
 }
 </style>

@@ -27,6 +27,38 @@
         }
     },
     "views": {
+        "landingPage": {
+            "buttons": {
+                "14dayFreeTrial": "14-day Free Trial",
+                "demo": "Demo",
+                "freeTrial": "Free Trial",
+                "readMore": "Read More",
+                "startToday": "Start Today"
+            },
+            "feedbackBoards": {
+                "allInOne": "All your feedback in one overview",
+                "give": "Give your users a voice! Let them submit new feature requests and vote on all feedback so you know what to build next.",
+                "title": "Feedback Boards"
+            },
+            "headline": {
+                "noCreditCardRequired": "*no credit card required.",
+                "subtitle": "Turn user feedback into actionable product optimizations!",
+                "title": "Instant feedback to build better products."
+            },
+            "navbar": {
+                "demo": "Demo",
+                "features": "Features",
+                "home": "Home",
+                "howItWorks": "How It Works",
+                "pricing": "Pricing"
+            },
+            "roadmap": {
+                "comunicate": " Communicate updates with 1 click",
+                "share": "Automatically share all the cool new features you're working on. Your users will love you!",
+                "title": "Roadmap"
+            },
+            "trustedBy": "As trusted by"
+        },
         "suggestions": {
             "emptyFeedback": {
                 "subtitle": "Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.",

@@ -25,7 +25,7 @@
                         cols="8"
                     >
                         <v-card>
-                            <v-card-title>
+                            <v-card-title class="font-weight-bold">
                                 {{ props.feedback?.title }}
                             </v-card-title>
                             <v-card-text class="text-truncate width">

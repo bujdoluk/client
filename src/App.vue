@@ -1,8 +1,7 @@
 <template>
     <v-layout>
-        <LandingView />
+        <AppToolbar />
         <v-main>
-            <AppToolbar />
             <RouterView />
         </v-main>
     </v-layout>
@@ -14,7 +13,6 @@
  * @description Main application component.
  */
 import AppToolbar from '@/components/AppToolbar/AppToolbar.vue';
-import LandingView from '@/views/LandingView.vue';
 
 </script>
 
