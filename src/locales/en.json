@@ -28,6 +28,8 @@
     },
     "views": {
         "landingPage": {
+            "allFeedback": "All of your user feedback in one single place",
+            "blog": "Blog",
             "buttons": {
                 "14dayFreeTrial": "14-day Free Trial",
                 "demo": "Demo",
@@ -35,6 +37,44 @@
                 "readMore": "Read More",
                 "startToday": "Start Today"
             },
+            "card1": {
+                "subtitle": "Private boards for teams or public ones for customers.",
+                "title": "Private or Public"
+            },
+            "card2": {
+                "subtitle": "Build and share your product roadmap.",
+                "title": "Product Roadmap"
+            },
+            "card3": {
+                "subtitle": "Collect votes on feature requests.",
+                "title": "Feature voting"
+            },
+            "card4": {
+                "subtitle": "Board and roadmap on your own domain.",
+                "title": "Custom domain"
+            },
+            "card5": {
+                "subtitle": "Identify and sync your user accounts.",
+                "title": "User SSO"
+            },
+            "card6": {
+                "subtitle": "Manually approve new posts & comments.",
+                "title": "Moderation"
+            },
+            "card7": {
+                "subtitle": "Customize your own status labels.",
+                "title": "Custom statuses"
+            },
+            "card8": {
+                "subtitle": "Add users as voters to feedback manually.",
+                "title": "Vote on behalf"
+            },
+            "changelog": {
+                "comunicate": "With your Changelog, communicating new updates and launches becomes easy and fun!",
+                "share": "Share your latest launches and updates",
+                "title": "Changelog"
+            },
+            "features": "Features",
             "feedbackBoards": {
                 "allInOne": "All your feedback in one overview",
                 "give": "Give your users a voice! Let them submit new feature requests and vote on all feedback so you know what to build next.",
@@ -45,6 +85,7 @@
                 "subtitle": "Turn user feedback into actionable product optimizations!",
                 "title": "Instant feedback to build better products."
             },
+            "integrate": "Integrates with your workflow ",
             "navbar": {
                 "demo": "Demo",
                 "features": "Features",
