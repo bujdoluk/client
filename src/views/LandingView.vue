@@ -4,19 +4,29 @@
             class="grid"
         >
             <v-col>
-                {{ t('views.landingPage.navbar.home') }}
+                <v-btn>
+                    {{ t('views.landingPage.navbar.home') }}
+                </v-btn>
             </v-col>
             <v-col>
-                {{ t('views.landingPage.navbar.features') }}
+                <v-btn>
+                    {{ t('views.landingPage.navbar.features') }}
+                </v-btn>
             </v-col>
             <v-col>
-                {{ t('views.landingPage.navbar.howItWorks') }}
+                <v-btn>
+                    {{ t('views.landingPage.navbar.howItWorks') }}
+                </v-btn>
             </v-col>
             <v-col>
-                {{ t('views.landingPage.navbar.demo') }}
+                <v-btn>
+                    {{ t('views.landingPage.navbar.demo') }}
+                </v-btn>
             </v-col>
             <v-col>
-                {{ t('views.landingPage.navbar.pricing') }}
+                <v-btn>
+                    {{ t('views.landingPage.navbar.pricing') }}
+                </v-btn>
             </v-col>
             <v-spacer />
             <v-col>
@@ -369,23 +379,158 @@
             align="center"
         >
             <v-col>
-                {{ t('views.landingPage.blog') }}
+                <v-card>
+                    <v-card-text>
+                        IMAGE
+                    </v-card-text>
+                    <v-card-text>
+                        Impact of Dynamic Pricing on Customer Behavior and Loyalty
+                    </v-card-text>
+                    <v-card-text>
+                        Feb 9, 2024
+                    </v-card-text>
+                </v-card>
             </v-col>
             <v-col>
-                {{ t('views.landingPage.blog') }}
+                <v-card>
+                    <v-card-text>
+                        IMAGE
+                    </v-card-text>
+                    <v-card-text>
+                        4 Tips for Effective B2B Link Building
+                    </v-card-text>
+                    <v-card-text>
+                        Jan 15, 2024
+                    </v-card-text>
+                </v-card>
             </v-col>
             <v-col>
-                {{ t('views.landingPage.blog') }}
+                <v-card>
+                    <v-card-text>
+                        IMAGE
+                    </v-card-text>
+                    <v-card-text>
+                        Scaling Your Remote SaaS Business: 6 Tactics for Growth
+                    </v-card-text>
+                    <v-card-text>
+                        Nov 8, 2023
+                    </v-card-text>
+                </v-card>
             </v-col>
         </v-row>
-        <v-row>
+        <v-row
+            class="grid text-center"
+            align="center"
+        >
             <v-col>
                 <v-btn
                     variant="outlined"
+                    flat
                     color="purple"
+                    size="x-large"
                 >
                     {{ t('views.landingPage.buttons.readMore') }}
                 </v-btn>
+            </v-col>
+        </v-row>
+        <v-row
+            class="d-flex flex-column grid text-center"
+            align="center"
+        >
+            <v-col class="font-weight-bold text-h4">
+                Ready to start building the right things?
+            </v-col>
+            <v-col>
+                Turn user feedback into actionable product optimizations!
+            </v-col>
+            <v-col>
+                <v-btn
+                    variant="tonal"
+                    flat
+                    color="white"
+                    class="bg-purple"
+                    size="x-large"
+                >
+                    {{ t('views.landingPage.buttons.14dayFreeTrial') }}
+                </v-btn>
+            </v-col>
+            <v-col>
+                * no credit card required
+            </v-col>
+        </v-row>
+        <v-row
+            class="grid text-center"
+            align="center"
+        >
+            <v-col
+                cols="8"
+                class="font-weight-bold text-h4"
+            >
+                Get started with a free 14-day trial today!
+            </v-col>
+            <v-col>
+                <v-btn
+                    variant="tonal"
+                    flat
+                    color="white"
+                    class="bg-purple"
+                    size="x-large"
+                >
+                    {{ t('views.landingPage.buttons.startToday') }}
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-row
+            class="grid text-center"
+            align="center"
+        >
+            <v-col>
+                IMAGE
+            </v-col>
+            <v-col>
+                LOL
+            </v-col>
+            <v-col>
+                LOL
+            </v-col>
+            <v-col>
+                LOL
+            </v-col>
+            <v-col>
+                <v-icon
+                    :icon="mdiTwitter"
+                    class="mr-2"
+                />
+                <v-icon :icon="mdiInstagram" />
+            </v-col>
+        </v-row>
+        <v-row
+            class="d-flex flex-column grid text-center"
+            align="center"
+        >
+            <v-col>
+                <v-btn>
+                    {{ t('views.landingPage.footer.terms') }}
+                </v-btn>
+                <span>&#x2022;</span> 
+                <v-btn>
+                    {{ t('views.landingPage.footer.gdpr') }}
+                </v-btn>
+                <span>&#x2022;</span>
+                <v-btn>
+                    {{ t('views.landingPage.footer.privacy') }}
+                </v-btn>
+                <span>&#x2022;</span>
+                <v-btn>
+                    {{ t('views.landingPage.footer.compare') }}
+                </v-btn>
+                <span>&#x2022;</span>
+                <v-btn>
+                    {{ t('views.landingPage.footer.solutions') }}
+                </v-btn>
+            </v-col>
+            <v-col>
+                {{ t('views.landingPage.footer.feedbackApp') }}
             </v-col>
         </v-row>
     </v-container>

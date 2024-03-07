@@ -80,6 +80,25 @@
                 "give": "Give your users a voice! Let them submit new feature requests and vote on all feedback so you know what to build next.",
                 "title": "Feedback Boards"
             },
+            "footer": {
+                "about": "About",
+                "account": "Account",
+                "blog": "Blog",
+                "caseStudies": "Case Studies",
+                "compare": "Compare",
+                "demo": "Demo",
+                "features": "Features",
+                "feedbackApp": "Feedback App - Built with love for product management 💛",
+                "gdpr": "GDPR",
+                "home": "Home",
+                "login": "Login",
+                "pricing": "Pricing",
+                "privacy": "Privacy",
+                "product": "Product",
+                "singUp": "Sing Up",
+                "solutions": "Solutions",
+                "terms": "Terms"
+            },
             "headline": {
                 "noCreditCardRequired": "*no credit card required.",
                 "subtitle": "Turn user feedback into actionable product optimizations!",
