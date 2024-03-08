@@ -1,8 +1,9 @@
 <template>
-    <v-container fluid>
-        <v-row
-            class="grid"
-        >
+    <v-container
+        fluid
+        class="container"
+    >
+        <v-row class="grid">
             <v-col>
                 <v-btn>
                     {{ t('views.landingPage.navbar.home') }}
@@ -455,20 +456,20 @@
                 </v-btn>
             </v-col>
             <v-col>
-                * no credit card required
+                {{ t('views.landingPage.headline.noCreditCardRequired') }}
             </v-col>
         </v-row>
         <v-row
-            class="grid text-center"
+            class="background-purple grid py-10 text-center"
             align="center"
         >
             <v-col
                 cols="8"
                 class="font-weight-bold text-h4"
             >
-                Get started with a free 14-day trial today!
+                {{ t('views.landingPage.footer.getStarted') }}
             </v-col>
-            <v-col>
+            <v-col class="py-0">
                 <v-btn
                     variant="tonal"
                     flat
@@ -481,20 +482,118 @@
             </v-col>
         </v-row>
         <v-row
-            class="grid text-center"
+            class="background-purple grid mt-0 text-center"
             align="center"
         >
             <v-col>
                 IMAGE
             </v-col>
-            <v-col>
-                LOL
-            </v-col>
-            <v-col>
-                LOL
-            </v-col>
-            <v-col>
-                LOL
+            <v-col cols="6">
+                <v-container>
+                    <v-row>
+                        <v-col
+                            cols="4"
+                            class="font-weight-bold" 
+                        >
+                            {{ t('views.landingPage.footer.about') }}
+                        </v-col>
+                        <v-col
+                            cols="4"
+                            class="font-weight-bold"
+                        >
+                            {{ t('views.landingPage.footer.product') }}
+                        </v-col>
+                        <v-col
+                            cols="4"
+                            class="font-weight-bold"
+                        >
+                            {{ t('views.landingPage.footer.account') }}
+                        </v-col>
+                    </v-row>
+                    <v-spacer />
+                    <v-row>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.home') }}
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.demo') }}
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.login') }}
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-spacer />
+                    <v-row>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.blog') }}
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.caseStudies') }}
+                            </v-btn>
+                        </v-col>
+                        <v-col
+                            cols="4"
+                        >
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.singUp') }}
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-spacer />
+                    <v-row>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.pricing') }}
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="4">
+                            <v-btn
+                                class="text-decoration-underline"
+                                color="purple"
+                                variant="text"
+                            >
+                                {{ t('views.landingPage.footer.features') }}
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </v-col>
             <v-col>
                 <v-icon
@@ -505,27 +604,47 @@
             </v-col>
         </v-row>
         <v-row
-            class="d-flex flex-column grid text-center"
+            class="background-purple d-flex flex-column grid mt-0 text-center"
             align="center"
         >
             <v-col>
-                <v-btn>
+                <v-btn
+                    class="text-decoration-underline"
+                    color="purple"
+                    variant="text"
+                >
                     {{ t('views.landingPage.footer.terms') }}
                 </v-btn>
                 <span>&#x2022;</span> 
-                <v-btn>
+                <v-btn
+                    class="text-decoration-underline"
+                    color="purple"
+                    variant="text"
+                >
                     {{ t('views.landingPage.footer.gdpr') }}
                 </v-btn>
                 <span>&#x2022;</span>
-                <v-btn>
+                <v-btn
+                    class="text-decoration-underline"
+                    color="purple"
+                    variant="text"
+                >
                     {{ t('views.landingPage.footer.privacy') }}
                 </v-btn>
                 <span>&#x2022;</span>
-                <v-btn>
+                <v-btn
+                    class="text-decoration-underline"
+                    color="purple"
+                    variant="text"
+                >
                     {{ t('views.landingPage.footer.compare') }}
                 </v-btn>
                 <span>&#x2022;</span>
-                <v-btn>
+                <v-btn
+                    class="text-decoration-underline"
+                    color="purple"
+                    variant="text"
+                >
                     {{ t('views.landingPage.footer.solutions') }}
                 </v-btn>
             </v-col>
@@ -551,6 +670,15 @@ const { t } = useI18n();
 .grid {
     display: flex;
     margin: 0 auto;
-    width: 70% !important;
+    width: 70%;
+}
+
+.container {
+    padding: 0 !important;
+}
+
+.background-purple {
+    background-color: #f9f0fd;
+    width: 100% !important;
 }
 </style>

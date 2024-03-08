@@ -25,6 +25,7 @@ const feedbackApp: ThemeDefinition = {
         'info': '#1994C1',
         'purple': '#AD1FEA',
         'purple-hover': '#C75AF6',
+        'purple-light': '#F3D5FF',
         'success': '#50B246',
         'warning': '#E68418',
         'white': '#FFFFFF'
