@@ -6,7 +6,6 @@
         "alwaysStrict": true,
         "baseUrl": ".",
         "checkJs": true,
-        "composite": true,
         "declaration": true,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,

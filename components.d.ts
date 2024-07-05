@@ -14,7 +14,10 @@ declare module 'vue' {
     Feedback: typeof import('./src/components/Feedback/FeedbackComponent.vue')['default']
     FeedbackComponent: typeof import('./src/components/Feedback/FeedbackComponent.vue')['default']
     FeedbackDialog: typeof import('./src/components/FeedbackDialog.vue')['default']
+    FrontendMentorBox: typeof import('./src/components/FrontendMentorBox/FrontendMentorBox.vue')['default']
+    RoadmapBox: typeof import('./src/components/RoadmapBox/RoadmapBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TagsBox: typeof import('./src/components/TagsBox/TagsBox.vue')['default']
   }
 }

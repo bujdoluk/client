@@ -1,0 +1,73 @@
+[
+    {
+        "category":"Feature",
+        "color": "orange",
+        "comments": 5,
+        "description": "Description 1",
+        "id": "1",
+        "status": "Planned",
+        "title": "Feedback 1",
+        "upvotes": 10
+    },
+    {
+        "category": "All",
+        "color": "orange",
+        "comments": 5,
+        "description": "Description 2 LDSKLKASD LDSKALDK SDADASDAS DASDASD DSADAS",
+        "id": "2",
+        "status": "Planned",
+        "title": "Feedback 2",
+        "upvotes": 10
+
+    },
+    {
+        "category": "UX",
+        "color": "pink",
+        "comments": 5,
+        "description": "Description 2 LDSKLKASD LDSKALDK SDADASDAS DASDASD DSADAS",
+        "id": "3",
+        "status": "In-Progress",
+        "title": "Feedback 3",
+        "upvotes": 10
+    },
+    {
+        "category": "UI",
+        "color": "pink",
+        "comments": 5,
+        "description": "Description 4",
+        "id": "4",
+        "status": "In-Progress",
+        "title": "Feedback 4",
+        "upvotes": 10
+    },
+    {
+        "category": "Feature",
+        "color": "pink",
+        "comments": 5,
+        "description": "Description 5",
+        "id": "5",
+        "status": "In-Progress",
+        "title": "Feedback 5",
+        "upvotes": 10
+    },
+    {
+        "category":"Feature",
+        "color":"teal",
+        "comments": 5,
+        "description": "Description 6",
+        "id": "6",
+        "status": "Live",
+        "title": "Feedback 6",
+        "upvotes": 10
+    },
+    {
+        "category": "Feature",
+        "color": "pink",
+        "comments": 5,
+        "description": "Description 7",
+        "id": "7",
+        "status": "In-Progress",
+        "title": "Feedback 7",
+        "upvotes": 10
+    }
+]

@@ -33,7 +33,6 @@
     },
     "extensions": {
         "recommendations": [
-            "vue.vscode-typescript-vue-plugin",
             "vivaxy.vscode-conventional-commits",
             "dbaeumer.vscode-eslint",
             "eamodio.gitlens",
