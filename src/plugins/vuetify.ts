@@ -57,6 +57,9 @@ export default createVuetify(
             VContainer: {
                 class: 'pa-3'
             },
+            VDialog: {
+                transition: false
+            },
             VDivider: {
                 class: 'mx-4',
                 inset: true,

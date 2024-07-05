@@ -1,7 +1,6 @@
 <template>
     <v-dialog 
         width="600"
-        :transition="false"
         persistent
     >
         <template #activator="{ props }">
@@ -33,7 +32,6 @@
                             required
                             density="compact"
                             variant="outlined"
-                            :rules="[v => !!v || 'Name is required']"
                             class="bg-background-secondary"
                             hide-details
                             counter="45"
@@ -72,7 +70,6 @@
                             :counter="250"
                         />
                     </v-card-text>
-
                     <v-card-actions class="pt-5">
                         <v-spacer />
                         <v-btn
@@ -96,14 +93,13 @@
 
 <script setup lang="ts">
 /**
- * @file Add Feedback Dialog.
+ * @file Add Feedback component.
  */
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
 
 const { t } = useI18n();
-
 const valid = ref(false);
 const title = ref('');
 const detail = ref('');

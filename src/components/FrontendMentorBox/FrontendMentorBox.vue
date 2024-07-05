@@ -1,5 +1,8 @@
 <template>
-    <v-card class="align-end d-flex special-background text-white" :min-height="110">
+    <v-card
+        class="align-end color-background d-flex text-white"
+        :min-height="110"
+    >
         <v-card-item>
             <v-card-title class="font-weight-bold">
                 {{ t('views.suggestions.sidebar.title') }}
@@ -18,3 +21,10 @@
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.color-background {
+    background: rgb(96, 81, 231);
+    background: radial-gradient(circle, rgba(96, 81, 231, 1) 10%, rgba(171, 33, 234, 1) 45%, rgba(244, 159, 133, 1) 100%);
+}
+</style>

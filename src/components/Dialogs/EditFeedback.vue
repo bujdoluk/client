@@ -34,7 +34,6 @@
                             required
                             density="compact"
                             variant="outlined"
-                            :rules="[v => !!v || 'Name is required']"
                             class="bg-background-secondary"
                             hide-details
                             counter="45"
@@ -122,14 +121,13 @@
 
 <script setup lang="ts">
 /**
- * @file Edit Feedback Dialog.
+ * @file Edit Feedback component.
  */
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
 
 const { t } = useI18n();
-
 const valid = ref(false);
 const title = ref('');
 const detail = ref('');

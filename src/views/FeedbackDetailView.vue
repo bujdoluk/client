@@ -2,9 +2,9 @@
     <v-container
         fluid
         class="bg-background"
-        width="100vw"
+        width="60vw"
     >
-        <v-row class="mx-auto row">
+        <v-row align="center">
             <v-col>
                 <v-btn
                     :prepend-icon="mdiChevronLeft"
@@ -16,14 +16,14 @@
                 </v-btn>
             </v-col>
             <v-spacer />
-            <v-col>
+            <v-col cols="auto">
                 <EditFeedbackDialog />
             </v-col>
         </v-row>
-        <v-row class="mx-auto row">
-            <FeedbackComponent :feedback="feedback" />
+        <v-row align="center">
+            <FeedbackComponent :feedback="props.feedback" />
         </v-row>
-        <v-row class="mx-auto row">
+        <v-row align="center">
             <v-container>
                 <v-row>
                     <v-col>
@@ -74,26 +74,18 @@
 /**
  * @file Feedback Detail View.
  */
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
 import FeedbackComponent from '@/components/Feedback/FeedbackComponent.vue';
-import EditFeedbackDialog from '@/components/Dialogs/EditFeedbackDialog.vue';
+import EditFeedbackDialog from '@/components/Dialogs/EditFeedback.vue';
+
+const props = defineProps<{
+    feedback: Feedback;
+}>();
 
 const { t } = useI18n();
-
-const feedback = ref<Feedback>({
-    category: 'Feature',
-    color: 'orange',
-    comments: 5,
-    description: 'Description 1',
-    id: '1',
-    status: 'Planned',
-    title: 'Feedback 1',
-    upvotes: 10
-});
 
 const onRedirect = (): void => {
     router.push({ name: 'suggestions' });
@@ -102,17 +94,6 @@ const onRedirect = (): void => {
 </script>
 
 <style scoped>
-.row {
-    min-height: 113px;
-    width: 60%;
-}
-.height{
-    height: 70vh;
-}
-
-.width {
-    max-width: 95%;
-}
 .cursor {
     cursor: pointer;
 }

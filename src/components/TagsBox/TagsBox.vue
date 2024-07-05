@@ -31,8 +31,8 @@
  */
 import { ref } from 'vue';
 
-const props = defineProps({
-    categories: Array<string>
-});
+const props = defineProps<{
+    categories: Array<string>;
+}>();
 const isActive = ref<boolean>(false);
 </script>

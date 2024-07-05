@@ -7,7 +7,7 @@
         "id": "1",
         "status": "Planned",
         "title": "Feedback 1",
-        "upvotes": 10
+        "upvotes": 5
     },
     {
         "category": "All",
@@ -17,7 +17,7 @@
         "id": "2",
         "status": "Planned",
         "title": "Feedback 2",
-        "upvotes": 10
+        "upvotes": 6
 
     },
     {
@@ -48,7 +48,7 @@
         "id": "5",
         "status": "In-Progress",
         "title": "Feedback 5",
-        "upvotes": 10
+        "upvotes": 11
     },
     {
         "category":"Feature",
@@ -58,7 +58,7 @@
         "id": "6",
         "status": "Live",
         "title": "Feedback 6",
-        "upvotes": 10
+        "upvotes": 8
     },
     {
         "category": "Feature",
@@ -68,6 +68,6 @@
         "id": "7",
         "status": "In-Progress",
         "title": "Feedback 7",
-        "upvotes": 10
+        "upvotes": 22
     }
 ]

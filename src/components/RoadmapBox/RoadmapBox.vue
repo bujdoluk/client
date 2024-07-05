@@ -88,3 +88,29 @@ const onRedirect = (name: string, id?: string): void => {
     router.push({ name, params: { id } });
 };
 </script>
+
+<style scoped>
+.dot-orange {
+    height: 10px;
+    width: 10px;
+    background-color: #F49F85;
+    border-radius: 50%;
+    display: inline-flex;
+}
+
+.dot-pink {
+    height: 10px;
+    width: 10px;
+    background-color: #AD1FEA;
+    border-radius: 50%;
+    display: inline-flex;
+}
+
+.dot-teal {
+    height: 10px;
+    width: 10px;
+    background-color: #62BCFA;
+    border-radius: 50%;
+    display: inline-flex;
+}
+</style>

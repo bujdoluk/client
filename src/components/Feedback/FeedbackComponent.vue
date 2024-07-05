@@ -17,7 +17,7 @@
                             flat
                             size="40"
                         >
-                            {{ props.feedback?.upvotes }}
+                            {{ props.feedback.upvotes }}
                         </v-btn>
                     </v-col>
                     <v-col
@@ -26,10 +26,10 @@
                     >
                         <v-card>
                             <v-card-title class="font-weight-bold">
-                                {{ props.feedback?.title }}
+                                {{ props.feedback.title }}
                             </v-card-title>
                             <v-card-text class="text-truncate width">
-                                {{ props.feedback?.description }}
+                                {{ props.feedback.description }}
                             </v-card-text>
                             <v-card-actions>
                                 <v-btn 
@@ -38,7 +38,7 @@
                                     flat
                                     color="background-primary"
                                 >
-                                    {{ props.feedback?.category }}
+                                    {{ props.feedback.category }}
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -52,7 +52,7 @@
                             color="background-primary"
                             class="mr-2"
                         />
-                        {{ props.feedback?.comments }}
+                        {{ props.feedback.comments }}
                     </v-col>
                 </v-row>
             </v-container>
@@ -64,15 +64,11 @@
 /**
  * @file Feedback component.
  */
-import { type PropType } from 'vue';
 import { mdiChat, mdiChevronUp } from '@mdi/js';
 import type { Feedback } from '@/models/Feedback';
 
-const props = defineProps({
-    feedback: {
-        required: false,
-        type: Object as PropType<Feedback>
-    }
-});
+const props = defineProps<{
+    feedback: Feedback;
+}>();
 
 </script>
