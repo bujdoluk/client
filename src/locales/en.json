@@ -120,6 +120,19 @@
             },
             "trustedBy": "As trusted by"
         },
+        "roadmap": {
+            "title": "Roadmap",
+            "status": {
+                "inProgress": "In-Progress",
+                "live": "Live",
+                "planned": "Planned",
+                "subtitle": {
+                    "inProgress": "Currently being developed",
+                    "live": "Released features",
+                    "planned": "Ideas prioritized for research"
+                }
+            }
+        },
         "suggestions": {
             "emptyFeedback": {
                 "subtitle": "Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.",

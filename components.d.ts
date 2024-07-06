@@ -14,6 +14,7 @@ declare module 'vue' {
     EditFeedbackDialog: typeof import('./src/components/Dialogs/EditFeedbackDialog.vue')['default']
     EmptyFeedbackComponent: typeof import('./src/components/Feedback/EmptyFeedbackComponent.vue')['default']
     Feedback: typeof import('./src/components/Feedback/FeedbackComponent.vue')['default']
+    FeedbackCard: typeof import('./src/components/FeedbackCard/FeedbackCard.vue')['default']
     FeedbackComponent: typeof import('./src/components/Feedback/FeedbackComponent.vue')['default']
     FeedbackDialog: typeof import('./src/components/FeedbackDialog.vue')['default']
     FrontendMentorBox: typeof import('./src/components/FrontendMentorBox/FrontendMentorBox.vue')['default']
