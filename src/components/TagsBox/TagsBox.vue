@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="pa-3">
         <v-container fluid>
             <v-row>
                 <v-col
@@ -7,18 +7,7 @@
                     :key="category"
                     class="pa-2"
                 >
-                    <v-btn
-                        :active="isActive"
-                        variant="tonal"
-                        density="default"
-                        size="small"
-                        :color="isActive ? 'white' : 'blue'"
-                        class="font-weight-bold"
-                        :class="isActive ? 'bg-background' : 'bg-blue'"
-                        @click="isActive = !isActive"
-                    >
-                        {{ category }}
-                    </v-btn>
+                    <Tag :category="category"/>
                 </v-col>
             </v-row>
         </v-container>
@@ -29,10 +18,9 @@
 /**
  * @file TagsBox component.
  */
-import { ref } from 'vue';
+import Tag from '@/components/Tag/Tag.vue';
 
 const props = defineProps<{
     categories: Array<string>;
 }>();
-const isActive = ref<boolean>(false);
 </script>

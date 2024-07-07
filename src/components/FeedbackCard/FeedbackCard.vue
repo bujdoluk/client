@@ -1,7 +1,6 @@
 <template>
     <v-card
         class="bg-white pa-6"
-        rounded="lg"
         max-height="250px"
         min-height="250px"
     >
@@ -27,7 +26,6 @@
                 <v-btn 
                     color="darkBlue"
                     variant="tonal"
-                    rounded="lg"
                 >
                     <v-icon :icon="mdiChevronUp">
                     </v-icon>   
@@ -53,6 +51,7 @@
 import { mdiChat, mdiChevronUp } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import Tag from '@/components/Tag/Tag.vue';
+
 const props = defineProps<{
     feedback: Feedback;
 }>();

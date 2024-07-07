@@ -2,26 +2,31 @@
     <v-card class="bg-darkBlue">
         <v-container>
             <v-row align="center">
-                <v-col cols="1">
+                <v-col cols="auto">
                     <v-icon :icon="mdiLightbulbOnOutline" />
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="auto font-weight-bold">
                     {{ props.feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
                 </v-col>
-                <v-col cols="4">
-                    <span class="text-caption">
-                        {{ t('views.suggestions.topbar.sortBy') }}
-                    </span>
-                    <v-select
-                        v-model="selectedItem"
-                        :items="items"
-                        variant="solo"
-                        density="compact"
-                        @update:model-value="sortBy"
-                    />
+                <v-col>
+                    <v-row align="center">
+                        <v-col cols="auto" class="text-caption text-grey">{{ t('views.suggestions.topbar.sortBy') }}</v-col>
+                        <v-col> 
+                            <v-select
+                                v-model="selectedItem"
+                                :items="items"
+                                variant="solo"
+                                density="compact"
+                                hide-details
+                                :min-width="400"
+                                color="purple"
+                                flat
+                            />
+                        </v-col>
+                    </v-row>
                 </v-col>
                 <v-spacer />
-                <v-col>
+                <v-col cols="auto">
                     <AddFeedback />
                 </v-col>
             </v-row>
@@ -45,25 +50,11 @@ const props = defineProps<{
 
 const { t } = useI18n();
 const items = [
-    { title: t('views.suggestions.topbar.mostUpvotes') },
-    { title: t('views.suggestions.topbar.leastUpvotes') },
-    { title: t('views.suggestions.topbar.mostComments') },
-    { title: t('views.suggestions.topbar.leastComments') }
+    t('views.suggestions.topbar.mostUpvotes'),
+    t('views.suggestions.topbar.leastUpvotes'),
+    t('views.suggestions.topbar.mostComments'),
+    t('views.suggestions.topbar.leastComments')
 ];
 
-const selectedItem = ref<number>();
-let upvotesArray: Array<number>;
-let commentsArray: Array<number>;
-
-const sortBy = (): void => {
-    props.feedbacks.forEach((feedback) => {
-        upvotesArray.push(feedback.upvotes);
-    });
-    props.feedbacks.forEach((feedback) => {
-        commentsArray.push(feedback.comments);
-    });
-    upvotesArray.sort();
-    commentsArray.sort();
-    console.log(upvotesArray.sort());
-};
+const selectedItem = ref<string>(items[0]);
 </script>

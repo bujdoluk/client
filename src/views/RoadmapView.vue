@@ -11,25 +11,17 @@
                             <v-col>
                                 <v-row>
                                     <v-col>
-                                        <v-btn 
-                                            class="bg-btn-black"
-                                            variant="text"
-                                            size="small"
-                                            :prepend-icon="mdiChevronLeft"
-                                            @click="onRedirect('suggestions')"
-                                        >
-                                            {{ t('buttons.goBack') }}
-                                        </v-btn>
+                                        <GoBackButton />
                                     </v-col>
                                 </v-row>
-                                <v-row>
+                                <v-row class="ml-2 mt-0 font-weight-bold">
                                     <v-col>
                                         {{ t('views.roadmap.title') }}
                                     </v-col>
                                 </v-row>
                             </v-col>
                             <v-spacer />
-                            <v-col cols="auto">
+                            <v-col cols="auto mr-3">
                                 <AddFeedback />
                             </v-col>
                         </v-row>
@@ -112,12 +104,11 @@
  * @file Roadmap View.
  */
 import { computed, ref } from 'vue';
-import { mdiChevronLeft } from '@mdi/js';
 import AddFeedback from '@/components/Dialogs/AddFeedback.vue';
 import { useI18n } from 'vue-i18n';
-import router from '@/router';
 import { type Feedback } from '@/models/Feedback';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
+import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import feeedbacks from '@/database/feedbacks.json';
 
 const { t } = useI18n();
@@ -125,10 +116,6 @@ const feedbacks = ref<Array<Feedback>>(feeedbacks);
 const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Planned'));
 const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'In Progress'));
 const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Live'));
-
-const onRedirect = (name: string, id?: string): void => {
-    router.push({ name, params: { id } });
-};
 
 </script>
 

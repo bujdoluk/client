@@ -21,7 +21,7 @@
             </v-col>
         </v-row>
         <v-row align="center">
-            <FeedbackComponent :feedback="props.feedback" />
+            Feedback component
         </v-row>
         <v-row align="center">
             <v-container>
@@ -76,14 +76,8 @@
  */
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft } from '@mdi/js';
-import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
-import FeedbackComponent from '@/components/Feedback/FeedbackComponent.vue';
 import EditFeedbackDialog from '@/components/Dialogs/EditFeedback.vue';
-
-const props = defineProps<{
-    feedback: Feedback;
-}>();
 
 const { t } = useI18n();
 

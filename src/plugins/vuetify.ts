@@ -39,11 +39,13 @@ export default createVuetify(
         defaults: {
             VBtn: {
                 class: 'text-none',
+                rounded: "lg",
                 elevation: 0,
                 ripple: false
             },
             VCard: {
-                elevation: 0
+                elevation: 0,
+                rounded: "lg"
             },
             VCardActions: {
                 class: 'pb-3 pt-0 px-0'

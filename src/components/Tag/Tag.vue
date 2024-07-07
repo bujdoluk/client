@@ -2,8 +2,8 @@
     <v-btn 
         variant="tonal"
         color="blue"
-        rounded="lg"
         class="font-weight-bold"
+        size="small"
     >
         {{ props.category }}
     </v-btn>
