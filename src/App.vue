@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <AppToolbar />
+        <AppToolbar v-if="router.currentRoute.value.path === '/'" />
         <v-main>
             <RouterView />
         </v-main>
@@ -13,7 +13,7 @@
  * @description Main application component.
  */
 import AppToolbar from '@/components/AppToolbar/AppToolbar.vue';
-
+import router from '@/router';
 </script>
 
 <style>
