@@ -10,7 +10,10 @@
                     <span :class="props.feedback.color" /> 
                     <span class="text-grey">{{ props.feedback.status }}</span>
                 </v-card-text>
-                <v-card-title class="pb-0 font-weight-bold">
+                <v-card-title 
+                    class="pb-0 font-weight-bold cursor" 
+                    @click="onRedirect('feedback-detail', feedback.id)"
+                >
                     {{ props.feedback.title }}
                 </v-card-title>
                 <v-card-text class="text-body-2 text-grey">
@@ -51,8 +54,13 @@
 import { mdiChat, mdiChevronUp } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import Tag from '@/components/Tag/Tag.vue';
+import router from '@/router';
 
 const props = defineProps<{
     feedback: Feedback;
 }>();
+
+const onRedirect = (name: string, id?: string): void => {
+    router.push({ name, params: { id } });
+};
 </script>

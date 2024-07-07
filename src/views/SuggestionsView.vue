@@ -1,7 +1,7 @@
 <template>
     <v-container
-        class="bg-background"
         fluid
+        class="bg-background"
     >
         <v-row class="grid">
             <v-col

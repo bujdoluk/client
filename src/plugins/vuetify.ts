@@ -38,7 +38,7 @@ export default createVuetify(
         components: { ...labs },
         defaults: {
             VBtn: {
-                class: 'text-none',
+                class: 'text-none font-weight-medium',
                 rounded: "lg",
                 elevation: 0,
                 ripple: false
