@@ -18,10 +18,11 @@
                 <v-row align="start">
                     <v-col>
                         <v-btn 
-                            class="bg-purple"
+                            variant="flat"
+                            color="purple"
                             :prepend-icon="mdiPlus"
                         >
-                            {{ t('buttons.addFeedback') }}
+                            {{ t('buttons.add') }}
                         </v-btn>
                     </v-col>
                 </v-row>

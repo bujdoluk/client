@@ -27,7 +27,7 @@
         <v-row align="center">
             <v-col>
                 <v-btn 
-                    color="darkBlue"
+                    color="blue"
                     variant="tonal"
                 >
                     <v-icon :icon="mdiChevronUp">

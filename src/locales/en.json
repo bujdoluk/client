@@ -1,13 +1,14 @@
 {
     "all": "LOL",
     "buttons": {
-        "addFeedback": "Add Feedback",
+        "add": "Add Feedback",
         "cancel": "Cancel",
-        "closeDialog": "Close Dialog",
+        "close": "Close Dialog",
         "delete": "Delete",
-        "editFeedback": "Edit Feedback",
-        "goBack": "Go Back",
-        "postComment": "Post Comment"
+        "edit": "Edit Feedback",
+        "back": "Go Back",
+        "post": "Post Comment",
+        "reply": "Reply"
     },
     "components": {
         "Dialog": {

@@ -6,10 +6,11 @@
         <template #activator="{ props }">
             <v-btn 
                 v-bind="props"
-                class="bg-purple"
+                variant="flat"
+                color="purple"
                 :prepend-icon="mdiPlus"
             >
-                {{ t('buttons.addFeedback') }}
+                {{ t('buttons.add') }}
             </v-btn>
         </template>
 
@@ -73,16 +74,18 @@
                     <v-card-actions class="pt-5">
                         <v-spacer />
                         <v-btn
-                            class="bg-darkBlue"
+                            variant="flat"
+                            color="darkBlue"
                             @click="isActive.value = false"
                         >
-                            {{ t('buttons.closeDialog') }}
+                            {{ t('buttons.close') }}
                         </v-btn>
                         <v-btn
-                            class="bg-purple"
+                            variant="flat"
+                            color="purple"
                             @click="isActive.value = false"
                         >
-                            {{ t('buttons.addFeedback') }}
+                            {{ t('buttons.add') }}
                         </v-btn>
                     </v-card-actions>
                 </v-card>

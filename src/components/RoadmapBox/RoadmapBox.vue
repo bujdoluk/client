@@ -8,9 +8,10 @@
                 <v-spacer />
                 <v-col>
                     <v-btn
-                        class="cursor text-decoration-underline"
+                        class="cursor text-decoration-underline font-weight-bold pr-2"
                         density="compact"
-                        variant="tonal"
+                        variant="text"
+                        color="blue"
                         flat
                         @click="onRedirect('roadmap')"
                     >

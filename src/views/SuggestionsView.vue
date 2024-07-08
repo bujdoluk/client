@@ -3,14 +3,15 @@
         fluid
         class="bg-background"
     >
-        <v-row class="grid">
+        <v-row> 
             <v-col
                 cols="3"
                 xxl="3"
                 xl="3"
                 lg="3"
-                md="3"
+                md="12"
                 sm="12"
+                xs="12"
             >
                 <v-container>
                     <v-row align="center">
@@ -38,8 +39,9 @@
                 xxl="9"
                 xl="9"
                 lg="9"
-                md="9"
+                md="12"
                 sm="12"
+                xs="12"
             >
                 <v-container fluid>
                     <v-row>
@@ -65,14 +67,13 @@
                                             <v-btn
                                                 stacked
                                                 class="text-caption font-weight-bold"
-                                                color="darkBlue"
+                                                color="blue"
                                                 density="compact"
                                                 variant="tonal"
                                                 flat
                                                 size="40"
                                             >
-                                                <v-icon :icon="mdiChevronUp">
-                                                </v-icon>
+                                                <v-icon :icon="mdiChevronUp" />
                                                 {{ feedback.upvotes }}
                                             </v-btn>
                                         </v-col>
@@ -139,10 +140,3 @@ const onRedirect = (name: string, id?: string): void => {
 };
 
 </script>
-
-<style scoped>
-.grid {
-    width: 70% !important;
-    margin: 0 auto;
-}
-</style>

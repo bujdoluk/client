@@ -1,12 +1,12 @@
 <template>
     <v-btn 
-        class="bg-btn-black"
+        color="black"
         variant="text"
         size="small"
         :prepend-icon="mdiChevronLeft"
         @click="router.back()"
     >
-        {{ t('buttons.goBack') }}
+        {{ t('buttons.back') }}
     </v-btn>
 </template>
 <script setup lang="ts">
