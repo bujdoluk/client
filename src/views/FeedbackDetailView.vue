@@ -3,7 +3,10 @@
         fluid
         class="bg-background"
     >
-        <v-row align="center" class="grid">
+        <v-row
+            align="center"
+            class="grid"
+        >
             <v-col>
                 <v-btn
                     :prepend-icon="mdiChevronLeft"
@@ -18,12 +21,15 @@
             </v-col>
             <v-spacer />
             <v-col cols="auto">
-                <EditFeedbackDialog />
+                <EditFeedbackDialog :feedback="feedback" />
             </v-col>
         </v-row>
         <v-row class="grid">
             <v-col>
-                <v-card :min-height="90" class="cursor">
+                <v-card
+                    :min-height="90"
+                    class="cursor"
+                >
                     <v-container>
                         <v-row class="pa-2">
                             <v-col
@@ -32,7 +38,7 @@
                             >
                                 <v-btn
                                     stacked
-                                    class="text-caption font-weight-bold"
+                                    class="font-weight-bold text-caption"
                                     color="blue"
                                     density="compact"
                                     variant="tonal"
@@ -48,15 +54,15 @@
                                     <v-card-text class="font-weight-bold">
                                         Add a dark theme option
                                     </v-card-text>
-                                    <v-card-text class="text-truncate width text-grey">
+                                    <v-card-text class="text-grey text-truncate width">
                                         It would help people like me with light sensitivities.
                                     </v-card-text>
                                     <v-card-actions>
-                                        <Tag :category="'Feature'"/>
+                                        <Tag category="Feature" />
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
-                            <v-spacer></v-spacer>
+                            <v-spacer />
                             <v-col
                                 class="align-center d-flex font-weight-bold"
                                 cols="auto"
@@ -73,8 +79,15 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-row align="center" class="grid">
-            <v-card v-if="feedback" :min-height="90" class="cursor">
+        <v-row
+            align="center"
+            class="grid"
+        >
+            <v-card
+                v-if="feedback"
+                :min-height="90"
+                class="cursor"
+            >
                 <v-container>
                     <v-row class="pa-2">
                         <v-col
@@ -83,15 +96,14 @@
                         >
                             <v-btn
                                 stacked
-                                class="text-caption font-weight-bold"
+                                class="font-weight-bold text-caption"
                                 color="darkBlue"
                                 density="compact"
                                 variant="tonal"
                                 flat
                                 size="40"
                             >
-                                <v-icon :icon="mdiChevronUp">
-                                </v-icon>
+                                <v-icon :icon="mdiChevronUp" />
                                 {{ feedback.upvotes }}
                             </v-btn>
                         </v-col>
@@ -100,15 +112,15 @@
                                 <v-card-text class="font-weight-bold">
                                     {{ feedback.title }}
                                 </v-card-text>
-                                <v-card-text class="text-truncate width text-grey">
+                                <v-card-text class="text-grey text-truncate width">
                                     {{ feedback.description }}
                                 </v-card-text>
                                 <v-card-actions>
-                                    <Tag :category="feedback.category"/>
+                                    <Tag :category="feedback.category" />
                                 </v-card-actions>
                             </v-card>
                         </v-col>
-                        <v-spacer></v-spacer>
+                        <v-spacer />
                         <v-col
                             class="align-center d-flex font-weight-bold"
                             cols="auto"
@@ -124,7 +136,10 @@
                 </v-container>
             </v-card>
         </v-row>
-        <v-row align="center" class="grid">
+        <v-row
+            align="center"
+            class="grid"
+        >
             <v-container>
                 <v-row>
                     <v-col>
@@ -145,10 +160,10 @@
                                 <v-row class="font-weight-bold">
                                     {{ comment.username }}
                                 </v-row>
-                                <v-row class="text-grey text-body-2 pb-3">
+                                <v-row class="pb-3 text-body-2 text-grey">
                                     {{ comment.email }}
                                 </v-row>
-                                <v-row class="text-grey text-body-2">
+                                <v-row class="text-body-2 text-grey">
                                     {{ comment.text }}
                                 </v-row>
                             </v-container>
@@ -178,10 +193,10 @@
                                 <v-row class="font-weight-bold">
                                     {{ comment.username }}
                                 </v-row>
-                                <v-row class="text-grey text-body-2 pb-3">
+                                <v-row class="pb-3 text-body-2 text-grey">
                                     {{ comment.email }}
                                 </v-row>
-                                <v-row class="text-grey text-body-2">
+                                <v-row class="text-body-2 text-grey">
                                     {{ comment.text }}
                                 </v-row>
                             </v-container>
@@ -237,19 +252,19 @@
  * @file Feedback Detail View.
  */
 import { useI18n } from 'vue-i18n';
-import { mdiChevronLeft } from '@mdi/js';
+import { mdiChevronLeft, mdiChat, mdiChevronUp } from '@mdi/js';
 import router from '@/router';
 import { type Comment } from '@/models/Comment';
 import EditFeedbackDialog from '@/components/Dialogs/EditFeedback.vue';
 import { ref, watch } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import comments from '@/database/comments.json';
-import { mdiChat, mdiChevronUp } from '@mdi/js';
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
+import { projectFireStore } from '@/firebase/init';
 
-const route = useRoute()
+const route = useRoute();
 const { t } = useI18n();
-let userComments = ref<Array<Comment>>(comments);
+const userComments = ref<Array<Comment>>(comments);
 const comment = ref<Comment>();
 const feedback = ref<Feedback>();
 
@@ -258,14 +273,23 @@ const onRedirect = (): void => {
 };
 
 const postComment = (): void => {
-    userComments.value.push({
-        id: "1",
-        image: "LOL",
-        text: "Prvy komment",
-        email: "lukas@gmail.com",
-        username: "Buky"
+    projectFireStore.collection('comments').add({
+        email: 'lukas',
+        image: 'LOL',
+        text: 'skusobny',
+        userName: 'lukas'
+    }).catch((error) => {
+        console.log(error); 
     });
-}
+
+    userComments.value.push({
+        email: 'lukas@gmail.com',
+        id: '1',
+        image: 'LOL',
+        text: String(comment.value),
+        username: 'Buky'
+    }); 
+};
 
 watch(() => String(route.params.id), (): void => {
     console.log(route.params.id);

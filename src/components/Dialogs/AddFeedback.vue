@@ -46,6 +46,7 @@
                     </v-card-text>
                     <v-card-text class="py-5">
                         <v-select
+                            v-model="category"
                             :label="t('components.Dialog.category')"
                             density="compact"
                             variant="outlined"
@@ -62,7 +63,7 @@
                     </v-card-text>
                     <v-card-text class="py-5">
                         <v-textarea 
-                            v-model="detail"
+                            v-model="description"
                             variant="plain"
                             density="compact"
                             no-resize
@@ -76,14 +77,14 @@
                         <v-btn
                             variant="flat"
                             color="darkBlue"
-                            @click="isActive.value = false"
+                            @click="close, isActive.value = false"
                         >
                             {{ t('buttons.close') }}
                         </v-btn>
                         <v-btn
                             variant="flat"
                             color="purple"
-                            @click="isActive.value = false"
+                            @click="addFeedback"
                         >
                             {{ t('buttons.add') }}
                         </v-btn>
@@ -101,10 +102,36 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
+import { projectFireStore } from '@/firebase/init';
+import { Status } from '@/models/Status';
 
 const { t } = useI18n();
 const valid = ref(false);
+const isActive = ref<boolean>(false);
+
 const title = ref('');
-const detail = ref('');
+const description = ref('');
+const category = ref<string>();
+
+const close = (): void => {
+    isActive.value = false;
+};
+
+const addFeedback = (): void => {
+    projectFireStore.collection('feedbacks').add({
+        category: category.value,
+        color: 'orange',
+        comments: 0,
+        description: description.value,
+        id: 1,
+        status: Status.Planned,
+        title: title.value,
+        upvotes: 0
+    }).catch((error) => {
+        console.log(error); 
+    });
+
+    isActive.value = false;
+};
 
 </script>

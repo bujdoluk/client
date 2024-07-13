@@ -2,9 +2,9 @@
  * @file Comment interface.
  */
 export interface Comment {
-    id: string;
-    username: string;
     email: string;
-    text: string;
+    id: string;
     image: string;
+    text: string;
+    username: string;
 }

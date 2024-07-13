@@ -66,6 +66,7 @@
                     </v-card-text>
                     <v-card-text class="py-5">
                         <v-select
+                            v-model="status"
                             :label="t('components.Dialog.updateStatus')"
                             density="compact"
                             variant="outlined"
@@ -83,7 +84,7 @@
                     </v-card-text>
                     <v-card-text class="py-5">
                         <v-textarea 
-                            v-model="detail"
+                            v-model="description"
                             variant="plain"
                             density="compact"
                             no-resize
@@ -97,7 +98,7 @@
                         <v-btn
                             variant="flat"
                             color="bg-red"
-                            @click="isActive.value = false"
+                            @click="deleteFeedback"
                         >
                             {{ t('buttons.delete') }}
                         </v-btn>
@@ -112,9 +113,9 @@
                         <v-btn
                             variant="flat"
                             color="pruple"
-                            @click="isActive.value = false"
+                            @click="editFeedback"
                         >
-                            {{ t('buttons.add') }}
+                            {{ t('buttons.saveChanges') }}
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -130,10 +131,50 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
+import { projectFireStore } from '@/firebase/init';
+import { Status } from '@/models/Status';
+import type { Feedback } from '@/models/Feedback';
+
+const prop = defineProps<{
+    feedback: Feedback;
+}>();
 
 const { t } = useI18n();
 const valid = ref(false);
+const isActive = ref<boolean>(false);
+
 const title = ref('');
-const detail = ref('');
+const description = ref('');
+const category = ref<string>();
+const status = ref<string>();
+
+const editFeedback = (): void => {
+    projectFireStore.collection('feedbacks').add({
+        category: category.value,
+        color: 'orange',
+        comments: 0,
+        description: description.value,
+        id: prop.feedback.id,
+        status: Status.Planned,
+        title: title.value,
+        upvotes: 0
+    }).catch((error) => {
+        console.log(error); 
+    });
+
+    isActive.value = false;
+};
+
+const deleteFeedback = (): void => {
+    const feedbackQuery = projectFireStore.collection('feedbacks')
+        .where('uid', '==', prop.feedback.id);
+    
+    feedbackQuery.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            doc.ref.delete();
+        });
+    });
+    isActive.value = false;
+};
 
 </script>
