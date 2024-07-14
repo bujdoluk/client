@@ -9,6 +9,8 @@ const FeedbackDetailView = async (): Promise<RouteComponent> => import('@/views/
 const LandingView = async (): Promise<RouteComponent> => import('@/views/LandingView.vue');
 const RoadmapView = async (): Promise<RouteComponent> => import('@/views/RoadmapView.vue');
 const SuggestionsView = async (): Promise<RouteComponent> => import('@/views/SuggestionsView.vue');
+const LogIn = async (): Promise<RouteComponent> => import('@/components/Auth/LogIn.vue');
+const SignUp = async (): Promise<RouteComponent> => import('@/components/Auth/SignUp.vue');
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
             component: FeedbackDetailView,
             name: 'feedback-detail',
             path: '/suggestions/:id'
+        },
+        {
+            component: LogIn,
+            name: 'login',
+            path: '/login'
+        },
+        {
+            component: SignUp,
+            name: 'signup',
+            path: '/signup'
         }
     ]
 });

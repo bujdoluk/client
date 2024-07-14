@@ -57,7 +57,10 @@
                             v-if="feedbacks.length > 0"  
                             @click="onRedirect('feedback-detail', feedback.id)"
                         >
-                            <v-card :min-height="90" class="cursor">
+                            <v-card
+                                :min-height="90"
+                                class="cursor"
+                            >
                                 <v-container>
                                     <v-row class="pa-2">
                                         <v-col
@@ -66,12 +69,13 @@
                                         >
                                             <v-btn
                                                 stacked
-                                                class="text-caption font-weight-bold"
+                                                class="font-weight-bold text-caption"
                                                 color="blue"
                                                 density="compact"
                                                 variant="tonal"
                                                 flat
                                                 size="40"
+                                                @click.stop="updateFeedBack(feedback.id, feedback)"
                                             >
                                                 <v-icon :icon="mdiChevronUp" />
                                                 {{ feedback.upvotes }}
@@ -82,15 +86,15 @@
                                                 <v-card-text class="font-weight-bold">
                                                     {{ feedback.title }}
                                                 </v-card-text>
-                                                <v-card-text class="text-truncate width text-grey">
+                                                <v-card-text class="text-grey text-truncate width">
                                                     {{ feedback.description }}
                                                 </v-card-text>
                                                 <v-card-actions>
-                                                    <Tag :category="feedback.category"/>
+                                                    <Tag :category="feedback.category" />
                                                 </v-card-actions>
                                             </v-card>
                                         </v-col>
-                                        <v-spacer></v-spacer>
+                                        <v-spacer />
                                         <v-col
                                             class="align-center d-flex font-weight-bold"
                                             cols="auto"
@@ -120,7 +124,7 @@
 /**
  * @file Suggestions View.
  */
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
 import Tag from '@/components/Tag/Tag.vue';
@@ -130,13 +134,46 @@ import RoadmapBox from '@/components/RoadmapBox/RoadmapBox.vue';
 import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedbackComponent from '@/components/Feedback/EmptyFeedbackComponent.vue';
-import feeedbacks from '@/database/feedbacks.json';
+import { projectFireStore, increment } from '@/firebase/init';
 
-const feedbacks = ref<Array<Feedback>>(feeedbacks);
+const feedbacks = ref<Array<Feedback>>([]);
 const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+
+const fetchFeedbacks = async (): Promise<Array<Feedback>> => {
+    const snapshot = await projectFireStore.collection('feedbacks').get();
+    feedbacks.value = (snapshot.docs.map((doc) => ({
+        id: projectFireStore.collection('feedbacks').id,
+        ...doc.data()
+    } as Feedback)));
+    return feedbacks.value;
+};
+
+const updateFeedBack = async (id: string, feedback: Feedback): Promise<void> => {
+    try {
+        const res = projectFireStore.collection('feedbacks').doc(id);
+        await res.update({
+            category: feedback.category,
+            color: feedback.color,
+            comments: feedback.comments,
+            description: feedback.description,
+            id: feedback.id,
+            status: feedback.status,
+            title: feedback.title,
+            upvotes: increment
+        });
+    } catch(error) {
+        console.log(error);
+    } finally {
+        fetchFeedbacks();
+    }
+};
 
 const onRedirect = (name: string, id?: string): void => {
     router.push({ name, params: { id } });
 };
+
+onMounted(() => {
+    fetchFeedbacks(); 
+});
 
 </script>

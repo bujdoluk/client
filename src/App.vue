@@ -2,7 +2,7 @@
     <v-layout>
         <AppToolbar v-if="router.currentRoute.value.path === '/'" />
         <v-main>
-            <RouterView />
+            <RouterView class="height" />
         </v-main>
     </v-layout>
 </template>
@@ -43,5 +43,9 @@ import router from '@/router';
     background-color: #62BCFA;
     border-radius: 50%;
     display: inline-flex;
+}
+
+.height {
+    height: 100vh !important;
 }
 </style>

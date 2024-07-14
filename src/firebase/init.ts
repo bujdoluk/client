@@ -26,6 +26,8 @@ firebase.initializeApp(firebaseConfig);
 const { auth } = firebase;
 const projectFireStore = firebase.firestore();
 const { storage } = firebase;
+const increment = firebase.firestore.FieldValue.increment(1);
+const decrement = firebase.firestore.FieldValue.increment(-1);
 /* const timestamp = firebase.firestore.FieldValue.serverTimestamp(); */
 
-export { auth, projectFireStore, storage };
+export { auth, projectFireStore, storage, increment, decrement };

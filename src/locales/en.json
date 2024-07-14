@@ -2,13 +2,16 @@
     "all": "LOL",
     "buttons": {
         "add": "Add Feedback",
+        "back": "Go Back",
         "cancel": "Cancel",
         "close": "Close Dialog",
         "delete": "Delete",
         "edit": "Edit Feedback",
-        "back": "Go Back",
+        "login": "Log in",
         "post": "Post Comment",
-        "reply": "Reply"
+        "reply": "Reply",
+        "signup": "Sign up",
+        "submit": "Submit"
     },
     "components": {
         "Dialog": {
@@ -22,10 +25,21 @@
             "updateStatus": "Update Status",
             "updateStatusSubtitle": "Change feedback state"
         },
+        "LogIn": {
+            "title": "Login"
+        },
+        "SignUp": {
+            "title": "Sign up"
+        },
         "comment": {
             "addComment": "Add Comment",
             "typeComment": "Type your comment here"
         }
+    },
+    "inputs": {
+        "email": "Email",
+        "password": "Password",
+        "userName": "User name"
     },
     "views": {
         "landingPage": {
@@ -122,7 +136,6 @@
             "trustedBy": "As trusted by"
         },
         "roadmap": {
-            "title": "Roadmap",
             "status": {
                 "inProgress": "In-Progress",
                 "live": "Live",
@@ -132,7 +145,8 @@
                     "live": "Released features",
                     "planned": "Ideas prioritized for research"
                 }
-            }
+            },
+            "title": "Roadmap"
         },
         "suggestions": {
             "emptyFeedback": {

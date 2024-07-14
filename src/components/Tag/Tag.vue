@@ -14,6 +14,6 @@
  * @file Tag component.
  */
 const props = defineProps<{
-    category: string;
+    category?: string;
 }>();
 </script>

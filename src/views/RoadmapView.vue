@@ -14,7 +14,7 @@
                                         <GoBackButton />
                                     </v-col>
                                 </v-row>
-                                <v-row class="ml-2 mt-0 font-weight-bold">
+                                <v-row class="font-weight-bold ml-2 mt-0">
                                     <v-col>
                                         {{ t('views.roadmap.title') }}
                                     </v-col>
@@ -32,7 +32,7 @@
         <v-row class="grid">
             <v-col>
                 <v-card class="bg-background">
-                    <v-card-title class="pb-0 text-body-1 font-weight-bold">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1">
                         {{ t('views.roadmap.status.planned') }}
                         {{ `(${filteredPlannedStatus.length})` }}
                     </v-card-title>
@@ -43,7 +43,7 @@
             </v-col>
             <v-col>
                 <v-card class="bg-background">
-                    <v-card-title class="pb-0 text-body-1 font-weight-bold">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1">
                         {{ t('views.roadmap.status.inProgress') }}
                         {{ `(${filteredInProgressStatus.length})` }}
                     </v-card-title>
@@ -54,7 +54,7 @@
             </v-col>
             <v-col>
                 <v-card class="bg-background">
-                    <v-card-title class="pb-0 text-body-1 font-weight-bold">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1">
                         {{ t('views.roadmap.status.live') }}
                         {{ `(${filteredLiveStatus.length})` }}
                     </v-card-title>
@@ -103,19 +103,32 @@
 /**
  * @file Roadmap View.
  */
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import AddFeedback from '@/components/Dialogs/AddFeedback.vue';
 import { useI18n } from 'vue-i18n';
 import { type Feedback } from '@/models/Feedback';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
-import feeedbacks from '@/database/feedbacks.json';
+import { projectFireStore } from '@/firebase/init';
 
 const { t } = useI18n();
-const feedbacks = ref<Array<Feedback>>(feeedbacks);
+const feedbacks = ref<Array<Feedback>>([]);
 const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Planned'));
 const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'In Progress'));
 const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Live'));
+
+const fetchFeedbacks = async (): Promise<Array<Feedback>> => {
+    const snapshot = await projectFireStore.collection('feedbacks').get();
+    feedbacks.value = (snapshot.docs.map((doc) => ({
+        id: projectFireStore.collection('feedbacks').id,
+        ...doc.data()
+    } as Feedback)));
+    return feedbacks.value;
+};
+
+onMounted(() => {
+    fetchFeedbacks(); 
+});
 
 </script>
 

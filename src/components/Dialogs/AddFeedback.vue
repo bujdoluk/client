@@ -99,7 +99,7 @@
 /**
  * @file Add Feedback component.
  */
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
 import { projectFireStore } from '@/firebase/init';
@@ -117,21 +117,25 @@ const close = (): void => {
     isActive.value = false;
 };
 
-const addFeedback = (): void => {
-    projectFireStore.collection('feedbacks').add({
-        category: category.value,
-        color: 'orange',
-        comments: 0,
-        description: description.value,
-        id: 1,
-        status: Status.Planned,
-        title: title.value,
-        upvotes: 0
-    }).catch((error) => {
-        console.log(error); 
-    });
+const docRef = computed(() => projectFireStore.collection('feedbacks').doc());
 
-    isActive.value = false;
+const addFeedback = async (): Promise<void> => {
+    try {
+        await projectFireStore.collection('feedbacks').add({
+            category: category.value,
+            color: 'orange',
+            comments: 0,
+            description: description.value,
+            id: docRef.value.id,
+            status: Status.Planned,
+            title: title.value,
+            upvotes: 0
+        });
+    } catch(error) {
+        console.log(error);
+    } finally {
+        isActive.value = false;
+    }
 };
 
 </script>

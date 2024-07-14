@@ -21,7 +21,10 @@
             </v-col>
             <v-spacer />
             <v-col cols="auto">
-                <EditFeedbackDialog :feedback="feedback" />
+                <EditFeedback 
+                    :feedback="feedback"
+                    @feedback-edited="onFeedbackEdited" 
+                />
             </v-col>
         </v-row>
         <v-row class="grid">
@@ -46,19 +49,19 @@
                                     size="40"
                                 >
                                     <v-icon :icon="mdiChevronUp" />
-                                    99
+                                    {{ feedback?.upvotes }}
                                 </v-btn>
                             </v-col>
                             <v-col cols="auto">
                                 <v-card>
                                     <v-card-text class="font-weight-bold">
-                                        Add a dark theme option
+                                        {{ feedback?.title }}
                                     </v-card-text>
                                     <v-card-text class="text-grey text-truncate width">
-                                        It would help people like me with light sensitivities.
+                                        {{ feedback?.description }}
                                     </v-card-text>
                                     <v-card-actions>
-                                        <Tag category="Feature" />
+                                        <Tag :category="feedback?.category" />
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
@@ -72,7 +75,7 @@
                                     color="background-primary"
                                     class="mr-2"
                                 />
-                                4
+                                {{ feedback?.comments }}
                             </v-col>
                         </v-row>
                     </v-container>
@@ -255,16 +258,16 @@ import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft, mdiChat, mdiChevronUp } from '@mdi/js';
 import router from '@/router';
 import { type Comment } from '@/models/Comment';
-import EditFeedbackDialog from '@/components/Dialogs/EditFeedback.vue';
-import { ref, watch } from 'vue';
+import EditFeedback from '@/components/Dialogs/EditFeedback.vue';
+import Tag from '@/components/Tag/Tag.vue';
+import { ref, watch, onMounted } from 'vue';
 import { type Feedback } from '@/models/Feedback';
-import comments from '@/database/comments.json';
 import { useRoute } from 'vue-router';
 import { projectFireStore } from '@/firebase/init';
 
 const route = useRoute();
 const { t } = useI18n();
-const userComments = ref<Array<Comment>>(comments);
+const userComments = ref<Array<Comment>>([]);
 const comment = ref<Comment>();
 const feedback = ref<Feedback>();
 
@@ -290,6 +293,26 @@ const postComment = (): void => {
         username: 'Buky'
     }); 
 };
+
+const fetchFeedback = async (feedbackID: string): Promise<Feedback> => {
+    const res = await projectFireStore
+        .collection('feedbacks')
+        .where('id', '==', feedbackID)
+        .get();
+    res.docs.forEach((doc) => {
+        feedback.value = doc.data() as Feedback;
+    });
+    console.log(feedback.value);
+    return feedback.value!;
+};
+
+const onFeedbackEdited = (): void => {
+    fetchFeedback(String(route.params.id)); 
+};
+
+onMounted(() => {
+    fetchFeedback(String(route.params.id)); 
+});
 
 watch(() => String(route.params.id), (): void => {
     console.log(route.params.id);
