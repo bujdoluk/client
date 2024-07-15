@@ -8,7 +8,7 @@
                 <v-spacer />
                 <v-col>
                     <v-btn
-                        class="cursor text-decoration-underline font-weight-bold pr-2"
+                        class="cursor font-weight-bold pr-2 text-decoration-underline"
                         density="compact"
                         variant="text"
                         color="blue"

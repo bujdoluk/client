@@ -9,6 +9,7 @@
         {{ t('buttons.back') }}
     </v-btn>
 </template>
+
 <script setup lang="ts">
 /**
  * @file GoBackButton component.

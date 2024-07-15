@@ -17,9 +17,8 @@
         <v-form v-model="valid">
             <v-card class="pa-5">
                 <v-card-title class="font-weight-bold py-5 text-h5">
-                    {{ t('components.Dialog.title') }}
+                    {{ `Editing "${selectedTitle}"` }}
                 </v-card-title>
-
                 <v-card-text class="font-weight-bold">
                     {{ t('components.Dialog.feedbackTitle') }}
                 </v-card-text>
@@ -71,7 +70,7 @@
                         variant="outlined"
                         hide-details
                         class="bg-background-secondary"
-                        :items="['Planned', 'Live', 'In-Progress']"
+                        :items="[String(Status.Planned), String(Status.Live), String(Status.InProgress)]"
                     />
                 </v-card-text>
 
@@ -133,21 +132,23 @@ import { mdiPlus } from '@mdi/js';
 import { projectFireStore } from '@/firebase/init';
 import type { Feedback } from '@/models/Feedback';
 import { Status } from '@/models/Status';
+import { useAppStore } from '@/stores/useAppStore';
 
 const prop = defineProps<{
-    feedback?: Feedback;
+    feedback: Feedback;
 }>();
 
 const emit = defineEmits<(e: 'feedbackEdited') => void>();
 
+const appStore = useAppStore();
 const { t } = useI18n();
 const valid = ref(false);
 const dialog = ref<boolean>(false);
 
-const selectedTitle = ref<string | undefined>(prop.feedback?.title);
-const selectedDescription = ref<string | undefined>(prop.feedback?.description);
-const selectedCategory = ref<string | undefined>(prop.feedback?.category);
-const selectedStatus = ref<string | undefined>(prop.feedback?.status);
+const selectedTitle = ref<string>(prop.feedback.title);
+const selectedDescription = ref<string>(prop.feedback.description);
+const selectedCategory = ref<string>(prop.feedback.category);
+const selectedStatus = ref<string>(prop.feedback.status);
 
 const reset = (): void => {
     selectedCategory.value = '';
@@ -158,25 +159,23 @@ const reset = (): void => {
 
 const editFeedback = async (id: string): Promise<void> => {
     try {
-        if (prop.feedback?.id) {
+        if (prop.feedback.id) {
+            appStore.isLoading = true;
             const res = projectFireStore.collection('feedbacks').doc(id);
-            await res.update({
+            await res.set({
                 category: selectedCategory.value,
-                color: prop.feedback.color,
-                comments: prop.feedback.comments,
                 description: selectedDescription.value,
-                id: prop.feedback.id,
                 status: selectedStatus.value,
-                title: selectedTitle.value,
-                upvotes: prop.feedback.upvotes
+                title: selectedTitle.value
             });
         }
-        reset();
-    } catch(error) {
+    } catch(error: unknown) {
         console.log(error);
     } finally {
         emit('feedbackEdited');
+        reset();
         dialog.value = false;
+        appStore.isLoading = false;
     }
 };
 
@@ -187,7 +186,7 @@ const close = (): void => {
 
 const deleteFeedback = (): void => {
     const feedbackQuery = projectFireStore.collection('feedbacks')
-        .where('uid', '==', prop.feedback?.id);
+        .where('uid', '==', prop.feedback.id);
     
     feedbackQuery.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

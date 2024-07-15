@@ -11,7 +11,7 @@
                     <span class="text-grey">{{ props.feedback.status }}</span>
                 </v-card-text>
                 <v-card-title 
-                    class="pb-0 font-weight-bold cursor" 
+                    class="cursor font-weight-bold pb-0" 
                     @click="onRedirect('feedback-detail', feedback.id)"
                 >
                     {{ props.feedback.title }}
@@ -20,7 +20,7 @@
                     {{ props.feedback.description }}
                 </v-card-text>
                 <v-card-text class="pt-3">
-                    <Tag :category="props.feedback.category"/>
+                    <Tag :category="props.feedback.category" />
                 </v-card-text>
             </v-col>
         </v-row>
@@ -30,8 +30,7 @@
                     color="blue"
                     variant="tonal"
                 >
-                    <v-icon :icon="mdiChevronUp">
-                    </v-icon>   
+                    <v-icon :icon="mdiChevronUp" />   
                     {{ props.feedback.upvotes }}
                 </v-btn>
             </v-col>

@@ -18,6 +18,7 @@ declare module 'vue' {
     FeedbackDialog: typeof import('./src/components/FeedbackDialog.vue')['default']
     FrontendMentorBox: typeof import('./src/components/FrontendMentorBox/FrontendMentorBox.vue')['default']
     GoBackButton: typeof import('./src/components/GoBackButton/GoBackButton.vue')['default']
+    LoaderOverlay: typeof import('./src/components/LoaderOverlay/LoaderOverlay.vue')['default']
     LogIn: typeof import('./src/components/Auth/LogIn.vue')['default']
     RoadmapBox: typeof import('./src/components/RoadmapBox/RoadmapBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

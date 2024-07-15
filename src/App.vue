@@ -1,6 +1,7 @@
 <template>
     <v-layout>
         <AppToolbar v-if="router.currentRoute.value.path === '/'" />
+        <LoaderOverlay />
         <v-main>
             <RouterView class="height" />
         </v-main>
@@ -13,6 +14,7 @@
  * @description Main application component.
  */
 import AppToolbar from '@/components/AppToolbar/AppToolbar.vue';
+import LoaderOverlay from '@/components/LoaderOverlay/LoaderOverlay.vue';
 import router from '@/router';
 </script>
 
@@ -43,9 +45,5 @@ import router from '@/router';
     background-color: #62BCFA;
     border-radius: 50%;
     display: inline-flex;
-}
-
-.height {
-    height: 100vh !important;
 }
 </style>

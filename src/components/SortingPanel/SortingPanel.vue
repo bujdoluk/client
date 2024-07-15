@@ -10,7 +10,12 @@
                 </v-col>
                 <v-col>
                     <v-row align="center">
-                        <v-col cols="auto" class="text-caption text-grey">{{ t('views.suggestions.topbar.sortBy') }}</v-col>
+                        <v-col
+                            cols="auto"
+                            class="text-caption text-grey"
+                        >
+                            {{ t('views.suggestions.topbar.sortBy') }}
+                        </v-col>
                         <v-col> 
                             <v-select
                                 v-model="selectedItem"
@@ -27,7 +32,7 @@
                 </v-col>
                 <v-spacer />
                 <v-col cols="auto">
-                    <AddFeedback />
+                    <AddFeedback @feedback-added="onFeedbackAdded" />
                 </v-col>
             </v-row>
         </v-container>
@@ -48,6 +53,8 @@ const props = defineProps<{
     feedbacks: Array<Feedback>;
 }>();
 
+const emit = defineEmits<(e: 'feedbackAdded') => void>();
+
 const { t } = useI18n();
 const items = [
     t('views.suggestions.topbar.mostUpvotes'),
@@ -57,4 +64,8 @@ const items = [
 ];
 
 const selectedItem = ref<string>(items[0]);
+
+const onFeedbackAdded = (): void => {
+    emit('feedbackAdded');
+};
 </script>

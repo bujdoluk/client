@@ -22,6 +22,7 @@
             <v-spacer />
             <v-col cols="auto">
                 <EditFeedback 
+                    v-if="feedback"
                     :feedback="feedback"
                     @feedback-edited="onFeedbackEdited" 
                 />
@@ -264,7 +265,9 @@ import { ref, watch, onMounted } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
 import { projectFireStore } from '@/firebase/init';
+import { useAppStore } from '@/stores/useAppStore';
 
+const appStore = useAppStore();
 const route = useRoute();
 const { t } = useI18n();
 const userComments = ref<Array<Comment>>([]);
@@ -276,34 +279,43 @@ const onRedirect = (): void => {
 };
 
 const postComment = (): void => {
-    projectFireStore.collection('comments').add({
-        email: 'lukas',
-        image: 'LOL',
-        text: 'skusobny',
-        userName: 'lukas'
-    }).catch((error) => {
-        console.log(error); 
-    });
-
-    userComments.value.push({
-        email: 'lukas@gmail.com',
-        id: '1',
-        image: 'LOL',
-        text: String(comment.value),
-        username: 'Buky'
-    }); 
+    try {
+        appStore.isLoading = true;
+        projectFireStore.collection('comments').add({
+            email: 'lukas',
+            image: 'LOL',
+            text: 'skusobny',
+            userName: 'lukas'
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+        userComments.value.push({
+            email: 'lukas@gmail.com',
+            id: '1',
+            image: 'LOL',
+            text: String(comment.value),
+            username: 'Buky'
+        }); 
+    }
 };
 
-const fetchFeedback = async (feedbackID: string): Promise<Feedback> => {
-    const res = await projectFireStore
-        .collection('feedbacks')
-        .where('id', '==', feedbackID)
-        .get();
-    res.docs.forEach((doc) => {
-        feedback.value = doc.data() as Feedback;
-    });
-    console.log(feedback.value);
-    return feedback.value!;
+const fetchFeedback = async (feedbackID: string): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        const res = await projectFireStore
+            .collection('feedbacks')
+            .where('id', '==', feedbackID)
+            .get();
+        res.docs.forEach((doc) => {
+            feedback.value = doc.data() as Feedback;
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
 };
 
 const onFeedbackEdited = (): void => {

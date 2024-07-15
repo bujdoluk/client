@@ -7,7 +7,7 @@
                     :key="category"
                     class="pa-2"
                 >
-                    <Tag :category="category"/>
+                    <Tag :category="category" />
                 </v-col>
             </v-row>
         </v-container>

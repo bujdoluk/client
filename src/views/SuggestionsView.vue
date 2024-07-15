@@ -46,7 +46,10 @@
                 <v-container fluid>
                     <v-row>
                         <v-col>
-                            <SortingPanel :feedbacks="feedbacks" />
+                            <SortingPanel
+                                :feedbacks="feedbacks"
+                                @feedback-added="onFeedbackAdded"
+                            />
                         </v-col>
                     </v-row>
                     <v-row
@@ -135,21 +138,30 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedbackComponent from '@/components/Feedback/EmptyFeedbackComponent.vue';
 import { projectFireStore, increment } from '@/firebase/init';
+import { useAppStore } from '@/stores/useAppStore';
 
+const appStore = useAppStore();
 const feedbacks = ref<Array<Feedback>>([]);
 const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
 
-const fetchFeedbacks = async (): Promise<Array<Feedback>> => {
-    const snapshot = await projectFireStore.collection('feedbacks').get();
-    feedbacks.value = (snapshot.docs.map((doc) => ({
-        id: projectFireStore.collection('feedbacks').id,
-        ...doc.data()
-    } as Feedback)));
-    return feedbacks.value;
+const fetchFeedbacks = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        const snapshot = await projectFireStore.collection('feedbacks').get();
+        feedbacks.value = (snapshot.docs.map((doc) => ({
+            id: projectFireStore.collection('feedbacks').id,
+            ...doc.data()
+        } as Feedback)));
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
 };
 
 const updateFeedBack = async (id: string, feedback: Feedback): Promise<void> => {
     try {
+        appStore.isLoading = true;
         const res = projectFireStore.collection('feedbacks').doc(id);
         await res.update({
             category: feedback.category,
@@ -161,15 +173,20 @@ const updateFeedBack = async (id: string, feedback: Feedback): Promise<void> => 
             title: feedback.title,
             upvotes: increment
         });
-    } catch(error) {
+    } catch(error: unknown) {
         console.log(error);
     } finally {
         fetchFeedbacks();
+        appStore.isLoading = false;
     }
 };
 
 const onRedirect = (name: string, id?: string): void => {
     router.push({ name, params: { id } });
+};
+
+const onFeedbackAdded = (): void => {
+    fetchFeedbacks();
 };
 
 onMounted(() => {

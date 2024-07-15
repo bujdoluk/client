@@ -110,20 +110,29 @@ import { type Feedback } from '@/models/Feedback';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { projectFireStore } from '@/firebase/init';
+import { Status } from '@/models/Status';
+import { useAppStore } from '@/stores/useAppStore';
 
+const appStore = useAppStore();
 const { t } = useI18n();
 const feedbacks = ref<Array<Feedback>>([]);
-const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Planned'));
-const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'In Progress'));
-const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === 'Live'));
+const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.Planned));
+const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.InProgress));
+const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.Live));
 
-const fetchFeedbacks = async (): Promise<Array<Feedback>> => {
-    const snapshot = await projectFireStore.collection('feedbacks').get();
-    feedbacks.value = (snapshot.docs.map((doc) => ({
-        id: projectFireStore.collection('feedbacks').id,
-        ...doc.data()
-    } as Feedback)));
-    return feedbacks.value;
+const fetchFeedbacks = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        const snapshot = await projectFireStore.collection('feedbacks').get();
+        feedbacks.value = (snapshot.docs.map((doc) => ({
+            id: projectFireStore.collection('feedbacks').id,
+            ...doc.data()
+        } as Feedback)));
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
 };
 
 onMounted(() => {
