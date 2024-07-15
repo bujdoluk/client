@@ -1,9 +1,13 @@
 <template>
     <v-layout>
-        <AppToolbar v-if="router.currentRoute.value.path === '/'" />
+        <AppToolbar
+            v-if="router.currentRoute.value.path === '/' || 
+                router.currentRoute.value.path === '/login' || 
+                router.currentRoute.value.path === '/signup'" 
+        />
         <LoaderOverlay />
         <v-main>
-            <RouterView class="height" />
+            <RouterView />
         </v-main>
     </v-layout>
 </template>
