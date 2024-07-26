@@ -14,7 +14,6 @@ declare module 'vue' {
     FeedbackCard: typeof import('./src/components/FeedbackCard/FeedbackCard.vue')['default']
     FrontendMentorBox: typeof import('./src/components/FrontendMentorBox/FrontendMentorBox.vue')['default']
     GoBackButton: typeof import('./src/components/GoBackButton/GoBackButton.vue')['default']
-    LandingNavbar: typeof import('./src/components/LandingPageNavbar/LandingNavbar.vue')['default']
     LandingPageBlog: typeof import('./src/components/LandingPageBlog/LandingPageBlog.vue')['default']
     LandingPageFeatures: typeof import('./src/components/LandingPageFeatures/LandingPageFeatures.vue')['default']
     LandingPageFooter: typeof import('./src/components/LandingPageFooter/LandingPageFooter.vue')['default']

@@ -20,18 +20,7 @@
 </script>
 
 <style scoped>
-.grid {
-    display: flex;
-    margin: 0 auto;
-    width: 70%;
-}
-
 .container {
     padding: 0 !important;
-}
-
-.background-purple {
-    background-color: #f9f0fd;
-    width: 100% !important;
 }
 </style>

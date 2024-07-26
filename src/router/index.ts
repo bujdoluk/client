@@ -6,7 +6,7 @@
 import { createRouter, createWebHistory, type RouteComponent } from 'vue-router';
 
 const FeedbackDetailView = async (): Promise<RouteComponent> => import('@/views/FeedbackDetailView.vue');
-const LandingView = async (): Promise<RouteComponent> => import('@/views/LandingView.vue');
+const LandingPageView = async (): Promise<RouteComponent> => import('@/views/LandingPageView.vue');
 const RoadmapView = async (): Promise<RouteComponent> => import('@/views/RoadmapView.vue');
 const SuggestionsView = async (): Promise<RouteComponent> => import('@/views/SuggestionsView.vue');
 const LogIn = async (): Promise<RouteComponent> => import('@/components/Auth/LogIn.vue');
@@ -26,7 +26,7 @@ const router = createRouter({
             path: '/roadmap'
         },
         {
-            component: LandingView,
+            component: LandingPageView,
             name: 'landing',
             path: '/'
         },

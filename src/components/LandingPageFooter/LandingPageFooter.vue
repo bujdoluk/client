@@ -204,3 +204,16 @@ import { mdiTwitter, mdiInstagram } from '@mdi/js';
 const { t } = useI18n();
 
 </script>
+
+<style scoped>
+.grid {
+    display: flex;
+    margin: 0 auto;
+    width: 70%;
+}
+
+.background-purple {
+    background-color: #f9f0fd;
+    width: 100% !important;
+}
+</style>
