@@ -868,9 +868,7 @@ module.exports = {
                 sourceType: 'module',
                 tsconfigRootDir: './',
                 project: [
-                    './tsconfig.app.json',
-                    './tsconfig.node.json',
-                    './tsconfig.vitest.json',
+                    './tsconfig.json',
                     './tests/support/tsconfig.json'
                 ]
             },
@@ -902,9 +900,7 @@ module.exports = {
                     'typescript': {
                         tsconfigRootDir: './',
                         project: [
-                            './tsconfig.app.json',
-                            './tsconfig.node.json',
-                            './tsconfig.vitest.json',
+                            './tsconfig.json',
                             './tests/support/tsconfig.json'
                         ]
                     }
@@ -925,9 +921,7 @@ module.exports = {
                 sourceType: 'module',
                 tsconfigRootDir: './',
                 project: [
-                    './tsconfig.app.json',
-                    './tsconfig.node.json',
-                    './tsconfig.vitest.json',
+                    './tsconfig.json',
                     './tests/support/tsconfig.json'
                 ],
                 extraFileExtensions: ['.vue']
@@ -958,9 +952,7 @@ module.exports = {
                     'typescript': {
                         tsconfigRootDir: './',
                         project: [
-                            './tsconfig.app.json',
-                            './tsconfig.node.json',
-                            './tsconfig.vitest.json',
+                            './tsconfig.json',
                             './tests/support/tsconfig.json'
                         ]
                     }
@@ -989,9 +981,7 @@ module.exports = {
                 sourceType: 'module',
                 tsconfigRootDir: './',
                 project: [
-                    './tsconfig.app.json',
-                    './tsconfig.node.json',
-                    './tsconfig.vitest.json',
+                    './tsconfig.json',
                     './tests/support/tsconfig.json'
                 ]
             },
@@ -1023,9 +1013,7 @@ module.exports = {
                     'typescript': {
                         tsconfigRootDir: './',
                         project: [
-                            './tsconfig.app.json',
-                            './tsconfig.node.json',
-                            './tsconfig.vitest.json',
+                            './tsconfig.json',
                             './tests/support/tsconfig.json'
                         ]
                     }
