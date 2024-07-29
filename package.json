@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "build": "vite build",
+        "build:prod": "vite build",
         "cypress": "cross-env TZ=Europe/Prague cypress open",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "lint:errors": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore --quiet",

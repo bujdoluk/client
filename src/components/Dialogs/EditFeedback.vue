@@ -129,7 +129,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
-import { projectFireStore } from '@/firebase/init';
+import { db } from '@/firebase/init';
 import type { Feedback } from '@/models/Feedback';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
@@ -161,7 +161,7 @@ const editFeedback = async (id: string): Promise<void> => {
     try {
         if (prop.feedback.id) {
             appStore.isLoading = true;
-            const res = projectFireStore.collection('feedbacks').doc(id);
+            const res = db.collection('feedbacks').doc(id);
             await res.set({
                 category: selectedCategory.value,
                 description: selectedDescription.value,
@@ -185,7 +185,7 @@ const close = (): void => {
 };
 
 const deleteFeedback = (): void => {
-    const feedbackQuery = projectFireStore.collection('feedbacks')
+    const feedbackQuery = db.collection('feedbacks')
         .where('uid', '==', prop.feedback.id);
     
     feedbackQuery.get().then((querySnapshot) => {

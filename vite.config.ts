@@ -15,6 +15,7 @@ const config = (env: ConfigEnv): UserConfig => {
     const config: UserConfig = {
         base,
         build: {
+            outDir: 'dist',
             sourcemap: 'hidden',
             target: 'ESNext'
         },

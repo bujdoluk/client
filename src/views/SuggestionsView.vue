@@ -137,7 +137,7 @@ import RoadmapBox from '@/components/RoadmapBox/RoadmapBox.vue';
 import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedbackComponent from '@/components/Feedback/EmptyFeedbackComponent.vue';
-import { projectFireStore, increment } from '@/firebase/init';
+import { db, increment } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
@@ -147,9 +147,9 @@ const categories = computed(() => feedbacks.value.map((feedback) => feedback.cat
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const snapshot = await projectFireStore.collection('feedbacks').get();
+        const snapshot = await db.collection('feedbacks').get();
         feedbacks.value = (snapshot.docs.map((doc) => ({
-            id: projectFireStore.collection('feedbacks').id,
+            id: db.collection('feedbacks').id,
             ...doc.data()
         } as Feedback)));
     } catch (error: unknown) {
@@ -162,7 +162,7 @@ const fetchFeedbacks = async (): Promise<void> => {
 const updateFeedBack = async (id: string, feedback: Feedback): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const res = projectFireStore.collection('feedbacks').doc(id);
+        const res = db.collection('feedbacks').doc(id);
         await res.update({
             category: feedback.category,
             color: feedback.color,

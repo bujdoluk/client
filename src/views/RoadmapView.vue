@@ -109,7 +109,7 @@ import { useI18n } from 'vue-i18n';
 import { type Feedback } from '@/models/Feedback';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
-import { projectFireStore } from '@/firebase/init';
+import { db } from '@/firebase/init';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -123,9 +123,9 @@ const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => f
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const snapshot = await projectFireStore.collection('feedbacks').get();
+        const snapshot = await db.collection('feedbacks').get();
         feedbacks.value = (snapshot.docs.map((doc) => ({
-            id: projectFireStore.collection('feedbacks').id,
+            id: db.collection('feedbacks').id,
             ...doc.data()
         } as Feedback)));
     } catch (error: unknown) {

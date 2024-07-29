@@ -264,7 +264,7 @@ import Tag from '@/components/Tag/Tag.vue';
 import { ref, watch, onMounted } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
-import { projectFireStore } from '@/firebase/init';
+import { db } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
@@ -281,7 +281,7 @@ const onRedirect = (): void => {
 const postComment = (): void => {
     try {
         appStore.isLoading = true;
-        projectFireStore.collection('comments').add({
+        db.collection('comments').add({
             email: 'lukas',
             image: 'LOL',
             text: 'skusobny',
@@ -304,7 +304,7 @@ const postComment = (): void => {
 const fetchFeedback = async (feedbackID: string): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const res = await projectFireStore
+        const res = await db
             .collection('feedbacks')
             .where('id', '==', feedbackID)
             .get();

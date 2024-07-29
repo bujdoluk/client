@@ -97,7 +97,7 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
-import { projectFireStore } from '@/firebase/init';
+import { db } from '@/firebase/init';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -116,12 +116,12 @@ const close = (): void => {
     isActive.value = false;
 };
 
-const docRef = computed(() => projectFireStore.collection('feedbacks').doc());
+const docRef = computed(() => db.collection('feedbacks').doc());
 
 const addFeedback = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        await projectFireStore.collection('feedbacks').add({
+        await db.collection('feedbacks').add({
             category: category.value,
             color: 'orange',
             comments: 0,
