@@ -4,6 +4,15 @@
         class="bg-darkBlue"
         :title="t('components.AppToolbar.title')"
     >
+        <v-btn 
+            v-if="router.currentRoute.value.path === '/'"
+            variant="flat"
+            color="purple"
+            class="mr-3"
+            :to="{ 'name': 'suggestions' }"
+        >
+            {{ t('buttons.skip') }}
+        </v-btn>
         <v-btn
             v-if="user"
             variant="flat"

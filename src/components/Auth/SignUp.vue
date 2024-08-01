@@ -1,7 +1,7 @@
 <template>
     <v-container
-        fluid
         class="bg-background height"
+        fluid
     >
         <v-row align="center">
             <v-col>
@@ -16,20 +16,25 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <v-row align="center"> 
-            <v-col cols="6">
+        <v-row> 
+            <v-col
+                cols="12"
+                align="center"
+            >
                 <v-form>
                     <v-card
-                        width="600"
-                        height="400"
-                        class="pa-6"
+                        width="500"
+                        height="320"
+                        class="pa-3"
+                        elevation="1"
                     >
-                        <v-card-title class="h5">
+                        <v-card-title class="pb-4">
                             {{ t('components.SignUp.title') }}
                         </v-card-title>
                         <v-card-text>
                             <v-text-field
                                 v-model="userName"
+                                density="compact"
                                 :label="t('inputs.userName')"
                                 variant="outlined"
                             />
@@ -37,6 +42,7 @@
                         <v-card-text>
                             <v-text-field
                                 v-model="email"
+                                density="compact"
                                 :label="t('inputs.email')"
                                 variant="outlined"
                             />
@@ -44,15 +50,16 @@
                         <v-card-text>
                             <v-text-field
                                 v-model="password"
+                                density="compact"
                                 :label="t('inputs.password')"
                                 variant="outlined"
                             />
                         </v-card-text>
                         <v-card-actions> 
+                            <v-spacer />
                             <v-btn
                                 color="purple"
                                 variant="flat"
-                                size="large"
                                 @click="submit"
                             >
                                 {{ t('buttons.submit') }}
@@ -75,7 +82,9 @@ import { useSignup } from '../../plugins/auth';
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft } from '@mdi/js';
 import router from '@/router';
+import { useAppStore } from '@/stores/useAppStore';
 
+const appStore = useAppStore();
 const { t } = useI18n();
 const userName = ref<string>('');
 const email = ref<string>('');
@@ -85,10 +94,13 @@ const { signup } = useSignup();
 
 const submit = async (): Promise<void> => {
     try {
+        appStore.isLoading = true;
         await signup(email.value, password.value, userName.value);  
         console.log('user signed up');
     } catch (error: any) {
         console.log('Cant signup :/');
+    } finally {
+        appStore.isLoading = false;
     }
 };
 
@@ -99,6 +111,6 @@ const redirect = (): void => {
 
 <style scoped>
 .height {
-    height: 100vh;
+    height: calc(100vh - 64px);
 }
 </style>

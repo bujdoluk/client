@@ -12,6 +12,7 @@
         "post": "Post Comment",
         "reply": "Reply",
         "signup": "Sign up",
+        "skip": "Skip login",
         "submit": "Submit"
     },
     "components": {
