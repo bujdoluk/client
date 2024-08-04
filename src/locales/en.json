@@ -46,6 +46,12 @@
         "password": "Password",
         "userName": "User name"
     },
+    "validation": {
+        "incorrectEmailOrPassword": "Email or password incorrect.",
+        "incorrectPassword": "Incorrect Password",
+        "invalidEmail": "Invalid email.",
+        "userNotFound": "No account with that email was found."
+    },
     "views": {
         "landingPage": {
             "allFeedback": "All of your user feedback in one single place",

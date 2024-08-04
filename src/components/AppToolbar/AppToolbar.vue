@@ -4,25 +4,21 @@
         class="bg-darkBlue"
         :title="t('components.AppToolbar.title')"
     >
-        <v-btn 
-            v-if="router.currentRoute.value.path === '/'"
-            variant="flat"
-            color="purple"
-            class="mr-3"
-            :to="{ 'name': 'suggestions' }"
-        >
-            {{ t('buttons.skip') }}
-        </v-btn>
         <v-btn
-            v-if="user"
+            v-if="user !== null ||
+                router.currentRoute.value.path !== '/login'
+            "
             variant="flat"
             color="purple"
-            :to="{ 'name': '/' }"
+            :to="{ 'name': 'landing' }"
+            @click="logout"
         >
             {{ t('buttons.logout') }}
         </v-btn>
         <v-btn
-            v-if="!(router.currentRoute.value.path === '/signup')"
+            v-if="router.currentRoute.value.path === '/' ||
+                router.currentRoute.value.path === '/login'
+            "
             variant="flat"
             color="purple"
             :to="{ 'name': 'signup' }"
@@ -30,7 +26,9 @@
             {{ t('buttons.signup') }}
         </v-btn>
         <v-btn
-            v-if="!(router.currentRoute.value.path === '/login')"
+            v-if="router.currentRoute.value.path === '/' ||
+                router.currentRoute.value.path === '/signup'
+            "
             variant="flat"
             color="purple"
             class="ml-3"
@@ -49,13 +47,27 @@ import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import router from '@/router';
 import { auth } from '@/firebase/init';
+import { useAppStore } from '@/stores/useAppStore';
 
-const user = ref(auth().currentUser);
 const { t } = useI18n();
+const appStore = useAppStore();
+const user = ref(auth().currentUser);
 
 auth().onAuthStateChanged((_user) => {
     console.log('User state change. Current user is:', _user);
     user.value = _user;
 });
+
+const logout = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        await auth().signOut();
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        router.push({ name: 'landing' });
+        appStore.isLoading = false;
+    }
+};
 
 </script>

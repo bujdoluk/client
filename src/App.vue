@@ -1,10 +1,6 @@
 <template>
     <v-layout>
-        <AppToolbar
-            v-if="router.currentRoute.value.path === '/' || 
-                router.currentRoute.value.path === '/login' || 
-                router.currentRoute.value.path === '/signup'" 
-        />
+        <AppToolbar />
         <LoaderOverlay />
         <v-main>
             <RouterView />
@@ -19,7 +15,6 @@
  */
 import AppToolbar from '@/components/AppToolbar/AppToolbar.vue';
 import LoaderOverlay from '@/components/LoaderOverlay/LoaderOverlay.vue';
-import router from '@/router';
 </script>
 
 <style>

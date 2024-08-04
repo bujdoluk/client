@@ -6,39 +6,39 @@
 import { ref } from 'vue';
 import { auth } from '@/firebase/init';
 
-const error = ref<string>('');
+const errorMessage = ref<string | null>(null);
 const isPending = ref<boolean>(false);
 
-const login = async (email: string, password: string): Promise<any> => {
-    error.value = '';
+const login = async (email: string, password: string) => {
+    errorMessage.value = null;
     isPending.value = true;
 
     try {
         const res = await auth().signInWithEmailAndPassword(email, password);
-        error.value = '';
+        errorMessage.value = (null);
         isPending.value = false;
         return res;
-    } catch(err: unknown) {
-        error.value = 'Incorrect login credentials';
+    } catch(error: any) {
+        errorMessage.value = error.message;
         isPending.value = false;
     }
 };
 
-const logout = async (): Promise<void> => {
-    error.value = '';
+const logout = async () => {
+    errorMessage.value = (null);
     isPending.value = true;
 
     try {
         await auth().signOut();
         isPending.value = false;
-    } catch(err: any) {
-        error.value = err.message;
+    } catch(error: any) {
+        errorMessage.value = error.message;
         isPending.value = false;
     }
 };
 
 const signup = async (email: string, password: string, displayName: string) => {
-    error.value = '';
+    errorMessage.value = (null);
     isPending.value = true;
 
     try {
@@ -49,19 +49,18 @@ const signup = async (email: string, password: string, displayName: string) => {
         if (res.user) {
             await res.user.updateProfile({ displayName });
         }
-        error.value = '';
+        errorMessage.value = (null);
         isPending.value = false;
 
         return res;
-    } catch(err: any) {
-        console.log(err.message);
-        error.value = err.message;
+    } catch(error: any) {
+        errorMessage.value = error.message;
         isPending.value = false;
     }
 };
 
-const useSignup = () => ({ error, isPending, signup });
-const useLogin = () => ({ error, isPending, login });
-const useLogout = () => ({ error, isPending, logout });
+const useSignup = () => ({ errorMessage, isPending, signup });
+const useLogin = () => ({ errorMessage, isPending, login });
+const useLogout = () => ({ errorMessage, isPending, logout });
 
 export { useLogin, useLogout, useSignup };

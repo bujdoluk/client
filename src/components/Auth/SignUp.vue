@@ -21,10 +21,15 @@
                 cols="12"
                 align="center"
             >
-                <v-form>
+                <v-form 
+                    ref="form"
+                    v-model="isFormValid"
+                    fast-fail
+                    validate-on="input"    
+                >
                     <v-card
                         width="500"
-                        height="320"
+                        :height="errorMessage ? '350' : '320'"
                         class="pa-3"
                         elevation="1"
                     >
@@ -55,6 +60,7 @@
                                 variant="outlined"
                             />
                         </v-card-text>
+               
                         <v-card-actions> 
                             <v-spacer />
                             <v-btn
@@ -65,6 +71,12 @@
                                 {{ t('buttons.submit') }}
                             </v-btn>
                         </v-card-actions>
+                        <v-card-text
+                            v-if="errorMessage"
+                            class="text-error"
+                        >
+                            {{ errorMessage }}
+                        </v-card-text>
                     </v-card>
                 </v-form>
             </v-col>
@@ -86,26 +98,33 @@ import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
 const { t } = useI18n();
+const { signup, errorMessage } = useSignup();
 const userName = ref<string>('');
 const email = ref<string>('');
 const password = ref<string>('');
-
-const { signup } = useSignup();
+const isFormValid = ref<boolean>(false);
 
 const submit = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
         await signup(email.value, password.value, userName.value);  
-        console.log('user signed up');
-    } catch (error: any) {
-        console.log('Cant signup :/');
+        if (!errorMessage.value) {
+            router.push({ name: 'login' });
+        }
+    } catch (e: unknown) {
+        console.log(e);
     } finally {
         appStore.isLoading = false;
     }
 };
 
+const form = ref<{
+    resetValidation: () => void;
+    validate: () => boolean;
+}>;
+
 const redirect = (): void => {
-    router.push('/');
+    router.push({ name: 'landing' });
 };
 </script>
 
