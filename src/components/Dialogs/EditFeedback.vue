@@ -96,7 +96,7 @@
                     <v-btn
                         variant="flat"
                         color="bg-red"
-                        @click="deleteFeedback"
+                        @click="deleteFeedback(prop.feedback.docId)"
                     >
                         {{ t('buttons.delete') }}
                     </v-btn>
@@ -109,10 +109,10 @@
                         {{ t('buttons.close') }}
                     </v-btn>
                     <v-btn
-                        v-if="prop.feedback?.id"
+                        v-if="prop.feedback?.docId"
                         variant="flat"
                         color="purple"
-                        @click="editFeedback(prop.feedback.id)"
+                        @click="editFeedback(prop.feedback.docId)"
                     >
                         {{ t('buttons.add') }}
                     </v-btn>
@@ -159,7 +159,7 @@ const reset = (): void => {
 
 const editFeedback = async (id: string): Promise<void> => {
     try {
-        if (prop.feedback.id) {
+        if (prop.feedback.docId) {
             appStore.isLoading = true;
             const res = db.collection('feedbacks').doc(id);
             await res.set({
@@ -184,17 +184,23 @@ const close = (): void => {
     dialog.value = false;
 };
 
-const deleteFeedback = (): void => {
-    const feedbackQuery = db.collection('feedbacks')
-        .where('uid', '==', prop.feedback.id);
-    
-    feedbackQuery.get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            doc.ref.delete();
-        });
-    });
+const deleteFeedback = async (id: string): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        const feedbackQuery = db.collection('feedbacks')
+            .where('uid', '==', id).get();
 
-    dialog.value = false;
+        feedbackQuery.then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                doc.ref.delete();
+            });
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+        dialog.value = false;
+    }
 };
 
 </script>

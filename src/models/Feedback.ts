@@ -3,11 +3,11 @@
  */
 export interface Feedback {
     category: string;
-    color: string;
     comments: number;
     description: string;
-    id: string;
+    docId: string;
     status: string;
     title: string;
     upvotes: number;
+    userId: string;
 }

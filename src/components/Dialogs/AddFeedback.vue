@@ -104,7 +104,7 @@ import { useAppStore } from '@/stores/useAppStore';
 
 const emit = defineEmits<(e: 'feedbackAdded') => void>();
 
-const userId = ref(auth().currentUser?.uid);
+const userId = ref<string | undefined>(auth().currentUser?.uid);
 const appStore = useAppStore();
 const { t } = useI18n();
 const valid = ref(false);
@@ -112,6 +112,7 @@ const dialog = ref<boolean>(false);
 const title = ref('');
 const description = ref('');
 const category = ref<string>();
+const docRef = ref<string>(db.collection('feedbacks').doc().id);
 
 const open = (): void => {
     dialog.value = true;
@@ -128,10 +129,11 @@ const addFeedback = async (): Promise<void> => {
             category: category.value,
             comments: 0,
             description: description.value,
-            id: userId.value,
+            docId: docRef.value,
             status: Status.Planned,
             title: title.value,
-            upvotes: 0
+            upvotes: 0,
+            userId: userId.value
         });
     } catch(error: unknown) {
         console.log(error);

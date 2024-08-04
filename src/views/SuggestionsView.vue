@@ -54,11 +54,11 @@
                     </v-row>
                     <v-row
                         v-for="feedback in feedbacks"
-                        :key="feedback.id"
+                        :key="feedback.docId"
                     >
                         <v-col 
                             v-if="feedbacks.length > 0"  
-                            @click="onRedirect('feedback-detail', feedback.id)"
+                            @click="onRedirect('feedback-detail', feedback.docId)"
                         >
                             <v-card
                                 :min-height="90"
@@ -78,7 +78,7 @@
                                                 variant="tonal"
                                                 flat
                                                 size="40"
-                                                @click.stop="updateFeedBack(feedback.id, feedback)"
+                                                @click.stop="updateFeedBack(feedback.docId, feedback)"
                                             >
                                                 <v-icon :icon="mdiChevronUp" />
                                                 {{ feedback.upvotes }}
@@ -137,21 +137,25 @@ import RoadmapBox from '@/components/RoadmapBox/RoadmapBox.vue';
 import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedbackComponent from '@/components/Feedback/EmptyFeedbackComponent.vue';
-import { db, increment } from '@/firebase/init';
+import { db, increment, auth } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
 const feedbacks = ref<Array<Feedback>>([]);
 const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+const user = ref(auth().currentUser);
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const snapshot = await db.collection('feedbacks').get();
-        feedbacks.value = (snapshot.docs.map((doc) => ({
-            id: db.collection('feedbacks').id,
-            ...doc.data()
-        } as Feedback)));
+        if (user.value) {
+            const snapshot = await db.collection('feedbacks').get();
+            feedbacks.value = (snapshot.docs.map((doc) => ({
+                docId: db.collection('feedbacks').id,
+                userId: user.value?.uid,
+                ...doc.data()
+            } as Feedback)));
+        }
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -162,17 +166,19 @@ const fetchFeedbacks = async (): Promise<void> => {
 const updateFeedBack = async (id: string, feedback: Feedback): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const res = db.collection('feedbacks').doc(id);
-        await res.update({
-            category: feedback.category,
-            color: feedback.color,
-            comments: feedback.comments,
-            description: feedback.description,
-            id: feedback.id,
-            status: feedback.status,
-            title: feedback.title,
-            upvotes: increment
-        });
+        if (user.value) {
+            const res = db.collection('feedbacks').doc(id);
+            await res.set({
+                category: feedback.category,
+                comments: feedback.comments,
+                description: feedback.description,
+                docId: feedback.docId,
+                status: feedback.status,
+                title: feedback.title,
+                upvotes: increment,
+                userId: user.value.uid
+            });
+        }
     } catch(error: unknown) {
         console.log(error);
     } finally {
