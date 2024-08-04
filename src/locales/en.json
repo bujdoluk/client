@@ -7,13 +7,16 @@
         "close": "Close Dialog",
         "delete": "Delete",
         "edit": "Edit Feedback",
+        "editAccount": "Edit Account",
         "login": "Log in",
         "logout": "Logout",
         "post": "Post Comment",
         "reply": "Reply",
+        "resetPassword": "Reset Password",
         "signup": "Sign up",
         "skip": "Skip login",
-        "submit": "Submit"
+        "submit": "Submit",
+        "update": "Update"
     },
     "components": {
         "AppToolbar": {
@@ -30,6 +33,9 @@
             "updateStatus": "Update Status",
             "updateStatusSubtitle": "Change feedback state"
         },
+        "EditAccount": {
+            "information": "User Account Information"
+        },
         "LogIn": {
             "title": "Login"
         },
@@ -43,6 +49,7 @@
     },
     "inputs": {
         "email": "Email",
+        "newPassword": "New Password",
         "password": "Password",
         "userName": "User name"
     },

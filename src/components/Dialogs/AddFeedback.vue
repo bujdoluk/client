@@ -3,11 +3,12 @@
         variant="flat"
         color="purple"
         :prepend-icon="mdiPlus"
+        @click="open"
     >
         {{ t('buttons.add') }}
     </v-btn>
-
     <v-dialog 
+        v-model="dialog"
         width="600"
         persistent
     >
@@ -94,39 +95,40 @@
 /**
  * @file Add Feedback component.
  */
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
-import { db } from '@/firebase/init';
+import { db, auth } from '@/firebase/init';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
 const emit = defineEmits<(e: 'feedbackAdded') => void>();
 
+const userId = ref(auth().currentUser?.uid);
 const appStore = useAppStore();
 const { t } = useI18n();
 const valid = ref(false);
-const isActive = ref<boolean>(false);
-
+const dialog = ref<boolean>(false);
 const title = ref('');
 const description = ref('');
 const category = ref<string>();
 
-const close = (): void => {
-    isActive.value = false;
+const open = (): void => {
+    dialog.value = true;
 };
 
-const docRef = computed(() => db.collection('feedbacks').doc());
+const close = (): void => {
+    dialog.value = false;
+};
 
 const addFeedback = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
         await db.collection('feedbacks').add({
             category: category.value,
-            color: 'orange',
             comments: 0,
             description: description.value,
-            id: docRef.value.id,
+            id: userId.value,
             status: Status.Planned,
             title: title.value,
             upvotes: 0
@@ -134,7 +136,7 @@ const addFeedback = async (): Promise<void> => {
     } catch(error: unknown) {
         console.log(error);
     } finally {
-        isActive.value = false;
+        dialog.value = false;
         emit('feedbackAdded');
         appStore.isLoading = false;
     }

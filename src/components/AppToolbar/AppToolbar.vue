@@ -4,17 +4,10 @@
         class="bg-darkBlue"
         :title="t('components.AppToolbar.title')"
     >
-        <v-btn
-            v-if="user !== null ||
-                router.currentRoute.value.path !== '/login'
-            "
-            variant="flat"
-            color="purple"
-            :to="{ 'name': 'landing' }"
-            @click="logout"
-        >
-            {{ t('buttons.logout') }}
-        </v-btn>
+        <Avatar
+            v-if="user"
+            :user="user"
+        />  
         <v-btn
             v-if="router.currentRoute.value.path === '/' ||
                 router.currentRoute.value.path === '/login'
@@ -47,27 +40,14 @@ import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import router from '@/router';
 import { auth } from '@/firebase/init';
-import { useAppStore } from '@/stores/useAppStore';
+import Avatar from '@/components/Avatar/Avatar.vue';
 
 const { t } = useI18n();
-const appStore = useAppStore();
 const user = ref(auth().currentUser);
 
 auth().onAuthStateChanged((_user) => {
     console.log('User state change. Current user is:', _user);
     user.value = _user;
 });
-
-const logout = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        await auth().signOut();
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        router.push({ name: 'landing' });
-        appStore.isLoading = false;
-    }
-};
 
 </script>
