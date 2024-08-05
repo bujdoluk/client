@@ -24,7 +24,8 @@
                 <EditFeedback 
                     v-if="feedback"
                     :feedback="feedback"
-                    @feedback-edited="onFeedbackEdited" 
+                    @edited="onEdited"
+                    @deleted="onDeleted" 
                 />
             </v-col>
         </v-row>
@@ -306,11 +307,10 @@ const fetchFeedback = async (feedbackID: string): Promise<void> => {
         appStore.isLoading = true;
         const res = await db
             .collection('feedbacks')
-            .where('id', '==', feedbackID)
+            .doc(feedbackID)
             .get();
-        res.docs.forEach((doc) => {
-            feedback.value = doc.data() as Feedback;
-        });
+        
+        feedback.value = res.data() as Feedback;
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -318,8 +318,12 @@ const fetchFeedback = async (feedbackID: string): Promise<void> => {
     }
 };
 
-const onFeedbackEdited = (): void => {
+const onEdited = (): void => {
     fetchFeedback(String(route.params.id)); 
+};
+
+const onDeleted = (): void => {
+    router.push({ name: 'suggestions' });
 };
 
 onMounted(() => {

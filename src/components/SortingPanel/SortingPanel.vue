@@ -26,6 +26,7 @@
                                 :min-width="400"
                                 color="purple"
                                 flat
+                                @update:model-value="onSelected"
                             />
                         </v-col>
                     </v-row>
@@ -53,8 +54,12 @@ const props = defineProps<{
     feedbacks: Array<Feedback>;
 }>();
 
-const emit = defineEmits<(e: 'feedbackAdded') => void>();
+const emit = defineEmits<{
+    (e: 'added'): void;
+    (e: 'sorted', selectedItem: any): void;
+}>();
 
+const selectedItem = ref<string>(items[0]);
 const { t } = useI18n();
 const items = [
     t('views.suggestions.topbar.mostUpvotes'),
@@ -63,9 +68,11 @@ const items = [
     t('views.suggestions.topbar.leastComments')
 ];
 
-const selectedItem = ref<string>(items[0]);
+const onSelected = (): void => {
+    emit('sorted', selectedItem);
+};
 
 const onFeedbackAdded = (): void => {
-    emit('feedbackAdded');
+    emit('added');
 };
 </script>

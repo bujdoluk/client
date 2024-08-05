@@ -48,7 +48,8 @@
                         <v-col>
                             <SortingPanel
                                 :feedbacks="feedbacks"
-                                @feedback-added="onFeedbackAdded"
+                                @added="onFeedbackAdded"
+                                @sorted="onFeedbackSorted"
                             />
                         </v-col>
                     </v-row>
@@ -151,7 +152,7 @@ const fetchFeedbacks = async (): Promise<void> => {
         if (user.value) {
             const snapshot = await db.collection('feedbacks').get();
             feedbacks.value = (snapshot.docs.map((doc) => ({
-                docId: db.collection('feedbacks').id,
+                docId: db.collection('feedbacks').doc().id,
                 userId: user.value?.uid,
                 ...doc.data()
             } as Feedback)));
@@ -193,6 +194,10 @@ const onRedirect = (name: string, id?: string): void => {
 
 const onFeedbackAdded = (): void => {
     fetchFeedbacks();
+};
+
+const onFeedbackSorted = (selectedItem: any): void => {
+    feedbacks.value.sort(selectedItem);
 };
 
 onMounted(() => {

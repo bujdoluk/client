@@ -112,7 +112,6 @@ const dialog = ref<boolean>(false);
 const title = ref('');
 const description = ref('');
 const category = ref<string>();
-const docRef = ref<string>(db.collection('feedbacks').doc().id);
 
 const open = (): void => {
     dialog.value = true;
@@ -125,11 +124,12 @@ const close = (): void => {
 const addFeedback = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        await db.collection('feedbacks').add({
+        const docId = db.collection('feedbacks').doc().id;
+        await db.collection('feedbacks').doc(docId).set({
             category: category.value,
             comments: 0,
             description: description.value,
-            docId: docRef.value,
+            docId,
             status: Status.Planned,
             title: title.value,
             upvotes: 0,

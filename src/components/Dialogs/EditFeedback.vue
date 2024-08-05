@@ -37,7 +37,6 @@
                         counter="45"
                     />
                 </v-card-text>
-
                 <v-card-text class="font-weight-bold">
                     {{ t('components.Dialog.category') }}
                 </v-card-text>
@@ -55,7 +54,6 @@
                         :items="['Feature', 'Bug', 'Enhancement', 'UI', 'UX', 'All']"
                     />
                 </v-card-text>
-
                 <v-card-text class="font-weight-bold">
                     {{ t('components.Dialog.updateStatus') }}
                 </v-card-text>
@@ -73,7 +71,6 @@
                         :items="[String(Status.Planned), String(Status.Live), String(Status.InProgress)]"
                     />
                 </v-card-text>
-
                 <v-card-text class="font-weight-bold">
                     {{ t('components.Dialog.feedbackDetail') }}
                 </v-card-text>
@@ -91,12 +88,11 @@
                         :counter="250"
                     />
                 </v-card-text>
-
                 <v-card-actions class="pt-5">
                     <v-btn
                         variant="flat"
-                        color="bg-red"
-                        @click="deleteFeedback(prop.feedback.docId)"
+                        color="error"
+                        @click="deleteFeedback(prop.feedback)"
                     >
                         {{ t('buttons.delete') }}
                     </v-btn>
@@ -129,22 +125,19 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
-import { db } from '@/firebase/init';
+import { db, auth } from '@/firebase/init';
 import type { Feedback } from '@/models/Feedback';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
-const prop = defineProps<{
-    feedback: Feedback;
-}>();
-
-const emit = defineEmits<(e: 'feedbackEdited') => void>();
+const prop = defineProps<{ feedback: Feedback }>();
+const emit = defineEmits<(e: 'edited' | 'deleted') => void>();
 
 const appStore = useAppStore();
 const { t } = useI18n();
 const valid = ref(false);
 const dialog = ref<boolean>(false);
-
+const userId = ref<string | undefined>(auth().currentUser?.uid);
 const selectedTitle = ref<string>(prop.feedback.title);
 const selectedDescription = ref<string>(prop.feedback.description);
 const selectedCategory = ref<string>(prop.feedback.category);
@@ -157,22 +150,25 @@ const reset = (): void => {
     selectedCategory.value = '';
 };  
 
-const editFeedback = async (id: string): Promise<void> => {
+const editFeedback = async (docId: string): Promise<void> => {
     try {
         if (prop.feedback.docId) {
             appStore.isLoading = true;
-            const res = db.collection('feedbacks').doc(id);
-            await res.set({
+            await db.collection('feedbacks').doc(docId).set({
                 category: selectedCategory.value,
+                comments: 0,
                 description: selectedDescription.value,
+                docId,
                 status: selectedStatus.value,
-                title: selectedTitle.value
+                title: selectedTitle.value,
+                upvotes: 0,
+                userId: userId.value
             });
         }
     } catch(error: unknown) {
         console.log(error);
     } finally {
-        emit('feedbackEdited');
+        emit('edited');
         reset();
         dialog.value = false;
         appStore.isLoading = false;
@@ -184,22 +180,20 @@ const close = (): void => {
     dialog.value = false;
 };
 
-const deleteFeedback = async (id: string): Promise<void> => {
+const deleteFeedback = async (feedback: Feedback): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const feedbackQuery = db.collection('feedbacks')
-            .where('uid', '==', id).get();
-
-        feedbackQuery.then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                doc.ref.delete();
-            });
-        });
+        if (userId.value === feedback.userId) {
+            await db.collection('feedbacks').doc(feedback.docId).delete();
+        } else {
+            alert('You can not delete another user feedback!');
+        }
     } catch (error: unknown) {
         console.log(error);
     } finally {
         appStore.isLoading = false;
         dialog.value = false;
+        emit('deleted');
     }
 };
 

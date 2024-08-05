@@ -48,6 +48,7 @@
                             <v-text-field
                                 v-model="email"
                                 density="compact"
+                                type="email"
                                 :label="t('inputs.email')"
                                 variant="outlined"
                             />
@@ -55,9 +56,12 @@
                         <v-card-text>
                             <v-text-field
                                 v-model="password"
+                                :append-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
+                                :type="showPassword ? 'text' : 'password'"
                                 density="compact"
                                 :label="t('inputs.password')"
                                 variant="outlined"
+                                @click:append="showPassword = !showPassword"
                             />
                         </v-card-text>
                
@@ -92,7 +96,7 @@
 import { ref } from 'vue';
 import { useSignup } from '../../plugins/auth';
 import { useI18n } from 'vue-i18n';
-import { mdiChevronLeft } from '@mdi/js';
+import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
 import router from '@/router';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -103,6 +107,7 @@ const userName = ref<string>('');
 const email = ref<string>('');
 const password = ref<string>('');
 const isFormValid = ref<boolean>(false);
+const showPassword = ref<boolean>(false);
 
 const submit = async (): Promise<void> => {
     try {
