@@ -59,7 +59,6 @@ const emit = defineEmits<{
     (e: 'sorted', selectedItem: any): void;
 }>();
 
-const selectedItem = ref<string>(items[0]);
 const { t } = useI18n();
 const items = [
     t('views.suggestions.topbar.mostUpvotes'),
@@ -67,6 +66,8 @@ const items = [
     t('views.suggestions.topbar.mostComments'),
     t('views.suggestions.topbar.leastComments')
 ];
+
+const selectedItem = ref<string>(items[0]);
 
 const onSelected = (): void => {
     emit('sorted', selectedItem);

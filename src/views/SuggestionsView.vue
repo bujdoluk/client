@@ -150,12 +150,8 @@ const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
         if (user.value) {
-            const snapshot = await db.collection('feedbacks').get();
-            feedbacks.value = (snapshot.docs.map((doc) => ({
-                docId: db.collection('feedbacks').doc().id,
-                userId: user.value?.uid,
-                ...doc.data()
-            } as Feedback)));
+            const res = await db.collection('feedbacks').get();
+            feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
         }
     } catch (error: unknown) {
         console.log(error);

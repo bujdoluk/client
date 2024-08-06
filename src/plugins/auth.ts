@@ -1,6 +1,6 @@
 /**
  * @file Auth.
- * @description User authentification.
+ * @description Firebase user authentification.
  */
 
 import { ref } from 'vue';

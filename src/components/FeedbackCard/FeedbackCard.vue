@@ -7,12 +7,12 @@
         <v-row align="center">
             <v-col>
                 <v-card-text>
-                    <span :class="props.feedback.color" /> 
+                    <span :class="colors(props.feedback.status)" /> 
                     <span class="text-grey">{{ props.feedback.status }}</span>
                 </v-card-text>
                 <v-card-title 
                     class="cursor font-weight-bold pb-0" 
-                    @click="onRedirect('feedback-detail', feedback.id)"
+                    @click="onRedirect('feedback-detail', feedback.docId)"
                 >
                     {{ props.feedback.title }}
                 </v-card-title>
@@ -54,6 +54,7 @@ import { mdiChat, mdiChevronUp } from '@mdi/js';
 import { type Feedback } from '@/models/Feedback';
 import Tag from '@/components/Tag/Tag.vue';
 import router from '@/router';
+import { Status } from '@/models/Status';
 
 const props = defineProps<{
     feedback: Feedback;
@@ -61,5 +62,15 @@ const props = defineProps<{
 
 const onRedirect = (name: string, id?: string): void => {
     router.push({ name, params: { id } });
+};
+
+const colors = (status: string) => {
+    if (status === Status.Planned) {
+        return 'dot-orange';
+    } else if (status === Status.InProgress) {
+        return 'dot-pink';
+    } else if (status === Status.Live) {
+        return 'dot-teal';
+    }
 };
 </script>

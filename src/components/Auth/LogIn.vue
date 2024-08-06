@@ -28,35 +28,29 @@
                     validate-on="input"
                 >
                     <v-card
-                        width="500"
-                        :height="errorMessage ? '285' : '255'"
+                        width="550"
                         class="pa-3"
                         elevation="1"
                     >
                         <v-card-title class="pb-4">
                             {{ t('components.LogIn.title') }}
                         </v-card-title>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="email"
-                                density="compact"
-                                type="email"
-                                :label="t('inputs.email')"
-                                variant="outlined"
-                            />
-                        </v-card-text>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="password"
-                                density="compact"
-                                :append-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
-                                :type="showPassword ? 'text' : 'password'"
-                                :label="t('inputs.password')"
-                                variant="outlined"
-                                @click:append="showPassword = !showPassword"
-                            />
-                        </v-card-text>
-           
+                        <v-text-field
+                            v-model="email"
+                            density="compact"
+                            type="email"
+                            :label="t('inputs.email')"
+                            variant="outlined"
+                        />
+                        <v-text-field
+                            v-model="password"
+                            density="compact"
+                            :append-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
+                            :type="showPassword ? 'text' : 'password'"
+                            :label="t('inputs.password')"
+                            variant="outlined"
+                            @click:append="showPassword = !showPassword"
+                        />
                         <v-card-actions>
                             <v-spacer />
                             <v-btn

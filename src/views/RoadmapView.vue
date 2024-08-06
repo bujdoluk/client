@@ -69,7 +69,7 @@
                 <v-row class="d-flex flex-column">  
                     <v-col   
                         v-for="feedback in filteredPlannedStatus"
-                        :key="feedback.id"
+                        :key="feedback.docId"
                     >
                         <FeedbackCard :feedback="feedback" />
                     </v-col>
@@ -79,7 +79,7 @@
                 <v-row class="d-flex flex-column">  
                     <v-col   
                         v-for="feedback in filteredInProgressStatus"
-                        :key="feedback.id"
+                        :key="feedback.docId"
                     >
                         <FeedbackCard :feedback="feedback" />
                     </v-col>
@@ -89,7 +89,7 @@
                 <v-row class="d-flex flex-column">  
                     <v-col   
                         v-for="feedback in filteredLiveStatus"
-                        :key="feedback.id"
+                        :key="feedback.docId"
                     >
                         <FeedbackCard :feedback="feedback" />
                     </v-col>
@@ -109,12 +109,13 @@ import { useI18n } from 'vue-i18n';
 import { type Feedback } from '@/models/Feedback';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
-import { db } from '@/firebase/init';
+import { db, auth } from '@/firebase/init';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
 const { t } = useI18n();
+const user = ref(auth().currentUser);
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.Planned));
 const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.InProgress));
@@ -123,11 +124,10 @@ const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => f
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const snapshot = await db.collection('feedbacks').get();
-        feedbacks.value = (snapshot.docs.map((doc) => ({
-            id: db.collection('feedbacks').id,
-            ...doc.data()
-        } as Feedback)));
+        if (user.value) {
+            const res = await db.collection('feedbacks').get();
+            feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        }
     } catch (error: unknown) {
         console.log(error);
     } finally {

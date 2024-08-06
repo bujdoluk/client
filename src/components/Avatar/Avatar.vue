@@ -20,6 +20,7 @@
                         <v-avatar
                             color="brown"
                             size="large"
+                            :image="profilePicture"
                         />
                     </v-btn>
                 </template>
@@ -33,6 +34,7 @@
                         <v-avatar
                             color="brown"
                             size="x-large"
+                            :image="profilePicture"
                         />
                     </v-card-text>
                     <v-card-text class="pb-3 text-center">
@@ -42,7 +44,10 @@
                         {{ prop.user.email }}
                     </v-card-text>
                     <v-card-text class="pb-3">
-                        <EditAccount :user="prop.user" />
+                        <EditAccount
+                            :user="prop.user"
+                            @downloaded="onPictureDownloaded"
+                        />
                     </v-card-text>
                     <v-card-text>
                         <v-btn
@@ -69,6 +74,7 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { auth } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
+import { ref } from 'vue';
 
 const prop = defineProps<{
     user: any;
@@ -76,6 +82,7 @@ const prop = defineProps<{
 
 const { t } = useI18n();
 const appStore = useAppStore();
+const profilePicture = ref();
 
 const logout = async (): Promise<void> => {
     try {
@@ -88,4 +95,9 @@ const logout = async (): Promise<void> => {
         appStore.isLoading = false;
     }
 };
+
+const onPictureDownloaded = (pic: any): void => {
+    profilePicture.value = pic;
+};
+
 </script>/

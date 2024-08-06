@@ -58,6 +58,15 @@
                 <v-btn @click="reset">
                     {{ t('buttons.resetPassword') }}
                 </v-btn>
+                <v-file-input
+                    v-model="file"
+                    label="Upload your picture"
+                    density="compact"
+                    variant="outlined"
+                    append-icon
+                    min-width="300"
+                    class="pt-5"
+                />
                 <v-card-actions class="pt-5">
                     <v-btn
                         variant="flat"
@@ -85,28 +94,39 @@
  * @file Edit account.
  */
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useAppStore } from '@/stores/useAppStore';
 import { updateEmail, updateProfile, updatePassword, sendPasswordResetEmail } from 'firebase/auth';
+import { useStorage } from '@/plugins/storage';
 
 const prop = defineProps<{
     user: any;
 }>();
 
+const emit = defineEmits<(e: 'downloaded', picture: any) => void>();
+
 const appStore = useAppStore();
+const storage = useStorage();
 const { t } = useI18n();
 const email = ref<string>(prop.user.email);
 const displayName = ref<string>(prop.user.displayName);
 const password = ref<string>(prop.user.password);
 const newPassword = ref<string>('');
 const dialog = ref<boolean>(false);
+const file = ref(null);
+const profilePictureUrl = ref();
 
-const open = (): void => {
-    dialog.value = true;
-};
-
-const close = (): void => {
-    dialog.value = false;
+const uploadProfilePicture = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        if (file.value) {
+            await storage.uploadImage(file.value);
+        }
+    } catch (error: any) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
 };
 
 const update = async (): Promise<void> => {
@@ -118,6 +138,7 @@ const update = async (): Promise<void> => {
             });
             await updateEmail(prop.user, email.value);
             await updatePassword(prop.user, newPassword.value);
+            await uploadProfilePicture();
         }
     } catch (error: unknown) {
         console.log(error);
@@ -138,5 +159,29 @@ const reset = async (): Promise<void> => {
         appStore.isLoading = false;
     }
 };
+
+const downloadProfilePicture = async (): Promise<void> => {
+    try { 
+        appStore.isLoading = true;
+        profilePictureUrl.value = await storage.getImage();
+    } catch (error: any) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+        emit('downloaded', profilePictureUrl.value);
+    }
+};
+
+const open = (): void => {
+    dialog.value = true;
+};
+
+const close = (): void => {
+    dialog.value = false;
+};
+
+onMounted(() => {
+    downloadProfilePicture();
+});
 
 </script>
