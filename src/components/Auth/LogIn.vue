@@ -85,6 +85,7 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAppStore } from '@/stores/useAppStore';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
+import { db, auth } from '@/firebase/init';
 
 const appStore = useAppStore();
 const { t } = useI18n();
@@ -93,11 +94,31 @@ const email = ref<string>('');
 const password = ref<string>('');
 const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
+const user = ref(auth().currentUser);
+
+const createUser = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        if (user.value) {
+            await db.collection('users').doc(user.value.uid).set({
+                email: user.value.email,
+                profilePicture: '',
+                userId: user.value.uid,
+                userName: user.value.displayName
+            });
+        }
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
+};
 
 const submit = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
         await login(email.value, password.value);
+        await createUser();
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });
         }
@@ -114,7 +135,7 @@ const form = ref<{
 }>;
 
 const redirect = (): void => {
-    router.push('/');
+    router.push({ name: 'landing' });
 };
 
 </script>

@@ -128,7 +128,7 @@
 /**
  * @file Suggestions View.
  */
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
 import Tag from '@/components/Tag/Tag.vue';
@@ -196,8 +196,8 @@ const onFeedbackSorted = (selectedItem: any): void => {
     feedbacks.value.sort(selectedItem);
 };
 
-onMounted(() => {
-    fetchFeedbacks(); 
+onMounted(async () => {
+    await fetchFeedbacks();
 });
 
 </script>

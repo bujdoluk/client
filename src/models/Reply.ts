@@ -1,12 +1,13 @@
 /**
- * @file Comment interface.
+ * @file Reply interface.
  */
-export interface Comment {
+export interface Reply {
+    commentId: string;
+    docId: string;
     email: string;
     feedbackId: string;
-    id: string;
     profilePicture: string;
-    text: string;
+    text: number;
     userId: string;
     userName: string;
 }

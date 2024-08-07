@@ -98,6 +98,7 @@ import { ref, onMounted } from 'vue';
 import { useAppStore } from '@/stores/useAppStore';
 import { updateEmail, updateProfile, updatePassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useStorage } from '@/plugins/storage';
+import { db } from '@/firebase/init';
 
 const prop = defineProps<{
     user: any;
@@ -115,6 +116,19 @@ const newPassword = ref<string>('');
 const dialog = ref<boolean>(false);
 const file = ref(null);
 const profilePictureUrl = ref();
+
+const getUser = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        if (prop.user) {
+            await db.collection('users').doc(prop.user.uid).get();
+        }
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
+};
 
 const uploadProfilePicture = async (): Promise<void> => {
     try {
@@ -180,8 +194,9 @@ const close = (): void => {
     dialog.value = false;
 };
 
-onMounted(() => {
-    downloadProfilePicture();
+onMounted(async () => {
+    await getUser();
+    await downloadProfilePicture();
 });
 
 </script>

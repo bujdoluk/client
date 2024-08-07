@@ -104,7 +104,7 @@ import { useAppStore } from '@/stores/useAppStore';
 
 const emit = defineEmits<(e: 'feedbackAdded') => void>();
 
-const userId = ref<string | undefined>(auth().currentUser?.uid);
+const user = ref(auth().currentUser);
 const appStore = useAppStore();
 const { t } = useI18n();
 const valid = ref(false);
@@ -133,7 +133,7 @@ const addFeedback = async (): Promise<void> => {
             status: Status.Planned,
             title: title.value,
             upvotes: 0,
-            userId: userId.value
+            userId: user.value?.uid
         });
     } catch(error: unknown) {
         console.log(error);
