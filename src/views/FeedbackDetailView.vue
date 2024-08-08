@@ -127,19 +127,35 @@
                             </v-btn>
                         </v-col>
                     </v-row>
-                    <v-row v-if="open">
-                        <v-col>
-                            <v-text-area v-model="replyText" />
-                        </v-col>
-                        <v-col>
-                            <v-btn
-                                variant="flat"
-                                color="purple"
-                                @click="createReply(comment.id)"
-                            >
-                                Post Reply
-                            </v-btn>
-                        </v-col>
+                    <v-row
+                        v-if="open"
+                    >
+                        <v-container
+                            fluid
+                        >
+                            <v-row class="pa-6">
+                                <v-col cols="10">
+                                    <v-textarea 
+                                        v-model="replyText"
+                                        :placeholder="t('components.reply.typeReply')" 
+                                        :counter="250"
+                                        rows="2"
+                                        bg-color="background"
+                                        variant="solo-filled"
+                                        flat
+                                    />
+                                </v-col>
+                                <v-col cols="2">
+                                    <v-btn
+                                        variant="flat"
+                                        color="purple"
+                                        @click="createReply(comment.id)"
+                                    >
+                                        {{ t('buttons.postReply') }}
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-container>
                     </v-row>    
                 </v-card>
             </v-container>
@@ -168,7 +184,7 @@
                             color="purple"
                             @click="createComment"
                         >
-                            {{ t('buttons.post') }}
+                            {{ t('buttons.postComment') }}
                         </v-btn>
                     </v-card-actions>
                 </v-card>

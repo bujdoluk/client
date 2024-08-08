@@ -10,7 +10,8 @@
         "editAccount": "Edit Account",
         "login": "Log in",
         "logout": "Logout",
-        "post": "Post Comment",
+        "postComment": "Post Comment",
+        "postReply": "Post Reply",
         "reply": "Reply",
         "resetPassword": "Reset Password",
         "signup": "Sign up",
@@ -45,6 +46,9 @@
         "comment": {
             "addComment": "Add Comment",
             "typeComment": "Type your comment here"
+        },
+        "reply": {
+            "typeReply": "Type your reply here"
         }
     },
     "inputs": {
