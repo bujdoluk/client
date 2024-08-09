@@ -1,6 +1,7 @@
 <template>
     <v-btn 
         variant="tonal"
+        :active="props.active"
         color="blue"
         class="font-weight-bold"
         size="small"
@@ -14,6 +15,7 @@
  * @file Tag component.
  */
 const props = defineProps<{
+    active: boolean;
     category?: string;
 }>();
 </script>

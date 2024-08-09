@@ -64,7 +64,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     (e: 'added'): void;
-    (e: 'sorted', selectedItem: any): void;
+    (e: 'selected', selectedItem: any): void;
 }>();
 
 const { t } = useI18n();
@@ -78,7 +78,7 @@ const items = [
 const selectedItem = ref<string>(items[0]);
 
 const onSelected = (): void => {
-    emit('sorted', selectedItem);
+    emit('selected', selectedItem);
 };
 
 const onFeedbackAdded = (): void => {

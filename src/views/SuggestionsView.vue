@@ -23,7 +23,9 @@
                         <v-col>
                             <TagsBox
                                 v-if="feedbacks.length > 0"
-                                :categories="categories"
+                                :categories="filteredByUniqueTags"
+                                :active="active"
+                                @clicked="onTagClicked"
                             />
                         </v-col>
                     </v-row>
@@ -52,12 +54,12 @@
                             <SortingPanel
                                 :feedbacks="feedbacks"
                                 @added="onFeedbackAdded"
-                                @sorted="onFeedbackSorted"
+                                @selected="onSelected"
                             />
                         </v-col>
                     </v-row>
                     <v-row
-                        v-for="feedback in feedbacks"
+                        v-for="feedback in filteredFeedbacks"
                         :key="feedback.docId"
                     >
                         <v-col @click="onRedirect('feedback-detail', feedback.docId)">
@@ -96,8 +98,11 @@ import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
 const feedbacks = ref<Array<Feedback>>([]);
-const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+const filteredFeedbacks = ref<Array<Feedback>>(feedbacks.value);
 const user = ref(auth().currentUser);
+const active = ref<boolean>(false);
+const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
@@ -145,12 +150,27 @@ const onFeedbackAdded = (): void => {
     fetchFeedbacks();
 };
 
-const onFeedbackSorted = (selectedItem: any): void => {
-    feedbacks.value.sort(selectedItem);
+const onSelected = (selectedItem: any): void => {
+    console.log('selected', selectedItem);
+    // feedbacks.value.sort((a, b) => a.comments - b.comments);
+
+    // feedbacks.value.sort((a, b) => a.upvotes - b.upvotes);
+};
+
+const onTagClicked = (selectedItem: any): void => {
+    console.log('tag clicked', selectedItem);
+    active.value = !active.value;
+    if (active.value) {
+        filteredFeedbacks.value = feedbacks.value.filter((feedback) => feedback.category === selectedItem);
+    } else { 
+        filteredFeedbacks.value = feedbacks.value;
+    }
 };
 
 onMounted(async () => {
     await fetchFeedbacks();
+    console.log(categories);
+    console.log(filteredByUniqueTags);
 });
 
 </script>
