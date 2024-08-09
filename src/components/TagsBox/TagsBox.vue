@@ -1,11 +1,11 @@
 <template>
-    <v-card class="pa-3">
+    <v-card>
         <v-container fluid>
             <v-row>
                 <v-col
                     v-for="category in props.categories"
                     :key="category"
-                    class="pa-2"
+                    cols="auto"
                 >
                     <Tag :category="category" />
                 </v-col>

@@ -2,11 +2,13 @@
     <v-card>
         <v-container fluid>
             <v-row>
-                <v-col>
-                    {{ t('views.suggestions.roadmap.title') }}
+                <v-col cols="auto">
+                    <h2 class="text-darkBlue">
+                        {{ t('views.suggestions.roadmap.title') }}
+                    </h2>
                 </v-col>
                 <v-spacer />
-                <v-col>
+                <v-col cols="auto">
                     <v-btn
                         class="cursor font-weight-bold pr-2 text-decoration-underline"
                         density="compact"
@@ -20,45 +22,54 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="1">
+                <v-col cols="auto">
                     <span class="dot-orange" />
                 </v-col>
-                <v-col>
+                <v-col class="text-grey">
                     {{ t('views.suggestions.roadmap.planned') }}
                 </v-col>
                 <v-col
-                    cols="2"
-                    class="font-weight-bold"
+                    cols="auto"
+                    class="font-weight-bold text-darkBlue"
+                    align="center"
                 >
-                    {{ plannedFeedbacks.length }}
+                    <h3 class="text-darkBlue">
+                        {{ plannedFeedbacks.length }}
+                    </h3>
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="1">
+                <v-col cols="auto">
                     <span class="dot-pink" />
                 </v-col>
-                <v-col>
+                <v-col class="text-grey">
                     {{ t('views.suggestions.roadmap.inProgress') }}
                 </v-col>
                 <v-col
-                    cols="2"
+                    cols="auto"
                     class="font-weight-bold"
+                    align="center"
                 >
-                    {{ inProgressFeedbacks.length }}
+                    <h3 class="text-darkBlue">
+                        {{ inProgressFeedbacks.length }}
+                    </h3>
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="1">
+                <v-col cols="auto">
                     <span class="dot-teal" />
                 </v-col>
-                <v-col>
+                <v-col class="text-grey">
                     {{ t('views.suggestions.roadmap.live') }}
                 </v-col>
                 <v-col
-                    cols="2"
+                    cols="auto"
                     class="font-weight-bold"
+                    align="center"
                 >
-                    {{ liveFeedbacks.length }}
+                    <h3 class="text-darkBlue">
+                        {{ liveFeedbacks.length }}
+                    </h3>
                 </v-col>
             </v-row>
         </v-container>

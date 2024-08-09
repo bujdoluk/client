@@ -2,13 +2,18 @@
     <v-card class="bg-darkBlue">
         <v-container>
             <v-row align="center">
-                <v-col cols="auto">
+                <v-col
+                    cols="auto"
+                    class="pl-4"
+                >
                     <v-icon :icon="mdiLightbulbOnOutline" />
                 </v-col>
                 <v-col cols="auto font-weight-bold">
-                    {{ props.feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
+                    <h3>
+                        {{ props.feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
+                    </h3>
                 </v-col>
-                <v-col>
+                <v-col cols="auto">
                     <v-row align="center">
                         <v-col
                             cols="auto"
@@ -16,7 +21,7 @@
                         >
                             {{ t('views.suggestions.topbar.sortBy') }}
                         </v-col>
-                        <v-col> 
+                        <v-col cols="auto"> 
                             <v-select
                                 v-model="selectedItem"
                                 :items="items"
@@ -32,7 +37,10 @@
                     </v-row>
                 </v-col>
                 <v-spacer />
-                <v-col cols="auto">
+                <v-col
+                    cols="auto"
+                    class="pr-4"
+                >
                     <AddFeedback @feedback-added="onFeedbackAdded" />
                 </v-col>
             </v-row>

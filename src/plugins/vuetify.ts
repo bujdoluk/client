@@ -38,14 +38,14 @@ export default createVuetify(
         components: { ...labs },
         defaults: {
             VBtn: {
-                class: 'text-none font-weight-medium',
-                rounded: "lg",
+                class: 'text-none font-weight-bold',
                 elevation: 0,
-                ripple: false
+                ripple: false,
+                rounded: 'lg'
             },
             VCard: {
                 elevation: 0,
-                rounded: "lg"
+                rounded: 'lg'
             },
             VCardActions: {
                 class: 'pb-3 pt-0 px-0'
