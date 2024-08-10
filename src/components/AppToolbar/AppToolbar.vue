@@ -75,7 +75,9 @@ const redirectToLandingPage = (): void => {
 };
 
 const redirecToApp = (): void => {
-    router.push({ name: 'suggestions' });
+    if (user.value) {
+        router.push({ name: 'suggestions' });
+    }
 };
 
 </script>
