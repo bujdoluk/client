@@ -18,7 +18,7 @@ import LoaderOverlay from '@/components/LoaderOverlay/LoaderOverlay.vue';
 </script>
 
 <style>
-.cursor {
+.cursor:hover {
     cursor: pointer;
 }
 

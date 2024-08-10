@@ -4,8 +4,8 @@
         class="bg-background"
     >
         <v-row class="grid">
-            <v-col>
-                <v-card class="bg-black">
+            <v-col class="pb-0">
+                <v-card class="bg-darkBlue">
                     <v-container class="bg-darkBlue">
                         <v-row align="center">
                             <v-col>
@@ -30,9 +30,9 @@
             </v-col>
         </v-row>
         <v-row class="grid">
-            <v-col>
+            <v-col cols="4">
                 <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-darkBlue">
                         {{ t('views.roadmap.status.planned') }}
                         {{ `(${filteredPlannedStatus.length})` }}
                     </v-card-title>
@@ -41,9 +41,9 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="4">
                 <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-darkBlue">
                         {{ t('views.roadmap.status.inProgress') }}
                         {{ `(${filteredInProgressStatus.length})` }}
                     </v-card-title>
@@ -52,9 +52,9 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="4">
                 <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-darkBlue">
                         {{ t('views.roadmap.status.live') }}
                         {{ `(${filteredLiveStatus.length})` }}
                     </v-card-title>
@@ -65,7 +65,7 @@
             </v-col>
         </v-row>
         <v-row class="grid">
-            <v-col>
+            <v-col cols="4">
                 <v-row class="d-flex flex-column">  
                     <v-col   
                         v-for="feedback in filteredPlannedStatus"
@@ -75,7 +75,7 @@
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col>
+            <v-col cols="4">
                 <v-row class="d-flex flex-column">  
                     <v-col   
                         v-for="feedback in filteredInProgressStatus"
@@ -85,7 +85,7 @@
                     </v-col>
                 </v-row>
             </v-col>
-            <v-col>
+            <v-col cols="4">
                 <v-row class="d-flex flex-column">  
                     <v-col   
                         v-for="feedback in filteredLiveStatus"
@@ -141,7 +141,7 @@ onMounted(() => {
 
 <style scoped>
 .grid {
-    width: 70% !important;
+    width: 70vw;
     margin: 0 auto;
 }
 </style>

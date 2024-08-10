@@ -223,6 +223,21 @@ const onRedirect = (): void => {
     router.push({ name: 'suggestions' });
 };
 
+const updateFeedback = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        const res = db.collection('feedbacks').doc(feedback.value?.docId);
+        await res.update({
+            comments: filteredComments.value.length + 1
+        });
+    } catch(error: unknown) {
+        console.log(error);
+    } finally {
+        await fetchFeedback(String(route.params.id));
+        appStore.isLoading = false; 
+    }
+};
+
 const createComment = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
@@ -240,6 +255,7 @@ const createComment = async (): Promise<void> => {
         console.log(error);
     } finally {
         appStore.isLoading = false;
+        await updateFeedback();
         await fetchComments();
     }
 };

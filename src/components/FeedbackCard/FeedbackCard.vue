@@ -5,27 +5,28 @@
         min-height="250px"
     >
         <v-row align="center">
-            <v-col>
+            <v-col class="pb-3">
+                <span :class="lineColors(props.feedback.status)" />
                 <v-card-text>
-                    <span :class="colors(props.feedback.status)" /> 
-                    <span class="text-grey">{{ props.feedback.status }}</span>
+                    <span :class="statusColors(props.feedback.status)" /> 
+                    <span class="pl-2 text-grey">{{ props.feedback.status }}</span>
                 </v-card-text>
                 <v-card-title 
-                    class="cursor font-weight-bold pb-0" 
+                    class="cursor font-weight-bold pb-0 text-darkBlue" 
                     @click="onRedirect('feedback-detail', feedback.docId)"
                 >
                     {{ props.feedback.title }}
                 </v-card-title>
-                <v-card-text class="text-body-2 text-grey">
+                <v-card-text class="description-height text-body-2 text-grey text-truncate-multiple">
                     {{ props.feedback.description }}
                 </v-card-text>
-                <v-card-text class="pt-3">
+                <v-card-text class="pt-6">
                     <Tag :category="props.feedback.category" />
                 </v-card-text>
             </v-col>
         </v-row>
         <v-row align="center">
-            <v-col>
+            <v-col class="pt-0">
                 <v-btn 
                     color="blue"
                     variant="tonal"
@@ -40,7 +41,9 @@
                     color="background-primary"
                     class="mr-2"
                 />
-                {{ props.feedback.comments }}
+                <span class="font-weight-bold text-darkBlue">
+                    {{ props.feedback.comments }}
+                </span>
             </v-col>
         </v-row>
     </v-card>
@@ -64,7 +67,7 @@ const onRedirect = (name: string, id?: string): void => {
     router.push({ name, params: { id } });
 };
 
-const colors = (status: string) => {
+const statusColors = (status: string) => {
     if (status === Status.Planned) {
         return 'dot-orange';
     } else if (status === Status.InProgress) {
@@ -73,4 +76,55 @@ const colors = (status: string) => {
         return 'dot-teal';
     }
 };
+
+const lineColors = (status: string) => {
+    if (status === Status.Planned) {
+        return 'top-line-orange';
+    } else if (status === Status.InProgress) {
+        return 'top-line-purple';
+    } else if (status === Status.Live) {
+        return 'top-line-teal';
+    }
+};
+
 </script>
+
+<style scoped>
+.description-height {
+    height: 44px;
+    line-height: 1.1
+}
+
+.text-truncate-multiple {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    white-space: normal;
+}
+
+.top-line-orange {
+    border: 4px solid #F49F85;
+    position: absolute;
+    width: 110%;
+    top: 0;
+    left: -10px;
+}
+
+.top-line-purple {
+    border: 4px solid #AD1FEA;
+    position: absolute;
+    width: 110%;
+    top: 0;
+    left: -10px;
+}
+
+.top-line-teal {
+    border: 4px solid #62BCFA;
+    position: absolute;
+    width: 110%;
+    top: 0;
+    left: -10px;
+}
+</style>

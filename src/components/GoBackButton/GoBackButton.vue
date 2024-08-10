@@ -1,6 +1,5 @@
 <template>
     <v-btn 
-        color="black"
         variant="text"
         size="small"
         :prepend-icon="mdiChevronLeft"
