@@ -25,7 +25,8 @@
                     ref="form"
                     v-model="isFormValid"
                     fast-fail
-                    validate-on="input"    
+                    validate-on="input"
+                    @keydown.enter="submit"    
                 >
                     <v-card
                         width="500"

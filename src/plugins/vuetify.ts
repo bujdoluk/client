@@ -47,9 +47,6 @@ export default createVuetify(
                 elevation: 0,
                 rounded: 'lg'
             },
-            VCardActions: {
-                class: 'pb-3 pt-0 px-0'
-            },
             VCardText: {
                 class: 'py-0 px-0'
             },

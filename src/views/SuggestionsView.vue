@@ -1,9 +1,10 @@
 <template>
     <v-container
         fluid
+        fill-height
         class="bg-background"
     >
-        <v-row> 
+        <v-row class="width"> 
             <v-col
                 cols="3"
                 xxl="3"
@@ -62,7 +63,10 @@
                         v-for="feedback in filteredFeedbacks"
                         :key="feedback.docId"
                     >
-                        <v-col @click="onRedirect('feedback-detail', feedback.docId)">
+                        <v-col
+                            class="pb-0"
+                            @click="onRedirect('feedback-detail', feedback.docId)"
+                        >
                             <FeedbackBar 
                                 :feedback="feedback"
                                 @updated="(value) => updateFeedBack(value)" 
@@ -107,10 +111,9 @@ const filteredByUniqueTags = computed(() => categories.value.filter((value, inde
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        if (user.value) {
-            const res = await db.collection('feedbacks').get();
-            feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        }
+        const res = await db.collection('feedbacks').get();
+        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        filteredFeedbacks.value = feedbacks.value;
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -121,19 +124,17 @@ const fetchFeedbacks = async (): Promise<void> => {
 const updateFeedBack = async (feedback: Feedback): Promise<void> => {
     try {
         appStore.isLoading = true;
-        if (user.value) {
-            const res = db.collection('feedbacks').doc(feedback.docId);
-            await res.set({
-                category: feedback.category,
-                comments: feedback.comments,
-                description: feedback.description,
-                docId: feedback.docId,
-                status: feedback.status,
-                title: feedback.title,
-                upvotes: increment,
-                userId: user.value.uid
-            });
-        }
+        const res = db.collection('feedbacks').doc(feedback.docId);
+        await res.set({
+            category: feedback.category,
+            comments: feedback.comments,
+            description: feedback.description,
+            docId: feedback.docId,
+            status: feedback.status,
+            title: feedback.title,
+            upvotes: increment,
+            userId: user.value?.uid
+        });
     } catch(error: unknown) {
         console.log(error);
     } finally {
@@ -174,3 +175,10 @@ onMounted(async () => {
 });
 
 </script>
+
+<style scoped>
+.width {
+    width: 70vw;
+    margin: 0 auto;
+}
+</style>

@@ -2,33 +2,53 @@
     <v-app-bar
         elevation="3"
         class="bg-darkBlue"
-        :title="t('components.AppToolbar.title')"
     >
-        <Avatar
-            v-if="user"
-            :user="user"
-        />  
+        <div 
+            class="align-center cursor d-flex flex-row px-3"
+            @click="redirectToLandingPage"
+        >
+            <h2 class="pr-2">
+                {{ t('components.AppToolbar.title') }}
+            </h2>
+            <img
+                src="../../../src//assets/feedback-logo.png"
+                :alt="t('components.AppToolbar.alt')"
+                height="50"
+                class="cursor"
+            >
+        </div>
+        <v-spacer />
         <v-btn
-            v-if="router.currentRoute.value.path === '/' ||
-                router.currentRoute.value.path === '/login'
-            "
+            v-if="!user"
             variant="flat"
+            :disabled="router.currentRoute.value.fullPath === '/signup'"
             color="purple"
             :to="{ 'name': 'signup' }"
         >
             {{ t('buttons.signup') }}
         </v-btn>
         <v-btn
-            v-if="router.currentRoute.value.path === '/' ||
-                router.currentRoute.value.path === '/signup'
-            "
+            v-if="!user"
             variant="flat"
+            :disabled="router.currentRoute.value.fullPath === '/login'"
             color="purple"
             class="ml-3"
             :to="{ 'name': 'login' }"
         >
             {{ t('buttons.login') }}
         </v-btn>
+        <v-btn
+            v-if="user && router.currentRoute.value.fullPath === '/'"
+            variant="flat"
+            color="purple"
+            @click="redirecToApp"
+        >
+            {{ t('buttons.backToApp') }}
+        </v-btn>
+        <Avatar
+            v-if="user"
+            :user="user"
+        />  
     </v-app-bar>
 </template>
 
@@ -50,4 +70,19 @@ auth().onAuthStateChanged((_user) => {
     user.value = _user;
 });
 
+const redirectToLandingPage = (): void => {
+    router.push({ name: 'landing' });
+};
+
+const redirecToApp = (): void => {
+    router.push({ name: 'suggestions' });
+};
+
 </script>
+
+<style scoped>
+.cursor:hover {
+    cursor: pointer;
+    background-color: #485184;
+}
+</style>

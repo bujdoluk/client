@@ -18,9 +18,8 @@
                         v-bind="props"
                     >
                         <v-avatar
-                            color="brown"
                             size="large"
-                            :image="profilePicture"
+                            image="../../../src//assets/avatar.png"
                         />
                     </v-btn>
                 </template>
@@ -32,9 +31,8 @@
                 > 
                     <v-card-text class="pb-3 text-center">
                         <v-avatar
-                            color="brown"
                             size="x-large"
-                            :image="profilePicture"
+                            image="../../../src//assets/avatar.png"
                         />
                     </v-card-text>
                     <v-card-text class="pb-3 text-center">
@@ -45,7 +43,6 @@
                     </v-card-text>
                     <v-card-text class="pb-3">
                         <EditAccount
-                            :user="prop.user"
                             @downloaded="onPictureDownloaded"
                         />
                     </v-card-text>
@@ -73,6 +70,7 @@
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { auth } from '@/firebase/init';
+import EditAccount from '../EditAccount/EditAccount.vue';
 import { useAppStore } from '@/stores/useAppStore';
 import { ref } from 'vue';
 
@@ -91,6 +89,7 @@ const logout = async (): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
+        localStorage.clear();
         router.push({ name: 'landing' });
         appStore.isLoading = false;
     }

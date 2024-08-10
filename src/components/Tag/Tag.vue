@@ -15,7 +15,7 @@
  * @file Tag component.
  */
 const props = defineProps<{
-    active: boolean;
+    active?: boolean;
     category?: string;
 }>();
 </script>

@@ -124,10 +124,8 @@ const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => f
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        if (user.value) {
-            const res = await db.collection('feedbacks').get();
-            feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        }
+        const res = await db.collection('feedbacks').get();
+        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
         console.log(error);
     } finally {

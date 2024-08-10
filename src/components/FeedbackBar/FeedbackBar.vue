@@ -4,10 +4,10 @@
         class="cursor"
     >
         <v-container>
-            <v-row class="pa-2">
+            <v-row>
                 <v-col
                     class="align-top d-flex justify-center"
-                    cols="auto"
+                    cols="1"
                 >
                     <v-btn
                         stacked
@@ -23,12 +23,15 @@
                         {{ props.feedback.upvotes }}
                     </v-btn>
                 </v-col>
-                <v-col cols="auto">
+                <v-col
+                    cols="10"
+                    class="pb-0"
+                >
                     <v-card>
-                        <v-card-text class="font-weight-bold">
+                        <v-card-text class="font-weight-bold text-truncate">
                             {{ props.feedback.title }}
                         </v-card-text>
-                        <v-card-text class="text-grey text-truncate width">
+                        <v-card-text class="text-grey text-truncate text-truncate width">
                             {{ props.feedback.description }}
                         </v-card-text>
                         <v-card-actions>
@@ -39,7 +42,7 @@
                 <v-spacer />
                 <v-col
                     class="align-center d-flex font-weight-bold"
-                    cols="auto"
+                    cols="1"
                 >
                     <v-icon 
                         :icon="mdiChat" 

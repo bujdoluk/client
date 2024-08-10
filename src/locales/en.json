@@ -3,6 +3,7 @@
     "buttons": {
         "add": "Add Feedback",
         "back": "Go Back",
+        "backToApp": "Back to App",
         "cancel": "Cancel",
         "close": "Close Dialog",
         "delete": "Delete",
@@ -21,7 +22,8 @@
     },
     "components": {
         "AppToolbar": {
-            "title": "Product Feedback App"
+            "alt": "Feedback App logo",
+            "title": "Feedback"
         },
         "Dialog": {
             "category": "Category",

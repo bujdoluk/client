@@ -1,19 +1,22 @@
 <template>
     <v-btn
-        variant="text"
+        variant="outlined"
         block
         @click="open"
     >
         {{ t('buttons.editAccount') }}
     </v-btn>
-
     <v-dialog
         v-model="dialog"
-        width="600"
+        width="90vw"
+        height="90vh"
         persistent
     >
         <v-form>
-            <v-card class="pa-5">
+            <v-card
+                class="pa-5"
+                :height="850"
+            >
                 <v-card-title>
                     {{ t('components.EditAccount.information') }}
                 </v-card-title>
@@ -98,20 +101,17 @@ import { ref, onMounted } from 'vue';
 import { useAppStore } from '@/stores/useAppStore';
 import { updateEmail, updateProfile, updatePassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useStorage } from '@/plugins/storage';
-import { db } from '@/firebase/init';
-
-const prop = defineProps<{
-    user: any;
-}>();
+import { db, auth } from '@/firebase/init';
 
 const emit = defineEmits<(e: 'downloaded', picture: any) => void>();
 
 const appStore = useAppStore();
 const storage = useStorage();
 const { t } = useI18n();
-const email = ref<string>(prop.user.email);
-const displayName = ref<string>(prop.user.displayName);
-const password = ref<string>(prop.user.password);
+const user = ref(auth().currentUser);
+const email = ref<string>(user.value?.email!);
+const displayName = ref<string>(user.value?.displayName!);
+const password = ref<string>('');
 const newPassword = ref<string>('');
 const dialog = ref<boolean>(false);
 const file = ref(null);
@@ -120,8 +120,8 @@ const profilePictureUrl = ref();
 const getUser = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        if (prop.user) {
-            await db.collection('users').doc(prop.user.uid).get();
+        if (user.value) {
+            await db.collection('users').doc(user.value.uid).get();
         }
     } catch (error: unknown) {
         console.log(error);
@@ -146,14 +146,14 @@ const uploadProfilePicture = async (): Promise<void> => {
 const update = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        if (prop.user) {
-            await updateProfile(prop.user, {
+        if (user.value) {
+            await updateProfile(user.value, {
                 displayName: displayName.value
             });
-            await updateEmail(prop.user, email.value);
-            await updatePassword(prop.user, newPassword.value);
-            await uploadProfilePicture();
+            await updateEmail(user.value, email.value);
+            await updatePassword(user.value, newPassword.value);
         }
+        await uploadProfilePicture();
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -164,8 +164,8 @@ const update = async (): Promise<void> => {
 const reset = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        if (prop.user) {
-            await sendPasswordResetEmail(prop.user, prop.user.email);
+        if (user.value) {
+            await sendPasswordResetEmail(user.value, user.value.email);
         }
     } catch (error: unknown) {
         console.log(error);
