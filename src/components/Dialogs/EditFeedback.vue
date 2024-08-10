@@ -35,6 +35,7 @@
                         class="bg-background-secondary"
                         hide-details
                         counter="45"
+                        clearable
                     />
                 </v-card-text>
                 <v-card-text class="font-weight-bold">
@@ -86,6 +87,7 @@
                         rows="3"
                         class="bg-background-secondary"
                         :counter="250"
+                        clearable
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">
@@ -144,10 +146,10 @@ const selectedCategory = ref<string>(prop.feedback.category);
 const selectedStatus = ref<string>(prop.feedback.status);
 
 const reset = (): void => {
-    selectedCategory.value = '';
-    selectedDescription.value = '';
-    selectedStatus.value = Status.Planned;
-    selectedCategory.value = '';
+    selectedCategory.value = prop.feedback.category;
+    selectedDescription.value = prop.feedback.description;
+    selectedStatus.value = prop.feedback.status;
+    selectedTitle.value = prop.feedback.title;
 };  
 
 const editFeedback = async (docId: string): Promise<void> => {

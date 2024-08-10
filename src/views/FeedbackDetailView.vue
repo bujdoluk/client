@@ -3,11 +3,8 @@
         fluid
         class="bg-background"
     >
-        <v-row
-            align="center"
-            class="grid"
-        >
-            <v-col>
+        <v-row class="width">
+            <v-col cols="auto">
                 <v-btn
                     :prepend-icon="mdiChevronLeft"
                     variant="text"
@@ -28,18 +25,16 @@
                     @deleted="onDeleted" 
                 />
             </v-col>
-        </v-row>
-        <v-row class="grid">
-            <v-col>
+            <v-col cols="auto">
                 <v-card
                     :min-height="90"
                     class="cursor"
                 >
-                    <v-container>
-                        <v-row class="pa-2">
+                    <v-container fluid>
+                        <v-row>
                             <v-col
                                 class="align-top d-flex justify-center"
-                                cols="auto"
+                                cols="1"
                             >
                                 <v-btn
                                     stacked
@@ -54,12 +49,12 @@
                                     {{ feedback?.upvotes }}
                                 </v-btn>
                             </v-col>
-                            <v-col cols="auto">
+                            <v-col cols="10">
                                 <v-card>
                                     <v-card-text class="font-weight-bold">
                                         {{ feedback?.title }}
                                     </v-card-text>
-                                    <v-card-text class="text-grey text-truncate width">
+                                    <v-card-text class="text-grey">
                                         {{ feedback?.description }}
                                     </v-card-text>
                                     <v-card-actions>
@@ -70,7 +65,7 @@
                             <v-spacer />
                             <v-col
                                 class="align-center d-flex font-weight-bold"
-                                cols="auto"
+                                cols="1"
                             >
                                 <v-icon 
                                     :icon="mdiChat" 
@@ -83,112 +78,113 @@
                     </v-container>
                 </v-card>
             </v-col>
-        </v-row>  
-        <v-row
-            align="center"
-            class="grid"
-        >
-            <v-container>
-                <v-row>
-                    <v-col>
-                        {{ filteredComments.length }} Comments
-                    </v-col>
-                </v-row>
-                <v-card 
-                    v-for="comment in filteredComments"
-                    :key="comment.id"
-                    class="pa-6"
-                >
+            <v-col cols="12">
+                <v-container fluid>
                     <v-row>
-                        <v-col cols="auto">
-                            {{ comment.profilePicture }}
-                        </v-col>
                         <v-col>
-                            <v-container>
-                                <v-row class="font-weight-bold">
-                                    {{ comment.userName }}
-                                </v-row>
-                                <v-row class="pb-3 text-body-2 text-grey">
-                                    {{ comment.email }}
-                                </v-row>
-                                <v-row class="text-body-2 text-grey">
-                                    {{ comment.text }}
-                                </v-row>
-                            </v-container>
-                        </v-col>
-                        <v-col cols="auto">
-                            <v-btn
-                                variant="text"
-                                color="blue"
-                                class="font-weight-bold"
-                                @click="open = !open"
-                            >
-                                {{ t('buttons.reply') }}
-                            </v-btn>
+                            {{ filteredComments.length }} Comments
                         </v-col>
                     </v-row>
-                    <v-row
-                        v-if="open"
+                    <v-card 
+                        v-for="comment in filteredComments"
+                        :key="comment.id"
+                        class="pa-6"
                     >
-                        <v-container
-                            fluid
+                        <v-row>
+                            <v-col cols="auto">
+                                {{ comment.profilePicture }}
+                            </v-col>
+                            <v-col>
+                                <v-container>
+                                    <v-row class="font-weight-bold">
+                                        {{ comment.userName }}
+                                    </v-row>
+                                    <v-row class="pb-3 text-body-2 text-grey">
+                                        {{ comment.email }}
+                                    </v-row>
+                                    <v-row class="text-body-2 text-grey">
+                                        {{ comment.text }}
+                                    </v-row>
+                                </v-container>
+                            </v-col>
+                            <v-col cols="auto">
+                                <v-btn
+                                    variant="text"
+                                    color="blue"
+                                    class="font-weight-bold"
+                                    @click="open = !open"
+                                >
+                                    {{ t('buttons.reply') }}
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+                        <v-row
+                            v-if="open"
                         >
-                            <v-row class="pa-6">
-                                <v-col cols="10">
-                                    <v-textarea 
-                                        v-model="replyText"
-                                        :placeholder="t('components.reply.typeReply')" 
-                                        :counter="250"
-                                        rows="2"
-                                        bg-color="background"
-                                        variant="solo-filled"
-                                        flat
-                                    />
-                                </v-col>
-                                <v-col cols="2">
-                                    <v-btn
-                                        variant="flat"
-                                        color="purple"
-                                        @click="createReply(comment.id)"
-                                    >
-                                        {{ t('buttons.postReply') }}
-                                    </v-btn>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-row>    
-                </v-card>
-            </v-container>
-        </v-row>
-        <v-row class="grid">
-            <v-container fluid>
-                <v-card class="pa-6">
-                    <v-card-text class="font-weight-bold py-3 text-h6">
-                        {{ t('components.comment.addComment') }}
-                    </v-card-text>
-                    <v-card-text>
-                        <v-textarea 
-                            v-model="text"
-                            :placeholder="t('components.comment.typeComment')" 
-                            :counter="250"
-                            rows="2"
-                            bg-color="background"
-                            variant="solo-filled"
-                            flat
-                        />
-                    </v-card-text>
-                    <v-card-actions class="pt-3">
-                        <v-spacer />
-                        <v-btn 
-                            variant="flat"
-                            color="purple"
-                            @click="createComment"
-                        >
-                            {{ t('buttons.postComment') }}
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-container>
+                            <v-container
+                                fluid
+                            >
+                                <v-row class="pa-6">
+                                    <v-col cols="10">
+                                        <v-textarea 
+                                            v-model="replyText"
+                                            :placeholder="t('components.reply.typeReply')" 
+                                            :counter="250"
+                                            rows="2"
+                                            bg-color="background"
+                                            variant="solo-filled"
+                                            flat
+                                            clearable
+                                            :rules="[maxCharacters]"
+                                        />
+                                    </v-col>
+                                    <v-col cols="2">
+                                        <v-btn
+                                            variant="flat"
+                                            color="purple"
+                                            @click="createReply(comment.id)"
+                                        >
+                                            {{ t('buttons.postReply') }}
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-row>    
+                    </v-card>
+                </v-container>
+            </v-col>
+            <v-col cols="12">
+                <v-container fluid>
+                    <v-card class="pa-6">
+                        <v-card-text class="font-weight-bold py-3 text-h6">
+                            {{ t('components.comment.addComment') }}
+                        </v-card-text>
+                        <v-card-text>
+                            <v-textarea 
+                                v-model="text"
+                                :placeholder="t('components.comment.typeComment')" 
+                                :counter="250"
+                                rows="3"
+                                bg-color="background"
+                                variant="solo-filled"
+                                flat
+                                clearable
+                                :rules="[maxCharacters]"
+                            />
+                        </v-card-text>
+                        <v-card-actions class="pt-3">
+                            <v-spacer />
+                            <v-btn 
+                                variant="flat"
+                                color="purple"
+                                @click="createComment"
+                            >
+                                {{ t('buttons.postComment') }}
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-container>
+            </v-col>
         </v-row>
     </v-container>
 </template>  
@@ -327,11 +323,14 @@ watch(() => String(route.params.id), (): void => {
     console.log(route.params.id);
 });
 
+const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
+
 </script>
 
 <style scoped>
-.grid {
-    width: 70% !important;
+.width {
+    width: 70vw;
+    height: auto;
     margin: 0 auto;
 }
 </style>

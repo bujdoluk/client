@@ -1,7 +1,6 @@
 <template>
     <v-container
         fluid
-        fill-height
         class="bg-background"
     >
         <v-row class="width"> 
@@ -49,7 +48,9 @@
                 sm="12"
                 xs="12"
             >
-                <v-container fluid>
+                <v-container
+                    fluid
+                >
                     <v-row>
                         <v-col>
                             <SortingPanel
@@ -179,6 +180,7 @@ onMounted(async () => {
 <style scoped>
 .width {
     width: 70vw;
+    height: auto;
     margin: 0 auto;
 }
 </style>

@@ -67,6 +67,9 @@
         "invalidEmail": "Invalid email.",
         "userNotFound": "No account with that email was found."
     },
+    "validations": {
+        "maxCharacters": "Maximum 250 characters."
+    },
     "views": {
         "landingPage": {
             "allFeedback": "All of your user feedback in one single place",

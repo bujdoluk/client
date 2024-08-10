@@ -67,6 +67,7 @@
                         rows="3"
                         class="bg-background-secondary"
                         :counter="250"
+                        clearable
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">
