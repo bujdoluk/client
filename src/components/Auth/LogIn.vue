@@ -35,7 +35,17 @@
                     >
                         <v-card-title class="pb-4">
                             {{ t('components.LogIn.title') }}
-                        </v-card-title>
+                        </v-card-title>  
+                        <v-card-text class="pb-6">
+                            <v-btn
+                                color="green"
+                                variant="flat"
+                                block
+                                @click="onGoogleButtonClicked"
+                            >
+                                {{ t('buttons.logInWithGoogle') }}
+                            </v-btn>
+                        </v-card-text>
                         <v-text-field
                             v-model="email"
                             density="compact"
@@ -97,6 +107,8 @@ const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
 const user = ref(auth().currentUser);
 
+const provider = new auth.GoogleAuthProvider();
+
 const createUser = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
@@ -128,6 +140,14 @@ const submit = async (): Promise<void> => {
     } finally {
         appStore.isLoading = false;
     }
+};
+
+const onGoogleButtonClicked = async (): Promise<void> => {
+    try {
+        await auth().signInWithPopup(provider);
+    } catch (error: unknown) {
+        console.log(error);
+    } 
 };
 
 const form = ref<{

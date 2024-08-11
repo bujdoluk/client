@@ -24,7 +24,7 @@
                     </v-btn>
                 </template>
                 <v-card
-                    :width="200"
+                    :width="250"
                     :height="250"
                     class="pa-4"
                     elevation="1"
