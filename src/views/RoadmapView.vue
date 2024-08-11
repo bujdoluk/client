@@ -22,7 +22,7 @@
                             </v-col>
                             <v-spacer />
                             <v-col cols="auto mr-3">
-                                <AddFeedback />
+                                <AddFeedback @feedback-added="onFeedbackAdded" />
                             </v-col>
                         </v-row>
                     </v-container>
@@ -109,7 +109,7 @@ import { useI18n } from 'vue-i18n';
 import { type Feedback } from '@/models/Feedback';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
-import { db, auth } from '@/firebase/init';
+import { db } from '@/firebase/init';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -130,6 +130,10 @@ const fetchFeedbacks = async (): Promise<void> => {
     } finally {
         appStore.isLoading = false;
     }
+};
+
+const onFeedbackAdded = (): void => {
+    fetchFeedbacks();
 };
 
 onMounted(() => {
