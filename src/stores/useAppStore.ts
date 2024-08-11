@@ -6,13 +6,15 @@ import { ref } from 'vue';
 
 export interface AppState {
     isLoading: boolean;
+    showCreateReply: boolean;
 }
 
 export const useAppStore = defineStore(
     'appStore',
     () => {
         const isLoading = ref<boolean>(false);
-        return { isLoading };
+        const showCreateReply = ref<boolean>(false);
+        return { isLoading, showCreateReply };
     }
 );
 

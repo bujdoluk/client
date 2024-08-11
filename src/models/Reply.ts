@@ -6,6 +6,7 @@ export interface Reply {
     docId: string;
     email: string;
     feedbackId: string;
+    id: string;
     profilePicture: string;
     text: number;
     userId: string;

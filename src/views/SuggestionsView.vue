@@ -180,7 +180,7 @@ onMounted(async () => {
 <style scoped>
 .width {
     width: 70vw;
-    height: auto;
+    height: calc(100vh - 90px);
     margin: 0 auto;
 }
 </style>

@@ -28,7 +28,7 @@
                     class="pb-0"
                 >
                     <v-card>
-                        <v-card-text class="font-weight-bold text-truncate">
+                        <v-card-text class="font-weight-bold text-darkBlue text-truncate">
                             {{ props.feedback.title }}
                         </v-card-text>
                         <v-card-text class="text-grey text-truncate text-truncate width">

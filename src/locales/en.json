@@ -49,6 +49,8 @@
         },
         "comment": {
             "addComment": "Add Comment",
+            "multipleComments": "Comments",
+            "oneComment": "Comment",
             "typeComment": "Type your comment here"
         },
         "reply": {

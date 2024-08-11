@@ -1,7 +1,7 @@
 <template>
     <v-container
         fluid
-        class="bg-background"
+        class="bg-background height"
     >
         <v-row class="grid">
             <v-col class="pb-0">
@@ -115,7 +115,6 @@ import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
 const { t } = useI18n();
-const user = ref(auth().currentUser);
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.Planned));
 const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.InProgress));
@@ -143,5 +142,9 @@ onMounted(() => {
 .grid {
     width: 70vw;
     margin: 0 auto;
+}
+
+.height {
+    height: calc(100vh - 64px);
 }
 </style>
