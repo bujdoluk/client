@@ -5,6 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import 'firebase/compat/performance';
 
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,6 +23,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const perf = firebase.performance();
 
 const { auth } = firebase;
 const db = firebase.firestore();
@@ -30,4 +32,4 @@ const increment = firebase.firestore.FieldValue.increment(1);
 const decrement = firebase.firestore.FieldValue.increment(-1);
 /* const timestamp = firebase.firestore.FieldValue.serverTimestamp(); */
 
-export { auth, db, storage, increment, decrement };
+export { auth, db, storage, increment, decrement, perf };

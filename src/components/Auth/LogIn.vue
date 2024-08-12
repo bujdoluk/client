@@ -96,7 +96,7 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAppStore } from '@/stores/useAppStore';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
-import { db, auth } from '@/firebase/init';
+import { db, auth, perf } from '@/firebase/init';
 
 const appStore = useAppStore();
 const { t } = useI18n();
@@ -128,18 +128,26 @@ const createUser = async (): Promise<void> => {
 };
 
 const submit = async (): Promise<void> => {
+    const trace = perf.trace('userLogin');
+    trace.start();
+
     try {
         appStore.isLoading = true;
-        await login(email.value, password.value);
+        const credential = await login(email.value, password.value);
+        trace.putAttribute('verified', `${credential?.user?.emailVerified}`);
+
         await createUser();
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });
         }
-    } catch (e: unknown) {
+    } catch (e: any) {
         console.log(e);
+        trace.putAttribute('errorCode', e.code);
     } finally {
         appStore.isLoading = false;
     }
+
+    trace.stop();
 };
 
 const onGoogleButtonClicked = async (): Promise<void> => {

@@ -4,6 +4,7 @@ import Components from 'unplugin-vue-components/vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import { resolve } from 'node:path';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { fileURLToPath } from 'node:url';
 
 const config = (env: ConfigEnv): UserConfig => {
@@ -28,7 +29,8 @@ const config = (env: ConfigEnv): UserConfig => {
             }),
             vue({ template: { transformAssetUrls } }),
             vuetify({ autoImport: true }),
-            Components({ dts: true })
+            Components({ dts: true }),
+            nodePolyfills()
         ],
         preview: {
             host,

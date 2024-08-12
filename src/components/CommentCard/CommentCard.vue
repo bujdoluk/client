@@ -87,7 +87,7 @@ import { useI18n } from 'vue-i18n';
 import { type Comment } from '@/models/Comment';
 import { type Reply } from '@/models/Reply';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { db } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 import type { Feedback } from '@/models/Feedback';
@@ -107,12 +107,18 @@ const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
 const filteredReplies = computed(() => replies.value.filter((reply) => reply.commentId === props.comment.docId));
+let unsub: any;
 
 const fetchReplies = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        const res = await db.collection('replies').get();
-        replies.value = res.docs.map((doc) => doc.data() as Reply);
+        replies.value = [];
+        const res = await db.collection('replies');
+        unsub = res.onSnapshot((doc) => {
+            doc.docs.forEach((reply) => {
+                replies.value.push(reply.data() as Reply);
+            });
+        });
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -156,5 +162,9 @@ const onFetchReplies = (): void => {
 onMounted(async () => {
     await fetchReplies();
     console.log(props.comment.commentEmail);
+});
+
+onUnmounted(() => {
+    unsub();
 });
 </script>
