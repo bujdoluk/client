@@ -74,7 +74,7 @@
  */
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { db } from '@/firebase/init';
+import { db, timestamp } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 import type { Feedback } from '@/models/Feedback';
 import type { Comment } from '@/models/Comment';
@@ -101,6 +101,7 @@ const createReply = async (): Promise<void> => {
         await db.collection('replies').doc(docId).set({
             commentEmail: props.comment.email,
             commentId: props.comment.docId,
+            createdAt: timestamp,
             docId,
             email: props.user.email,
             feedbackId: props.feedback.docId,

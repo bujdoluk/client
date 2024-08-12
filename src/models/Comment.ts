@@ -3,6 +3,7 @@
  */
 export interface Comment {
     commentEmail: string;
+    createdAt: any;
     docId: string;
     email: string;
     feedbackId: string;

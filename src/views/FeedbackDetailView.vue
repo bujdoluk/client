@@ -152,7 +152,7 @@ import Tag from '@/components/Tag/Tag.vue';
 import { ref, watch, onMounted, computed } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
-import { db, auth } from '@/firebase/init';
+import { db, auth, timestamp } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 
 const appStore = useAppStore();
@@ -188,6 +188,7 @@ const createComment = async (): Promise<void> => {
         appStore.isLoading = true;
         const docId = db.collection('comments').doc().id;
         await db.collection('comments').doc(docId).set({
+            createdAt: timestamp,
             docId,
             email: user.value?.email,
             feedbackId: feedback.value?.docId,

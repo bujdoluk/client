@@ -99,7 +99,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
-import { db, auth } from '@/firebase/init';
+import { db, auth, timestamp } from '@/firebase/init';
 import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -129,6 +129,7 @@ const addFeedback = async (): Promise<void> => {
         await db.collection('feedbacks').doc(docId).set({
             category: category.value,
             comments: 0,
+            createdAt: timestamp,
             description: description.value,
             docId,
             status: Status.Planned,

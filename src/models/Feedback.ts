@@ -4,6 +4,7 @@
 export interface Feedback {
     category: string;
     comments: number;
+    createdAt: any;
     description: string;
     docId: string;
     status: string;

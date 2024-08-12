@@ -88,7 +88,7 @@ import { type Comment } from '@/models/Comment';
 import { type Reply } from '@/models/Reply';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { db } from '@/firebase/init';
+import { db, timestamp } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 import type { Feedback } from '@/models/Feedback';
 
@@ -133,6 +133,7 @@ const createReply = async (): Promise<void> => {
         await db.collection('replies').doc(docId).set({
             commentEmail: props.comment.email,
             commentId: props.comment.docId,
+            createdAt: timestamp,
             docId,
             email: props.user.email,
             feedbackId: props.feedback.docId,
