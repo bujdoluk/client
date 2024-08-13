@@ -6,89 +6,59 @@
     >
         {{ t('buttons.editAccount') }}
     </v-btn>
-    <v-dialog
-        v-model="dialog"
-        width="90vw"
-        height="90vh"
-        persistent
-    >
-        <v-form>
-            <v-card
-                class="pa-5"
-                :height="850"
-            >
-                <v-card-title>
-                    {{ t('components.EditAccount.information') }}
-                </v-card-title>
-                <v-card-text>
-                    <v-text-field 
-                        v-model="displayName" 
-                        :label="t('inputs.userName')"
-                        density="compact"   
-                        variant="outlined"
-                    />
-                </v-card-text>
-                <v-card-text>
-                    <v-text-field
-                        v-model="email"
-                        :label="t('inputs.email')"
-                        type="email"
-                        density="compact"
-                        variant="outlined"
-                    />
-                </v-card-text>
-                <v-divider />
-                <span class="pb-2">To change a password, type current password, then type new one.</span>
-                <v-card-text> 
-                    <v-text-field
-                        v-model="password"
-                        :label="t('inputs.password')"
-                        type="password"
-                        density="compact"
-                        variant="outlined"
-                    />
-                </v-card-text>
-                <v-card-text> 
-                    <v-text-field
-                        v-model="newPassword"
-                        :label="t('inputs.newPassword')"
-                        type="password"
-                        density="compact"
-                        variant="outlined"
-                    />
-                </v-card-text>
-                <v-divider />
-                <v-btn @click="reset">
-                    {{ t('buttons.resetPassword') }}
-                </v-btn>
-                <v-file-input
-                    v-model="file"
-                    label="Upload your picture"
-                    density="compact"
-                    variant="outlined"
-                    append-icon
-                    min-width="300"
-                    class="pt-5"
-                />
-                <v-card-actions class="pt-5">
-                    <v-btn
-                        variant="flat"
-                        color="darkBlue"
-                        @click="close"
-                    >
-                        {{ t('buttons.close') }}
-                    </v-btn>
-                    <v-spacer />
-                    <v-btn
-                        variant="flat"
+    <v-dialog v-model="dialog">
+        <v-card>
+            <v-card-title>
+                My account
+            </v-card-title>
+            <v-card-text>
+                <v-tabs
+                    v-model="currentTab"
+                    show-arrows
+                    height="auto"
+                    bg-color="primary"
+                >
+                    <v-tab
+                        v-for="tab in tabs"
+                        :key="tab.name"
+                        :value="tab.name"
+                        :to="tab.route"
+                        min-height="50"
                         color="purple"
-                        @click="update"
+                        variant="text"
                     >
-                        {{ t('buttons.update') }}
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-form>
+                        {{ $t(`tabs.information.${tab.name}`) }}
+                    </v-tab>
+                </v-tabs>
+            </v-card-text>
+            <v-card-text>
+                <v-tabs-window v-model="currentTab">
+                    <v-tabs-window-item value="personal">
+                        <v-row align="center">
+                            <v-col>
+                                <PersonalProfile />
+                            </v-col>
+                        </v-row>
+                    </v-tabs-window-item>
+                    
+                    <v-tabs-window-item value="password">
+                        <v-row align="center">
+                            <v-col>
+                                <UserPassword />
+                            </v-col>
+                        </v-row>
+                    </v-tabs-window-item>
+                    
+                    <v-tabs-window-item value="appearance">
+                        <v-row align="center">
+                            <v-col>
+                                Three
+                            </v-col>
+                        </v-row>
+                    </v-tabs-window-item>
+                </v-tabs-window>
+            </v-card-text>
+        </v-card>
     </v-dialog>
 </template>
 
@@ -97,106 +67,22 @@
  * @file Edit account.
  */
 import { useI18n } from 'vue-i18n';
-import { ref, onMounted } from 'vue';
-import { useAppStore } from '@/stores/useAppStore';
-import { updateEmail, updateProfile, updatePassword, sendPasswordResetEmail } from 'firebase/auth';
-import { useStorage } from '@/plugins/storage';
-import { db, auth } from '@/firebase/init';
+import { ref } from 'vue';
+import PersonalProfile from '@/components/PersonalProfile/PersonalProfile.vue';
+import UserPassword from '@/components/UserPassword/UserPassword.vue';
 
-const emit = defineEmits<(e: 'downloaded', picture: any) => void>();
-
-const appStore = useAppStore();
-const storage = useStorage();
 const { t } = useI18n();
-const user = ref(auth().currentUser);
-const email = ref<string>(user.value?.email!);
-const displayName = ref<string>(user.value?.displayName!);
-const password = ref<string>('');
-const newPassword = ref<string>('');
 const dialog = ref<boolean>(false);
-const file = ref(null);
-const profilePictureUrl = ref();
+const currentTab = ref<string>('personal');
 
-const getUser = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        if (user.value) {
-            await db.collection('users').doc(user.value.uid).get();
-        }
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-    }
-};
-
-const uploadProfilePicture = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        if (file.value) {
-            await storage.uploadImage(file.value);
-        }
-    } catch (error: any) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-    }
-};
-
-const update = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        if (user.value) {
-            await updateProfile(user.value, {
-                displayName: displayName.value
-            });
-            await updateEmail(user.value, email.value);
-            await updatePassword(user.value, newPassword.value);
-        }
-        await uploadProfilePicture();
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-    }
-};
-
-const reset = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        if (user.value) {
-            await sendPasswordResetEmail(user.value, user.value.email);
-        }
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-    }
-};
-
-const downloadProfilePicture = async (): Promise<void> => {
-    try { 
-        appStore.isLoading = true;
-        profilePictureUrl.value = await storage.getImage();
-    } catch (error: any) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-        emit('downloaded', profilePictureUrl.value);
-    }
-};
+const tabs = ref([
+    { name: 'personal', route: 'personal' },
+    { name: 'password', route: 'password' },
+    { name: 'appearance', route: 'appearance' }
+]);
 
 const open = (): void => {
     dialog.value = true;
 };
-
-const close = (): void => {
-    dialog.value = false;
-};
-
-onMounted(async () => {
-    await getUser();
-    await downloadProfilePicture();
-});
 
 </script>

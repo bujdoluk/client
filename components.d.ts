@@ -27,6 +27,7 @@ declare module 'vue' {
     LandingPageTrustedBy: typeof import('./src/components/LandingPageTrustedBy/LandingPageTrustedBy.vue')['default']
     LoaderOverlay: typeof import('./src/components/LoaderOverlay/LoaderOverlay.vue')['default']
     LogIn: typeof import('./src/components/Auth/LogIn.vue')['default']
+    PersonalProfile: typeof import('./src/components/PersonalProfile/PersonalProfile.vue')['default']
     ReplyCard: typeof import('./src/components/ReplyCard/ReplyCard.vue')['default']
     RoadmapBox: typeof import('./src/components/RoadmapBox/RoadmapBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -35,5 +36,6 @@ declare module 'vue' {
     SortingPanel: typeof import('./src/components/SortingPanel/SortingPanel.vue')['default']
     Tag: typeof import('./src/components/Tag/Tag.vue')['default']
     TagsBox: typeof import('./src/components/TagsBox/TagsBox.vue')['default']
+    UserPassword: typeof import('./src/components/UserPassword/UserPassword.vue')['default']
   }
 }

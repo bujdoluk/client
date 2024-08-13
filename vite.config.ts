@@ -16,9 +16,8 @@ const config = (env: ConfigEnv): UserConfig => {
     const config: UserConfig = {
         base,
         build: {
-            outDir: 'dist',
             sourcemap: 'hidden',
-            target: 'ESNext'
+            target: 'esnext'
         },
         define: {
             'process.env': process.env
@@ -27,9 +26,11 @@ const config = (env: ConfigEnv): UserConfig => {
             VueI18nPlugin({
                 include: [resolve(__dirname, './src/locales/**')]
             }),
-            vue({ template: { transformAssetUrls } }),
-            vuetify({ autoImport: true }),
-            Components({ dts: true }),
+            vue({ template: {
+                transformAssetUrls
+            } }),
+            vuetify({ autoImport: { labs: true } }),
+            Components({ dts: 'src/@types/components.d.ts' }),
             nodePolyfills()
         ],
         preview: {

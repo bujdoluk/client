@@ -64,6 +64,13 @@
         "password": "Password",
         "userName": "User name"
     },
+    "tabs": {
+        "information": {
+            "appearance": "Appearance",
+            "password": "Password",
+            "personal": "Personal Information"
+        }
+    },
     "validation": {
         "incorrectEmailOrPassword": "Email or password incorrect.",
         "incorrectPassword": "Incorrect Password",
