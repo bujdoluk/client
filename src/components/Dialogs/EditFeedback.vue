@@ -94,7 +94,7 @@
                     <v-btn
                         variant="flat"
                         color="error"
-                        @click="deleteFeedback(prop.feedback)"
+                        @click="deleteFeedback"
                     >
                         {{ t('buttons.delete') }}
                     </v-btn>
@@ -133,7 +133,7 @@ import { Status } from '@/models/Status';
 import { useAppStore } from '@/stores/useAppStore';
 
 const prop = defineProps<{ feedback: Feedback }>();
-const emit = defineEmits<(e: 'edited' | 'deleted') => void>();
+const emit = defineEmits<(e: 'edited' | 'deleted', feedback: Feedback) => void>();
 
 const appStore = useAppStore();
 const { t } = useI18n();
@@ -170,7 +170,7 @@ const editFeedback = async (docId: string): Promise<void> => {
     } catch(error: unknown) {
         console.log(error);
     } finally {
-        emit('edited');
+        emit('edited', prop.feedback);
         reset();
         dialog.value = false;
         appStore.isLoading = false;
@@ -182,21 +182,9 @@ const close = (): void => {
     dialog.value = false;
 };
 
-const deleteFeedback = async (feedback: Feedback): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        if (userId.value === feedback.userId) {
-            await db.collection('feedbacks').doc(feedback.docId).delete();
-        } else {
-            alert('You can not delete another user feedback!');
-        }
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-        dialog.value = false;
-        emit('deleted');
-    }
+const deleteFeedback = (): void => {
+    emit('deleted', prop.feedback);
+    dialog.value = false;
 };
 
 </script>

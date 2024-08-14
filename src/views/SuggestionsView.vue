@@ -89,7 +89,7 @@
 /**
  * @file Suggestions View.
  */
-import { computed, ref, onMounted, onUnmounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import router from '@/router';
 import FrontendMentorBox from '@/components/FrontendMentorBox/FrontendMentorBox.vue';
@@ -108,24 +108,17 @@ const user = ref(auth().currentUser);
 const active = ref<boolean>(false);
 const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
 const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
-let unsub: any;
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        feedbacks.value = [];
-        filteredFeedbacks.value = [];
-        const res = await db.collection('feedbacks');
-        unsub = res.onSnapshot((doc) => {
-            doc.docs.forEach((feedback) => {
-                feedbacks.value.push(feedback.data() as Feedback);
-            });
-        });
+        const res = await db.collection('feedbacks').get();
+        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        filteredFeedbacks.value = feedbacks.value;
     } catch (error: unknown) {
         console.log(error);
     } finally {
         appStore.isLoading = false;
-        filteredFeedbacks.value = feedbacks.value;
     }
 };
 
@@ -176,10 +169,6 @@ const onTagClicked = (selectedItem: any): void => {
 
 onMounted(async () => {
     await fetchFeedbacks();
-});
-
-onUnmounted(() => {
-    unsub();
 });
 
 </script>

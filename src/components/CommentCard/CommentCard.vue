@@ -54,7 +54,7 @@
                     <v-btn
                         variant="flat"
                         color="purple"
-                        @click="createReply"
+                        @click="onReplyCreated"
                     >
                         {{ t('buttons.postReply') }}
                     </v-btn>
@@ -72,7 +72,7 @@
                     :feedback="feedback"
                     :user="user"
                     :comment="props.comment"
-                    @replies-fetched="onFetchReplies"    
+                    @reply-created="onReplyCreated"    
                 />
             </v-col>
         </v-row>
@@ -87,85 +87,36 @@ import { useI18n } from 'vue-i18n';
 import { type Comment } from '@/models/Comment';
 import { type Reply } from '@/models/Reply';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { db, timestamp } from '@/firebase/init';
-import { useAppStore } from '@/stores/useAppStore';
+import { ref, computed } from 'vue';
 import type { Feedback } from '@/models/Feedback';
 
 const props = defineProps<{
     comment: Comment;
     feedback: Feedback;
+    replies: Array<Reply>;
     user: any;
 }>();
 
-const emits = defineEmits<(e: 'replyCreated', replyText: string) => void>();
+const emits = defineEmits<{
+    (e: 'replyCreated', replyText: string): void;
+    (e: 'replyToCommentCreated', comment: Comment): void;
+}>();
 
 const { t } = useI18n();
-const appStore = useAppStore();
-const replies = ref<Array<Reply>>([]);
 const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
-const filteredReplies = computed(() => replies.value.filter((reply) => reply.commentId === props.comment.docId));
-let unsub: any;
-
-const fetchReplies = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        replies.value = [];
-        const res = await db.collection('replies');
-        unsub = res.onSnapshot((doc) => {
-            doc.docs.forEach((reply) => {
-                replies.value.push(reply.data() as Reply);
-            });
-        });
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-    }
-};
-
-const createReply = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        const docId = db.collection('replies').doc().id;
-        await db.collection('replies').doc(docId).set({
-            commentEmail: props.comment.email,
-            commentId: props.comment.docId,
-            createdAt: timestamp,
-            docId,
-            email: props.user.email,
-            feedbackId: props.feedback.docId,
-            profilePicture: '',
-            text: replyText.value,
-            userId: props.user.uid,
-            userName: props.user.displayName
-        });
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        await fetchReplies();
-        appStore.isLoading = false;
-        showReply.value = false;
-    }
-};
+const filteredReplies = computed(() => props.replies.filter((reply) => reply.commentId === props.comment.docId));
 
 const onReplyClicked = (): void => {
     showReply.value = !showReply.value;
     replyText.value = '';
 };
 
-const onFetchReplies = (): void => {
-    fetchReplies();
+const onReplyCreated = async (): Promise<void> => {
+    emits('replyCreated', replyText.value);
+    emits('replyToCommentCreated', props.comment);
+    showReply.value = false;
 };
 
-onMounted(async () => {
-    await fetchReplies();
-    console.log(props.comment.commentEmail);
-});
-
-onUnmounted(() => {
-    unsub();
-});
 </script>

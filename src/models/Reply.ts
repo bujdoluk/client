@@ -9,7 +9,7 @@ export interface Reply {
     feedbackId: string;
     id: string;
     profilePicture: string;
-    text: number;
+    text: string;
     userId: string;
     userName: string;
 }

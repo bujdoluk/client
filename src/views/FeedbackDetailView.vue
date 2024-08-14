@@ -22,7 +22,7 @@
                     v-if="feedback"
                     :feedback="feedback"
                     @edited="onEdited"
-                    @deleted="onDeleted" 
+                    @deleted="(feedbackId) => onDeleted(feedbackId)" 
                 />
             </v-col>
             <v-col cols="12">
@@ -79,9 +79,9 @@
                 </v-card>
             </v-col>
             <v-col cols="12">
-                <v-card v-if="comments.length">
+                <v-card v-if="comments.length > 0">
                     <v-container fluid>
-                        <v-row v-if="comments.length">
+                        <v-row v-if="comments.length > 0">
                             <v-col class="font-weight-bold text-darkBlue">
                                 {{ filteredComments.length }} 
                                 {{ filteredComments.length === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
@@ -95,7 +95,10 @@
                                 <CommentCard
                                     :comment="comment"
                                     :feedback="feedback"
+                                    :replies="replies"
                                     :user="user"
+                                    @reply-created="(reply) => onReplyCreated(reply)"
+                                    @reply-to-comment-created="(userComment) => onReplyToComment(userComment)"
                                 />
                             </v-col>
                         </v-row>
@@ -145,11 +148,12 @@
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft, mdiChat, mdiChevronUp } from '@mdi/js';
 import router from '@/router';
+import { type Reply } from '@/models/Reply';
 import { type Comment } from '@/models/Comment';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
 import EditFeedback from '@/components/Dialogs/EditFeedback.vue';
 import Tag from '@/components/Tag/Tag.vue';
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
@@ -159,9 +163,11 @@ const appStore = useAppStore();
 const route = useRoute();
 const { t } = useI18n();
 const comments = ref<Array<Comment>>([]);
+const comment = ref<Comment>();
 const feedback = ref<Feedback>();
 const text = ref<string>('');
 const user = ref(auth().currentUser);
+const replies = ref<Array<Reply>>([]);
 const filteredComments = computed(() => comments.value.filter((comment) => comment.feedbackId === feedback.value?.docId));
 
 const onRedirect = (): void => {
@@ -180,6 +186,30 @@ const updateFeedback = async (): Promise<void> => {
     } finally {
         await fetchFeedback(String(route.params.id));
         appStore.isLoading = false; 
+    }
+};
+
+const createReply = async (reply: string): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        const docId = db.collection('replies').doc().id;
+        await db.collection('replies').doc(docId).set({
+            commentEmail: comment.value?.email,
+            commentId: comment.value?.docId,
+            createdAt: timestamp,
+            docId,
+            email: user.value?.email,
+            feedbackId: feedback.value?.docId,
+            profilePicture: '',
+            text: reply,
+            userId: user.value?.uid,
+            userName: user.value?.displayName
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        await fetchReplies();
+        appStore.isLoading = false;
     }
 };
 
@@ -204,6 +234,19 @@ const createComment = async (): Promise<void> => {
         await updateFeedback();
         await fetchComments();
         text.value = '';
+    }
+};
+
+const fetchReplies = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        replies.value = [];
+        const res = await db.collection('replies').get();
+        replies.value = res.docs.map((doc) => doc.data() as Reply);
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
     }
 };
 
@@ -235,21 +278,76 @@ const fetchFeedback = async (feedbackID: string): Promise<void> => {
     }
 };
 
+const deleteReplies = async (feedback: Feedback): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        replies.value.forEach(async (reply) => {
+            if (reply.feedbackId === feedback.docId) {
+                await db.collection('replies').doc(reply.docId).delete();
+            }
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
+};
+
+const deleteComments = async (feedback: Feedback): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        comments.value.forEach(async (comment) => {
+            if (comment.feedbackId === feedback.docId) {
+                await db.collection('comments').doc(comment.docId).delete();
+            }
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
+};
+
+const deleteFeedback = async (feedback: Feedback): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        if (user.value?.uid === feedback.userId) {
+            await db.collection('feedbacks').doc(feedback.docId).delete();
+        } else {
+            alert('You can not delete another user feedback!');
+        }
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
+};
+
 const onEdited = (): void => {
     fetchFeedback(String(route.params.id)); 
 };
 
-const onDeleted = (): void => {
+const onReplyCreated = async (reply: string): Promise<void> => {
+    await createReply(reply);
+};
+
+const onReplyToComment = (userComment: Comment): void => {
+    comment.value = userComment;
+};
+
+const onDeleted = async (feedback: Feedback): Promise<void> => {
+    await Promise.allSettled([
+        deleteFeedback(feedback),
+        deleteComments(feedback),
+        deleteReplies(feedback)
+    ]);
     router.push({ name: 'suggestions' });
 };
 
 onMounted(async () => {
     await fetchFeedback(String(route.params.id));
-    await fetchComments(); 
-});
-
-watch(() => String(route.params.id), (): void => {
-    console.log(route.params.id);
+    await fetchComments();
+    await fetchReplies();
 });
 
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 

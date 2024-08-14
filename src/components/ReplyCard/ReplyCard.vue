@@ -74,49 +74,22 @@
  */
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { db, timestamp } from '@/firebase/init';
-import { useAppStore } from '@/stores/useAppStore';
-import type { Feedback } from '@/models/Feedback';
 import type { Comment } from '@/models/Comment';
 import type { Reply } from '@/models/Reply';
 
 const props = defineProps<{
     comment: Comment;
-    feedback: Feedback;
     reply: Reply;
-    user: any;
 }>();
 
-const emits = defineEmits<(e: 'repliesFetched') => void>();
+const emits = defineEmits<(e: 'replyCreated') => void>();
 const { t } = useI18n();
-const appStore = useAppStore();
 const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
 
 const createReply = async (): Promise<void> => {
-    try {
-        appStore.isLoading = true;
-        const docId = db.collection('replies').doc().id;
-        await db.collection('replies').doc(docId).set({
-            commentEmail: props.comment.email,
-            commentId: props.comment.docId,
-            createdAt: timestamp,
-            docId,
-            email: props.user.email,
-            feedbackId: props.feedback.docId,
-            profilePicture: '',
-            text: replyText.value,
-            userId: props.user.uid,
-            userName: props.user.displayName
-        });
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        appStore.isLoading = false;
-        emits('repliesFetched');
-        showReply.value = false;
-    }
+    emits('replyCreated');
 };
 
 const onReplyClicked = (): void => {
