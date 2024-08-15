@@ -56,7 +56,7 @@
                             <SortingPanel
                                 :feedbacks="feedbacks"
                                 @added="onFeedbackAdded"
-                                @selected="onSelected"
+                                @selected="(value) => onSelected(value)"
                             />
                         </v-col>
                     </v-row>
@@ -106,7 +106,7 @@ const feedbacks = ref<Array<Feedback>>([]);
 const filteredFeedbacks = ref<Array<Feedback>>([]);
 const user = ref(auth().currentUser);
 const active = ref<boolean>(false);
-const categories = computed(() => feedbacks.value.map((feedback) => feedback.category));
+const categories = computed(() => filteredFeedbacks.value.map((feedback) => feedback.category));
 const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
 
 const fetchFeedbacks = async (): Promise<void> => {
@@ -148,23 +148,47 @@ const onRedirect = (name: string, id?: string): void => {
     router.push({ name, params: { id } });
 };
 
-const onFeedbackAdded = (): void => {
-    fetchFeedbacks();
+const onFeedbackAdded = async (): Promise<void> => {
+    await fetchFeedbacks();
 };
 
-const onSelected = (selectedItem: any): void => {
-    // feedbacks.value.sort((a, b) => a.comments - b.comments);
-
-    // feedbacks.value.sort((a, b) => a.upvotes - b.upvotes);
+const onSelected = async (selectedValue: string): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        if (selectedValue === 'descC') {
+            const res = await db.collection('feedbacks').orderBy('comments', 'desc').get();
+            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        } else if (selectedValue === 'ascC') {
+            const res = await db.collection('feedbacks').orderBy('comments', 'asc').get();
+            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        } else if (selectedValue === 'descU') {
+            const res = await db.collection('feedbacks').orderBy('upvotes', 'desc').get();
+            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        } else if (selectedValue === 'ascU') {
+            const res = await db.collection('feedbacks').orderBy('upvotes', 'asc').get();
+            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        }
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+    }
 };
 
-const onTagClicked = (selectedItem: any): void => {
+const onTagClicked = async (selectedItem: any): Promise<void> => {
     active.value = !active.value;
+    appStore.isLoading = true;
     if (active.value) {
-        filteredFeedbacks.value = feedbacks.value.filter((feedback) => feedback.category === selectedItem);
+        try {
+            const res = await db.collection('feedbacks').where('category', '==', selectedItem).get();
+            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        } catch (error: unknown) {
+            console.log(error);
+        } 
     } else { 
         filteredFeedbacks.value = feedbacks.value;
     }
+    appStore.isLoading = false;
 };
 
 onMounted(async () => {

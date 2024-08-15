@@ -25,6 +25,8 @@
                             <v-select
                                 v-model="selectedItem"
                                 :items="items"
+                                item-title="title"
+                                item-value="value"
                                 variant="solo"
                                 density="compact"
                                 hide-details
@@ -69,16 +71,16 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 const items = [
-    t('views.suggestions.topbar.mostUpvotes'),
-    t('views.suggestions.topbar.leastUpvotes'),
-    t('views.suggestions.topbar.mostComments'),
-    t('views.suggestions.topbar.leastComments')
+    { title: t('views.suggestions.topbar.mostUpvotes'), value: 'descU' },
+    { title: t('views.suggestions.topbar.leastUpvotes'), value: 'ascU' },
+    { title: t('views.suggestions.topbar.mostComments'), value: 'descC' },
+    { title: t('views.suggestions.topbar.leastComments'), value: 'ascC' }
 ];
 
-const selectedItem = ref<string>(items[0]);
+const selectedItem = ref<any>(items[0]);
 
 const onSelected = (): void => {
-    emit('selected', selectedItem);
+    emit('selected', selectedItem.value);
 };
 
 const onFeedbackAdded = (): void => {

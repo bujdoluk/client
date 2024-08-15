@@ -83,7 +83,7 @@
                     <v-container fluid>
                         <v-row v-if="comments.length > 0">
                             <v-col class="font-weight-bold text-darkBlue">
-                                {{ filteredComments.length }} 
+                                {{ filteredComments.length + filteredReplies.length }} 
                                 {{ filteredComments.length === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
                             </v-col>
                         </v-row>
@@ -169,6 +169,7 @@ const text = ref<string>('');
 const user = ref(auth().currentUser);
 const replies = ref<Array<Reply>>([]);
 const filteredComments = computed(() => comments.value.filter((comment) => comment.feedbackId === feedback.value?.docId));
+const filteredReplies = computed(() => replies.value.filter((reply) => reply.feedbackId === feedback.value?.docId));
 
 const onRedirect = (): void => {
     router.push({ name: 'suggestions' });
@@ -179,7 +180,7 @@ const updateFeedback = async (): Promise<void> => {
         appStore.isLoading = true;
         const res = db.collection('feedbacks').doc(feedback.value?.docId);
         await res.update({
-            comments: filteredComments.value.length + 1
+            comments: filteredComments.value.length + filteredReplies.value.length
         });
     } catch(error: unknown) {
         console.log(error);
@@ -209,6 +210,7 @@ const createReply = async (reply: string): Promise<void> => {
         console.log(error);
     } finally {
         await fetchReplies();
+        await updateFeedback();
         appStore.isLoading = false;
     }
 };
