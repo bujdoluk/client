@@ -1,5 +1,13 @@
 <template>
-    <v-card class="bg-darkBlue">
+    <v-skeleton-loader
+        v-if="props.loading"
+        boilerplate
+        type="card"
+    />
+    <v-card
+        v-else
+        class="bg-darkBlue"
+    >
         <v-container>
             <v-row align="center">
                 <v-col
@@ -62,6 +70,7 @@ import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
     feedbacks: Array<Feedback>;
+    loading: boolean;
 }>();
 
 const emit = defineEmits<{

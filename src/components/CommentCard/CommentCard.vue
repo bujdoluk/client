@@ -1,5 +1,13 @@
 <template>
-    <v-card class="pa-6">
+    <v-skeleton-loader
+        v-if="props.loading"
+        boilerplate
+        type="card"
+    />
+    <v-card
+        v-else
+        class="pa-6"
+    >
         <v-row>
             <v-col cols="auto">
                 <v-avatar
@@ -93,6 +101,7 @@ import type { Feedback } from '@/models/Feedback';
 const props = defineProps<{
     comment: Comment;
     feedback: Feedback;
+    loading: boolean;
     replies: Array<Reply>;
     user: any;
 }>();

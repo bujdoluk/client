@@ -1,5 +1,11 @@
 <template>
+    <v-skeleton-loader
+        v-if="props.loading"
+        boilerplate
+        type="card"
+    />
     <v-card
+        v-else
         class="align-end color-background d-flex text-white"
         :min-height="110"
     >
@@ -19,6 +25,10 @@
  * @file FrontendMentoBox component.
  */
 import { useI18n } from 'vue-i18n';
+
+const props = defineProps<{
+    loading: boolean;
+}>();
 
 const { t } = useI18n();
 

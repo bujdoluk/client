@@ -16,7 +16,7 @@
                 <v-container>
                     <v-row>
                         <v-col>
-                            <FrontendMentorBox />
+                            <FrontendMentorBox :loading="loading" />
                         </v-col>
                     </v-row>
                     <v-row>
@@ -25,6 +25,7 @@
                                 v-if="feedbacks.length > 0"
                                 :categories="filteredByUniqueTags"
                                 :active="active"
+                                :loading="loading"
                                 @clicked="onTagClicked"
                             />
                         </v-col>
@@ -34,6 +35,7 @@
                             <RoadmapBox
                                 v-if="feedbacks"
                                 :feedbacks="feedbacks"
+                                :loading="loading"
                             />
                         </v-col>
                     </v-row>
@@ -55,6 +57,7 @@
                         <v-col>
                             <SortingPanel
                                 :feedbacks="feedbacks"
+                                :loading="loading"
                                 @added="onFeedbackAdded"
                                 @selected="(value) => onSelected(value)"
                             />
@@ -70,6 +73,7 @@
                         >
                             <FeedbackBar 
                                 :feedback="feedback"
+                                :loading="loading"
                                 @updated="(value) => updateFeedBack(value)" 
                             />
                         </v-col>
@@ -99,32 +103,31 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
 import { db, increment, auth } from '@/firebase/init';
-import { useAppStore } from '@/stores/useAppStore';
 
-const appStore = useAppStore();
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredFeedbacks = ref<Array<Feedback>>([]);
 const user = ref(auth().currentUser);
 const active = ref<boolean>(false);
 const categories = computed(() => filteredFeedbacks.value.map((feedback) => feedback.category));
 const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
+const loading = ref<boolean>(false);
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const res = await db.collection('feedbacks').get();
         feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
         filteredFeedbacks.value = feedbacks.value;
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const updateFeedBack = async (feedback: Feedback): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const res = db.collection('feedbacks').doc(feedback.docId);
         await res.set({
             category: feedback.category,
@@ -140,7 +143,7 @@ const updateFeedBack = async (feedback: Feedback): Promise<void> => {
         console.log(error);
     } finally {
         fetchFeedbacks();
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
@@ -154,7 +157,7 @@ const onFeedbackAdded = async (): Promise<void> => {
 
 const onSelected = async (selectedValue: string): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         if (selectedValue === 'descC') {
             const res = await db.collection('feedbacks').orderBy('comments', 'desc').get();
             filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
@@ -171,13 +174,13 @@ const onSelected = async (selectedValue: string): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const onTagClicked = async (selectedItem: any): Promise<void> => {
     active.value = !active.value;
-    appStore.isLoading = true;
+    loading.value = true;
     if (active.value) {
         try {
             const res = await db.collection('feedbacks').where('category', '==', selectedItem).get();
@@ -188,7 +191,7 @@ const onTagClicked = async (selectedItem: any): Promise<void> => {
     } else { 
         filteredFeedbacks.value = feedbacks.value;
     }
-    appStore.isLoading = false;
+    loading.value = false;
 };
 
 onMounted(async () => {

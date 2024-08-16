@@ -97,6 +97,7 @@
                                     :feedback="feedback"
                                     :replies="replies"
                                     :user="user"
+                                    :loading="loading"
                                     @reply-created="(reply) => onReplyCreated(reply)"
                                     @reply-to-comment-created="(userComment) => onReplyToComment(userComment)"
                                 />
@@ -157,9 +158,7 @@ import { ref, onMounted, computed } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
-import { useAppStore } from '@/stores/useAppStore';
 
-const appStore = useAppStore();
 const route = useRoute();
 const { t } = useI18n();
 const comments = ref<Array<Comment>>([]);
@@ -170,6 +169,7 @@ const user = ref(auth().currentUser);
 const replies = ref<Array<Reply>>([]);
 const filteredComments = computed(() => comments.value.filter((comment) => comment.feedbackId === feedback.value?.docId));
 const filteredReplies = computed(() => replies.value.filter((reply) => reply.feedbackId === feedback.value?.docId));
+const loading = ref<boolean>(false);
 
 const onRedirect = (): void => {
     router.push({ name: 'suggestions' });
@@ -177,7 +177,7 @@ const onRedirect = (): void => {
 
 const updateFeedback = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const res = db.collection('feedbacks').doc(feedback.value?.docId);
         await res.update({
             comments: filteredComments.value.length + filteredReplies.value.length
@@ -186,13 +186,13 @@ const updateFeedback = async (): Promise<void> => {
         console.log(error);
     } finally {
         await fetchFeedback(String(route.params.id));
-        appStore.isLoading = false; 
+        loading.value = false; 
     }
 };
 
 const createReply = async (reply: string): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const docId = db.collection('replies').doc().id;
         await db.collection('replies').doc(docId).set({
             commentEmail: comment.value?.email,
@@ -211,13 +211,13 @@ const createReply = async (reply: string): Promise<void> => {
     } finally {
         await fetchReplies();
         await updateFeedback();
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const createComment = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const docId = db.collection('comments').doc().id;
         await db.collection('comments').doc(docId).set({
             createdAt: timestamp,
@@ -232,7 +232,7 @@ const createComment = async (): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
         await updateFeedback();
         await fetchComments();
         text.value = '';
@@ -241,32 +241,32 @@ const createComment = async (): Promise<void> => {
 
 const fetchReplies = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         replies.value = [];
         const res = await db.collection('replies').get();
         replies.value = res.docs.map((doc) => doc.data() as Reply);
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const fetchComments = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const res = await db.collection('comments').get();
         comments.value = res.docs.map((doc) => doc.data() as Comment);
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const fetchFeedback = async (feedbackID: string): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const res = await db
             .collection('feedbacks')
             .doc(feedbackID)
@@ -276,13 +276,13 @@ const fetchFeedback = async (feedbackID: string): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const deleteReplies = async (feedback: Feedback): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         replies.value.forEach(async (reply) => {
             if (reply.feedbackId === feedback.docId) {
                 await db.collection('replies').doc(reply.docId).delete();
@@ -291,13 +291,13 @@ const deleteReplies = async (feedback: Feedback): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const deleteComments = async (feedback: Feedback): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         comments.value.forEach(async (comment) => {
             if (comment.feedbackId === feedback.docId) {
                 await db.collection('comments').doc(comment.docId).delete();
@@ -306,13 +306,13 @@ const deleteComments = async (feedback: Feedback): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 const deleteFeedback = async (feedback: Feedback): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         if (user.value?.uid === feedback.userId) {
             await db.collection('feedbacks').doc(feedback.docId).delete();
         } else {
@@ -321,7 +321,7 @@ const deleteFeedback = async (feedback: Feedback): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 

@@ -28,7 +28,13 @@
                     validate-on="input"
                     @keydown.enter="submit"
                 >
+                    <v-skeleton-loader
+                        v-if="loading"
+                        boilerplate
+                        type="card"
+                    />
                     <v-card
+                        v-else
                         width="550"
                         class="pa-3"
                         elevation="1"
@@ -94,11 +100,9 @@ import { ref } from 'vue';
 import { useLogin } from '../../plugins/auth';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
-import { useAppStore } from '@/stores/useAppStore';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
 import { db, auth, perf } from '@/firebase/init';
 
-const appStore = useAppStore();
 const { t } = useI18n();
 const { login, errorMessage } = useLogin();
 const email = ref<string>('');
@@ -106,12 +110,13 @@ const password = ref<string>('');
 const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
 const user = ref(auth().currentUser);
+const loading = ref<boolean>(false);
 
 const provider = new auth.GoogleAuthProvider();
 
 const createUser = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         if (user.value) {
             await db.collection('users').doc(user.value.uid).set({
                 email: user.value.email,
@@ -123,7 +128,7 @@ const createUser = async (): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
@@ -132,7 +137,7 @@ const submit = async (): Promise<void> => {
     trace.start();
 
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const credential = await login(email.value, password.value);
         trace.putAttribute('verified', `${credential?.user?.emailVerified}`);
 
@@ -144,7 +149,7 @@ const submit = async (): Promise<void> => {
         console.log(e);
         trace.putAttribute('errorCode', e.code);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 
     trace.stop();

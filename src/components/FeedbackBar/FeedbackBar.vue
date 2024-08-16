@@ -1,5 +1,11 @@
 <template>
+    <v-skeleton-loader
+        v-if="props.loading"
+        boilerplate
+        type="card"
+    />
     <v-card
+        v-else
         :min-height="90"
         class="cursor"
     >
@@ -66,6 +72,7 @@ import { mdiChat, mdiChevronUp } from '@mdi/js';
 
 const props = defineProps<{
     feedback: Feedback;
+    loading: boolean;
 }>();
 
 const emits = defineEmits<(e: 'updated', feedback: Feedback) => void>();

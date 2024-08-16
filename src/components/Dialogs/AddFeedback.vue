@@ -13,7 +13,15 @@
         persistent
     >
         <v-form v-model="valid">
-            <v-card class="pa-5">
+            <v-skeleton-loader
+                v-if="loading"
+                boilerplate
+                type="card"
+            />
+            <v-card
+                v-else
+                class="pa-5"
+            >
                 <v-card-title class="font-weight-bold py-5 text-h5">
                     {{ t('components.Dialog.title') }}
                 </v-card-title>
@@ -102,12 +110,11 @@ import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
 import { db, auth, timestamp } from '@/firebase/init';
 import { Status } from '@/models/Status';
-import { useAppStore } from '@/stores/useAppStore';
 
 const emit = defineEmits<(e: 'feedbackAdded') => void>();
 
 const user = ref(auth().currentUser);
-const appStore = useAppStore();
+const loading = ref<boolean>(false);
 const { t } = useI18n();
 const valid = ref(false);
 const dialog = ref<boolean>(false);
@@ -128,7 +135,7 @@ const close = (): void => {
 
 const addFeedback = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const docId = db.collection('feedbacks').doc().id;
         await db.collection('feedbacks').doc(docId).set({
             category: selectedCategory.value,
@@ -146,7 +153,7 @@ const addFeedback = async (): Promise<void> => {
     } finally {
         dialog.value = false;
         emit('feedbackAdded');
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 

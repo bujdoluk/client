@@ -111,24 +111,23 @@ import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { db } from '@/firebase/init';
 import { Status } from '@/models/Status';
-import { useAppStore } from '@/stores/useAppStore';
 
-const appStore = useAppStore();
 const { t } = useI18n();
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredPlannedStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.Planned));
 const filteredInProgressStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.InProgress));
 const filteredLiveStatus = computed(() => feedbacks.value.filter((feedback) => feedback.status === Status.Live));
+const loading = ref<boolean>(false);
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         const res = await db.collection('feedbacks').get();
         feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 

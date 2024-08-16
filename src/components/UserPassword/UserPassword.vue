@@ -48,21 +48,20 @@
  */
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { useAppStore } from '@/stores/useAppStore';
 import { updateEmail, updateProfile, updatePassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '@/firebase/init';
 
 const { t } = useI18n();
-const appStore = useAppStore();
 const user = ref(auth().currentUser);
 const email = ref<string>(user.value?.email!);
 const displayName = ref<string>(user.value?.displayName!);
 const password = ref<string>('');
 const newPassword = ref<string>('');
+const loading = ref<boolean>(false);
 
 const update = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         if (user.value) {
             await updateProfile(user.value, {
                 displayName: displayName.value
@@ -73,18 +72,18 @@ const update = async (): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 
 /* const reset = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         await sendPasswordResetEmail(user.value, user.value.email);
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        appStore.isLoading = false;
+        loading.value = false;
     }
 }; */
 

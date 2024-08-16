@@ -15,7 +15,15 @@
         persistent
     >
         <v-form v-model="valid">
-            <v-card class="pa-5">
+            <v-skeleton-loader
+                v-if="loading"
+                boilerplate
+                type="card"
+            />
+            <v-card
+                v-else
+                class="pa-5"
+            >
                 <v-card-title class="font-weight-bold py-5 text-h5">
                     {{ `Editing "${selectedTitle}"` }}
                 </v-card-title>
@@ -130,12 +138,11 @@ import { mdiPlus } from '@mdi/js';
 import { db, auth } from '@/firebase/init';
 import type { Feedback } from '@/models/Feedback';
 import { Status } from '@/models/Status';
-import { useAppStore } from '@/stores/useAppStore';
 
 const prop = defineProps<{ feedback: Feedback }>();
 const emit = defineEmits<(e: 'edited' | 'deleted', feedback: Feedback) => void>();
 
-const appStore = useAppStore();
+const loading = ref<boolean>(false);
 const { t } = useI18n();
 const valid = ref(false);
 const dialog = ref<boolean>(false);
@@ -155,7 +162,7 @@ const reset = (): void => {
 const editFeedback = async (docId: string): Promise<void> => {
     try {
         if (prop.feedback.docId) {
-            appStore.isLoading = true;
+            loading.value = true;
             await db.collection('feedbacks').doc(docId).set({
                 category: selectedCategory.value,
                 comments: 0,
@@ -173,7 +180,7 @@ const editFeedback = async (docId: string): Promise<void> => {
         emit('edited', prop.feedback);
         reset();
         dialog.value = false;
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 

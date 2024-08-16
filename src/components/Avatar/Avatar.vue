@@ -71,27 +71,26 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { auth } from '@/firebase/init';
 import EditAccount from '../EditAccount/EditAccount.vue';
-import { useAppStore } from '@/stores/useAppStore';
 import { ref } from 'vue';
 
 const prop = defineProps<{
     user: any;
 }>();
 
+const loading = ref<boolean>(false);
 const { t } = useI18n();
-const appStore = useAppStore();
 const profilePicture = ref();
 
 const logout = async (): Promise<void> => {
     try {
-        appStore.isLoading = true;
+        loading.value = true;
         await auth().signOut();
     } catch (error: unknown) {
         console.log(error);
     } finally {
         localStorage.clear();
         router.push({ name: 'landing' });
-        appStore.isLoading = false;
+        loading.value = false;
     }
 };
 

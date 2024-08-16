@@ -1,5 +1,10 @@
 <template>
-    <v-card>
+    <v-skeleton-loader
+        v-if="props.loading"
+        boilerplate
+        type="card"
+    />
+    <v-card v-else>
         <v-container fluid>
             <v-row>
                 <v-col
@@ -27,6 +32,7 @@ import Tag from '@/components/Tag/Tag.vue';
 const props = defineProps<{
     active: boolean;
     categories: Array<string>;
+    loading: boolean;
 }>();
 
 const emits = defineEmits<(e: 'clicked', category: string) => void>();

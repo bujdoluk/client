@@ -1,5 +1,10 @@
 <template>
-    <v-card>
+    <v-skeleton-loader
+        v-if="props.loading"
+        boilerplate
+        type="card"
+    />
+    <v-card v-else>
         <v-container fluid>
             <v-row>
                 <v-col cols="auto">
@@ -88,6 +93,7 @@ import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
     feedbacks: Array<Feedback>;
+    loading: boolean;
 }>();
 
 const { t } = useI18n();
