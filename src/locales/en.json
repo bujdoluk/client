@@ -78,7 +78,8 @@
         "userNotFound": "No account with that email was found."
     },
     "validations": {
-        "maxCharacters": "Maximum 250 characters."
+        "maxCharacters": "Maximum 250 characters.",
+        "required": "Required."
     },
     "views": {
         "landingPage": {

@@ -13,7 +13,7 @@
                 </v-card-text>
                 <v-card-title 
                     class="cursor font-weight-bold pb-0 text-darkBlue" 
-                    @click="onRedirect('feedback-detail', feedback.docId)"
+                    @click="onRedirect(feedback.docId)"
                 >
                     {{ props.feedback.title }}
                 </v-card-title>
@@ -63,8 +63,8 @@ const props = defineProps<{
     feedback: Feedback;
 }>();
 
-const onRedirect = (name: string, id?: string): void => {
-    router.push({ name, params: { id } });
+const onRedirect = (id?: string): void => {
+    router.push({ name: 'feedback-detail', params: { id } });
 };
 
 const statusColors = (status: string) => {

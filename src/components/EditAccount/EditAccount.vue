@@ -11,53 +11,47 @@
             <v-card-title>
                 My account
             </v-card-title>
-            <v-card-text>
-                <v-tabs
-                    v-model="currentTab"
-                    show-arrows
-                    height="auto"
-                    bg-color="primary"
+            <v-tabs
+                v-model="currentTab"
+                show-arrows
+                bg-color="primary"
+            >
+                <v-tab
+                    v-for="tab in tabs"
+                    :key="tab.name"
+                    :value="tab.name"
+                    :to="tab.route"
+                    color="purple"
+                    variant="text"
                 >
-                    <v-tab
-                        v-for="tab in tabs"
-                        :key="tab.name"
-                        :value="tab.name"
-                        :to="tab.route"
-                        min-height="50"
-                        color="purple"
-                        variant="text"
-                    >
-                        {{ $t(`tabs.information.${tab.name}`) }}
-                    </v-tab>
-                </v-tabs>
-            </v-card-text>
-            <v-card-text>
-                <v-tabs-window v-model="currentTab">
-                    <v-tabs-window-item value="personal">
-                        <v-row align="center">
-                            <v-col>
-                                <PersonalProfile />
-                            </v-col>
-                        </v-row>
-                    </v-tabs-window-item>
+                    {{ $t(`tabs.information.${tab.name}`) }}
+                </v-tab>
+            </v-tabs>
+            <v-tabs-window v-model="currentTab">
+                <v-tabs-window-item value="personal">
+                    <v-row align="center">
+                        <v-col>
+                            <PersonalProfile />
+                        </v-col>
+                    </v-row>
+                </v-tabs-window-item>
                     
-                    <v-tabs-window-item value="password">
-                        <v-row align="center">
-                            <v-col>
-                                <UserPassword />
-                            </v-col>
-                        </v-row>
-                    </v-tabs-window-item>
+                <v-tabs-window-item value="password">
+                    <v-row align="center">
+                        <v-col>
+                            <UserPassword />
+                        </v-col>
+                    </v-row>
+                </v-tabs-window-item>
                     
-                    <v-tabs-window-item value="appearance">
-                        <v-row align="center">
-                            <v-col>
-                                Three
-                            </v-col>
-                        </v-row>
-                    </v-tabs-window-item>
-                </v-tabs-window>
-            </v-card-text>
+                <v-tabs-window-item value="appearance">
+                    <v-row align="center">
+                        <v-col>
+                            Three
+                        </v-col>
+                    </v-row>
+                </v-tabs-window-item>
+            </v-tabs-window>
         </v-card>
     </v-dialog>
 </template>

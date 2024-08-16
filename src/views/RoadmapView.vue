@@ -132,12 +132,12 @@ const fetchFeedbacks = async (): Promise<void> => {
     }
 };
 
-const onFeedbackAdded = (): void => {
-    fetchFeedbacks();
+const onFeedbackAdded = async (): Promise<void> => {
+    await fetchFeedbacks();
 };
 
-onMounted(() => {
-    fetchFeedbacks(); 
+onMounted(async () => {
+    await fetchFeedbacks(); 
 });
 
 </script>

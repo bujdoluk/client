@@ -24,6 +24,23 @@ const router = createRouter({
                 }
                 next();
             },
+            children: [
+                {
+                    component: SuggestionsView,
+                    name: 'personal',
+                    path: '/personal'
+                },
+                {
+                    component: SuggestionsView,
+                    name: 'password',
+                    path: '/password'
+                },
+                {
+                    component: SuggestionsView,
+                    name: 'appearance',
+                    path: '/appearance'
+                }
+            ],
             component: SuggestionsView,
             name: 'suggestions',
             path: '/suggestions'
@@ -69,21 +86,6 @@ const router = createRouter({
             component: ErrorView,
             name: 'errorView',
             path: '/error'
-        },
-        {
-            component: SuggestionsView || FeedbackDetailView,
-            name: 'personal',
-            path: '/personal'
-        },
-        {
-            component: SuggestionsView || FeedbackDetailView,
-            name: 'password',
-            path: '/password'
-        },
-        {
-            component: SuggestionsView || FeedbackDetailView,
-            name: 'appearance',
-            path: '/appearance'
         }
     ]
 });

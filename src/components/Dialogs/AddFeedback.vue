@@ -26,13 +26,13 @@
                 <v-card-text class="py-5">
                     <v-text-field
                         v-model="title"
-                        label="Name"
-                        required
-                        density="compact"
-                        variant="outlined"
+                        variant="plain"
                         class="bg-background-secondary"
-                        hide-details
                         counter="45"
+                        single-line
+                        density="compact"
+                        :rules="[required]"
+                        hide-details="auto"
                     />
                 </v-card-text>
                 <v-card-text class="font-weight-bold">
@@ -43,13 +43,12 @@
                 </v-card-text>
                 <v-card-text class="py-5">
                     <v-select
-                        v-model="category"
-                        :label="t('components.Dialog.category')"
-                        density="compact"
-                        variant="outlined"
-                        hide-details
+                        v-model="selectedCategory"
+                        variant="plain"
                         class="bg-background-secondary"
-                        :items="['Feature', 'Bug', 'Enhancement', 'UI', 'UX', 'All']"
+                        :items="categories"
+                        single-line
+                        hide-details
                     />
                 </v-card-text>
                 <v-card-text class="font-weight-bold">
@@ -68,6 +67,8 @@
                         class="bg-background-secondary"
                         :counter="250"
                         clearable
+                        :rules="[required]"
+                        hide-details="auto"
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">
@@ -112,7 +113,8 @@ const valid = ref(false);
 const dialog = ref<boolean>(false);
 const title = ref('');
 const description = ref('');
-const category = ref<string>();
+const categories = ref<Array<string>>(['Feature', 'Bug', 'Enhancement', 'UI', 'UX', 'All']);
+const selectedCategory = ref<string>(categories.value[0]);
 
 const open = (): void => {
     dialog.value = true;
@@ -120,6 +122,8 @@ const open = (): void => {
 
 const close = (): void => {
     dialog.value = false;
+    title.value = '';
+    description.value = '';
 };
 
 const addFeedback = async (): Promise<void> => {
@@ -127,7 +131,7 @@ const addFeedback = async (): Promise<void> => {
         appStore.isLoading = true;
         const docId = db.collection('feedbacks').doc().id;
         await db.collection('feedbacks').doc(docId).set({
-            category: category.value,
+            category: selectedCategory.value,
             comments: 0,
             createdAt: timestamp,
             description: description.value,
@@ -145,5 +149,7 @@ const addFeedback = async (): Promise<void> => {
         appStore.isLoading = false;
     }
 };
+
+const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
 
 </script>
