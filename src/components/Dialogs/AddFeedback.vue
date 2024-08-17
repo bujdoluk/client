@@ -83,7 +83,7 @@
                     <v-spacer />
                     <v-btn
                         variant="flat"
-                        color="darkBlue"
+                        color="dark-blue"
                         @click="close"
                     >
                         {{ t('buttons.close') }}

@@ -12,17 +12,17 @@
             </v-col>
             <v-col>
                 <v-container>
-                    <v-row class="font-weight-bold text-darkBlue">
+                    <v-row class="font-weight-bold text-dark-blue">
                         {{ props.reply.userName }}
                     </v-row>
-                    <v-row class="pb-3 text-body-2 text-grey">
+                    <v-row class="pb-3 text-body-2 text-content">
                         {{ props.reply.email }}
                     </v-row>
                     <v-row class="text-body-2">
                         <span class="text-purple">
                             {{ props.comment.commentEmail }}
                         </span>
-                        <span class="text-grey">
+                        <span class="text-content">
                             {{ props.reply.text }}
                         </span>
                     </v-row>

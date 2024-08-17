@@ -49,12 +49,15 @@
                                     {{ feedback?.upvotes }}
                                 </v-btn>
                             </v-col>
-                            <v-col cols="10">
+                            <v-col
+                                cols="10"
+                                class="pb-0"
+                            >
                                 <v-card>
-                                    <v-card-text class="font-weight-bold text-darkBlue">
+                                    <v-card-text class="font-weight-bold text-dark-blue">
                                         {{ feedback?.title }}
                                     </v-card-text>
-                                    <v-card-text class="text-grey">
+                                    <v-card-text class="text-content">
                                         {{ feedback?.description }}
                                     </v-card-text>
                                     <v-card-actions>
@@ -79,10 +82,10 @@
                 </v-card>
             </v-col>
             <v-col cols="12">
-                <v-card v-if="comments.length > 0">
+                <v-card v-if="filteredComments.length + filteredReplies.length > 0">
                     <v-container fluid>
-                        <v-row v-if="comments.length > 0">
-                            <v-col class="font-weight-bold text-darkBlue">
+                        <v-row v-if="filteredComments.length + filteredReplies.length > 0">
+                            <v-col class="font-weight-bold pl-10 text-dark-blue">
                                 {{ filteredComments.length + filteredReplies.length }} 
                                 {{ filteredComments.length === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
                             </v-col>
@@ -90,6 +93,7 @@
                         <v-row
                             v-for="comment in filteredComments"
                             :key="comment.id"
+                            class="d-flex flex-column"
                         >
                             <v-col v-if="feedback">
                                 <CommentCard
@@ -108,34 +112,39 @@
             </v-col>
             <v-col cols="12">
                 <v-container fluid>
-                    <v-card class="pa-6">
-                        <v-card-text class="font-weight-bold py-3 text-darkBlue text-h6">
-                            {{ t('components.comment.addComment') }}
-                        </v-card-text>
-                        <v-card-text>
-                            <v-textarea 
-                                v-model="text"
-                                :placeholder="t('components.comment.typeComment')" 
-                                :counter="250"
-                                rows="3"
-                                bg-color="background"
-                                variant="solo-filled"
-                                flat
-                                clearable
-                                :rules="[maxCharacters]"
-                            />
-                        </v-card-text>
-                        <v-card-actions class="pt-3">
-                            <v-spacer />
-                            <v-btn 
-                                variant="flat"
-                                color="purple"
-                                @click="createComment"
-                            >
-                                {{ t('buttons.postComment') }}
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
+                    <v-row>
+                        <v-col class="pa-0">
+                            <v-card class="pa-6">
+                                <v-card-text class="font-weight-bold py-3 text-dark-blue text-h6">
+                                    {{ t('components.comment.addComment') }}
+                                </v-card-text>
+                                <v-card-text>
+                                    <v-textarea 
+                                        v-model="text"
+                                        :placeholder="t('components.comment.typeComment')" 
+                                        :counter="250"
+                                        rows="3"
+                                        class="bg-background-secondary"
+                                        variant="plain"
+                                        flat
+                                        clearable
+                                        hide-details="auto"
+                                        :rules="[maxCharacters]"
+                                    />
+                                </v-card-text>
+                                <v-card-actions class="pt-3">
+                                    <v-spacer />
+                                    <v-btn 
+                                        variant="flat"
+                                        color="purple"
+                                        @click="createComment"
+                                    >
+                                        {{ t('buttons.postComment') }}
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-col>
         </v-row>
@@ -175,6 +184,22 @@ const onRedirect = (): void => {
     router.push({ name: 'suggestions' });
 };
 
+const fetchFeedback = async (feedbackID: string): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db
+            .collection('feedbacks')
+            .doc(feedbackID)
+            .get();
+        
+        feedback.value = res.data() as Feedback;
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loading.value = false;
+    }
+};
+
 const updateFeedback = async (): Promise<void> => {
     try {
         loading.value = true;
@@ -187,6 +212,18 @@ const updateFeedback = async (): Promise<void> => {
     } finally {
         await fetchFeedback(String(route.params.id));
         loading.value = false; 
+    }
+};
+
+const fetchReplies = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db.collection('replies').get();
+        replies.value = res.docs.map((doc) => doc.data() as Reply);
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loading.value = false;
     }
 };
 
@@ -210,7 +247,20 @@ const createReply = async (reply: string): Promise<void> => {
         console.log(error);
     } finally {
         await fetchReplies();
+        await fetchComments();
         await updateFeedback();
+        loading.value = false;
+    }
+};
+
+const fetchComments = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db.collection('comments').get();
+        comments.value = res.docs.map((doc) => doc.data() as Comment);
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
         loading.value = false;
     }
 };
@@ -233,50 +283,9 @@ const createComment = async (): Promise<void> => {
         console.log(error);
     } finally {
         loading.value = false;
-        await updateFeedback();
         await fetchComments();
+        await updateFeedback();
         text.value = '';
-    }
-};
-
-const fetchReplies = async (): Promise<void> => {
-    try {
-        loading.value = true;
-        replies.value = [];
-        const res = await db.collection('replies').get();
-        replies.value = res.docs.map((doc) => doc.data() as Reply);
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        loading.value = false;
-    }
-};
-
-const fetchComments = async (): Promise<void> => {
-    try {
-        loading.value = true;
-        const res = await db.collection('comments').get();
-        comments.value = res.docs.map((doc) => doc.data() as Comment);
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        loading.value = false;
-    }
-};
-
-const fetchFeedback = async (feedbackID: string): Promise<void> => {
-    try {
-        loading.value = true;
-        const res = await db
-            .collection('feedbacks')
-            .doc(feedbackID)
-            .get();
-        
-        feedback.value = res.data() as Feedback;
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        loading.value = false;
     }
 };
 

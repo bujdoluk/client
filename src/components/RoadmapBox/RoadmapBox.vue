@@ -8,7 +8,7 @@
         <v-container fluid>
             <v-row>
                 <v-col cols="auto">
-                    <h2 class="text-darkBlue">
+                    <h2 class="text-dark-blue">
                         {{ t('views.suggestions.roadmap.title') }}
                     </h2>
                 </v-col>
@@ -30,15 +30,15 @@
                 <v-col cols="auto">
                     <span class="dot-orange" />
                 </v-col>
-                <v-col class="text-grey">
+                <v-col class="text-content">
                     {{ t('views.suggestions.roadmap.planned') }}
                 </v-col>
                 <v-col
                     cols="auto"
-                    class="font-weight-bold text-darkBlue"
+                    class="font-weight-bold text-dark-blue"
                     align="center"
                 >
-                    <h3 class="text-darkBlue">
+                    <h3 class="text-dark-blue">
                         {{ plannedFeedbacks.length }}
                     </h3>
                 </v-col>
@@ -47,7 +47,7 @@
                 <v-col cols="auto">
                     <span class="dot-pink" />
                 </v-col>
-                <v-col class="text-grey">
+                <v-col class="text-content">
                     {{ t('views.suggestions.roadmap.inProgress') }}
                 </v-col>
                 <v-col
@@ -55,7 +55,7 @@
                     class="font-weight-bold"
                     align="center"
                 >
-                    <h3 class="text-darkBlue">
+                    <h3 class="text-dark-blue">
                         {{ inProgressFeedbacks.length }}
                     </h3>
                 </v-col>
@@ -64,7 +64,7 @@
                 <v-col cols="auto">
                     <span class="dot-teal" />
                 </v-col>
-                <v-col class="text-grey">
+                <v-col class="text-content">
                     {{ t('views.suggestions.roadmap.live') }}
                 </v-col>
                 <v-col
@@ -72,7 +72,7 @@
                     class="font-weight-bold"
                     align="center"
                 >
-                    <h3 class="text-darkBlue">
+                    <h3 class="text-dark-blue">
                         {{ liveFeedbacks.length }}
                     </h3>
                 </v-col>

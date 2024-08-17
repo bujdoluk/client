@@ -6,7 +6,7 @@
     />
     <v-card
         v-else
-        class="pa-6"
+        class="pb-6 px-6"
     >
         <v-row>
             <v-col cols="auto">
@@ -23,10 +23,10 @@
                     <v-row class="font-weight-bold text-darkBlue">
                         {{ props.comment.userName }}
                     </v-row>
-                    <v-row class="pb-3 text-body-2 text-grey">
+                    <v-row class="pb-3 text-body-2 text-content">
                         {{ props.comment.email }}
                     </v-row>
-                    <v-row class="text-body-2 text-grey">
+                    <v-row class="text-body-2 text-contan">
                         {{ props.comment.text }}
                     </v-row>
                 </v-container>

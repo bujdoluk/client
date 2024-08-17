@@ -11,10 +11,10 @@
                         height="300"
                     >
                 </v-col>
-                <v-col class="font-text-bold text-darkBlue text-h4">
+                <v-col class="font-text-bold text-dark-blue text-h4">
                     {{ t('views.suggestions.emptyFeedback.title') }}
                 </v-col>
-                <v-col class="text-grey">
+                <v-col class="text-content">
                     {{ t('views.suggestions.emptyFeedback.subtitle') }}
                 </v-col>
                 <v-col>

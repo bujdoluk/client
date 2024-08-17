@@ -9,15 +9,15 @@
                 <span :class="lineColors(props.feedback.status)" />
                 <v-card-text>
                     <span :class="statusColors(props.feedback.status)" /> 
-                    <span class="pl-2 text-grey">{{ props.feedback.status }}</span>
+                    <span class="pl-2 text-content">{{ props.feedback.status }}</span>
                 </v-card-text>
                 <v-card-title 
-                    class="cursor font-weight-bold pb-0 text-darkBlue" 
+                    class="cursor font-weight-bold pb-0 text-dark-blue" 
                     @click="onRedirect(feedback.docId)"
                 >
                     {{ props.feedback.title }}
                 </v-card-title>
-                <v-card-text class="description-height text-body-2 text-grey text-truncate-multiple">
+                <v-card-text class="description-height text-body-2 text-content text-truncate-multiple">
                     {{ props.feedback.description }}
                 </v-card-text>
                 <v-card-text class="pt-6">
@@ -41,7 +41,7 @@
                     color="background-primary"
                     class="mr-2"
                 />
-                <span class="font-weight-bold text-darkBlue">
+                <span class="font-weight-bold text-dark-blue">
                     {{ props.feedback.comments }}
                 </span>
             </v-col>

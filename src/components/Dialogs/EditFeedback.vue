@@ -89,13 +89,14 @@
                 <v-card-text class="py-5">
                     <v-textarea 
                         v-model="selectedDescription"
-                        variant="plain"
+                        variant="outlined"
                         density="compact"
                         no-resize
                         rows="3"
                         class="bg-background-secondary"
                         :counter="250"
                         clearable
+                        hide-details="auto"
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">
@@ -109,7 +110,7 @@
                     <v-spacer />
                     <v-btn
                         variant="flat"
-                        color="darkBlue"
+                        color="dark-blue"
                         @click="close"
                     >
                         {{ t('buttons.close') }}

@@ -6,7 +6,7 @@
     />
     <v-card
         v-else
-        class="bg-darkBlue"
+        class="bg-dark-blue"
     >
         <v-container>
             <v-row align="center">
@@ -25,7 +25,7 @@
                     <v-row align="center">
                         <v-col
                             cols="auto"
-                            class="text-caption text-grey"
+                            class="text-caption text-content"
                         >
                             {{ t('views.suggestions.topbar.sortBy') }}
                         </v-col>

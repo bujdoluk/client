@@ -34,10 +34,10 @@
                     class="pb-0"
                 >
                     <v-card>
-                        <v-card-text class="font-weight-bold text-darkBlue text-truncate">
+                        <v-card-text class="font-weight-bold text-dark-blue text-truncate">
                             {{ props.feedback.title }}
                         </v-card-text>
-                        <v-card-text class="text-grey text-truncate text-truncate width">
+                        <v-card-text class="text-content text-truncate text-truncate width">
                             {{ props.feedback.description }}
                         </v-card-text>
                         <v-card-actions>

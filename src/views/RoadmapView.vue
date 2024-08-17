@@ -5,8 +5,8 @@
     >
         <v-row class="grid">
             <v-col class="pb-0">
-                <v-card class="bg-darkBlue">
-                    <v-container class="bg-darkBlue">
+                <v-card class="bg-dark-blue">
+                    <v-container class="bg-dark-blue">
                         <v-row align="center">
                             <v-col>
                                 <v-row>
@@ -32,33 +32,33 @@
         <v-row class="grid">
             <v-col cols="4">
                 <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-darkBlue">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
                         {{ t('views.roadmap.status.planned') }}
                         {{ `(${filteredPlannedStatus.length})` }}
                     </v-card-title>
-                    <v-card-text class="text-grey">
+                    <v-card-text class="text-content">
                         {{ t('views.roadmap.status.subtitle.planned') }}
                     </v-card-text>
                 </v-card>
             </v-col>
             <v-col cols="4">
                 <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-darkBlue">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
                         {{ t('views.roadmap.status.inProgress') }}
                         {{ `(${filteredInProgressStatus.length})` }}
                     </v-card-title>
-                    <v-card-text class="text-grey">
+                    <v-card-text class="text-content">
                         {{ t('views.roadmap.status.subtitle.inProgress') }}
                     </v-card-text>
                 </v-card>
             </v-col>
             <v-col cols="4">
                 <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-darkBlue">
+                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
                         {{ t('views.roadmap.status.live') }}
                         {{ `(${filteredLiveStatus.length})` }}
                     </v-card-title>
-                    <v-card-text class="text-grey">
+                    <v-card-text class="text-content">
                         {{ t('views.roadmap.status.subtitle.live') }}
                     </v-card-text>
                 </v-card>

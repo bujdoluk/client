@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
         elevation="3"
-        class="bg-darkBlue"
+        class="bg-dark-blue"
     >
         <div 
             class="align-center cursor d-flex flex-row px-3"
@@ -44,6 +44,9 @@
             @click="redirecToApp"
         >
             {{ t('buttons.backToApp') }}
+        </v-btn>
+        <v-btn>
+            DARK MODE
         </v-btn>
         <Avatar
             v-if="user"
