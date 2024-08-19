@@ -1,8 +1,5 @@
 <template>
-    <v-container
-        fluid
-        class="bg-background"
-    >
+    <v-container fluid>
         <v-row class="width">
             <v-col cols="auto">
                 <v-btn
@@ -92,7 +89,7 @@
                         </v-row>
                         <v-row
                             v-for="comment in filteredComments"
-                            :key="comment.id"
+                            :key="comment.docId"
                             class="d-flex flex-column"
                         >
                             <v-col v-if="feedback">
@@ -102,8 +99,9 @@
                                     :replies="replies"
                                     :user="user"
                                     :loading="loading"
-                                    @reply-created="(reply) => onReplyCreated(reply)"
-                                    @reply-to-comment-created="(userComment) => onReplyToComment(userComment)"
+                                    @reply-to-reply-created="(reply) => onReplyToReplyCreated(reply)"
+                                    @reply-to-comment-created="(com) => onReplyToCommnentCreated(com)"
+                                    @reply-text-to-commnent-created="(replyText) => onReplyTextToCommentCreated(replyText)"
                                 />
                             </v-col>
                         </v-row>
@@ -172,6 +170,7 @@ const route = useRoute();
 const { t } = useI18n();
 const comments = ref<Array<Comment>>([]);
 const comment = ref<Comment>();
+const reply = ref<Reply>();
 const feedback = ref<Feedback>();
 const text = ref<string>('');
 const user = ref(auth().currentUser);
@@ -227,13 +226,39 @@ const fetchReplies = async (): Promise<void> => {
     }
 };
 
-const createReply = async (reply: string): Promise<void> => {
+const createReplyToReply = async (reply: string): Promise<void> => {
     try {
         loading.value = true;
         const docId = db.collection('replies').doc().id;
         await db.collection('replies').doc(docId).set({
-            commentEmail: comment.value?.email,
+            commentEmail: comment.value?.commentEmail,
             commentId: comment.value?.docId,
+            createdAt: timestamp,
+            docId,
+            email: user.value?.email,
+            feedbackId: feedback.value?.docId,
+            profilePicture: '',
+            text: reply,
+            userId: user.value?.uid,
+            userName: user.value?.displayName
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        await fetchReplies();
+        await fetchComments();
+        await updateFeedback();
+        loading.value = false;
+    }
+};
+
+const createReplyToComment = async (comment: Comment): Promise<void> => {
+    try {
+        loading.value = true;
+        const docId = db.collection('replies').doc().id;
+        await db.collection('replies').doc(docId).set({
+            commentEmail: comment.commentEmail,
+            commentId: comment.docId,
             createdAt: timestamp,
             docId,
             email: user.value?.email,
@@ -338,12 +363,18 @@ const onEdited = (): void => {
     fetchFeedback(String(route.params.id)); 
 };
 
-const onReplyCreated = async (reply: string): Promise<void> => {
-    await createReply(reply);
+const onReplyToReplyCreated = async (reply: string): Promise<void> => {
+    await createReplyToReply(reply);
 };
 
-const onReplyToComment = (userComment: Comment): void => {
-    comment.value = userComment;
+const onReplyToCommnentCreated = async (com: Comment): Promise<void> => {
+    comment.value = com;
+    await createReplyToComment(comment.value);
+};
+
+const onReplyTextToCommnentCreated = async (text: string): Promise<void> => {
+    reply.value = text;
+    await createReplyToComment(comment.value);
 };
 
 const onDeleted = async (feedback: Feedback): Promise<void> => {

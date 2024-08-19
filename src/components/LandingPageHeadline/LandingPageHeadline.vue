@@ -11,7 +11,7 @@
             md="6"
             class="text-center"
         >
-            <v-container>
+            <v-container fluid>
                 <v-row>
                     <v-col class="font-weight-bold text-h2">
                         {{ t('views.landingPage.headline.title') }}
@@ -68,7 +68,7 @@
             class="mx-auto text-center"
         >
             <v-card>
-                <v-container>
+                <v-container fluid>
                     <v-row>
                         <v-col class="font-weight-bold text-h4">
                             {{ t('views.landingPage.trustedBy') }}

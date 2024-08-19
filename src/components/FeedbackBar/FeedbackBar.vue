@@ -9,7 +9,7 @@
         :min-height="90"
         class="cursor"
     >
-        <v-container>
+        <v-container fluid>
             <v-row>
                 <v-col
                     class="align-top d-flex justify-center"

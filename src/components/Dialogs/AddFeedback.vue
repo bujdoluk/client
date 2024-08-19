@@ -76,7 +76,6 @@
                         :counter="250"
                         clearable
                         :rules="[required]"
-                        hide-details="auto"
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">

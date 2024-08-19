@@ -29,7 +29,7 @@
             IMAGE
         </v-col>
         <v-col cols="6">
-            <v-container>
+            <v-container fluid>
                 <v-row>
                     <v-col
                         cols="4"

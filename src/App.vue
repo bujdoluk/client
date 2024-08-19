@@ -2,7 +2,7 @@
     <v-layout>
         <AppToolbar />
         <LoaderOverlay />
-        <v-main>
+        <v-main class="bg-background">
             <RouterView />
         </v-main>
     </v-layout>

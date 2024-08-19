@@ -1,7 +1,7 @@
 <template>
     <v-container
         fluid
-        class="bg-background"
+        class="min-height"
     >
         <v-row class="width"> 
             <v-col
@@ -13,7 +13,7 @@
                 sm="12"
                 xs="12"
             >
-                <v-container>
+                <v-container fluid>
                     <v-row>
                         <v-col>
                             <FrontendMentorBox :loading="loading" />
@@ -50,9 +50,7 @@
                 sm="12"
                 xs="12"
             >
-                <v-container
-                    fluid
-                >
+                <v-container fluid>
                     <v-row>
                         <v-col>
                             <SortingPanel
@@ -83,6 +81,31 @@
                             <EmptyFeedback />
                         </v-col>
                     </v-row>
+                    <!--
+                        <v-row>
+                        <v-col cols="auto">
+                        <v-btn
+                        :disabled="prevDisabled"
+                        variant="flat"
+                        color="purple"
+                        @click="prevPage"
+                        >
+                        {{ t('buttons.prev') }}
+                        </v-btn>
+                        </v-col>
+                        <v-spacer />
+                        <v-col cols="auto">
+                        <v-btn
+                        :disabled="nextDisabled"
+                        variant="flat"
+                        color="purple"
+                        @click="nextPage"
+                        >
+                        {{ t('buttons.next') }}
+                        </v-btn>
+                        </v-col>
+                        </v-row> 
+                    -->
                 </v-container>
             </v-col>
         </v-row>
@@ -103,7 +126,9 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
 import { db, increment, auth } from '@/firebase/init';
+// import { useI18n } from 'vue-i18n';
 
+// const { t } = useI18n();
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredFeedbacks = ref<Array<Feedback>>([]);
 const user = ref(auth().currentUser);
@@ -111,11 +136,28 @@ const active = ref<boolean>(false);
 const categories = computed(() => filteredFeedbacks.value.map((feedback) => feedback.category));
 const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
 const loading = ref<boolean>(false);
+/* const lastDoc = ref();
+const firstDoc = ref();
+const prevDisabled = ref<boolean>();
+const nextDisabled = ref<boolean>(); */
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
         loading.value = true;
         const res = await db.collection('feedbacks').get();
+        
+        /*   firstDoc.value = res.docs[0];
+        lastDoc.value = res.docs[res.docs.length - 2];
+        
+        prevDisabled.value = true;
+        if (res.docs[6].exists) {
+            nextDisabled.value = false;
+        }
+
+        console.log('CHECK IF ELEMENT EXIST', res.docs[6].exists);
+        console.log('firstDoc', firstDoc.value.data());
+        console.log('lastDoc', lastDoc.value.data()); */
+        
         feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
         filteredFeedbacks.value = feedbacks.value;
     } catch (error: unknown) {
@@ -194,6 +236,56 @@ const onTagClicked = async (selectedItem: any): Promise<void> => {
     loading.value = false;
 };
 
+/* const nextPage = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db.collection('feedbacks').orderBy('title').startAfter(lastDoc.value).limit(7).get();
+        firstDoc.value = res.docs[0];
+        lastDoc.value = res.docs[res.docs.length - 2];
+
+        console.log('CHECK IF ELEMENT EXIST', res.docs[6].exists);
+        console.log('firstDoc', firstDoc.value.data());
+        console.log('lastDoc', lastDoc.value.data());
+
+        if (res.docs[6] === undefined) {
+            nextDisabled.value = true;
+            prevDisabled.value = false;
+        }
+
+        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        filteredFeedbacks.value = feedbacks.value;
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loading.value = false;
+    }
+};
+
+const prevPage = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db.collection('feedbacks').orderBy('title').endBefore(firstDoc.value).limitToLast(7).get();
+        firstDoc.value = res.docs[0];
+        lastDoc.value = res.docs[res.docs.length - 1];
+
+        console.log('CHECK IF ELEMENT EXIST', res.docs[6].exists);
+        console.log('firstDoc', firstDoc.value.data());
+        console.log('lastDoc', lastDoc.value.data());
+
+        if (res.docs[6] === undefined) {
+            nextDisabled.value = false;
+            prevDisabled.value = true;
+        }
+
+        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        filteredFeedbacks.value = feedbacks.value;
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loading.value = false;
+    }
+}; */
+
 onMounted(async () => {
     await fetchFeedbacks();
 });
@@ -203,7 +295,10 @@ onMounted(async () => {
 <style scoped>
 .width {
     width: 70vw;
-    height: calc(100vh - 90px);
     margin: 0 auto;
+}
+
+.min-height {
+    min-height: calc(100vh - 64px);
 }
 </style>

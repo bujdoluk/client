@@ -1,6 +1,6 @@
 <template>
     <v-container
-        class="bg-background height"
+        class="height"
         fluid
     >
         <v-row align="center">

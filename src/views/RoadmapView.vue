@@ -1,12 +1,15 @@
 <template>
     <v-container
         fluid
-        class="bg-background height"
+        class="min-height"
     >
-        <v-row class="grid">
+        <v-row class="width">
             <v-col class="pb-0">
                 <v-card class="bg-dark-blue">
-                    <v-container class="bg-dark-blue">
+                    <v-container
+                        fluid
+                        class="bg-dark-blue"
+                    >
                         <v-row align="center">
                             <v-col>
                                 <v-row>
@@ -29,7 +32,7 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-row class="grid">
+        <v-row class="width">
             <v-col cols="4">
                 <v-card class="bg-background">
                     <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
@@ -64,7 +67,7 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-row class="grid">
+        <v-row class="width">
             <v-col cols="4">
                 <v-row class="d-flex flex-column">  
                     <v-col   
@@ -142,12 +145,12 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.grid {
+.width {
     width: 70vw;
     margin: 0 auto;
 }
 
-.height {
-    height: calc(100vh - 64px);
+.min-height {
+    min-height: calc(100vh - 64px);
 }
 </style>

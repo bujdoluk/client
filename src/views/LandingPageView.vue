@@ -1,7 +1,7 @@
 <template>
     <v-container
         fluid
-        class="container"
+        class="pa-0"
     >
         <LandingPageNavbar />
         <LandingPageHeadline />
@@ -18,9 +18,3 @@
  * @file Landing Page View.
  */
 </script>
-
-<style scoped>
-.container {
-    padding: 0 !important;
-}
-</style>

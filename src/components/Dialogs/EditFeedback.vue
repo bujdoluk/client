@@ -96,7 +96,6 @@
                         class="bg-background-secondary"
                         :counter="250"
                         clearable
-                        hide-details="auto"
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">

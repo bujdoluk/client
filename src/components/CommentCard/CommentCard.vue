@@ -19,7 +19,7 @@
                 />
             </v-col>
             <v-col>
-                <v-container>
+                <v-container fluid>
                     <v-row class="font-weight-bold text-darkBlue">
                         {{ props.comment.userName }}
                     </v-row>
@@ -62,7 +62,7 @@
                     <v-btn
                         variant="flat"
                         color="purple"
-                        @click="onReplyCreated"
+                        @click="onReplyToCommentCreated(props.comment, replyText)"
                     >
                         {{ t('buttons.postReply') }}
                     </v-btn>
@@ -72,7 +72,7 @@
 
         <v-row
             v-for="reply in filteredReplies"
-            :key="reply.id"
+            :key="reply.docId"
         >
             <v-col>
                 <ReplyCard 
@@ -80,7 +80,7 @@
                     :feedback="feedback"
                     :user="user"
                     :comment="props.comment"
-                    @reply-created="onReplyCreated"    
+                    @reply-created="onReplyToReplyCreated"    
                 />
             </v-col>
         </v-row>
@@ -107,8 +107,9 @@ const props = defineProps<{
 }>();
 
 const emits = defineEmits<{
-    (e: 'replyCreated', replyText: string): void;
-    (e: 'replyToCommentCreated', comment: Comment): void;
+    (e: 'replyToReplyCreated', replyText: string): void;
+    (e: 'replyToCommnentCreated', comment: Comment): void;
+    (e: 'replyTextToCommnentCreated', replyText: string): void;
 }>();
 
 const { t } = useI18n();
@@ -122,9 +123,14 @@ const onReplyClicked = (): void => {
     replyText.value = '';
 };
 
-const onReplyCreated = async (): Promise<void> => {
-    emits('replyCreated', replyText.value);
-    emits('replyToCommentCreated', props.comment);
+const onReplyToReplyCreated = async (): Promise<void> => {
+    emits('replyToReplyCreated', replyText.value);
+    showReply.value = false;
+};
+
+const onReplyToCommentCreated = async (replyToComment: Comment, replyText: string): Promise<void> => {
+    emits('replyToCommnentCreated', replyToComment);
+    emits('replyTextToCommnentCreated', replyText);
     showReply.value = false;
 };
 

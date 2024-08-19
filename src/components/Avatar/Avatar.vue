@@ -1,7 +1,5 @@
 <template>
-    <v-container
-        fluid
-    >
+    <v-container fluid>
         <v-row
             justify="end"
             align="center"

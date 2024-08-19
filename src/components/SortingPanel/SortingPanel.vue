@@ -8,7 +8,7 @@
         v-else
         class="bg-dark-blue"
     >
-        <v-container>
+        <v-container fluid>
             <v-row align="center">
                 <v-col
                     cols="auto"

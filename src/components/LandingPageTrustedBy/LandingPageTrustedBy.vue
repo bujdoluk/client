@@ -9,7 +9,7 @@
             class="mx-auto text-center"
         >
             <v-card>
-                <v-container>
+                <v-container fluid>
                     <v-row>
                         <v-col class="font-weight-bold text-h4">
                             {{ t('views.landingPage.integrate') }}

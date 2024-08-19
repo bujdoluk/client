@@ -1,7 +1,7 @@
 <template>
     <v-container
         fluid
-        class="bg-background height"
+        class="height"
     >
         <v-row align="center">
             <v-col>

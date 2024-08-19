@@ -11,7 +11,7 @@
                 />
             </v-col>
             <v-col>
-                <v-container>
+                <v-container fluid>
                     <v-row class="font-weight-bold text-dark-blue">
                         {{ props.reply.userName }}
                     </v-row>
