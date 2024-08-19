@@ -7,6 +7,7 @@ export interface Feedback {
     createdAt: any;
     description: string;
     docId: string;
+    pinned: boolean;
     status: string;
     title: string;
     upvotes: number;

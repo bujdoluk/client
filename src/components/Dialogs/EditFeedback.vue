@@ -168,6 +168,7 @@ const editFeedback = async (docId: string): Promise<void> => {
                 comments: 0,
                 description: selectedDescription.value,
                 docId,
+                pinned: false,
                 status: selectedStatus.value,
                 title: selectedTitle.value,
                 upvotes: 0,

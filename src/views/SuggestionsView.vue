@@ -71,8 +71,9 @@
                         >
                             <FeedbackBar 
                                 :feedback="feedback"
-                                :loading="loading"
-                                @updated="(value) => updateFeedBack(value)" 
+                                :loading="pinnedLoading"
+                                @updated="(value) => updateFeedBack(value)"
+                                @pinned="(value) => updatePinnedFeedBack(value)"  
                             />
                         </v-col>
                     </v-row>
@@ -136,6 +137,7 @@ const active = ref<boolean>(false);
 const categories = computed(() => filteredFeedbacks.value.map((feedback) => feedback.category));
 const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
 const loading = ref<boolean>(false);
+const pinnedLoading = ref<boolean>(false);
 /* const lastDoc = ref();
 const firstDoc = ref();
 const prevDisabled = ref<boolean>();
@@ -174,8 +176,10 @@ const updateFeedBack = async (feedback: Feedback): Promise<void> => {
         await res.set({
             category: feedback.category,
             comments: feedback.comments,
+            createdAt: feedback.createdAt,
             description: feedback.description,
             docId: feedback.docId,
+            pinned: feedback.pinned,
             status: feedback.status,
             title: feedback.title,
             upvotes: increment,
@@ -184,8 +188,31 @@ const updateFeedBack = async (feedback: Feedback): Promise<void> => {
     } catch(error: unknown) {
         console.log(error);
     } finally {
-        fetchFeedbacks();
         loading.value = false;
+    }
+};
+
+const updatePinnedFeedBack = async (feedback: Feedback): Promise<void> => {
+    try {
+        pinnedLoading.value = true;
+        const res = db.collection('feedbacks').doc(feedback.docId);
+        await res.set({
+            category: feedback.category,
+            comments: feedback.comments,
+            createdAt: feedback.createdAt,
+            description: feedback.description,
+            docId: feedback.docId,
+            pinned: feedback.pinned = !feedback.pinned,
+            status: feedback.status,
+            title: feedback.title,
+            upvotes: feedback.upvotes,
+            userId: user.value?.uid
+        });
+    } catch(error: unknown) {
+        console.log(error);
+    } finally {
+        pinnedLoading.value = false;
+        fetchPinnedFeedbacks();
     }
 };
 
@@ -195,6 +222,18 @@ const onRedirect = (name: string, id?: string): void => {
 
 const onFeedbackAdded = async (): Promise<void> => {
     await fetchFeedbacks();
+};
+
+const fetchPinnedFeedbacks = async (): Promise<void> => {
+    try {
+        pinnedLoading.value = true;
+        const res = await db.collection('feedbacks').orderBy('pinned', 'desc').get();
+        filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        pinnedLoading.value = false;
+    }
 };
 
 const onSelected = async (selectedValue: string): Promise<void> => {

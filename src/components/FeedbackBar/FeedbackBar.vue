@@ -61,9 +61,24 @@
                     {{ props.feedback.comments }}
                 </v-col>
             </v-row>
-            <v-row>
-                <v-col class="d-flex justify-end pt-0 text-caption text-dark-blue">
+            <v-row align="center">
+                <v-col cols="1">
+                    &nbsp;
+                </v-col>
+                <v-col class="pt-0 text-caption text-dark-blue">
                     {{ new Date(props.feedback.createdAt.seconds * 1000).toLocaleString() }}
+                </v-col>
+                <v-spacer />
+                <v-col
+                    cols="1"
+                    class="pb-2 py-0"
+                >
+                    <v-btn
+                        variant="plain"
+                        color="purple"
+                        :icon="props.feedback.pinned ? mdiPin : mdiPinOutline"
+                        @click.stop="updatePinnedFeedBack"
+                    />
                 </v-col>
             </v-row>
         </v-container>
@@ -76,16 +91,23 @@
  */
 import Tag from '@/components/Tag/Tag.vue';
 import type { Feedback } from '@/models/Feedback';
-import { mdiChat, mdiChevronUp } from '@mdi/js';
+import { mdiChat, mdiChevronUp, mdiPinOutline, mdiPin } from '@mdi/js';
 
 const props = defineProps<{
     feedback: Feedback;
     loading: boolean;
 }>();
 
-const emits = defineEmits<(e: 'updated', feedback: Feedback) => void>();
+const emits = defineEmits<{ 
+    (e: 'updated', feedback: Feedback): void;
+    (e: 'pinned', feedback: Feedback): void;
+}>();
 
 const updateFeedBack = (): void => {
     emits('updated', props.feedback);
+};
+
+const updatePinnedFeedBack = (): void => {
+    emits('pinned', props.feedback);
 };
 </script>

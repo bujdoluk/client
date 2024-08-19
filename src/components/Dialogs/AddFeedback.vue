@@ -142,6 +142,7 @@ const addFeedback = async (): Promise<void> => {
             createdAt: timestamp,
             description: description.value,
             docId,
+            pinned: false,
             status: Status.Planned,
             title: title.value,
             upvotes: 0,
