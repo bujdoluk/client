@@ -6,7 +6,7 @@
     />
     <v-card
         v-else
-        class="pb-6 px-6"
+        class="px-6"
     >
         <v-row>
             <v-col cols="auto">
@@ -42,23 +42,29 @@
                 </v-btn>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col class="d-flex justify-end pt-0 text-caption text-dark-blue">
+                {{ new Date(props.comment.createdAt.seconds * 1000).toLocaleString() }}
+            </v-col>
+        </v-row>
 
         <v-card v-if="showReply">
-            <v-row class="pa-6">
-                <v-col cols="10">
+            <v-row class="pt-6 px-6">
+                <v-col>
                     <v-textarea 
                         v-model="replyText"
                         :placeholder="t('components.reply.typeReply')" 
                         :counter="250"
                         rows="2"
-                        bg-color="background"
-                        variant="solo-filled"
+                        class="bg-background-secondary"
+                        variant="plain"
                         flat
                         clearable
+                        hide-details
                         :rules="[maxCharacters]"
                     />
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="auto">
                     <v-btn
                         variant="flat"
                         color="purple"

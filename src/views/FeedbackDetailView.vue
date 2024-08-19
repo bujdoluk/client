@@ -1,5 +1,8 @@
 <template>
-    <v-container fluid>
+    <v-container
+        fluid
+        class="min-height"
+    >
         <v-row class="width">
             <v-col cols="auto">
                 <v-btn
@@ -23,60 +26,11 @@
                 />
             </v-col>
             <v-col cols="12">
-                <v-card
-                    :min-height="90"
-                    class="cursor"
-                >
-                    <v-container fluid>
-                        <v-row>
-                            <v-col
-                                class="align-top d-flex justify-center"
-                                cols="1"
-                            >
-                                <v-btn
-                                    stacked
-                                    class="font-weight-bold text-caption"
-                                    color="blue"
-                                    density="compact"
-                                    variant="tonal"
-                                    flat
-                                    size="40"
-                                >
-                                    <v-icon :icon="mdiChevronUp" />
-                                    {{ feedback?.upvotes }}
-                                </v-btn>
-                            </v-col>
-                            <v-col
-                                cols="10"
-                                class="pb-0"
-                            >
-                                <v-card>
-                                    <v-card-text class="font-weight-bold text-dark-blue">
-                                        {{ feedback?.title }}
-                                    </v-card-text>
-                                    <v-card-text class="text-content">
-                                        {{ feedback?.description }}
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <Tag :category="feedback?.category" />
-                                    </v-card-actions>
-                                </v-card>
-                            </v-col>
-                            <v-spacer />
-                            <v-col
-                                class="align-center d-flex font-weight-bold"
-                                cols="1"
-                            >
-                                <v-icon 
-                                    :icon="mdiChat" 
-                                    color="background-primary"
-                                    class="mr-2"
-                                />
-                                {{ feedback?.comments }}
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card>
+                <FeedbackBar
+                    v-if="feedback" 
+                    :feedback="feedback"
+                    :loading="loading"
+                />
             </v-col>
             <v-col cols="12">
                 <v-card v-if="filteredComments.length + filteredReplies.length > 0">
@@ -126,11 +80,11 @@
                                         variant="plain"
                                         flat
                                         clearable
-                                        hide-details="auto"
+                                        hide-details
                                         :rules="[maxCharacters]"
                                     />
                                 </v-card-text>
-                                <v-card-actions class="pt-3">
+                                <v-card-actions class="pr-0 pt-3">
                                     <v-spacer />
                                     <v-btn 
                                         variant="flat"
@@ -154,13 +108,12 @@
  * @file Feedback Detail View.
  */
 import { useI18n } from 'vue-i18n';
-import { mdiChevronLeft, mdiChat, mdiChevronUp } from '@mdi/js';
+import { mdiChevronLeft } from '@mdi/js';
 import router from '@/router';
 import { type Reply } from '@/models/Reply';
 import { type Comment } from '@/models/Comment';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
 import EditFeedback from '@/components/Dialogs/EditFeedback.vue';
-import Tag from '@/components/Tag/Tag.vue';
 import { ref, onMounted, computed } from 'vue';
 import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
@@ -399,7 +352,10 @@ const maxCharacters = (value: string): string | true => value.length <= 250 || t
 <style scoped>
 .width {
     width: 70vw;
-    height: auto;
     margin: 0 auto;
+}
+
+.min-height {
+    min-height: calc(100vh - 64px);
 }
 </style>

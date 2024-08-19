@@ -14,6 +14,7 @@
                 <v-col
                     class="align-top d-flex justify-center"
                     cols="1"
+                    md="1"
                 >
                     <v-btn
                         stacked
@@ -31,6 +32,7 @@
                 </v-col>
                 <v-col
                     cols="10"
+                    md="9"
                     class="pb-0"
                 >
                     <v-card>
@@ -40,15 +42,16 @@
                         <v-card-text class="text-content text-truncate text-truncate width">
                             {{ props.feedback.description }}
                         </v-card-text>
-                        <v-card-actions>
+                        <v-card-actions class="pl-0">
                             <Tag :category="props.feedback.category" />
                         </v-card-actions>
                     </v-card>
                 </v-col>
                 <v-spacer />
                 <v-col
-                    class="align-center d-flex font-weight-bold"
+                    class="align-center d-flex font-weight-bold justify-end"
                     cols="1"
+                    md="2"
                 >
                     <v-icon 
                         :icon="mdiChat" 
@@ -56,6 +59,11 @@
                         class="mr-2"
                     />
                     {{ props.feedback.comments }}
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col class="d-flex justify-end pt-0 text-caption text-dark-blue">
+                    {{ new Date(props.feedback.createdAt.seconds * 1000).toLocaleString() }}
                 </v-col>
             </v-row>
         </v-container>

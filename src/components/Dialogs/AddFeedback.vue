@@ -78,8 +78,7 @@
                         :rules="[required]"
                     />
                 </v-card-text>
-                <v-card-actions class="pt-5">
-                    <v-spacer />
+                <v-card-actions class="pt-5 px-0">
                     <v-btn
                         variant="flat"
                         color="dark-blue"
@@ -87,6 +86,7 @@
                     >
                         {{ t('buttons.close') }}
                     </v-btn>
+                    <v-spacer />
                     <v-btn
                         variant="flat"
                         color="purple"

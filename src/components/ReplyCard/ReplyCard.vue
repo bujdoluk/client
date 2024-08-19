@@ -39,7 +39,13 @@
                 </v-btn>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col class="d-flex justify-end pt-0 text-caption text-dark-blue">
+                {{ new Date(props.reply.createdAt.seconds * 1000).toLocaleString() }}
+            </v-col>
+        </v-row>
     </v-card>
+
     <v-card v-if="showReply">
         <v-row class="pa-6">
             <v-col cols="10">
@@ -48,10 +54,11 @@
                     :placeholder="t('components.reply.typeReply')" 
                     :counter="250"
                     rows="2"
-                    bg-color="background"
-                    variant="solo-filled"
+                    class="bg-background-secondary"
+                    variant="plain"
                     flat
                     clearable
+                    hide-details
                     :rules="[maxCharacters]"
                 />
             </v-col>
