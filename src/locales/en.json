@@ -23,7 +23,8 @@
         "signup": "Sign up",
         "skip": "Skip login",
         "submit": "Submit",
-        "update": "Update"
+        "udpateAccountInformation": "Update account information",
+        "updatePassword": "Update password"
     },
     "components": {
         "AppToolbar": {
@@ -42,7 +43,9 @@
             "updateStatusSubtitle": "Change feedback state"
         },
         "EditAccount": {
-            "information": "User Account Information"
+            "information": "User Account Information",
+            "passwordInformation": "To change a password, type current password, then type new one.",
+            "title": "My account"
         },
         "LogIn": {
             "title": "Login"
@@ -61,6 +64,7 @@
         }
     },
     "inputs": {
+        "currentPassword": "Current Password",
         "email": "Email",
         "newPassword": "New Password",
         "password": "Password",

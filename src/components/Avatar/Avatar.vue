@@ -68,7 +68,7 @@
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { auth } from '@/firebase/init';
-import EditAccount from '../EditAccount/EditAccount.vue';
+import EditAccount from '@/components/EditAccount/EditAccount.vue';
 import { ref } from 'vue';
 
 const prop = defineProps<{
