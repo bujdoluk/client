@@ -28,13 +28,7 @@
                     validate-on="input"
                     @keydown.enter="submit"    
                 >
-                    <v-skeleton-loader
-                        v-if="loading"
-                        boilerplate
-                        type="card"
-                    />
                     <v-card
-                        v-else
                         width="500"
                         :height="errorMessage ? '350' : '320'"
                         class="pa-3"
@@ -105,19 +99,20 @@ import { useSignup } from '../../plugins/auth';
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
 import router from '@/router';
+import { useAppStore } from '@/stores/useAppStore';
 
 const { t } = useI18n();
+const appStore = useAppStore();
 const { signup, errorMessage } = useSignup();
 const userName = ref<string>('');
 const email = ref<string>('');
 const password = ref<string>('');
 const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
-const loading = ref<boolean>(false);
 
 const submit = async (): Promise<void> => {
     try {
-        loading.value = true;
+        appStore.isLoading = true;
         await signup(email.value, password.value, userName.value);  
         if (!errorMessage.value) {
             router.push({ name: 'login' });
@@ -125,7 +120,7 @@ const submit = async (): Promise<void> => {
     } catch (e: unknown) {
         console.log(e);
     } finally {
-        loading.value = false;
+        appStore.isLoading = false;
     }
 };
 

@@ -35,5 +35,6 @@ declare module 'vue' {
     SortingPanel: typeof import('./../components/SortingPanel/SortingPanel.vue')['default']
     Tag: typeof import('./../components/Tag/Tag.vue')['default']
     TagsBox: typeof import('./../components/TagsBox/TagsBox.vue')['default']
+    VotersCard: typeof import('./../components/VotersCard/VotersCard.vue')['default']
   }
 }

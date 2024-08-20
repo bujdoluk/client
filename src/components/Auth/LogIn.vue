@@ -41,7 +41,18 @@
                     >
                         <v-card-title class="pb-4">
                             {{ t('components.LogIn.title') }}
-                        </v-card-title>  
+                        </v-card-title> 
+                        <v-card-text class="pb-6">
+                            <v-btn
+                                color="orange"
+                                variant="flat"
+                                class="text-white"
+                                block
+                                @click="onAnonymousButtonClicked"
+                            >
+                                {{ t('buttons.logInAnonymously') }}
+                            </v-btn>
+                        </v-card-text> 
                         <v-card-text class="pb-6">
                             <v-btn
                                 color="green"
@@ -102,8 +113,10 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
 import { auth, db } from '@/firebase/init';
+import { useAppStore } from '@/stores/useAppStore';
 
 const { t } = useI18n();
+const appStore = useAppStore();
 const { login, errorMessage } = useLogin();
 const email = ref<string>('');
 const password = ref<string>('');
@@ -133,7 +146,7 @@ const createUser = async (): Promise<void> => {
 
 const submit = async (): Promise<void> => {
     try {
-        loading.value = true;
+        appStore.isLoading = true;
         await login(email.value, password.value);
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });
@@ -143,16 +156,36 @@ const submit = async (): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
-        loading.value = false;
+        appStore.isLoading = false;
+    }
+};
+
+const onAnonymousButtonClicked = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        await auth().signInAnonymously();
+        if (!errorMessage.value) {
+            router.push({ name: 'suggestions' });
+        }
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
     }
 };
 
 const onGoogleButtonClicked = async (): Promise<void> => {
     try {
+        appStore.isLoading = true;
         await auth().signInWithPopup(provider);
+        if (!errorMessage.value) {
+            router.push({ name: 'suggestions' });
+        }
     } catch (error: unknown) {
         console.log(error);
-    } 
+    } finally {
+        appStore.isLoading = false;
+    }
 };
 
 const form = ref<{

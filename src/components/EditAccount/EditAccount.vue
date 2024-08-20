@@ -6,7 +6,10 @@
     >
         {{ t('buttons.editAccount') }}
     </v-btn>
-    <v-dialog v-model="dialog">
+    <v-dialog
+        v-model="dialog"
+        width="40%"
+    >
         <v-card class="pa-6">
             <v-card-title class="font-weight-bold">
                 {{ t('components.EditAccount.title') }}

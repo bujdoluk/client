@@ -39,6 +39,14 @@
                             />
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-col>
+                            <VotersCard
+                                :loading="loading"
+                                :users="users"
+                            />
+                        </v-col>
+                    </v-row>
                 </v-container>
             </v-col>
             <v-col
@@ -127,6 +135,7 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
 import { db, increment, auth } from '@/firebase/init';
+import { type User } from '@/models/User';
 // import { useI18n } from 'vue-i18n';
 
 // const { t } = useI18n();
@@ -138,10 +147,23 @@ const categories = computed(() => filteredFeedbacks.value.map((feedback) => feed
 const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
 const loading = ref<boolean>(false);
 const pinnedLoading = ref<boolean>(false);
+const users = ref<Array<User>>([]);
 /* const lastDoc = ref();
 const firstDoc = ref();
 const prevDisabled = ref<boolean>();
 const nextDisabled = ref<boolean>(); */
+
+const fetchUsers = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db.collection('users').get();
+        users.value = res.docs.map((user) => user.data() as User);
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loading.value = false;
+    }
+};
 
 const fetchFeedbacks = async (): Promise<void> => {
     try {
@@ -327,6 +349,7 @@ const prevPage = async (): Promise<void> => {
 
 onMounted(async () => {
     await fetchFeedbacks();
+    await fetchUsers();
 });
 
 </script>

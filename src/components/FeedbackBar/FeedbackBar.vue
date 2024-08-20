@@ -49,16 +49,22 @@
                 </v-col>
                 <v-spacer />
                 <v-col
-                    class="align-center d-flex font-weight-bold justify-end"
+                    class="align-center d-flex font-weight-bold justify-center"
                     cols="1"
+                    xl="2"
+                    lg="2"
                     md="2"
                 >
-                    <v-icon 
-                        :icon="mdiChat" 
-                        color="background-primary"
-                        class="mr-2"
-                    />
-                    {{ props.feedback.comments }}
+                    <v-badge
+                        :content="props.feedback.comments"
+                        color="purple"
+                    >
+                        <v-icon
+                            color="background-primary"
+                            :icon="mdiChat"
+                            size="x-large"
+                        />
+                    </v-badge>
                 </v-col>
             </v-row>
             <v-row align="center">

@@ -10,6 +10,7 @@
         "edit": "Edit Feedback",
         "editAccount": "Edit Account",
         "goToLandingPage": "Go to landing page",
+        "logInAnonymously": "LOG IN ANONYMOUSLY",
         "logInWithGoogle": "LOG IN WITH GOOGLE",
         "login": "Log in",
         "logout": "Logout",
@@ -54,6 +55,9 @@
         },
         "SignUp": {
             "title": "Sign up"
+        },
+        "VotersCard": {
+            "title": "Voters"
         },
         "comment": {
             "addComment": "Add Comment",
