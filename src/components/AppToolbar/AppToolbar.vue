@@ -51,7 +51,8 @@
         <AvatarMenu
             v-if="user"
             :user="user"
-        />  
+        />
+        <LanguageSelect />
     </v-app-bar>
 </template>
 

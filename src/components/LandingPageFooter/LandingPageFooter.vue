@@ -108,7 +108,7 @@
                             color="purple"
                             variant="text"
                         >
-                            {{ t('views.landingPage.footer.singUp') }}
+                            {{ t('views.landingPage.footer.signUp') }}
                         </v-btn>
                     </v-col>
                 </v-row>

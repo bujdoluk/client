@@ -1,0 +1,223 @@
+{
+    "all": "LOL",
+    "buttons": {
+        "add": "Pridať",
+        "back": "Spat",
+        "backToApp": "Spat do appky",
+        "cancel": "Zrusit",
+        "close": "Zatvorit",
+        "delete": "Zmazat",
+        "edit": "Editovat",
+        "editAccount": "Editovat ucet",
+        "goToLandingPage": "Spat na stranku",
+        "logInAnonymously": "Prihlasit sa ANONYMNE",
+        "logInWithGoogle": "Prihlasit sa cez GOOGLE ucet",
+        "login": "Prihlasit sa",
+        "logout": "Odhlasit sa",
+        "next": "Dalsia stranka",
+        "postComment": "Pridat komentar",
+        "postReply": "Pridat odpoved",
+        "prev": "Predchadzajuca stranka",
+        "refresh": "Nacitat znovu",
+        "reply": "Opdoved",
+        "resetPassword": "Resetovat heslo",
+        "signup": "Zaregistrovat sa",
+        "skip": "Preskocit prihlasenie",
+        "submit": "Potvrdit",
+        "udpateAccountInformation": "Zmenit informacie o ucte",
+        "udpateProfilePicture": "Zmenit profilovu fotku",
+        "updatePassword": "Zmenit heslo"
+    },
+    "components": {
+        "AppToolbar": {
+            "alt": "Feedback App logo",
+            "title": "Feedback"
+        },
+        "Dialog": {
+            "category": "Kategoria",
+            "categorySubtitle": "Vyberte kategoriu pre feedback",
+            "feedbackDetail": "Feedback detail",
+            "feedbackDetailSubtitle": "Navrhnite vylepsenie produktu...",
+            "feedbackSubtitle": "Pridajte hlavicku",
+            "feedbackTitle": "Feedback titulok",
+            "title": "Vytvorte feedback",
+            "updateStatus": "Upravte stav",
+            "updateStatusSubtitle": "Zmente stav feedbacku"
+        },
+        "EditAccount": {
+            "information": "Uzivatelske informacie",
+            "passwordInformation": "Pre zmenenie hesla napiste aktualne heslo a potom napiste nove",
+            "picture": "Profilova fotka",
+            "title": "Moj ucet"
+        },
+        "LogIn": {
+            "title": "Prihlasenie"
+        },
+        "SignUp": {
+            "title": "Registracia"
+        },
+        "VotersCard": {
+            "title": "Hlasovalo"
+        },
+        "comment": {
+            "addComment": "Pridat komentar",
+            "multipleComments": "Komentare",
+            "oneComment": "Komentar",
+            "typeComment": "Tu napiste komentar"
+        },
+        "reply": {
+            "typeReply": "Tu napiste odpoved"
+        }
+    },
+    "inputs": {
+        "currentPassword": "Aktualne heslo",
+        "email": "Email",
+        "newPassword": "Nove heslo",
+        "password": "Heslo",
+        "picture": "Vyberte fotku",
+        "userName": "Meno pouzivatela"
+    },
+    "validation": {
+        "incorrectEmailOrPassword": "Email alebo heslo je nespravne.",
+        "incorrectPassword": "Nespravne heslo",
+        "invalidEmail": "Nespravny email.",
+        "userNotFound": "Ucet so zadanym emailom neboj najdeny."
+    },
+    "validations": {
+        "maxCharacters": "Maximalne 250 znakov.",
+        "required": "Povinny udaj."
+    },
+    "views": {
+        "landingPage": {
+            "allFeedback": "Vsetok feedback od uzivatelov na jednom mieste",
+            "blog": "Blog",
+            "buttons": {
+                "14dayFreeTrial": "14-dnova skusobna verzia",
+                "demo": "Demo",
+                "freeTrial": "Skusobna verzia",
+                "readMore": "Citaj viac",
+                "startToday": "Zacni dnes"
+            },
+            "card1": {
+                "subtitle": "Súkromné a verejné nástenky pre tímy a zákazníkov",
+                "title": "Súkromné a verejné"
+            },
+            "card2": {
+                "subtitle": "Vytvorte a zdieľajte plán svojho produktu",
+                "title": "Produktova mapa"
+            },
+            "card3": {
+                "subtitle": "Zbierajte hlasy o funkcnych poziadavkach",
+                "title": "Hlasovanie funkcionalit"
+            },
+            "card4": {
+                "subtitle": "Tabuľa a plán na vašej vlastnej doméne.",
+                "title": "Vlastná doména"
+            },
+            "card5": {
+                "subtitle": "Identifikujte a synchronizujte svoje používateľské účty.",
+                "title": "Používateľské jednotné prihlásenie"
+            },
+            "card6": {
+                "subtitle": "Manuálne schvaľovať nové príspevky a komentáre.",
+                "title": "Moderacia"
+            },
+            "card7": {
+                "subtitle": "Prispôsobte si vlastné štítky stavu.",
+                "title": "Vlastné stavy"
+            },
+            "card8": {
+                "subtitle": "Pridajte používateľov ako hlasujúcich do spätnej väzby manuálne.",
+                "title": "Hlasujte v mene"
+            },
+            "changelog": {
+                "comunicate": "S vaším Denník zmien sa komunikácia o nových aktualizáciách a spustení stane jednoduchou a zábavnou!",
+                "share": "Zdieľajte svoje najnovšie spustenia a aktualizácie",
+                "title": "Dennik zmien"
+            },
+            "features": "Funkcie",
+            "feedbackBoards": {
+                "allInOne": "Všetky vaše pripomienky v jednom prehľade",
+                "give": "Dajte používateľom hlas! Nechajte ich, aby predložili vaše požiadavky na novú funkciu a hlasovali o všetkej spätnej väzbe, aby ste vedeli, čo ďalej stavať.",
+                "title": "Denník zmien"
+            },
+            "footer": {
+                "about": "O firme",
+                "account": "Ucet",
+                "blog": "Blog",
+                "caseStudies": "Prípadové štúdie",
+                "compare": "Porovnaj",
+                "demo": "Demo",
+                "features": "Funkcie",
+                "feedbackApp": "Aplikácia Feedback – vytvorená s láskou k produktovému manažmentu 💛",
+                "gdpr": "GDPR",
+                "getStarted": "Začnite s bezplatnou 14-dňovou skúšobnou verziou ešte dnes!",
+                "home": "Domov",
+                "login": "Prihláste sa",
+                "pricing": "Cennik",
+                "privacy": "Ochrana osobných údajov",
+                "product": "Produkt",
+                "signUp": "Zaregistrujte sa",
+                "solutions": "Riešenia",
+                "terms": "Podmienky"
+            },
+            "headline": {
+                "noCreditCardRequired": "*nie je potrebná žiadna kreditná karta.",
+                "subtitle": "Premeňte spätnú väzbu od používateľov na použiteľné optimalizácie produktov!",
+                "title": "Okamžitá spätná väzba na vytváranie lepších produktov."
+            },
+            "integrate": "Integracie",
+            "navbar": {
+                "demo": "Demo",
+                "features": "Funkcie",
+                "home": "Domov",
+                "howItWorks": "Ako to funguje",
+                "pricing": "Cena"
+            },
+            "roadmap": {
+                "comunicate": "Komunikujte aktualizácie jediným kliknutím",
+                "share": "Automaticky zdieľajte všetky skvelé nové funkcie, na ktorých pracujete. Vaši používatelia vás budú milovať!",
+                "title": "Roadmap"
+            },
+            "trustedBy": "Doveruje nam"
+        },
+        "roadmap": {
+            "status": {
+                "inProgress": "Práve prebieha",
+                "live": "V produkcii",
+                "planned": "Plánované",
+                "subtitle": {
+                    "inProgress": "V súčasnosti sa vyvíja",
+                    "live": "Vydané funkcie",
+                    "planned": "Myšlienky prioritné pre výskum"
+                }
+            },
+            "title": "Roadmap"
+        },
+        "suggestions": {
+            "emptyFeedback": {
+                "subtitle": "Máte návrh? Našli ste chybu, ktorú je potrebné rozdrviť? Radi počúvame o nových nápadoch na zlepšenie našej aplikácie.",
+                "title": "Zatiaľ neexistuje žiadna spätná väzba."
+            },
+            "roadmap": {
+                "inProgress": "Práve prebieha",
+                "live": "V produkcii",
+                "planned": "Plánované",
+                "title": "Roadmap",
+                "view": "Zobraziť"
+            },
+            "sidebar": {
+                "subtitle": "FrontEnd Feedback",
+                "title": "FrontEnd Mentor"
+            },
+            "topbar": {
+                "leastComments": "Najmenej komentarov",
+                "leastUpvotes": "Najmenej hlasov",
+                "mostComments": "Najviac komentarov",
+                "mostUpvotes": "Najviac hlasov",
+                "sortBy": "Zoradiť podľa:",
+                "suggestions": "Návrhy"
+            }
+        }
+    }
+}

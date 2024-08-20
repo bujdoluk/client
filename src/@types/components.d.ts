@@ -25,6 +25,7 @@ declare module 'vue' {
     LandingPageNavbar: typeof import('./../components/LandingPageNavbar/LandingPageNavbar.vue')['default']
     LandingPageOverview: typeof import('./../components/LandingPageOverview/LandingPageOverview.vue')['default']
     LandingPageTrustedBy: typeof import('./../components/LandingPageTrustedBy/LandingPageTrustedBy.vue')['default']
+    LanguageSelect: typeof import('./../components/LanguageSelect/LanguageSelect.vue')['default']
     LoaderOverlay: typeof import('./../components/LoaderOverlay/LoaderOverlay.vue')['default']
     LogIn: typeof import('./../components/Auth/LogIn.vue')['default']
     ReplyCard: typeof import('./../components/ReplyCard/ReplyCard.vue')['default']
