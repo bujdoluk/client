@@ -31,7 +31,7 @@
                     </v-btn>
                 </v-col>
                 <v-col
-                    cols="10"
+                    cols="9"
                     md="9"
                     class="pb-0"
                 >
@@ -43,7 +43,12 @@
                             {{ props.feedback.description }}
                         </v-card-text>
                         <v-card-actions class="pl-0">
-                            <Tag :category="props.feedback.category" />
+                            <Tag
+                                :category="props.feedback.category"
+                            />
+                            <span class="pl-3 text-caption">
+                                {{ new Date(props.feedback.createdAt.seconds * 1000).toLocaleString() }}
+                            </span>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -51,9 +56,9 @@
                 <v-col
                     class="align-center d-flex font-weight-bold justify-center"
                     cols="1"
-                    xl="2"
-                    lg="2"
-                    md="2"
+                    xl="1"
+                    lg="1"
+                    md="1"
                 >
                     <v-badge
                         :content="props.feedback.comments"
@@ -66,18 +71,12 @@
                         />
                     </v-badge>
                 </v-col>
-            </v-row>
-            <v-row align="center">
-                <v-col cols="1">
-                    &nbsp;
-                </v-col>
-                <v-col class="pt-0 text-caption text-dark-blue">
-                    {{ new Date(props.feedback.createdAt.seconds * 1000).toLocaleString() }}
-                </v-col>
-                <v-spacer />
                 <v-col
+                    class="align-center d-flex font-weight-bold justify-center"
                     cols="1"
-                    class="pb-2 py-0"
+                    xl="1"
+                    lg="1"
+                    md="1"
                 >
                     <v-btn
                         variant="plain"

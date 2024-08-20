@@ -25,7 +25,7 @@
                     <v-row align="center">
                         <v-col
                             cols="auto"
-                            class="text-caption text-content"
+                            class="font-weight-bold text-caption text-white"
                         >
                             {{ t('views.suggestions.topbar.sortBy') }}
                         </v-col>

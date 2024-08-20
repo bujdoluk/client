@@ -5,6 +5,7 @@
     >
         <v-row class="width"> 
             <v-col
+                class="pr-0"
                 cols="3"
                 xxl="3"
                 xl="3"
@@ -15,12 +16,12 @@
             >
                 <v-container fluid>
                     <v-row>
-                        <v-col>
+                        <v-col class="pb-0">
                             <FrontendMentorBox :loading="loading" />
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col>
+                        <v-col class="pb-0">
                             <TagsBox
                                 v-if="feedbacks.length > 0"
                                 :categories="filteredByUniqueTags"
@@ -31,7 +32,7 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col>
+                        <v-col class="pb-0">
                             <RoadmapBox
                                 v-if="feedbacks"
                                 :feedbacks="feedbacks"
@@ -50,6 +51,7 @@
                 </v-container>
             </v-col>
             <v-col
+                class="pl-0"
                 cols="9"
                 xxl="9"
                 xl="9"
@@ -74,7 +76,7 @@
                         :key="feedback.docId"
                     >
                         <v-col
-                            class="pb-0"
+                            class="pt-0"
                             @click="onRedirect('feedback-detail', feedback.docId)"
                         >
                             <FeedbackBar 

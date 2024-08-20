@@ -10,7 +10,7 @@
         v-model="dialog"
         width="40%"
     >
-        <v-card class="pa-6">
+        <v-card class="px-3 py-2">
             <v-card-title class="font-weight-bold">
                 {{ t('components.EditAccount.title') }}
             </v-card-title>
@@ -107,7 +107,7 @@
                 </v-btn>
             </v-card-actions>
             
-            <v-card-actions class="pt-5">
+            <v-card-actions class="pl-0 pt-5">
                 <v-btn
                     variant="flat"
                     color="dark-blue"
