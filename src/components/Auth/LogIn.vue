@@ -101,7 +101,7 @@ import { useLogin } from '../../plugins/auth';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
-import { db, auth, perf } from '@/firebase/init';
+import { auth, db } from '@/firebase/init';
 
 const { t } = useI18n();
 const { login, errorMessage } = useLogin();
@@ -111,7 +111,6 @@ const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
 const user = ref(auth().currentUser);
 const loading = ref<boolean>(false);
-
 const provider = new auth.GoogleAuthProvider();
 
 const createUser = async (): Promise<void> => {
@@ -133,26 +132,19 @@ const createUser = async (): Promise<void> => {
 };
 
 const submit = async (): Promise<void> => {
-    const trace = perf.trace('userLogin');
-    trace.start();
-
     try {
         loading.value = true;
-        const credential = await login(email.value, password.value);
-        trace.putAttribute('verified', `${credential?.user?.emailVerified}`);
-
-        await createUser();
+        await login(email.value, password.value);
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });
         }
-    } catch (e: any) {
-        console.log(e);
-        trace.putAttribute('errorCode', e.code);
+        await createUser();
+        console.log('USER created');
+    } catch (error: unknown) {
+        console.log(error);
     } finally {
         loading.value = false;
     }
-
-    trace.stop();
 };
 
 const onGoogleButtonClicked = async (): Promise<void> => {

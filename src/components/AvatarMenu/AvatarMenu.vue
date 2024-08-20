@@ -63,7 +63,7 @@
 
 <script setup lang="ts">
 /**
- * @file Avatar component.
+ * @file Avatar menu component.
  */
 import { useI18n } from 'vue-i18n';
 import router from '@/router';

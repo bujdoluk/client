@@ -20,6 +20,7 @@
                 :label="t('inputs.picture')"
                 density="compact"   
                 variant="outlined"
+                show-size="1000"
             />
             <v-card-actions class="pr-0">
                 <v-spacer />
@@ -135,7 +136,7 @@ const email = ref<string>(user.value?.email!);
 const displayName = ref<string>(user.value?.displayName!);
 const password = ref<string>('');
 const newPassword = ref<string>('');
-const storage = useStorage();
+const { getImage, uploadImage } = useStorage();
 const file = ref(null);
 const profilePictureUrl = ref();
 const dialog = ref<boolean>(false);
@@ -213,46 +214,40 @@ const updateProfilePicture = async (): Promise<void> => {
     try {
         loadingPicture.value = true;
         if (file.value) {
-            await storage.uploadImage(file.value);
+            await uploadImage(file.value);
         }
     } catch (error: any) {
         console.log(error);
     } finally {
         loadingPicture.value = false;
-        updateUserProfilePicture();
+        profilePictureUrl.value = await getImage();
+        if (profilePictureUrl.value) {
+            updateUserProfilePicture(profilePictureUrl.value);
+        }
+        console.log('pic', profilePictureUrl.value);
     }
 };
 
-const updateUserProfilePicture = async (): Promise<void> => {
+const updateUserProfilePicture = async (pic: string): Promise<void> => {
     try {
         loadingPicture.value = true;
         const res = db.collection('users').doc(user.value?.uid);
-        await res.update({
-            picture: storage.filePath 
+        await res.set({
+            email: user.value?.email,
+            picture: pic,
+            userId: user.value?.uid,
+            userName: user.value?.displayName 
         });
     } catch (error: unknown) {
         console.log(error);
     } finally {
         loadingPicture.value = false;
-        downloadProfilePicture();
-    }
-};
-
-const downloadProfilePicture = async (): Promise<void> => {
-    try { 
-        loading.value = true;
-        profilePictureUrl.value = await storage.getImage();
-    } catch (error: any) {
-        console.log(error);
-    } finally {
-        loading.value = false;
         emit('downloaded', profilePictureUrl.value);
     }
 };
 
 onMounted(async () => {
     await getUser();
-    await downloadProfilePicture();
 });
 
 </script>

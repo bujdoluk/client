@@ -63,7 +63,7 @@ import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import router from '@/router';
 import { auth } from '@/firebase/init';
-import Avatar from '@/components/Avatar/Avatar.vue';
+import Avatar from '@/components/Avatar/AvatarMenu.vue';
 
 const { t } = useI18n();
 const user = ref(auth().currentUser);

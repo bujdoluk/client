@@ -9,7 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddFeedback: typeof import('./src/components/Dialogs/AddFeedback.vue')['default']
     AppToolbar: typeof import('./src/components/AppToolbar/AppToolbar.vue')['default']
-    Avatar: typeof import('./src/components/Avatar/Avatar.vue')['default']
+    AvatarMenu: typeof import('./src/components/AvatarMenu/AvatarMenu.vue')['default']
     CommentCard: typeof import('./src/components/CommentCard/CommentCard.vue')['default']
     EditAccount: typeof import('./src/components/EditAccount/EditAccount.vue')['default']
     EditFeedback: typeof import('./src/components/Dialogs/EditFeedback.vue')['default']
