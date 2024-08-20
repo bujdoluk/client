@@ -8,7 +8,7 @@ export interface Reply {
     docId: string;
     email: string;
     feedbackId: string;
-    profilePicture: string;
+    picture: string;
     text: string;
     userId: string;
     userName: string;

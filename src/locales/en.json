@@ -24,6 +24,7 @@
         "skip": "Skip login",
         "submit": "Submit",
         "udpateAccountInformation": "Update account information",
+        "udpateProfilePicture": "Update picture",
         "updatePassword": "Update password"
     },
     "components": {
@@ -45,6 +46,7 @@
         "EditAccount": {
             "information": "User Account Information",
             "passwordInformation": "To change a password, type current password, then type new one.",
+            "picture": "Profile picture",
             "title": "My account"
         },
         "LogIn": {
@@ -68,6 +70,7 @@
         "email": "Email",
         "newPassword": "New Password",
         "password": "Password",
+        "picture": "Select picture",
         "userName": "User name"
     },
     "tabs": {

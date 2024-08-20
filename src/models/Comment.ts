@@ -8,7 +8,7 @@ export interface Comment {
     email: string;
     feedbackId: string;
     id: string;
-    profilePicture: string;
+    picture: string;
     text: string;
     userId: string;
     userName: string;

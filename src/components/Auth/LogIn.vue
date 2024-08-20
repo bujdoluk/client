@@ -120,7 +120,7 @@ const createUser = async (): Promise<void> => {
         if (user.value) {
             await db.collection('users').doc(user.value.uid).set({
                 email: user.value.email,
-                profilePicture: '',
+                picture: '',
                 userId: user.value.uid,
                 userName: user.value.displayName
             });

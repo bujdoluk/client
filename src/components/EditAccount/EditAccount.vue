@@ -13,8 +13,29 @@
             </v-card-title>
 
             <span class="pb-2">
+                {{ t('components.EditAccount.picture') }}
+            </span>  
+            <v-file-input
+                v-model="file"
+                :label="t('inputs.picture')"
+                density="compact"   
+                variant="outlined"
+            />
+            <v-card-actions class="pr-0">
+                <v-spacer />
+                <v-btn
+                    variant="flat"
+                    color="purple"
+                    :loading="loadingPicture"
+                    @click="updateProfilePicture"
+                >
+                    {{ t('buttons.udpateProfilePicture') }}
+                </v-btn>
+            </v-card-actions>
+
+            <span class="pb-2">
                 {{ t('components.EditAccount.information') }}
-            </span>
+            </span>     
             <v-card-text>
                 <v-text-field 
                     v-model="displayName" 
@@ -107,6 +128,7 @@ import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
 import { useStorage } from '@/plugins/storage';
 
 const emit = defineEmits<(e: 'downloaded', picture: any) => void>();
+
 const { t } = useI18n();
 const user = ref(auth().currentUser);
 const email = ref<string>(user.value?.email!);
@@ -120,6 +142,7 @@ const dialog = ref<boolean>(false);
 
 const loading = ref<boolean>(false);
 const loadingUserAccount = ref<boolean>(false);
+const loadingPicture = ref<boolean>(false);
 
 const showCurrentPassword = ref<boolean>(false);
 const showNewPassword = ref<boolean>(false);
@@ -186,16 +209,32 @@ const updateAccount = async (): Promise<void> => {
     }
 };
 
-const uploadProfilePicture = async (): Promise<void> => {
+const updateProfilePicture = async (): Promise<void> => {
     try {
-        loading.value = true;
+        loadingPicture.value = true;
         if (file.value) {
             await storage.uploadImage(file.value);
         }
     } catch (error: any) {
         console.log(error);
     } finally {
-        loading.value = false;
+        loadingPicture.value = false;
+        updateUserProfilePicture();
+    }
+};
+
+const updateUserProfilePicture = async (): Promise<void> => {
+    try {
+        loadingPicture.value = true;
+        const res = db.collection('users').doc(user.value?.uid);
+        await res.update({
+            picture: storage.filePath 
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loadingPicture.value = false;
+        downloadProfilePicture();
     }
 };
 

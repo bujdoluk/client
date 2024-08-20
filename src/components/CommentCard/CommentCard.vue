@@ -13,8 +13,8 @@
                 <v-avatar
                     size="large"
                     :image="
-                        props.comment.profilePicture
-                            ? props.comment.profilePicture
+                        props.comment.picture
+                            ? props.comment.picture
                             : '../../../src//assets/avatar.png'"
                 />
             </v-col>

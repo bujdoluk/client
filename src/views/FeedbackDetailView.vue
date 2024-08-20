@@ -190,7 +190,7 @@ const createReplyToReply = async (reply: string): Promise<void> => {
             docId,
             email: user.value?.email,
             feedbackId: feedback.value?.docId,
-            profilePicture: '',
+            picture: '',
             text: reply,
             userId: user.value?.uid,
             userName: user.value?.displayName
@@ -216,7 +216,7 @@ const createReplyToComment = async (comment: Comment): Promise<void> => {
             docId,
             email: user.value?.email,
             feedbackId: feedback.value?.docId,
-            profilePicture: '',
+            picture: '',
             text: reply,
             userId: user.value?.uid,
             userName: user.value?.displayName
@@ -252,7 +252,7 @@ const createComment = async (): Promise<void> => {
             docId,
             email: user.value?.email,
             feedbackId: feedback.value?.docId,
-            profilePicture: '',
+            picture: '',
             text: text.value,
             userId: user.value?.uid,
             userName: user.value?.displayName

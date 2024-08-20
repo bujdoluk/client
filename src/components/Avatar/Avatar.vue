@@ -17,7 +17,7 @@
                     >
                         <v-avatar
                             size="large"
-                            image="../../../src//assets/avatar.png"
+                            :image=" picture ? picture : '../../../src//assets/avatar.png'"
                         />
                     </v-btn>
                 </template>
@@ -30,7 +30,7 @@
                     <v-card-text class="pb-3 text-center">
                         <v-avatar
                             size="x-large"
-                            image="../../../src//assets/avatar.png"
+                            :image=" picture ? picture : '../../../src//assets/avatar.png'"
                         />
                     </v-card-text>
                     <v-card-text class="pb-3 text-center">
@@ -41,7 +41,7 @@
                     </v-card-text>
                     <v-card-text class="pb-3">
                         <EditAccount
-                            @downloaded="onPictureDownloaded"
+                            @downloaded="(value) => onPictureDownloaded(value)"
                         />
                     </v-card-text>
                     <v-card-text>
@@ -77,7 +77,7 @@ const prop = defineProps<{
 
 const loading = ref<boolean>(false);
 const { t } = useI18n();
-const profilePicture = ref();
+const picture = ref();
 
 const logout = async (): Promise<void> => {
     try {
@@ -92,8 +92,8 @@ const logout = async (): Promise<void> => {
     }
 };
 
-const onPictureDownloaded = (pic: any): void => {
-    profilePicture.value = pic;
+const onPictureDownloaded = (downloadedPicture: any): void => {
+    picture.value = downloadedPicture;
 };
 
 </script>/

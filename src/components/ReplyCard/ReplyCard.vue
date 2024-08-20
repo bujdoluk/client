@@ -5,8 +5,8 @@
                 <v-avatar
                     size="large"
                     :image="
-                        props.reply.profilePicture
-                            ? props.reply.profilePicture
+                        props.reply.picture
+                            ? props.reply.picture
                             : '../../../src//assets/avatar.png'"
                 />
             </v-col>

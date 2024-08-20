@@ -12,10 +12,14 @@ const filePath = ref<string | null>(null);
 const url = ref<string | null>(null);
 
 const uploadImage = async (file: any): Promise<void> => {
-    filePath.value = `profilePictures/${user.value?.uid}/${file.name}`;
+    if (user.value) {
+        filePath.value = `profilePictures/${user.value.uid}/${file.name}`;
+    }
     try {
-        const res = await storage().ref(filePath.value).put(file);
-        url.value = await res.ref.getDownloadURL();
+        if (filePath.value) {
+            const res = await storage().ref(filePath.value).put(file);
+            url.value = await res.ref.getDownloadURL();
+        }
     } catch (error: any) {
         console.log(error);
         error.value = error;
