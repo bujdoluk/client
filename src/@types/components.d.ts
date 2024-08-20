@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddFeedback: typeof import('./../components/Dialogs/AddFeedback.vue')['default']
     AppToolbar: typeof import('./../components/AppToolbar/AppToolbar.vue')['default']
-    Avatar: typeof import('../components/Avatar/AvatarMenu.vue')['default']
     AvatarMenu: typeof import('./../components/AvatarMenu/AvatarMenu.vue')['default']
     CommentCard: typeof import('./../components/CommentCard/CommentCard.vue')['default']
     EditAccount: typeof import('./../components/EditAccount/EditAccount.vue')['default']
@@ -28,7 +27,6 @@ declare module 'vue' {
     LandingPageTrustedBy: typeof import('./../components/LandingPageTrustedBy/LandingPageTrustedBy.vue')['default']
     LoaderOverlay: typeof import('./../components/LoaderOverlay/LoaderOverlay.vue')['default']
     LogIn: typeof import('./../components/Auth/LogIn.vue')['default']
-    PersonalProfile: typeof import('./../components/PersonalProfile/PersonalProfile.vue')['default']
     ReplyCard: typeof import('./../components/ReplyCard/ReplyCard.vue')['default']
     RoadmapBox: typeof import('./../components/RoadmapBox/RoadmapBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -37,6 +35,5 @@ declare module 'vue' {
     SortingPanel: typeof import('./../components/SortingPanel/SortingPanel.vue')['default']
     Tag: typeof import('./../components/Tag/Tag.vue')['default']
     TagsBox: typeof import('./../components/TagsBox/TagsBox.vue')['default']
-    UserPassword: typeof import('./../components/UserPassword/UserPassword.vue')['default']
   }
 }
