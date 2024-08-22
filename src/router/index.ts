@@ -20,7 +20,7 @@ const router = createRouter({
     routes: [
         {
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (!auth().currentUser) {
+                if (auth().currentUser === null) {
                     next({ name: 'errorView' });
                 }
                 next();
@@ -31,7 +31,7 @@ const router = createRouter({
         },
         {
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (!auth().currentUser) {
+                if (auth().currentUser === null) {
                     next({ name: 'errorView' });
                 }
                 next();
@@ -47,7 +47,7 @@ const router = createRouter({
         },
         {
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (!auth().currentUser) {
+                if (auth().currentUser === null) {
                     next({ name: 'errorView' });
                 }
                 next();
@@ -72,6 +72,12 @@ const router = createRouter({
             path: '/error'
         },
         {
+            beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
+                if (auth().currentUser === null) {
+                    next({ name: 'errorView' });
+                }
+                next();
+            },
             component: ChangelogView,
             name: 'changelog',
             path: '/changelog'

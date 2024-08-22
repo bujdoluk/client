@@ -32,7 +32,7 @@
             variant="flat"
             :disabled="router.currentRoute.value.fullPath === '/login'"
             color="purple"
-            class="ml-3"
+            class="mx-3"
             :to="{ 'name': 'login' }"
         >
             {{ t('buttons.login') }}
@@ -46,7 +46,12 @@
             {{ t('buttons.backToApp') }}
         </v-btn>
        
-        <v-btn variant="outlined" @click="redirectToChangelog" class="mx-3">
+        <v-btn
+            v-if="user"
+            variant="outlined"
+            class="mx-3"
+            @click="redirectToChangelog"
+        >
             {{ t('buttons.changelog') }}
         </v-btn>
         <v-select
