@@ -28,6 +28,8 @@ declare module 'vue' {
     LanguageSelect: typeof import('./../components/LanguageSelect/LanguageSelect.vue')['default']
     LoaderOverlay: typeof import('./../components/LoaderOverlay/LoaderOverlay.vue')['default']
     LogIn: typeof import('./../components/Auth/LogIn.vue')['default']
+    ModerationDialog: typeof import('./../components/ModerationDialog/ModerationDialog.vue')['default']
+    ModerationToggle: typeof import('./../components/ModerationToggle/ModerationToggle.vue')['default']
     ReplyCard: typeof import('./../components/ReplyCard/ReplyCard.vue')['default']
     RoadmapBox: typeof import('./../components/RoadmapBox/RoadmapBox.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -40,5 +40,6 @@ watch(() => selectedLanguage.value, () => {
 <style scoped>
 .width {
     min-width: 110px !important;
+    max-width: 110px !important;
 }
 </style>

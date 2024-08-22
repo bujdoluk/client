@@ -6,6 +6,7 @@ import { ref } from 'vue';
 
 export interface AppState {
     isLoading: boolean;
+    isModerationAllowed: boolean;
     showCreateReply: boolean;
 }
 
@@ -14,7 +15,8 @@ export const useAppStore = defineStore(
     () => {
         const isLoading = ref<boolean>(false);
         const showCreateReply = ref<boolean>(false);
-        return { isLoading, showCreateReply };
+        const isModerationAllowed = ref<boolean>(false);
+        return { isLoading, isModerationAllowed, showCreateReply };
     }
 );
 

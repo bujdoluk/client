@@ -5,6 +5,7 @@
         "back": "Go Back",
         "backToApp": "Back to App",
         "cancel": "Cancel",
+        "changelog": "Changelog",
         "close": "Close Dialog",
         "delete": "Delete",
         "edit": "Edit Feedback",
@@ -24,9 +25,14 @@
         "signup": "Sign up",
         "skip": "Skip login",
         "submit": "Submit",
+        "suggestions": "Suggestions",
         "udpateAccountInformation": "Update account information",
         "udpateProfilePicture": "Update picture",
         "updatePassword": "Update password"
+    },
+    "chips": {
+        "all": "ALL",
+        "released": "RELEASED"
     },
     "components": {
         "AppToolbar": {
@@ -52,6 +58,13 @@
         },
         "LogIn": {
             "title": "Login"
+        },
+        "ModerationDialog": {
+            "preview": "Preview",
+            "title": "Do you really want to approve this feedback/comment?"
+        },
+        "ModerationToggle": {
+            "allowModeration":"Allow moderation"
         },
         "SignUp": {
             "title": "Sign up"
@@ -95,6 +108,9 @@
         "required": "Required."
     },
     "views": {
+        "changelog": {
+
+        },
         "landingPage": {
             "allFeedback": "All of your user feedback in one single place",
             "blog": "Blog",
@@ -191,7 +207,7 @@
         "roadmap": {
             "status": {
                 "inProgress": "In-Progress",
-                "live": "Live",
+                "live": "Live", 
                 "planned": "Planned",
                 "subtitle": {
                     "inProgress": "Currently being developed",
@@ -199,7 +215,7 @@
                     "planned": "Ideas prioritized for research"
                 }
             },
-            "title": "Roadmap"
+            "title": "Roadmap" 
         },
         "suggestions": {
             "emptyFeedback": {

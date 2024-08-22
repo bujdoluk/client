@@ -48,6 +48,9 @@
         <v-btn>
             DARK MODE
         </v-btn>
+        <v-btn @click="redirectToChangelog">
+            {{ t('buttons.changelog') }}
+        </v-btn>
         <AvatarMenu
             v-if="user"
             :user="user"
@@ -82,6 +85,10 @@ const redirecToApp = (): void => {
     if (user.value) {
         router.push({ name: 'suggestions' });
     }
+};
+
+const redirectToChangelog = (): void => {
+    router.push({ name: 'changelog' });
 };
 
 </script>

@@ -5,6 +5,7 @@
         "back": "Spat",
         "backToApp": "Spat do appky",
         "cancel": "Zrusit",
+        "changelog": "Changelog",
         "close": "Zatvorit",
         "delete": "Zmazat",
         "edit": "Editovat",
@@ -24,9 +25,14 @@
         "signup": "Zaregistrovat sa",
         "skip": "Preskocit prihlasenie",
         "submit": "Potvrdit",
+        "suggestions": "Návrhy",
         "udpateAccountInformation": "Zmenit informacie o ucte",
         "udpateProfilePicture": "Zmenit profilovu fotku",
         "updatePassword": "Zmenit heslo"
+    },
+    "chips": {
+        "all": "VSETKO",
+        "released": "VYDANE"
     },
     "components": {
         "AppToolbar": {
@@ -52,6 +58,13 @@
         },
         "LogIn": {
             "title": "Prihlasenie"
+        },
+        "ModerationDialog": {
+            "preview": "Nahlad",
+            "title": "Chcete naozaj povolit tento feedback/komentar?"
+        },
+        "ModerationToggle": {
+            "allowModeration":"Povolit moderovanie obsahu"
         },
         "SignUp": {
             "title": "Registracia"

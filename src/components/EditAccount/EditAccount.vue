@@ -8,7 +8,7 @@
     </v-btn>
     <v-dialog
         v-model="dialog"
-        width="40%"
+        width="30%"
     >
         <v-card class="px-3 py-2">
             <v-card-title class="font-weight-bold">
@@ -106,6 +106,8 @@
                     {{ t('buttons.updatePassword') }}
                 </v-btn>
             </v-card-actions>
+
+            <ModerationToggle />
             
             <v-card-actions class="pl-0 pt-5">
                 <v-btn

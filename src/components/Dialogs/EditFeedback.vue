@@ -135,7 +135,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
-import { db, auth } from '@/firebase/init';
+import { db, auth, timestamp } from '@/firebase/init';
 import type { Feedback } from '@/models/Feedback';
 import { Status } from '@/models/Status';
 
@@ -166,6 +166,7 @@ const editFeedback = async (docId: string): Promise<void> => {
             await db.collection('feedbacks').doc(docId).set({
                 category: selectedCategory.value,
                 comments: 0,
+                createdAt: timestamp,
                 description: selectedDescription.value,
                 docId,
                 pinned: false,
