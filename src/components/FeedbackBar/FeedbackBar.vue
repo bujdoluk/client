@@ -46,7 +46,7 @@
                             <Tag
                                 :category="props.feedback.category"
                             />
-                            <span class="pl-3 text-caption">
+                            <span class="pl-3 text-caption text-content">
                                 {{ new Date(props.feedback.createdAt.seconds * 1000).toLocaleString() }}
                             </span>
                         </v-card-actions>

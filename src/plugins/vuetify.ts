@@ -12,7 +12,7 @@ import i18n from '@/plugins/i18n';
 import type { ThemeDefinition } from 'vuetify';
 import { useI18n } from 'vue-i18n';
 
-const feedbackApp: ThemeDefinition = {
+const light: ThemeDefinition = {
     colors: {
         'background': '#F7F8FD',
         'background-primary': '#CDD2EE',
@@ -32,6 +32,28 @@ const feedbackApp: ThemeDefinition = {
         'white': '#FFFFFF'
     },
     dark: false
+};
+
+const dark: ThemeDefinition = {
+    colors: {
+        'background': '#232323',
+        'background-primary': '#363636',
+        'background-secondary': '#363636',
+        'blue': '#ffffff',
+        'blue-hover': '#ffffff',
+        'content': '#ffffff',
+        'dark-blue': '#ffffff',
+        'dark-blue-hover': '#ffffff',
+        'error': '#DB1F35',
+        'info': '#1994C1',
+        'purple': '#AD1FEA',
+        'purple-hover': '#C75AF6',
+        'purple-light': '#F3D5FF',
+        'success': '#50B246',
+        'warning': '#E68418',
+        'white': '#292626'
+    },
+    dark: true
 };
 
 export default createVuetify(
@@ -90,9 +112,10 @@ export default createVuetify(
             adapter: createVueI18nAdapter({ i18n, useI18n })
         },
         theme: {
-            defaultTheme: 'feedbackApp',
+            defaultTheme: localStorage.getItem('theme') ?? 'light',
             themes: {
-                feedbackApp
+                light,
+                dark
             },
             variations: {
                 colors: ['primary', 'secondary'],

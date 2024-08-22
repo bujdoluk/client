@@ -45,17 +45,26 @@
         >
             {{ t('buttons.backToApp') }}
         </v-btn>
-        <v-btn>
-            DARK MODE
-        </v-btn>
-        <v-btn @click="redirectToChangelog">
+       
+        <v-btn variant="outlined" @click="redirectToChangelog" class="mx-3">
             {{ t('buttons.changelog') }}
         </v-btn>
+        <v-select
+            v-model="selectedTheme"
+            label="Select Theme"
+            :items="myThemes"
+            hide-details
+            density="compact"
+            variant="plain"
+            single-line
+            class="bg-background-secondary mr-4 px-1 width"
+            @update:model-value="setTheme"
+        />
+        <LanguageSelect />
         <AvatarMenu
             v-if="user"
             :user="user"
         />
-        <LanguageSelect />
     </v-app-bar>
 </template>
 
@@ -64,13 +73,17 @@
  * @file AppToolbar.
  */
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import router from '@/router';
 import { auth } from '@/firebase/init';
 import AvatarMenu from '@/components/AvatarMenu/AvatarMenu.vue';
+import { useTheme } from 'vuetify';
 
 const { t } = useI18n();
 const user = ref(auth().currentUser);
+const myThemes = ['light', 'dark'];
+const selectedTheme = ref(myThemes[0]);
+const theme = useTheme();
 
 auth().onAuthStateChanged((_user) => {
     console.log('User state change. Current user is:', _user);
@@ -91,11 +104,28 @@ const redirectToChangelog = (): void => {
     router.push({ name: 'changelog' });
 };
 
+const setTheme = (): void => {
+    theme.global.name.value = selectedTheme.value;
+    localStorage.setItem('theme', String(selectedTheme.value));
+};
+
+watch(() => selectedTheme.value, () => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+        theme.global.name.value = storedTheme;
+    }
+});
+
 </script>
 
 <style scoped>
 .cursor:hover {
     cursor: pointer;
     background-color: #485184;
+}
+
+.width {
+    min-width: 110px !important;
+    max-width: 110px !important;
 }
 </style>
