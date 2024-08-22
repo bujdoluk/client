@@ -108,11 +108,11 @@
  * @description User log in.
  */
 import { ref } from 'vue';
-import { useLogin } from '../../plugins/auth';
+import { useLogin } from '@/plugins/auth';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
-import { auth, db } from '@/firebase/init';
+import { auth, db, firebase } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 
 const { t } = useI18n();
@@ -147,6 +147,7 @@ const createUser = async (): Promise<void> => {
 const submit = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
+        await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await login(email.value, password.value);
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });
@@ -163,6 +164,7 @@ const submit = async (): Promise<void> => {
 const onAnonymousButtonClicked = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
+        await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await auth().signInAnonymously();
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });
@@ -177,6 +179,7 @@ const onAnonymousButtonClicked = async (): Promise<void> => {
 const onGoogleButtonClicked = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
+        await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await auth().signInWithPopup(provider);
         if (!errorMessage.value) {
             router.push({ name: 'suggestions' });

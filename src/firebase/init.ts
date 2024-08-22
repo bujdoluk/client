@@ -32,4 +32,4 @@ const increment = firebase.firestore.FieldValue.increment(1);
 const decrement = firebase.firestore.FieldValue.increment(-1);
 const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-export { auth, db, storage, increment, decrement, perf, timestamp };
+export { auth, db, storage, increment, decrement, perf, timestamp, firebase };
