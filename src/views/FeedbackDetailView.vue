@@ -53,9 +53,7 @@
                                     :replies="replies"
                                     :user="user"
                                     :loading="loading"
-                                    @reply-to-reply-created="(reply) => onReplyToReplyCreated(reply)"
-                                    @reply-to-comment-created="(com) => onReplyToCommnentCreated(com)"
-                                    @reply-text-to-commnent-created="(replyText) => onReplyTextToCommentCreated(replyText)"
+                                    @reply-created="(reply, commentEmail, commentId) => onReplyCreated(reply, commentEmail, commentId)"
                                 />
                             </v-col>
                         </v-row>
@@ -122,8 +120,6 @@ import { db, auth, timestamp } from '@/firebase/init';
 const route = useRoute();
 const { t } = useI18n();
 const comments = ref<Array<Comment>>([]);
-const comment = ref<Comment>();
-const reply = ref<Reply>();
 const feedback = ref<Feedback>();
 const text = ref<string>('');
 const user = ref(auth().currentUser);
@@ -179,39 +175,13 @@ const fetchReplies = async (): Promise<void> => {
     }
 };
 
-const createReplyToReply = async (reply: string): Promise<void> => {
+const createReply = async (reply: string, commentEmail: string, commentId: string): Promise<void> => {
     try {
         loading.value = true;
         const docId = db.collection('replies').doc().id;
         await db.collection('replies').doc(docId).set({
-            commentEmail: comment.value?.commentEmail,
-            commentId: comment.value?.docId,
-            createdAt: timestamp,
-            docId,
-            email: user.value?.email,
-            feedbackId: feedback.value?.docId,
-            picture: '',
-            text: reply,
-            userId: user.value?.uid,
-            userName: user.value?.displayName
-        });
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        await fetchReplies();
-        await fetchComments();
-        await updateFeedback();
-        loading.value = false;
-    }
-};
-
-const createReplyToComment = async (comment: Comment): Promise<void> => {
-    try {
-        loading.value = true;
-        const docId = db.collection('replies').doc().id;
-        await db.collection('replies').doc(docId).set({
-            commentEmail: comment.commentEmail,
-            commentId: comment.docId,
+            commentEmail: commentEmail || null,
+            commentId,
             createdAt: timestamp,
             docId,
             email: user.value?.email,
@@ -316,18 +286,8 @@ const onEdited = (): void => {
     fetchFeedback(String(route.params.id)); 
 };
 
-const onReplyToReplyCreated = async (reply: string): Promise<void> => {
-    await createReplyToReply(reply);
-};
-
-const onReplyToCommnentCreated = async (com: Comment): Promise<void> => {
-    comment.value = com;
-    await createReplyToComment(comment.value);
-};
-
-const onReplyTextToCommnentCreated = async (text: string): Promise<void> => {
-    reply.value = text;
-    await createReplyToComment(comment.value);
+const onReplyCreated = async (reply: string, commentEmail: string, commentId: string): Promise<void> => {
+    await createReply(reply, commentEmail, commentId);
 };
 
 const onDeleted = async (feedback: Feedback): Promise<void> => {

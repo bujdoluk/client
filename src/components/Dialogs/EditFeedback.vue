@@ -89,10 +89,11 @@
                 <v-card-text class="py-5">
                     <v-textarea 
                         v-model="selectedDescription"
-                        variant="outlined"
+                        variant="filled"
                         density="compact"
                         no-resize
                         rows="3"
+                        hide-details
                         class="bg-background-secondary"
                         :counter="250"
                         clearable

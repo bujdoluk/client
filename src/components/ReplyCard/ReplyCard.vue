@@ -89,14 +89,14 @@ const props = defineProps<{
     reply: Reply;
 }>();
 
-const emits = defineEmits<(e: 'replyCreated') => void>();
+const emits = defineEmits<(e: 'replyCreated', replyText: string) => void>();
 const { t } = useI18n();
 const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
 
 const createReply = async (): Promise<void> => {
-    emits('replyCreated');
+    emits('replyCreated', replyText.value);
 };
 
 const onReplyClicked = (): void => {

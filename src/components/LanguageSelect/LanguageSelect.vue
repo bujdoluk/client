@@ -5,9 +5,10 @@
         :items="availableLocales"
         hide-details
         density="compact"
-        variant="plain"
         single-line
-        class="bg-background-secondary mr-4 px-1 width"
+        variant="solo"
+        flat
+        class="bg-background-secondary mr-4 px-1 select"
         @update:model-value="onSelectedLanguage"
     />
 </template>
@@ -36,10 +37,3 @@ watch(() => selectedLanguage.value, () => {
 });
 
 </script>
-
-<style scoped>
-.width {
-    min-width: 110px !important;
-    max-width: 110px !important;
-}
-</style>

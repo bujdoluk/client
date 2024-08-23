@@ -68,7 +68,7 @@
                     <v-btn
                         variant="flat"
                         color="purple"
-                        @click="onReplyToCommentCreated(props.comment, replyText)"
+                        @click="onReplyCreatedFromComment"
                     >
                         {{ t('buttons.postReply') }}
                     </v-btn>
@@ -80,13 +80,13 @@
             v-for="reply in filteredReplies"
             :key="reply.docId"
         >
-            <v-col>
+            <v-col class="ml-12">
                 <ReplyCard 
                     :reply="reply"
                     :feedback="feedback"
                     :user="user"
                     :comment="props.comment"
-                    @reply-created="onReplyToReplyCreated"    
+                    @reply-created="(reply) => onReplyCreatedFromReply(reply)"    
                 />
             </v-col>
         </v-row>
@@ -112,11 +112,7 @@ const props = defineProps<{
     user: any;
 }>();
 
-const emits = defineEmits<{
-    (e: 'replyToReplyCreated', replyText: string): void;
-    (e: 'replyToCommnentCreated', comment: Comment): void;
-    (e: 'replyTextToCommnentCreated', replyText: string): void;
-}>();
+const emits = defineEmits<(e: 'replyCreated', replyText: string, commentEmail: string, commentId: string) => void>();
 
 const { t } = useI18n();
 const replyText = ref<string>('');
@@ -126,17 +122,16 @@ const filteredReplies = computed(() => props.replies.filter((reply) => reply.com
 
 const onReplyClicked = (): void => {
     showReply.value = !showReply.value;
-    replyText.value = '';
+    // replyText.value = '';
 };
 
-const onReplyToReplyCreated = async (): Promise<void> => {
-    emits('replyToReplyCreated', replyText.value);
+const onReplyCreatedFromReply = (text: string): void => {
+    emits('replyCreated', text, props.comment.email, props.comment.docId);
     showReply.value = false;
 };
 
-const onReplyToCommentCreated = async (replyToComment: Comment, replyText: string): Promise<void> => {
-    emits('replyToCommnentCreated', replyToComment);
-    emits('replyTextToCommnentCreated', replyText);
+const onReplyCreatedFromComment = (): void => {
+    emits('replyCreated', replyText.value, props.comment.email, props.comment.docId);
     showReply.value = false;
 };
 

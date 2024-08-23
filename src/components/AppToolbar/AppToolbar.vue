@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
         elevation="3"
-        class="bg-dark-blue"
+        class="bg-background-dark-blue"
     >
         <div 
             class="align-center cursor d-flex flex-row px-3"
@@ -19,7 +19,7 @@
         </div>
         <v-spacer />
         <v-btn
-            v-if="!user"
+            v-if="user === null"
             variant="flat"
             :disabled="router.currentRoute.value.fullPath === '/signup'"
             color="purple"
@@ -28,7 +28,7 @@
             {{ t('buttons.signup') }}
         </v-btn>
         <v-btn
-            v-if="!user"
+            v-if="user === null"
             variant="flat"
             :disabled="router.currentRoute.value.fullPath === '/login'"
             color="purple"
@@ -60,9 +60,10 @@
             :items="myThemes"
             hide-details
             density="compact"
-            variant="plain"
+            variant="solo"
             single-line
-            class="bg-background-secondary mr-4 px-1 width"
+            flat
+            class="bg-background-secondary mr-4 px-1 select"
             @update:model-value="setTheme"
         />
         <LanguageSelect />
@@ -126,11 +127,11 @@ watch(() => selectedTheme.value, () => {
 <style scoped>
 .cursor:hover {
     cursor: pointer;
-    background-color: #485184;
 }
 
-.width {
-    min-width: 110px !important;
-    max-width: 110px !important;
+.select {
+    min-width: 130px !important;
+    max-width: 130px !important;
+    border-radius: 5px !important;
 }
 </style>

@@ -5,10 +5,10 @@
     >
         <v-row class="width">
             <v-col class="pb-0">
-                <v-card class="bg-dark-blue">
+                <v-card class="bg-background-dark-blue">
                     <v-container
                         fluid
-                        class="bg-dark-blue"
+                        class="bg-background-dark-blue"
                     >
                         <v-row align="center">
                             <v-col>

@@ -6,7 +6,7 @@
     />
     <v-card
         v-else
-        class="bg-dark-blue"
+        class="bg-background-dark-blue"
     >
         <v-container fluid>
             <v-row align="center">
@@ -38,7 +38,6 @@
                                 variant="solo"
                                 density="compact"
                                 hide-details
-                                :min-width="400"
                                 color="purple"
                                 flat
                                 @update:model-value="onSelected"
