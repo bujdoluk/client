@@ -311,7 +311,7 @@ const maxCharacters = (value: string): string | true => value.length <= 250 || t
 
 <style scoped>
 .width {
-    width: 70vw;
+    width: 50vw;
     margin: 0 auto;
 }
 
