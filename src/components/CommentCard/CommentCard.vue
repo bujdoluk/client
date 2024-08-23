@@ -6,7 +6,8 @@
     />
     <v-card
         v-else
-        class="px-6"
+        class="custom-border px-6"
+        :rounded="false"
     >
         <v-row>
             <v-col cols="auto">
@@ -21,7 +22,7 @@
             <v-col>
                 <v-container fluid>
                     <v-row class="font-weight-bold text-darkBlue">
-                        {{ props.comment.userName }}
+                        {{ capitalizeFirstLetter(props.comment.userName) }}
                     </v-row>
                     <v-row class="pb-3 text-body-2 text-content">
                         {{ props.comment.email }}
@@ -80,7 +81,7 @@
             v-for="reply in filteredReplies"
             :key="reply.docId"
         >
-            <v-col class="ml-12">
+            <v-col class="ml-9">
                 <ReplyCard 
                     :reply="reply"
                     :feedback="feedback"
@@ -135,4 +136,13 @@ const onReplyCreatedFromComment = (): void => {
     showReply.value = false;
 };
 
+const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);
+
 </script>
+
+<style scoped>
+.custom-border {
+    border-bottom: 1px solid rgb(232, 232, 232);
+}
+</style>
+
