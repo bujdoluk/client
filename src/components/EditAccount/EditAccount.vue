@@ -200,12 +200,30 @@ const getUser = async (): Promise<void> => {
     }
 };
 
+const updateUser = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        if (user.value) {
+            const res = await db.collection('users').doc(user.value.uid);
+            res.update({
+                email: email.value,
+                userName: displayName.value
+            });
+        }
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        loading.value = false;
+    }
+};
+
 const updateAccount = async (): Promise<void> => {
     try {
         loadingUserAccount.value = true;
         if (user.value) {
             await updateProfile(user.value, { displayName: displayName.value });
             await updateEmail(user.value, email.value);
+            await updateUser();
         }
     } catch (error: unknown) {
         console.log(error);
