@@ -14,7 +14,11 @@
         :transition="false"
         persistent
     >
-        <v-form v-model="valid">
+        <v-form
+            ref="formFeedback"
+            v-model="isValidFeedback"
+            validate-on="input"
+        >
             <v-skeleton-loader
                 v-if="loading"
                 boilerplate
@@ -36,7 +40,7 @@
                 <v-card-text class="py-5">
                     <v-text-field
                         v-model="selectedTitle"
-                        label="Name"
+                        label="Title"
                         required
                         density="compact"
                         variant="outlined"
@@ -44,6 +48,7 @@
                         hide-details
                         counter="45"
                         clearable
+                        :rules="[required, max100Characters]"
                     />
                 </v-card-text>
                 <v-card-text class="font-weight-bold">
@@ -97,6 +102,7 @@
                         class="bg-background-secondary"
                         :counter="250"
                         clearable
+                        :rules="[required, max250Characters]"
                     />
                 </v-card-text>
                 <v-card-actions class="pt-5">
@@ -145,13 +151,18 @@ const emit = defineEmits<(e: 'edited' | 'deleted', feedback: Feedback) => void>(
 
 const loading = ref<boolean>(false);
 const { t } = useI18n();
-const valid = ref(false);
+const isValidFeedback = ref<boolean>(false);
 const dialog = ref<boolean>(false);
 const userId = ref<string | undefined>(auth().currentUser?.uid);
 const selectedTitle = ref<string>(prop.feedback.title);
 const selectedDescription = ref<string>(prop.feedback.description);
 const selectedCategory = ref<string>(prop.feedback.category);
 const selectedStatus = ref<string>(prop.feedback.status);
+
+const formFeedback = ref<{
+    resetValidation: () => void;
+    validate: () => boolean;
+}>();
 
 const reset = (): void => {
     selectedCategory.value = prop.feedback.category;
@@ -162,21 +173,23 @@ const reset = (): void => {
 
 const editFeedback = async (docId: string): Promise<void> => {
     try {
-        if (prop.feedback.docId) {
-            loading.value = true;
-            await db.collection('feedbacks').doc(docId).set({
-                category: selectedCategory.value,
-                comments: 0,
-                createdAt: timestamp,
-                description: selectedDescription.value,
-                docId,
-                pinned: false,
-                status: selectedStatus.value,
-                title: selectedTitle.value,
-                upvotes: 0,
-                userId: userId.value
-            });
+        if (prop.feedback.docId && formFeedback.value !== undefined && !isValidFeedback.value) {
+            formFeedback.value.validate();
+            return;
         }
+        loading.value = true;
+        await db.collection('feedbacks').doc(docId).set({
+            category: selectedCategory.value,
+            comments: 0,
+            createdAt: timestamp,
+            description: selectedDescription.value,
+            docId,
+            pinned: false,
+            status: selectedStatus.value,
+            title: selectedTitle.value,
+            upvotes: 0,
+            userId: userId.value
+        });
     } catch(error: unknown) {
         console.log(error);
     } finally {
@@ -196,5 +209,9 @@ const deleteFeedback = (): void => {
     emit('deleted', prop.feedback);
     dialog.value = false;
 };
+
+const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
+const max250Characters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
+const max100Characters = (value: string): string | true => value.length <= 100 || t('validations.maxCharacters'); 
 
 </script>

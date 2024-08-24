@@ -13,14 +13,14 @@
                     </h2>
                 </v-col>
                 <v-spacer />
-                <v-col cols="auto">
+                <v-col class="d-flex justify-end">
                     <v-btn
                         class="cursor font-weight-bold pr-2 text-decoration-underline"
                         density="compact"
                         variant="text"
                         color="blue"
                         flat
-                        @click="onRedirect('roadmap')"
+                        @click="onRedirect"
                     >
                         {{ t('views.suggestions.roadmap.view') }}
                     </v-btn>
@@ -102,7 +102,7 @@ const plannedFeedbacks = computed(() => props.feedbacks.filter((feedback) => fee
 const inProgressFeedbacks = computed(() => props.feedbacks.filter((feedback) => feedback.status === Status.InProgress));
 const liveFeedbacks = computed(() => props.feedbacks.filter((feedback) => feedback.status === Status.Live));
 
-const onRedirect = (name: string, id?: string): void => {
-    router.push({ name, params: { id } });
+const onRedirect = (): void => {
+    router.push({ name: 'roadmap' });
 };
 </script>

@@ -62,7 +62,7 @@
                     flat
                     clearable
                     hide-details
-                    :rules="[maxCharacters]"
+                    :rules="[required, maxCharacters]"
                 />
             </v-col>
             <v-col cols="2">
@@ -96,6 +96,7 @@ const emits = defineEmits<(e: 'replyCreated', replyText: string) => void>();
 const { t } = useI18n();
 const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
+const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
 const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);
 

@@ -79,7 +79,7 @@
                                         flat
                                         clearable
                                         hide-details
-                                        :rules="[maxCharacters]"
+                                        :rules="[required, maxCharacters]"
                                     />
                                 </v-card-text>
                                 <v-card-actions class="pr-0 pt-3">
@@ -305,6 +305,7 @@ onMounted(async () => {
     await fetchReplies();
 });
 
+const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
 const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
 
 </script>
