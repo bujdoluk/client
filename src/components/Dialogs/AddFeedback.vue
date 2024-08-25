@@ -143,10 +143,10 @@ const formFeedback = ref<{
 
 const addFeedback = async (): Promise<void> => {
     try {
-        if (formFeedback.value !== undefined && !isValidFeedback.value) {
+        /* if (formFeedback.value !== undefined && !isValidFeedback.value) {
             formFeedback.value.validate();
             return;
-        }
+        } */
         loading.value = true;
         const docId = db.collection('feedbacks').doc().id;
         await db.collection('feedbacks').doc(docId).set({

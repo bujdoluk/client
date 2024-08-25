@@ -221,6 +221,19 @@ const updateAccount = async (): Promise<void> => {
     try {
         loadingUserAccount.value = true;
         if (user.value) {
+       /*      const commentsRef = db.collection('comments').doc(user.value.uid);
+            const repliesRef = db.collection('replies').doc(user.value.uid);
+
+            console.log(commentsRef);
+         
+            await db.runTransaction(async (transaction) => {
+                const commentDoc = await transaction.get(commentsRef);
+                const repliesDoc = await transaction.get(repliesRef);
+
+                transaction.update(commentsRef, { email: email.value, userName: displayName.value });
+                transaction.update(repliesRef, { email: email.value, userName: displayName.value });
+            });
+ */
             await updateProfile(user.value, { displayName: displayName.value });
             await updateEmail(user.value, email.value);
             await updateUser();

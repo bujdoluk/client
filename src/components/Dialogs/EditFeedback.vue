@@ -173,10 +173,10 @@ const reset = (): void => {
 
 const editFeedback = async (docId: string): Promise<void> => {
     try {
-        if (prop.feedback.docId && formFeedback.value !== undefined && !isValidFeedback.value) {
+        /*    if (prop.feedback.docId && formFeedback.value !== undefined && !isValidFeedback.value) {
             formFeedback.value.validate();
             return;
-        }
+        } */
         loading.value = true;
         await db.collection('feedbacks').doc(docId).set({
             category: selectedCategory.value,
