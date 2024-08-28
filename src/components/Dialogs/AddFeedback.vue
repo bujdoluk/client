@@ -12,95 +12,89 @@
         width="600"
         persistent
     >
-        <v-form
-            ref="formFeedback"
-            v-model="isValidFeedback"
-            validate-on="input"
+        <v-skeleton-loader
+            v-if="loading"
+            boilerplate
+            type="card"
+        />
+        <v-card
+            v-else
+            class="pa-5"
         >
-            <v-skeleton-loader
-                v-if="loading"
-                boilerplate
-                type="card"
-            />
-            <v-card
-                v-else
-                class="pa-5"
-            >
-                <v-card-title class="font-weight-bold py-5 text-h5">
-                    {{ t('components.Dialog.title') }}
-                </v-card-title>
-                <v-card-text class="font-weight-bold">
-                    {{ t('components.Dialog.feedbackTitle') }}
-                </v-card-text>
-                <v-card-text class="text-caption text-disabled">
-                    {{ t('components.Dialog.feedbackSubtitle') }}
-                </v-card-text>
-                <v-card-text class="py-5">
-                    <v-text-field
-                        v-model="title"
-                        variant="plain"
-                        class="bg-background-secondary"
-                        counter="45"
-                        single-line
-                        density="compact"
-                        :rules="[required, max100Characters]"
-                        hide-details="auto"
-                    />
-                </v-card-text>
-                <v-card-text class="font-weight-bold">
-                    {{ t('components.Dialog.category') }}
-                </v-card-text>
-                <v-card-text class="text-caption text-disabled">
-                    {{ t('components.Dialog.categorySubtitle') }}
-                </v-card-text>
-                <v-card-text class="py-5">
-                    <v-select
-                        v-model="selectedCategory"
-                        variant="plain"
-                        class="bg-background-secondary"
-                        :items="categories"
-                        single-line
-                        hide-details
-                    />
-                </v-card-text>
-                <v-card-text class="font-weight-bold">
-                    {{ t('components.Dialog.feedbackDetail') }}
-                </v-card-text>
-                <v-card-text class="text-caption text-disabled">
-                    {{ t('components.Dialog.feedbackDetailSubtitle') }}
-                </v-card-text>
-                <v-card-text class="py-5">
-                    <v-textarea 
-                        v-model="description"
-                        variant="plain"
-                        density="compact"
-                        no-resize
-                        rows="3"
-                        class="bg-background-secondary"
-                        :counter="250"
-                        clearable
-                        :rules="[required, max250Characters]"
-                    />
-                </v-card-text>
-                <v-card-actions class="pt-5 px-0">
-                    <v-btn
-                        variant="flat"
-                        color="dark-blue"
-                        @click="close"
-                    >
-                        {{ t('buttons.close') }}
-                    </v-btn>
-                    <v-spacer />
-                    <v-btn
-                        variant="flat"
-                        color="purple"
-                        @click="addFeedback"
-                    >
-                        {{ t('buttons.add') }}
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-form>
+            <v-card-title class="font-weight-bold py-5 text-h5">
+                {{ t('components.Dialog.title') }}
+            </v-card-title>
+            <v-card-text class="font-weight-bold">
+                {{ t('components.Dialog.feedbackTitle') }}
+            </v-card-text>
+            <v-card-text class="text-caption text-disabled">
+                {{ t('components.Dialog.feedbackSubtitle') }}
+            </v-card-text>
+            <v-card-text class="py-5">
+                <v-text-field
+                    v-model="title"
+                    variant="plain"
+                    class="bg-background-secondary"
+                    counter="45"
+                    single-line
+                    density="compact"
+                    :rules="[required, max100Characters]"
+                    hide-details="auto"
+                />
+            </v-card-text>
+            <v-card-text class="font-weight-bold">
+                {{ t('components.Dialog.category') }}
+            </v-card-text>
+            <v-card-text class="text-caption text-disabled">
+                {{ t('components.Dialog.categorySubtitle') }}
+            </v-card-text>
+            <v-card-text class="py-5">
+                <v-select
+                    v-model="selectedCategory"
+                    variant="plain"
+                    class="bg-background-secondary"
+                    :items="categories"
+                    single-line
+                    hide-details
+                />
+            </v-card-text>
+            <v-card-text class="font-weight-bold">
+                {{ t('components.Dialog.feedbackDetail') }}
+            </v-card-text>
+            <v-card-text class="text-caption text-disabled">
+                {{ t('components.Dialog.feedbackDetailSubtitle') }}
+            </v-card-text>
+            <v-card-text class="py-5">
+                <v-textarea 
+                    v-model="description"
+                    variant="plain"
+                    density="compact"
+                    no-resize
+                    rows="3"
+                    class="bg-background-secondary"
+                    :counter="250"
+                    clearable
+                    :rules="[required, max250Characters]"
+                />
+            </v-card-text>
+            <v-card-actions class="pt-5 px-0">
+                <v-btn
+                    variant="flat"
+                    color="dark-blue"
+                    @click="close"
+                >
+                    {{ t('buttons.close') }}
+                </v-btn>
+                <v-spacer />
+                <v-btn
+                    variant="flat"
+                    color="purple"
+                    @click="addFeedback"
+                >
+                    {{ t('buttons.add') }}
+                </v-btn>
+            </v-card-actions>
+        </v-card>
     </v-dialog>
 </template>
 
@@ -115,7 +109,6 @@ import { db, auth, timestamp } from '@/firebase/init';
 import { Status } from '@/models/Status';
 
 const emit = defineEmits<(e: 'feedbackAdded') => void>();
-
 const user = ref(auth().currentUser);
 const loading = ref<boolean>(false);
 const { t } = useI18n();
@@ -124,7 +117,6 @@ const title = ref('');
 const description = ref('');
 const categories = ref<Array<string>>(['Feature', 'Bug', 'Enhancement', 'UI', 'UX', 'All']);
 const selectedCategory = ref<string>(categories.value[0]);
-const isValidFeedback = ref<boolean>(false);
 
 const open = (): void => {
     dialog.value = true;
@@ -143,10 +135,6 @@ const formFeedback = ref<{
 
 const addFeedback = async (): Promise<void> => {
     try {
-        /* if (formFeedback.value !== undefined && !isValidFeedback.value) {
-            formFeedback.value.validate();
-            return;
-        } */
         loading.value = true;
         const docId = db.collection('feedbacks').doc().id;
         await db.collection('feedbacks').doc(docId).set({
