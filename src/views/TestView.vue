@@ -3,7 +3,10 @@
     <div>{{ user?.displayName }}</div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+/**
+ * @file Test View.
+ */
 import { ref, watch } from 'vue';
 import { db, auth } from '@/firebase/init';
 

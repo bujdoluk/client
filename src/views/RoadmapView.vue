@@ -105,15 +105,15 @@
 <script setup lang="ts">
 /**
  * @file Roadmap View.
+ * @description Displays roadmap of all feedbacks with given statuses.
  */
 import { computed, ref, onMounted } from 'vue';
 import AddFeedback from '@/components/Dialogs/AddFeedback.vue';
 import { useI18n } from 'vue-i18n';
-import { type Feedback } from '@/models/Feedback';
+import { type Feedback, Status } from '@/types/index';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { db } from '@/firebase/init';
-import { Status } from '@/models/Status';
 
 const { t } = useI18n();
 const feedbacks = ref<Array<Feedback>>([]);

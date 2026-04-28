@@ -24,6 +24,7 @@
 <script setup lang="ts">
 /**
  * @file Error View.
+ * @description Displays critical application errors.
  */
 import { useI18n } from 'vue-i18n';
 

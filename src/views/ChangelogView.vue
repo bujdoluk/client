@@ -52,7 +52,7 @@
                             {{ t('chips.released') }}
                         </v-chip>
                         <v-chip>
-                            {{ new Date(feedback.createdAt.seconds * 1000).toLocaleString() }}
+                            {{ new Date(Number(feedback.createdAt) * 1000).toLocaleString() }}
                         </v-chip>
                     </v-card-text>
                     <v-card-title class="font-weight-bold text-dark-blue text-truncate">
@@ -70,18 +70,18 @@
 <script setup lang="ts">
 /**
  * @file Changelog View.
+ * @description Display changes in a changelog view.
  */
-
 import { db } from '@/firebase/init';
-import type { Feedback } from '@/models/Feedback';
-import { Status } from '@/models/Status';
+import { type Feedback, Status } from '@/types/index';
 import router from '@/router';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const liveFeedbacks = ref<Array<Feedback>>([]);
-const filteredByCreatedAtFeedbacs = (feedbacks: Array<Feedback>): Array<Feedback> => feedbacks.sort((a, b) => b.createdAt - a.createdAt);
+const filteredByCreatedAtFeedbacs = (feedbacks: Array<Feedback>): Array<Feedback> => 
+    feedbacks.sort((a, b) => Number(b.createdAt) - Number(a.createdAt));
 
 const fetchLiveFeedbacks = async (): Promise<void> => {
     try {

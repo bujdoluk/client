@@ -126,9 +126,10 @@
 <script setup lang="ts">
 /**
  * @file Suggestions View.
+ * @description Displays user feedbacks in a list. Its a main view where users can create/edit/delete or sort feedbacks.
  */
 import { computed, ref, onMounted } from 'vue';
-import { type Feedback } from '@/models/Feedback';
+import type { Feedback, User } from '@/types/index';
 import router from '@/router';
 import FrontendMentorBox from '@/components/FrontendMentorBox/FrontendMentorBox.vue';
 import FeedbackBar from '@/components/FeedbackBar/FeedbackBar.vue';
@@ -137,7 +138,6 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
 import { db, increment, auth } from '@/firebase/init';
-import { type User } from '@/models/User';
 // import { useI18n } from 'vue-i18n';
 
 // const { t } = useI18n();

@@ -108,12 +108,10 @@
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft } from '@mdi/js';
 import router from '@/router';
-import { type Reply } from '@/models/Reply';
-import { type Comment } from '@/models/Comment';
+import type { Reply, Comment, Feedback } from '@/types/index';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
 import EditFeedback from '@/components/Dialogs/EditFeedback.vue';
 import { ref, onMounted, computed } from 'vue';
-import { type Feedback } from '@/models/Feedback';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
 

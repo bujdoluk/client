@@ -3,7 +3,7 @@
         elevation="3"
         class="bg-background-dark-blue"
     >
-        <div 
+        <div
             class="align-center cursor d-flex flex-row px-3"
             @click="redirectToLandingPage"
         >
@@ -45,7 +45,6 @@
         >
             {{ t('buttons.backToApp') }}
         </v-btn>
-       
         <v-btn
             v-if="user"
             variant="outlined"
@@ -54,18 +53,9 @@
         >
             {{ t('buttons.changelog') }}
         </v-btn>
-        <v-select
-            v-model="selectedTheme"
-            label="Select Theme"
-            :items="myThemes"
-            hide-details
-            density="compact"
-            variant="solo"
-            single-line
-            flat
-            class="bg-background-secondary mr-4 px-1 select"
-            @update:model-value="setTheme"
-        />
+
+        <ThemeSelect />
+
         <LanguageSelect />
         <AvatarMenu
             v-if="user"
@@ -79,20 +69,15 @@
  * @file AppToolbar.
  */
 import { useI18n } from 'vue-i18n';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import router from '@/router';
 import { auth } from '@/firebase/init';
 import AvatarMenu from '@/components/AvatarMenu/AvatarMenu.vue';
-import { useTheme } from 'vuetify';
 
 const { t } = useI18n();
 const user = ref(auth().currentUser);
-const myThemes = ['light', 'dark'];
-const selectedTheme = ref(myThemes[0]);
-const theme = useTheme();
 
 auth().onAuthStateChanged((_user) => {
-    console.log('User state change. Current user is:', _user);
     user.value = _user;
 });
 
@@ -109,29 +94,10 @@ const redirecToApp = (): void => {
 const redirectToChangelog = (): void => {
     router.push({ name: 'changelog' });
 };
-
-const setTheme = (): void => {
-    theme.global.name.value = selectedTheme.value;
-    localStorage.setItem('theme', String(selectedTheme.value));
-};
-
-watch(() => selectedTheme.value, () => {
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-        theme.global.name.value = storedTheme;
-    }
-});
-
 </script>
 
 <style scoped>
 .cursor:hover {
     cursor: pointer;
-}
-
-.select {
-    min-width: 130px !important;
-    max-width: 130px !important;
-    border-radius: 5px !important;
 }
 </style>

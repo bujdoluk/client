@@ -16,5 +16,6 @@
 <script setup lang="ts">
 /**
  * @file Landing Page View.
+ * @description Displays landing page and its sections.
  */
 </script>

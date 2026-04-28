@@ -12,6 +12,7 @@
 <script setup lang="ts">
 /**
  * @file GoBackButton component.
+ * @description Redirect user back to the page where he/she came from.
  */
 import { mdiChevronLeft } from '@mdi/js';
 import { useI18n } from 'vue-i18n';
