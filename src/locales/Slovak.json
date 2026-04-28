@@ -182,6 +182,11 @@
                 "title": "Okamžitá spätná väzba na vytváranie lepších produktov."
             },
             "integrate": "Integracie",
+            "logos": {
+                "Facebook": "Facebook logo",
+                "Google": "Google logo",
+                "amazon": "Amazon logo"
+            },
             "navbar": {
                 "demo": "Demo",
                 "features": "Funkcie",

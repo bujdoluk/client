@@ -1,0 +1,244 @@
+{
+    "all": "TOUT",
+    "buttons": {
+        "add": "Ajouter un retour",
+        "back": "Retour",
+        "backToApp": "Retour à l'application",
+        "cancel": "Annuler",
+        "changelog": "Journal des modifications",
+        "close": "Fermer",
+        "darkMode": "Mode sombre",
+        "delete": "Supprimer",
+        "edit": "Modifier le retour",
+        "editAccount": "Modifier le compte",
+        "goToLandingPage": "Retour à la page d'accueil",
+        "lightMode": "Mode clair",
+        "logInAnonymously": "SE CONNECTER ANONYMEMENT",
+        "logInWithGoogle": "SE CONNECTER AVEC GOOGLE",
+        "login": "Se connecter",
+        "logout": "Se déconnecter",
+        "next": "Page suivante",
+        "postComment": "Publier un commentaire",
+        "postReply": "Publier une réponse",
+        "prev": "Page précédente",
+        "refresh": "Actualiser",
+        "reply": "Répondre",
+        "resetPassword": "Réinitialiser le mot de passe",
+        "signup": "S'inscrire",
+        "skip": "Passer la connexion",
+        "submit": "Valider",
+        "suggestions": "Suggestions",
+        "udpateAccountInformation": "Mettre à jour les informations du compte",
+        "udpateProfilePicture": "Mettre à jour la photo de profil",
+        "updatePassword": "Changer le mot de passe"
+    },
+    "chips": {
+        "all": "TOUT",
+        "released": "PUBLIÉ"
+    },
+    "components": {
+        "AppToolbar": {
+            "alt": "Logo de l'application Feedback",
+            "title": "Feedback"
+        },
+        "Dialog": {
+            "category": "Catégorie",
+            "categorySubtitle": "Choisissez une catégorie pour votre retour",
+            "feedbackDetail": "Détail du retour",
+            "feedbackDetailSubtitle": "Incluez des commentaires spécifiques sur ce qui devrait être amélioré, ajouté, etc.",
+            "feedbackSubtitle": "Ajoutez un titre court et descriptif",
+            "feedbackTitle": "Titre du retour",
+            "title": "Créer un nouveau retour",
+            "updateStatus": "Mettre à jour le statut",
+            "updateStatusSubtitle": "Changer l'état du retour"
+        },
+        "EditAccount": {
+            "information": "Informations du compte utilisateur",
+            "passwordInformation": "Pour changer le mot de passe, saisissez le mot de passe actuel puis le nouveau.",
+            "picture": "Photo de profil",
+            "title": "Mon compte"
+        },
+        "LogIn": {
+            "title": "Connexion"
+        },
+        "ModerationDialog": {
+            "preview": "Aperçu",
+            "title": "Voulez-vous vraiment approuver ce retour/commentaire ?"
+        },
+        "ModerationToggle": {
+            "allowModeration": "Autoriser la modération"
+        },
+        "SignUp": {
+            "title": "Inscription"
+        },
+        "VotersCard": {
+            "title": "Votants"
+        },
+        "comment": {
+            "addComment": "Ajouter un commentaire",
+            "multipleComments": "Commentaires",
+            "oneComment": "Commentaire",
+            "typeComment": "Saisissez votre commentaire ici"
+        },
+        "reply": {
+            "typeReply": "Saisissez votre réponse ici"
+        }
+    },
+    "inputs": {
+        "currentPassword": "Mot de passe actuel",
+        "email": "E-mail",
+        "newPassword": "Nouveau mot de passe",
+        "password": "Mot de passe",
+        "picture": "Sélectionner une image",
+        "userName": "Nom d'utilisateur"
+    },
+    "validation": {
+        "incorrectEmailOrPassword": "E-mail ou mot de passe incorrect.",
+        "incorrectPassword": "Mot de passe incorrect",
+        "invalidEmail": "E-mail invalide.",
+        "userNotFound": "Aucun compte trouvé avec cet e-mail."
+    },
+    "validations": {
+        "maxCharacters": "Maximum 250 caractères.",
+        "required": "Champ obligatoire."
+    },
+    "views": {
+        "changelog": {},
+        "landingPage": {
+            "allFeedback": "Tous les retours utilisateurs en un seul endroit",
+            "blog": "Blog",
+            "buttons": {
+                "14dayFreeTrial": "Essai gratuit de 14 jours",
+                "demo": "Démo",
+                "freeTrial": "Essai gratuit",
+                "readMore": "Lire la suite",
+                "startToday": "Commencer aujourd'hui"
+            },
+            "card1": {
+                "subtitle": "Tableaux privés pour les équipes ou publics pour les clients.",
+                "title": "Privé ou public"
+            },
+            "card2": {
+                "subtitle": "Construisez et partagez la feuille de route de votre produit.",
+                "title": "Feuille de route"
+            },
+            "card3": {
+                "subtitle": "Collectez des votes sur les demandes de fonctionnalités.",
+                "title": "Vote de fonctionnalités"
+            },
+            "card4": {
+                "subtitle": "Tableau et feuille de route sur votre propre domaine.",
+                "title": "Domaine personnalisé"
+            },
+            "card5": {
+                "subtitle": "Identifiez et synchronisez vos comptes utilisateurs.",
+                "title": "SSO utilisateur"
+            },
+            "card6": {
+                "subtitle": "Approuvez manuellement les nouveaux messages et commentaires.",
+                "title": "Modération"
+            },
+            "card7": {
+                "subtitle": "Personnalisez vos propres étiquettes de statut.",
+                "title": "Statuts personnalisés"
+            },
+            "card8": {
+                "subtitle": "Ajoutez manuellement des utilisateurs comme votants pour un retour.",
+                "title": "Voter au nom de"
+            },
+            "changelog": {
+                "comunicate": "Avec votre Journal des modifications, communiquer les nouvelles mises à jour devient simple et amusant !",
+                "share": "Partagez vos dernières sorties et mises à jour",
+                "title": "Journal des modifications"
+            },
+            "features": "Fonctionnalités",
+            "feedbackBoards": {
+                "allInOne": "Tous vos retours en une seule vue d'ensemble",
+                "give": "Donnez la parole à vos utilisateurs ! Laissez-les soumettre de nouvelles demandes de fonctionnalités et voter.",
+                "title": "Tableaux de retours"
+            },
+            "footer": {
+                "about": "À propos",
+                "account": "Compte",
+                "blog": "Blog",
+                "caseStudies": "Études de cas",
+                "compare": "Comparer",
+                "demo": "Démo",
+                "features": "Fonctionnalités",
+                "feedbackApp": "Application Feedback – créée avec amour pour la gestion de produit 💛",
+                "gdpr": "RGPD",
+                "getStarted": "Commencez avec un essai gratuit de 14 jours dès aujourd'hui !",
+                "home": "Accueil",
+                "login": "Se connecter",
+                "pricing": "Tarifs",
+                "privacy": "Confidentialité",
+                "product": "Produit",
+                "signUp": "S'inscrire",
+                "solutions": "Solutions",
+                "terms": "Conditions"
+            },
+            "headline": {
+                "noCreditCardRequired": "*aucune carte de crédit requise.",
+                "subtitle": "Transformez les retours utilisateurs en optimisations de produit concrètes !",
+                "title": "Des retours instantanés pour créer de meilleurs produits."
+            },
+            "integrate": "S'intègre à votre flux de travail",
+            "logos": {
+                "Facebook": "Facebook logo",
+                "Google": "Google logo",
+                "amazon": "Amazon logo"
+            },
+            "navbar": {
+                "demo": "Démo",
+                "features": "Fonctionnalités",
+                "home": "Accueil",
+                "howItWorks": "Comment ça marche",
+                "pricing": "Tarifs"
+            },
+            "roadmap": {
+                "comunicate": "Communiquez les mises à jour en 1 clic",
+                "share": "Partagez automatiquement toutes les nouvelles fonctionnalités sur lesquelles vous travaillez.",
+                "title": "Feuille de route"
+            },
+            "trustedBy": "Ils nous font confiance"
+        },
+        "roadmap": {
+            "status": {
+                "inProgress": "En cours",
+                "live": "En production",
+                "planned": "Planifié",
+                "subtitle": {
+                    "inProgress": "Actuellement en développement",
+                    "live": "Fonctionnalités publiées",
+                    "planned": "Idées prioritaires pour la recherche"
+                }
+            },
+            "title": "Feuille de route"
+        },
+        "suggestions": {
+            "emptyFeedback": {
+                "subtitle": "Vous avez une suggestion ? Trouvé un bug ? Nous adorons entendre de nouvelles idées pour améliorer notre application.",
+                "title": "Il n'y a pas encore de retour."
+            },
+            "roadmap": {
+                "inProgress": "En cours",
+                "live": "En production",
+                "planned": "Planifié",
+                "title": "Feuille de route",
+                "view": "Voir"
+            },
+            "sidebar": {
+                "subtitle": "FrontEnd Feedback",
+                "title": "FrontEnd Mentor"
+            },
+            "topbar": {
+                "leastComments": "Moins de commentaires",
+                "leastUpvotes": "Moins de votes",
+                "mostComments": "Plus de commentaires",
+                "mostUpvotes": "Plus de votes",
+                "sortBy": "Trier par :",
+                "suggestions": "Suggestions"
+            }
+        }
+    }
+}

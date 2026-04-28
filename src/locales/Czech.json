@@ -1,0 +1,244 @@
+{
+    "all": "VŠE",
+    "buttons": {
+        "add": "Přidat zpětnou vazbu",
+        "back": "Zpět",
+        "backToApp": "Zpět do aplikace",
+        "cancel": "Zrušit",
+        "changelog": "Changelog",
+        "close": "Zavřít",
+        "darkMode": "Tmavý režim",
+        "delete": "Smazat",
+        "edit": "Upravit zpětnou vazbu",
+        "editAccount": "Upravit účet",
+        "goToLandingPage": "Zpět na stránku",
+        "lightMode": "Světlý režim",
+        "logInAnonymously": "PŘIHLÁSIT SE ANONYMNĚ",
+        "logInWithGoogle": "PŘIHLÁSIT SE PŘES GOOGLE",
+        "login": "Přihlásit se",
+        "logout": "Odhlásit se",
+        "next": "Další stránka",
+        "postComment": "Přidat komentář",
+        "postReply": "Přidat odpověď",
+        "prev": "Předchozí stránka",
+        "refresh": "Obnovit",
+        "reply": "Odpovědět",
+        "resetPassword": "Obnovit heslo",
+        "signup": "Registrovat se",
+        "skip": "Přeskočit přihlášení",
+        "submit": "Potvrdit",
+        "suggestions": "Návrhy",
+        "udpateAccountInformation": "Aktualizovat informace o účtu",
+        "udpateProfilePicture": "Aktualizovat profilový obrázek",
+        "updatePassword": "Změnit heslo"
+    },
+    "chips": {
+        "all": "VŠE",
+        "released": "VYDÁNO"
+    },
+    "components": {
+        "AppToolbar": {
+            "alt": "Logo aplikace Feedback",
+            "title": "Feedback"
+        },
+        "Dialog": {
+            "category": "Kategorie",
+            "categorySubtitle": "Vyberte kategorii pro zpětnou vazbu",
+            "feedbackDetail": "Detail zpětné vazby",
+            "feedbackDetailSubtitle": "Uveďte konkrétní komentáře k tomu, co by mělo být zlepšeno, přidáno atd.",
+            "feedbackSubtitle": "Přidejte krátký, výstižný nadpis",
+            "feedbackTitle": "Název zpětné vazby",
+            "title": "Vytvořit novou zpětnou vazbu",
+            "updateStatus": "Aktualizovat stav",
+            "updateStatusSubtitle": "Změnit stav zpětné vazby"
+        },
+        "EditAccount": {
+            "information": "Informace o uživatelském účtu",
+            "passwordInformation": "Chcete-li změnit heslo, zadejte aktuální heslo a poté nové.",
+            "picture": "Profilový obrázek",
+            "title": "Můj účet"
+        },
+        "LogIn": {
+            "title": "Přihlášení"
+        },
+        "ModerationDialog": {
+            "preview": "Náhled",
+            "title": "Opravdu chcete schválit tuto zpětnou vazbu/komentář?"
+        },
+        "ModerationToggle": {
+            "allowModeration": "Povolit moderování obsahu"
+        },
+        "SignUp": {
+            "title": "Registrace"
+        },
+        "VotersCard": {
+            "title": "Hlasující"
+        },
+        "comment": {
+            "addComment": "Přidat komentář",
+            "multipleComments": "Komentáře",
+            "oneComment": "Komentář",
+            "typeComment": "Zde napište komentář"
+        },
+        "reply": {
+            "typeReply": "Zde napište odpověď"
+        }
+    },
+    "inputs": {
+        "currentPassword": "Aktuální heslo",
+        "email": "E-mail",
+        "newPassword": "Nové heslo",
+        "password": "Heslo",
+        "picture": "Vyberte obrázek",
+        "userName": "Uživatelské jméno"
+    },
+    "validation": {
+        "incorrectEmailOrPassword": "E-mail nebo heslo je nesprávné.",
+        "incorrectPassword": "Nesprávné heslo",
+        "invalidEmail": "Neplatný e-mail.",
+        "userNotFound": "Účet s tímto e-mailem nebyl nalezen."
+    },
+    "validations": {
+        "maxCharacters": "Maximálně 250 znaků.",
+        "required": "Povinné pole."
+    },
+    "views": {
+        "changelog": {},
+        "landingPage": {
+            "allFeedback": "Veškerá zpětná vazba od uživatelů na jednom místě",
+            "blog": "Blog",
+            "buttons": {
+                "14dayFreeTrial": "14denní zkušební verze zdarma",
+                "demo": "Demo",
+                "freeTrial": "Zkušební verze",
+                "readMore": "Číst více",
+                "startToday": "Začít dnes"
+            },
+            "card1": {
+                "subtitle": "Soukromé nástěnky pro týmy nebo veřejné pro zákazníky.",
+                "title": "Soukromé nebo veřejné"
+            },
+            "card2": {
+                "subtitle": "Sestavte a sdílejte plán svého produktu.",
+                "title": "Plán produktu"
+            },
+            "card3": {
+                "subtitle": "Sbírejte hlasy pro požadavky na funkce.",
+                "title": "Hlasování pro funkce"
+            },
+            "card4": {
+                "subtitle": "Nástěnka a plán na vlastní doméně.",
+                "title": "Vlastní doména"
+            },
+            "card5": {
+                "subtitle": "Identifikujte a synchronizujte uživatelské účty.",
+                "title": "Uživatelské SSO"
+            },
+            "card6": {
+                "subtitle": "Ručně schvalujte nové příspěvky a komentáře.",
+                "title": "Moderování"
+            },
+            "card7": {
+                "subtitle": "Přizpůsobte si vlastní stavové štítky.",
+                "title": "Vlastní stavy"
+            },
+            "card8": {
+                "subtitle": "Přidejte uživatele jako hlasující ke zpětné vazbě ručně.",
+                "title": "Hlasovat jménem"
+            },
+            "changelog": {
+                "comunicate": "S vaším Changelogem se komunikace o nových aktualizacích stane snadnou a zábavnou!",
+                "share": "Sdílejte svá nejnovější vydání a aktualizace",
+                "title": "Changelog"
+            },
+            "features": "Funkce",
+            "feedbackBoards": {
+                "allInOne": "Veškerá zpětná vazba v jednom přehledu",
+                "give": "Dejte uživatelům hlas! Nechte je podávat nové požadavky na funkce a hlasovat o veškeré zpětné vazbě.",
+                "title": "Nástěnky zpětné vazby"
+            },
+            "footer": {
+                "about": "O nás",
+                "account": "Účet",
+                "blog": "Blog",
+                "caseStudies": "Případové studie",
+                "compare": "Porovnat",
+                "demo": "Demo",
+                "features": "Funkce",
+                "feedbackApp": "Aplikace Feedback – vytvořena s láskou k produktovému managementu 💛",
+                "gdpr": "GDPR",
+                "getStarted": "Začněte s bezplatnou 14denní zkušební verzí ještě dnes!",
+                "home": "Domů",
+                "login": "Přihlásit se",
+                "pricing": "Ceník",
+                "privacy": "Ochrana soukromí",
+                "product": "Produkt",
+                "signUp": "Registrovat se",
+                "solutions": "Řešení",
+                "terms": "Podmínky"
+            },
+            "headline": {
+                "noCreditCardRequired": "*není potřeba kreditní karta.",
+                "subtitle": "Přeměňte zpětnou vazbu uživatelů na použitelné optimalizace produktů!",
+                "title": "Okamžitá zpětná vazba pro tvorbu lepších produktů."
+            },
+            "integrate": "Integrace s vaším pracovním postupem",
+            "logos": {
+                "Facebook": "Facebook logo",
+                "Google": "Google logo",
+                "amazon": "Amazon logo"
+            },
+            "navbar": {
+                "demo": "Demo",
+                "features": "Funkce",
+                "home": "Domů",
+                "howItWorks": "Jak to funguje",
+                "pricing": "Ceník"
+            },
+            "roadmap": {
+                "comunicate": "Komunikujte aktualizace jedním kliknutím",
+                "share": "Automaticky sdílejte všechny skvělé nové funkce, na kterých pracujete.",
+                "title": "Plán rozvoje"
+            },
+            "trustedBy": "Důvěřují nám"
+        },
+        "roadmap": {
+            "status": {
+                "inProgress": "Probíhá",
+                "live": "Živě",
+                "planned": "Plánováno",
+                "subtitle": {
+                    "inProgress": "Aktuálně ve vývoji",
+                    "live": "Vydané funkce",
+                    "planned": "Nápady prioritizované pro výzkum"
+                }
+            },
+            "title": "Plán rozvoje"
+        },
+        "suggestions": {
+            "emptyFeedback": {
+                "subtitle": "Máte návrh? Našli jste chybu? Rádi slyšíme o nových nápadech ke zlepšení naší aplikace.",
+                "title": "Zatím není žádná zpětná vazba."
+            },
+            "roadmap": {
+                "inProgress": "Probíhá",
+                "live": "Živě",
+                "planned": "Plánováno",
+                "title": "Plán rozvoje",
+                "view": "Zobrazit"
+            },
+            "sidebar": {
+                "subtitle": "FrontEnd Feedback",
+                "title": "FrontEnd Mentor"
+            },
+            "topbar": {
+                "leastComments": "Nejméně komentářů",
+                "leastUpvotes": "Nejméně hlasů",
+                "mostComments": "Nejvíce komentářů",
+                "mostUpvotes": "Nejvíce hlasů",
+                "sortBy": "Seřadit podle:",
+                "suggestions": "Návrhy"
+            }
+        }
+    }
+}

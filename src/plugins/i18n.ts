@@ -6,7 +6,7 @@ import { createI18n, type I18nOptions } from 'vue-i18n';
 import messages from '@intlify/unplugin-vue-i18n/messages';
 
 const options: I18nOptions = {
-    availableLocales: ['English', 'Slovak'],
+    availableLocales: ['English', 'Slovak', 'Czech', 'French', 'German'],
     fallbackLocale: 'English',
     legacy: false,
     locale: localStorage.getItem('lang') ?? 'English',
@@ -14,4 +14,3 @@ const options: I18nOptions = {
 };
 
 export default createI18n(options);
-

@@ -1,56 +1,52 @@
 <template>
-    <v-row class="grid">
+    <v-row
+        id="how-it-works"
+        justify="center"
+        class="section"
+    >
         <v-col
             cols="12"
-            md="6"
-            class="font-weight-bold mx-auto text-center text-h4"
+            class="pb-2 text-center"
         >
-            {{ t('views.landingPage.allFeedback') }}
+            <p class="text-overline text-purple">
+                {{ t('views.landingPage.allFeedback') }}
+            </p>
         </v-col>
     </v-row>
-    <v-row class="d-flex flex-column grid text-center">
+
+    <v-row class="section">
         <v-col
+            v-for="item in overviewItems"
+            :key="item.titleKey"
             cols="12"
-            md="6"
-            class="font-weight-bold mx-auto text-center text-h4"
+            md="4"
         >
-            {{ t('views.landingPage.feedbackBoards.title') }}
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.feedbackBoards.give') }}
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.feedbackBoards.allInOne') }}
-        </v-col>
-    </v-row>
-    <v-row class="d-flex flex-column grid text-center">
-        <v-col
-            cols="12"
-            md="6"
-            class="font-weight-bold mx-auto text-center text-h4"
-        >
-            {{ t('views.landingPage.roadmap.title') }}
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.roadmap.share') }}
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.roadmap.comunicate') }}
-        </v-col>
-    </v-row>
-    <v-row class="d-flex flex-column grid text-center">
-        <v-col
-            cols="12"
-            md="6"
-            class="font-weight-bold mx-auto text-center text-h4"
-        >
-            {{ t('views.landingPage.changelog.title') }}
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.changelog.comunicate') }}
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.changelog.share') }}
+            <v-card
+                height="100%"
+                class="pa-4"
+            >
+                <v-card-item>
+                    <v-avatar
+                        :color="item.bg"
+                        size="48"
+                        class="mb-4"
+                    >
+                        <v-icon
+                            :icon="item.icon"
+                            :color="item.color"
+                        />
+                    </v-avatar>
+                    <v-card-title class="font-weight-bold px-0 text-dark-blue">
+                        {{ t(item.titleKey) }}
+                    </v-card-title>
+                </v-card-item>
+                <v-card-text class="text-content">
+                    {{ t(item.desc1Key) }}
+                </v-card-text>
+                <v-card-text class="text-content">
+                    {{ t(item.desc2Key) }}
+                </v-card-text>
+            </v-card>
         </v-col>
     </v-row>
 </template>
@@ -60,7 +56,42 @@
  * @file Overview component.
  */
 import { useI18n } from 'vue-i18n';
+import { mdiMessageTextOutline, mdiMapOutline, mdiNewspaperVariantOutline } from '@mdi/js';
 
 const { t } = useI18n();
 
+const overviewItems = [
+    {
+        bg: 'purple-light',
+        color: 'purple',
+        desc1Key: 'views.landingPage.feedbackBoards.give',
+        desc2Key: 'views.landingPage.feedbackBoards.allInOne',
+        icon: mdiMessageTextOutline,
+        titleKey: 'views.landingPage.feedbackBoards.title'
+    },
+    {
+        bg: 'background-secondary',
+        color: 'blue',
+        desc1Key: 'views.landingPage.roadmap.share',
+        desc2Key: 'views.landingPage.roadmap.comunicate',
+        icon: mdiMapOutline,
+        titleKey: 'views.landingPage.roadmap.title'
+    },
+    {
+        bg: 'background-secondary',
+        color: 'warning',
+        desc1Key: 'views.landingPage.changelog.comunicate',
+        desc2Key: 'views.landingPage.changelog.share',
+        icon: mdiNewspaperVariantOutline,
+        titleKey: 'views.landingPage.changelog.title'
+    }
+];
 </script>
+
+<style scoped>
+.section {
+    width: 70%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+</style>

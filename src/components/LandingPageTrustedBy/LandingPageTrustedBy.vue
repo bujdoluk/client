@@ -1,48 +1,51 @@
 <template>
     <v-row
-        class="grid"
-        align="center"
+        justify="center"
+        class="section"
     >
         <v-col
             cols="12"
-            md="6"
-            class="mx-auto text-center"
+            md="7"
         >
             <v-card>
                 <v-container fluid>
-                    <v-row>
-                        <v-col class="font-weight-bold text-h4">
+                    <v-row justify="center">
+                        <v-col
+                            cols="12"
+                            class="font-weight-bold pb-0 text-center text-h5"
+                        >
                             {{ t('views.landingPage.integrate') }}
                         </v-col>
                     </v-row>
-                    <v-row align="center">
-                        <v-col>
-                            <template #default>
-                                <img
-                                    width="100"
-                                    src="../../assets/Amazon_logo.svg.png"
-                                    alt="Amazon Logo"
-                                >
-                            </template>
+                    <v-row
+                        align="center"
+                        justify="center"
+                        class="pt-4"
+                    >
+                        <v-col cols="auto">
+                            <img
+                                width="100"
+                                src="../../assets/Amazon_logo.svg.png"
+                                :alt="t('views.landingPage.logos.amazon')"
+                                class="logo"
+                            >
                         </v-col>
-                        <v-col>
-                            <template #default>
-                                <img
-                                    width="50"
-                                    height="50"
-                                    src="../../assets/Facebook_icon.svg.png"
-                                    alt="Facebook Logo"
-                                >
-                            </template>
+                        <v-col cols="auto">
+                            <img
+                                width="44"
+                                height="44"
+                                src="../../assets/Facebook_icon.svg.png"
+                                :alt="t('views.landingPage.logos.facebook')"
+                                class="logo"
+                            >
                         </v-col>
-                        <v-col>
-                            <template #default>
-                                <img
-                                    width="100"
-                                    src="../../assets/640px-Gayglers_2013_logo.svg.png"
-                                    alt="Google Logo"
-                                >
-                            </template>
+                        <v-col cols="auto">
+                            <img
+                                width="100"
+                                src="../../assets/640px-Gayglers_2013_logo.svg.png"
+                                :alt="t('views.landingPage.logos.google')"
+                                class="logo"
+                            >
                         </v-col>
                     </v-row>
                 </v-container>
@@ -53,10 +56,28 @@
 
 <script setup lang="ts">
 /**
- * @file Trusted by component.
+ * @file Integrations / Trusted By component.
  */
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-
 </script>
+
+<style scoped>
+.section {
+    width: 70%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.logo {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    transition: opacity 0.2s, filter 0.2s;
+}
+
+.logo:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+</style>

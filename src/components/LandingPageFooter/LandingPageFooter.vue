@@ -1,195 +1,188 @@
 <template>
+    <!-- CTA strip -->
     <v-row
-        class="background-purple grid py-10 text-center"
+        id="pricing"
         align="center"
+        class="cta-strip px-10 py-10"
     >
-        <v-col
-            cols="8"
-            class="font-weight-bold text-h4"
-        >
-            {{ t('views.landingPage.footer.getStarted') }}
+        <v-col>
+            <h2 class="font-weight-bold text-h5 text-white">
+                {{ t('views.landingPage.footer.getStarted') }}
+            </h2>
         </v-col>
-        <v-col class="py-0">
+        <v-col cols="auto">
             <v-btn
-                variant="tonal"
-                flat
+                variant="flat"
                 color="white"
-                class="bg-purple"
                 size="x-large"
+                class="text-purple"
             >
                 {{ t('views.landingPage.buttons.startToday') }}
             </v-btn>
         </v-col>
     </v-row>
-    <v-row
-        class="background-purple grid mt-0 text-center"
-        align="center"
-    >
-        <v-col>
-            IMAGE
+
+    <!-- Links section -->
+    <v-row class="footer-bg py-10 section">
+        <v-col
+            cols="12"
+            md="3"
+            class="d-flex flex-column ga-3"
+        >
+            <span class="font-weight-bold text-dark-blue text-h6">Feedback</span>
+            <div class="d-flex ga-3">
+                <v-icon
+                    :icon="mdiTwitter"
+                    color="content"
+                />
+                <v-icon
+                    :icon="mdiInstagram"
+                    color="content"
+                />
+            </div>
         </v-col>
-        <v-col cols="6">
-            <v-container fluid>
-                <v-row>
-                    <v-col
-                        cols="4"
-                        class="font-weight-bold" 
-                    >
-                        {{ t('views.landingPage.footer.about') }}
-                    </v-col>
-                    <v-col
-                        cols="4"
-                        class="font-weight-bold"
-                    >
-                        {{ t('views.landingPage.footer.product') }}
-                    </v-col>
-                    <v-col
-                        cols="4"
-                        class="font-weight-bold"
-                    >
-                        {{ t('views.landingPage.footer.account') }}
-                    </v-col>
-                </v-row>
-                <v-spacer />
-                <v-row>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.home') }}
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.demo') }}
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.login') }}
-                        </v-btn>
-                    </v-col>
-                </v-row>
-                <v-spacer />
-                <v-row>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.blog') }}
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.caseStudies') }}
-                        </v-btn>
-                    </v-col>
-                    <v-col
-                        cols="4"
-                    >
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.signUp') }}
-                        </v-btn>
-                    </v-col>
-                </v-row>
-                <v-spacer />
-                <v-row>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.pricing') }}
-                        </v-btn>
-                    </v-col>
-                    <v-col cols="4">
-                        <v-btn
-                            class="text-decoration-underline"
-                            color="purple"
-                            variant="text"
-                        >
-                            {{ t('views.landingPage.footer.features') }}
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-container>
+
+        <v-col
+            cols="12"
+            md="3"
+        >
+            <p class="font-weight-bold mb-3 text-dark-blue text-overline">
+                {{ t('views.landingPage.footer.about') }}
+            </p>
+            <div class="d-flex flex-column">
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.home') }}
+                </v-btn>
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.blog') }}
+                </v-btn>
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.pricing') }}
+                </v-btn>
+            </div>
         </v-col>
-        <v-col>
-            <v-icon
-                :icon="mdiTwitter"
-                class="mr-2"
-            />
-            <v-icon :icon="mdiInstagram" />
+
+        <v-col
+            cols="12"
+            md="3"
+        >
+            <p class="font-weight-bold mb-3 text-dark-blue text-overline">
+                {{ t('views.landingPage.footer.product') }}
+            </p>
+            <div class="d-flex flex-column">
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.demo') }}
+                </v-btn>
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.caseStudies') }}
+                </v-btn>
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.features') }}
+                </v-btn>
+            </div>
+        </v-col>
+
+        <v-col
+            cols="12"
+            md="3"
+        >
+            <p class="font-weight-bold mb-3 text-dark-blue text-overline">
+                {{ t('views.landingPage.footer.account') }}
+            </p>
+            <div class="d-flex flex-column">
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.login') }}
+                </v-btn>
+                <v-btn
+                    variant="text"
+                    color="content"
+                    class="justify-start pl-0"
+                >
+                    {{ t('views.landingPage.footer.signUp') }}
+                </v-btn>
+            </div>
         </v-col>
     </v-row>
+
+    <!-- Legal bar -->
     <v-row
-        class="background-purple d-flex flex-column grid mt-0 text-center"
         align="center"
+        class="legal-bg py-4 section"
     >
         <v-col>
+            <span class="text-caption text-content">{{ t('views.landingPage.footer.feedbackApp') }}</span>
+        </v-col>
+        <v-col
+            cols="auto"
+            class="align-center d-flex flex-wrap ga-1"
+        >
             <v-btn
-                class="text-decoration-underline"
-                color="purple"
                 variant="text"
+                color="content"
+                size="small"
             >
                 {{ t('views.landingPage.footer.terms') }}
             </v-btn>
-            <span>&#x2022;</span> 
+            <span class="text-content">·</span>
             <v-btn
-                class="text-decoration-underline"
-                color="purple"
                 variant="text"
+                color="content"
+                size="small"
             >
                 {{ t('views.landingPage.footer.gdpr') }}
             </v-btn>
-            <span>&#x2022;</span>
+            <span class="text-content">·</span>
             <v-btn
-                class="text-decoration-underline"
-                color="purple"
                 variant="text"
+                color="content"
+                size="small"
             >
                 {{ t('views.landingPage.footer.privacy') }}
             </v-btn>
-            <span>&#x2022;</span>
+            <span class="text-content">·</span>
             <v-btn
-                class="text-decoration-underline"
-                color="purple"
                 variant="text"
+                color="content"
+                size="small"
             >
                 {{ t('views.landingPage.footer.compare') }}
             </v-btn>
-            <span>&#x2022;</span>
+            <span class="text-content">·</span>
             <v-btn
-                class="text-decoration-underline"
-                color="purple"
                 variant="text"
+                color="content"
+                size="small"
             >
                 {{ t('views.landingPage.footer.solutions') }}
             </v-btn>
-        </v-col>
-        <v-col>
-            {{ t('views.landingPage.footer.feedbackApp') }}
         </v-col>
     </v-row>
 </template>
@@ -202,18 +195,23 @@ import { useI18n } from 'vue-i18n';
 import { mdiTwitter, mdiInstagram } from '@mdi/js';
 
 const { t } = useI18n();
-
 </script>
 
 <style scoped>
-.grid {
-    display: flex;
-    margin: 0 auto;
-    width: 70%;
+.section {
+    width: 100vw;
 }
 
-.background-purple {
+.cta-strip {
+    background: linear-gradient(135deg, #AD1FEA 0%, #4661E6 100%);
+    width: 100vw;
+}
+
+.footer-bg {
     background-color: #f9f0fd;
-    width: 100% !important;
+}
+
+.legal-bg {
+    background-color: #f1e5fa;
 }
 </style>

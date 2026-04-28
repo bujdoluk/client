@@ -1,43 +1,61 @@
 <template>
-    <v-row class="grid">
-        <v-col>
-            <v-btn>
+    <v-row
+        align="center"
+        class="navbar"
+    >
+        <v-col cols="auto">
+            <v-btn
+                variant="text"
+                color="dark-blue"
+                @click="scrollTo('home')"
+            >
                 {{ t('views.landingPage.navbar.home') }}
             </v-btn>
-        </v-col>
-        <v-col>
-            <v-btn>
+            <v-btn
+                variant="text"
+                color="dark-blue"
+                @click="scrollTo('features')"
+            >
                 {{ t('views.landingPage.navbar.features') }}
             </v-btn>
-        </v-col>
-        <v-col>
-            <v-btn>
+            <v-btn
+                variant="text"
+                color="dark-blue"
+                @click="scrollTo('how-it-works')"
+            >
                 {{ t('views.landingPage.navbar.howItWorks') }}
             </v-btn>
-        </v-col>
-        <v-col>
-            <v-btn>
+            <v-btn
+                variant="text"
+                color="dark-blue"
+                @click="scrollTo('demo')"
+            >
                 {{ t('views.landingPage.navbar.demo') }}
             </v-btn>
-        </v-col>
-        <v-col>
-            <v-btn>
+            <v-btn
+                variant="text"
+                color="dark-blue"
+                @click="scrollTo('pricing')"
+            >
                 {{ t('views.landingPage.navbar.pricing') }}
             </v-btn>
         </v-col>
         <v-spacer />
-        <v-col>
-            <v-icon :icon="mdiTwitter" />
-        </v-col>
-        <v-col>
-            <v-icon :icon="mdiInstagram" />
-        </v-col>
-        <v-col>
+        <v-col
+            cols="auto"
+            class="align-center d-flex ga-4"
+        >
+            <v-icon
+                :icon="mdiTwitter"
+                color="dark-blue"
+            />
+            <v-icon
+                :icon="mdiInstagram"
+                color="dark-blue"
+            />
             <v-btn
-                variant="tonal"
-                flat
-                color="white"
-                class="bg-purple"
+                variant="flat"
+                color="purple"
                 size="large"
             >
                 {{ t('views.landingPage.buttons.freeTrial') }}
@@ -55,13 +73,19 @@ import { mdiTwitter, mdiInstagram } from '@mdi/js';
 
 const { t } = useI18n();
 
+const scrollTo = (id: string): void => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+};
 </script>
 
 <style scoped>
-.grid {
-    display: flex;
-    margin: 0 auto;
+.navbar {
     width: 70%;
+    margin: 0 auto;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(55, 63, 104, 0.08);
 }
 </style>
-

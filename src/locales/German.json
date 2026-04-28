@@ -1,0 +1,244 @@
+{
+    "all": "ALLE",
+    "buttons": {
+        "add": "Feedback hinzufügen",
+        "back": "Zurück",
+        "backToApp": "Zurück zur App",
+        "cancel": "Abbrechen",
+        "changelog": "Änderungsprotokoll",
+        "close": "Schließen",
+        "darkMode": "Dunkelmodus",
+        "delete": "Löschen",
+        "edit": "Feedback bearbeiten",
+        "editAccount": "Konto bearbeiten",
+        "goToLandingPage": "Zur Startseite",
+        "lightMode": "Hellmodus",
+        "logInAnonymously": "ANONYM ANMELDEN",
+        "logInWithGoogle": "MIT GOOGLE ANMELDEN",
+        "login": "Anmelden",
+        "logout": "Abmelden",
+        "next": "Nächste Seite",
+        "postComment": "Kommentar posten",
+        "postReply": "Antwort posten",
+        "prev": "Vorherige Seite",
+        "refresh": "Aktualisieren",
+        "reply": "Antworten",
+        "resetPassword": "Passwort zurücksetzen",
+        "signup": "Registrieren",
+        "skip": "Anmeldung überspringen",
+        "submit": "Bestätigen",
+        "suggestions": "Vorschläge",
+        "udpateAccountInformation": "Kontoinformationen aktualisieren",
+        "udpateProfilePicture": "Profilbild aktualisieren",
+        "updatePassword": "Passwort ändern"
+    },
+    "chips": {
+        "all": "ALLE",
+        "released": "VERÖFFENTLICHT"
+    },
+    "components": {
+        "AppToolbar": {
+            "alt": "Feedback-App-Logo",
+            "title": "Feedback"
+        },
+        "Dialog": {
+            "category": "Kategorie",
+            "categorySubtitle": "Wählen Sie eine Kategorie für Ihr Feedback",
+            "feedbackDetail": "Feedback-Detail",
+            "feedbackDetailSubtitle": "Fügen Sie spezifische Kommentare dazu hinzu, was verbessert oder hinzugefügt werden sollte.",
+            "feedbackSubtitle": "Fügen Sie einen kurzen, beschreibenden Titel hinzu",
+            "feedbackTitle": "Feedback-Titel",
+            "title": "Neues Feedback erstellen",
+            "updateStatus": "Status aktualisieren",
+            "updateStatusSubtitle": "Feedback-Status ändern"
+        },
+        "EditAccount": {
+            "information": "Benutzerkontoinformationen",
+            "passwordInformation": "Um das Passwort zu ändern, geben Sie das aktuelle Passwort ein und dann das neue.",
+            "picture": "Profilbild",
+            "title": "Mein Konto"
+        },
+        "LogIn": {
+            "title": "Anmeldung"
+        },
+        "ModerationDialog": {
+            "preview": "Vorschau",
+            "title": "Möchten Sie dieses Feedback/diesen Kommentar wirklich genehmigen?"
+        },
+        "ModerationToggle": {
+            "allowModeration": "Moderation erlauben"
+        },
+        "SignUp": {
+            "title": "Registrierung"
+        },
+        "VotersCard": {
+            "title": "Abstimmende"
+        },
+        "comment": {
+            "addComment": "Kommentar hinzufügen",
+            "multipleComments": "Kommentare",
+            "oneComment": "Kommentar",
+            "typeComment": "Kommentar hier eingeben"
+        },
+        "reply": {
+            "typeReply": "Antwort hier eingeben"
+        }
+    },
+    "inputs": {
+        "currentPassword": "Aktuelles Passwort",
+        "email": "E-Mail",
+        "newPassword": "Neues Passwort",
+        "password": "Passwort",
+        "picture": "Bild auswählen",
+        "userName": "Benutzername"
+    },
+    "validation": {
+        "incorrectEmailOrPassword": "E-Mail oder Passwort ist falsch.",
+        "incorrectPassword": "Falsches Passwort",
+        "invalidEmail": "Ungültige E-Mail.",
+        "userNotFound": "Kein Konto mit dieser E-Mail-Adresse gefunden."
+    },
+    "validations": {
+        "maxCharacters": "Maximal 250 Zeichen.",
+        "required": "Pflichtfeld."
+    },
+    "views": {
+        "changelog": {},
+        "landingPage": {
+            "allFeedback": "Alle Nutzerfeedbacks an einem Ort",
+            "blog": "Blog",
+            "buttons": {
+                "14dayFreeTrial": "14-tägige kostenlose Testversion",
+                "demo": "Demo",
+                "freeTrial": "Kostenlose Testversion",
+                "readMore": "Mehr lesen",
+                "startToday": "Heute starten"
+            },
+            "card1": {
+                "subtitle": "Private Boards für Teams oder öffentliche für Kunden.",
+                "title": "Privat oder öffentlich"
+            },
+            "card2": {
+                "subtitle": "Erstellen und teilen Sie Ihre Produkt-Roadmap.",
+                "title": "Produkt-Roadmap"
+            },
+            "card3": {
+                "subtitle": "Sammeln Sie Stimmen für Funktionsanfragen.",
+                "title": "Funktionsabstimmung"
+            },
+            "card4": {
+                "subtitle": "Board und Roadmap auf Ihrer eigenen Domain.",
+                "title": "Eigene Domain"
+            },
+            "card5": {
+                "subtitle": "Identifizieren und synchronisieren Sie Ihre Benutzerkonten.",
+                "title": "Benutzer-SSO"
+            },
+            "card6": {
+                "subtitle": "Neue Beiträge und Kommentare manuell genehmigen.",
+                "title": "Moderation"
+            },
+            "card7": {
+                "subtitle": "Passen Sie Ihre eigenen Status-Labels an.",
+                "title": "Benutzerdefinierte Status"
+            },
+            "card8": {
+                "subtitle": "Fügen Sie Benutzer manuell als Abstimmende zu Feedback hinzu.",
+                "title": "Im Namen abstimmen"
+            },
+            "changelog": {
+                "comunicate": "Mit Ihrem Änderungsprotokoll wird die Kommunikation über neue Updates einfach und macht Spaß!",
+                "share": "Teilen Sie Ihre neuesten Veröffentlichungen und Updates",
+                "title": "Änderungsprotokoll"
+            },
+            "features": "Funktionen",
+            "feedbackBoards": {
+                "allInOne": "Alle Ihre Feedbacks in einer Übersicht",
+                "give": "Geben Sie Ihren Nutzern eine Stimme! Lassen Sie sie neue Funktionsanfragen einreichen und abstimmen.",
+                "title": "Feedback-Boards"
+            },
+            "footer": {
+                "about": "Über uns",
+                "account": "Konto",
+                "blog": "Blog",
+                "caseStudies": "Fallstudien",
+                "compare": "Vergleichen",
+                "demo": "Demo",
+                "features": "Funktionen",
+                "feedbackApp": "Feedback-App – mit Liebe für das Produktmanagement erstellt 💛",
+                "gdpr": "DSGVO",
+                "getStarted": "Starten Sie noch heute mit einer kostenlosen 14-Tage-Testversion!",
+                "home": "Startseite",
+                "login": "Anmelden",
+                "pricing": "Preise",
+                "privacy": "Datenschutz",
+                "product": "Produkt",
+                "signUp": "Registrieren",
+                "solutions": "Lösungen",
+                "terms": "Bedingungen"
+            },
+            "headline": {
+                "noCreditCardRequired": "*keine Kreditkarte erforderlich.",
+                "subtitle": "Wandeln Sie Nutzerfeedback in umsetzbare Produktoptimierungen um!",
+                "title": "Sofortiges Feedback für bessere Produkte."
+            },
+            "integrate": "Integriert sich in Ihren Arbeitsablauf",
+            "logos": {
+                "Facebook": "Facebook logo",
+                "Google": "Google logo",
+                "amazon": "Amazon logo"
+            },
+            "navbar": {
+                "demo": "Demo",
+                "features": "Funktionen",
+                "home": "Startseite",
+                "howItWorks": "Wie es funktioniert",
+                "pricing": "Preise"
+            },
+            "roadmap": {
+                "comunicate": "Updates mit 1 Klick kommunizieren",
+                "share": "Teilen Sie automatisch alle neuen Funktionen, an denen Sie arbeiten.",
+                "title": "Roadmap"
+            },
+            "trustedBy": "Vertrauen uns"
+        },
+        "roadmap": {
+            "status": {
+                "inProgress": "In Bearbeitung",
+                "live": "Live",
+                "planned": "Geplant",
+                "subtitle": {
+                    "inProgress": "Wird gerade entwickelt",
+                    "live": "Veröffentlichte Funktionen",
+                    "planned": "Ideen mit Forschungspriorität"
+                }
+            },
+            "title": "Roadmap"
+        },
+        "suggestions": {
+            "emptyFeedback": {
+                "subtitle": "Haben Sie einen Vorschlag? Einen Bug gefunden? Wir freuen uns über neue Ideen zur Verbesserung unserer App.",
+                "title": "Es gibt noch kein Feedback."
+            },
+            "roadmap": {
+                "inProgress": "In Bearbeitung",
+                "live": "Live",
+                "planned": "Geplant",
+                "title": "Roadmap",
+                "view": "Anzeigen"
+            },
+            "sidebar": {
+                "subtitle": "FrontEnd Feedback",
+                "title": "FrontEnd Mentor"
+            },
+            "topbar": {
+                "leastComments": "Wenigste Kommentare",
+                "leastUpvotes": "Wenigste Stimmen",
+                "mostComments": "Meiste Kommentare",
+                "mostUpvotes": "Meiste Stimmen",
+                "sortBy": "Sortieren nach:",
+                "suggestions": "Vorschläge"
+            }
+        }
+    }
+}

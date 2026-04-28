@@ -192,6 +192,11 @@
                 "title": "Instant feedback to build better products."
             },
             "integrate": "Integrates with your workflow ",
+            "logos": {
+                "Facebook": "Facebook logo",
+                "Google": "Google logo",
+                "amazon": "Amazon logo"
+            },
             "navbar": {
                 "demo": "Demo",
                 "features": "Features",
