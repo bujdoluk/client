@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "feedback-app-a6506"
-  }
+    "default": "feedback-app-a6506",
+    "client": "feedback-app-a6506"
+  },
+  "targets": {},
+  "etags": {}
 }
