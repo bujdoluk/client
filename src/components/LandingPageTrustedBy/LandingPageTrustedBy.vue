@@ -57,6 +57,7 @@
 <script setup lang="ts">
 /**
  * @file Integrations / Trusted By component.
+ * @description Landing page section displaying logos of companies that use or integrate with the app.
  */
 import { useI18n } from 'vue-i18n';
 

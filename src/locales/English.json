@@ -115,6 +115,11 @@
     },
     "views": {
         "changelog": {
+        },
+        "error": {
+            "home": "Go to Suggestions",
+            "message": "Something went wrong. Please try again.",
+            "title": "Oops!"
 
         },
         "landingPage": {

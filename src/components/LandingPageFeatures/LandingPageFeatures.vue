@@ -56,6 +56,7 @@
 <script setup lang="ts">
 /**
  * @file Product features component.
+ * @description Landing page grid section listing all product features with icons and descriptions.
  */
 import { useI18n } from 'vue-i18n';
 import {

@@ -108,6 +108,11 @@
     },
     "views": {
         "changelog": {},
+        "error": {
+            "home": "Aller aux suggestions",
+            "message": "Quelque chose s'est mal passé. Veuillez réessayer.",
+            "title": "Oups !"
+        },
         "landingPage": {
             "allFeedback": "Tous les retours utilisateurs en un seul endroit",
             "blog": "Blog",

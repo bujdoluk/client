@@ -15,29 +15,33 @@ const SignUp = async (): Promise<RouteComponent> => import('@/components/Auth/Si
 const ErrorView = async (): Promise<RouteComponent> => import('@/views/ErrorView.vue');
 const ChangelogView = async (): Promise<RouteComponent> => import('@/views/ChangelogView.vue');
 
+const authReady = new Promise((resolve) => {
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+        unsubscribe();
+        resolve(user);
+    });
+});
+
+const authGuard = async (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): Promise<void> => {
+    await authReady;
+    if (auth().currentUser === null) {
+        next({ name: 'errorView' });
+    } else {
+        next();
+    }
+};
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (auth().currentUser === null) {
-                    next({ name: 'errorView' });
-                } else {
-                    next();
-                }
-            },
+            beforeEnter: authGuard,
             component: SuggestionsView,
             name: 'suggestions',
             path: '/suggestions'
         },
         {
-            beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (auth().currentUser === null) {
-                    next({ name: 'errorView' });
-                } else {
-                    next();
-                }
-            },
+            beforeEnter: authGuard,
             component: RoadmapView,
             name: 'roadmap',
             path: '/roadmap'
@@ -48,13 +52,7 @@ const router = createRouter({
             path: '/'
         },
         {
-            beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (auth().currentUser === null) {
-                    next({ name: 'errorView' });
-                } else {
-                    next();
-                }
-            },
+            beforeEnter: authGuard,
             component: FeedbackDetailView,
             name: 'feedback-detail',
             path: '/suggestions/:id'
@@ -75,13 +73,11 @@ const router = createRouter({
             path: '/error'
         },
         {
-            beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
-                if (auth().currentUser === null) {
-                    next({ name: 'errorView' });
-                } else {
-                    next();
-                }
-            },
+            path: '/:pathMatch(.*)*',
+            redirect: { name: 'errorView' }
+        },
+        {
+            beforeEnter: authGuard,
             component: ChangelogView,
             name: 'changelog',
             path: '/changelog'

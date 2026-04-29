@@ -190,6 +190,7 @@
 <script setup lang="ts">
 /**
  * @file Footer component.
+ * @description Landing page footer with navigation links, legal info and social links.
  */
 import { useI18n } from 'vue-i18n';
 import { mdiTwitter, mdiInstagram } from '@mdi/js';

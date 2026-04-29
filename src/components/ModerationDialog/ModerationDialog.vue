@@ -14,7 +14,8 @@
 
 <script setup lang="ts">
 /**
- * @file Reply card component.
+ * @file ModerationDialog component.
+ * @description Confirmation dialog for approving pending feedback or comments.
  */
 import { useAppStore } from '@/stores/useAppStore';
 import { ref } from 'vue';

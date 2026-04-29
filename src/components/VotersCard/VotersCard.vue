@@ -22,6 +22,7 @@
 <script setup lang="ts">
 /**
  * @file VotersCard component.
+ * @description Sidebar card listing users who have upvoted a feedback item.
  */
 import { useI18n } from 'vue-i18n';
 import { computed } from 'vue';

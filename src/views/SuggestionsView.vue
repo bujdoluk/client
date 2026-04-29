@@ -71,27 +71,42 @@
                             />
                         </v-col>
                     </v-row>
-                    <v-row
-                        v-for="feedback in filteredFeedbacks"
-                        :key="feedback.docId"
-                    >
-                        <v-col
-                            class="pt-0"
-                            @click="onRedirect('feedback-detail', feedback.docId)"
+                    <template v-if="loading">
+                        <v-row
+                            v-for="i in 6"
+                            :key="i"
                         >
-                            <FeedbackBar 
-                                :feedback="feedback"
-                                :loading="pinnedLoading"
-                                @updated="(value) => updateFeedBack(value)"
-                                @pinned="(value) => updatePinnedFeedBack(value)"  
-                            />
-                        </v-col>
-                    </v-row>
-                    <v-row v-if="feedbacks.length === 0">
-                        <v-col>
-                            <EmptyFeedback />
-                        </v-col>
-                    </v-row>
+                            <v-col class="pt-0">
+                                <v-skeleton-loader
+                                    boilerplate
+                                    type="card"
+                                />
+                            </v-col>
+                        </v-row>
+                    </template>
+                    <template v-else>
+                        <v-row
+                            v-for="feedback in filteredFeedbacks"
+                            :key="feedback.docId"
+                        >
+                            <v-col
+                                class="pt-0"
+                                @click="onRedirect('feedback-detail', feedback.docId)"
+                            >
+                                <FeedbackBar
+                                    :feedback="feedback"
+                                    :loading="pinnedLoading"
+                                    @updated="(value) => updateFeedBack(value)"
+                                    @pinned="(value) => updatePinnedFeedBack(value)"
+                                />
+                            </v-col>
+                        </v-row>
+                        <v-row v-if="feedbacks.length === 0">
+                            <v-col>
+                                <EmptyFeedback />
+                            </v-col>
+                        </v-row>
+                    </template>
                     <!--
                         <v-row>
                         <v-col cols="auto">

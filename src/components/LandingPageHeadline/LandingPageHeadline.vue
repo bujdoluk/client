@@ -119,6 +119,7 @@
 <script setup lang="ts">
 /**
  * @file Headline component.
+ * @description Hero section of the landing page with the main headline and CTA buttons.
  */
 import { useI18n } from 'vue-i18n';
 

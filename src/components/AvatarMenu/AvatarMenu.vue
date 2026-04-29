@@ -64,6 +64,7 @@
 <script setup lang="ts">
 /**
  * @file Avatar menu component.
+ * @description Dropdown menu for the authenticated user with links to edit account and logout.
  */
 import { useI18n } from 'vue-i18n';
 import router from '@/router';

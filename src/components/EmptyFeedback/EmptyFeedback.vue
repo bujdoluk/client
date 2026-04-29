@@ -28,6 +28,7 @@
 <script setup lang="ts">
 /**
  * @file Empty Feedback component.
+ * @description Placeholder illustration and message shown when no feedback items exist.
  */
 import { useI18n } from 'vue-i18n';
 

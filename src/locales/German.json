@@ -108,6 +108,11 @@
     },
     "views": {
         "changelog": {},
+        "error": {
+            "home": "Zu Vorschlägen",
+            "message": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+            "title": "Hoppla!"
+        },
         "landingPage": {
             "allFeedback": "Alle Nutzerfeedbacks an einem Ort",
             "blog": "Blog",

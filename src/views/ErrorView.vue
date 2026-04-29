@@ -1,20 +1,40 @@
 <template>
-    <v-container fluid>
-        <v-row class="d-flex flex-column text-h3">
+    <v-container
+        fluid
+        class="error-container"
+    >
+        <v-row
+            align="center"
+            justify="center"
+            class="fill-height"
+        >
             <v-col
-                align="center"
-                class="font-weight-bold"
+                cols="12"
+                sm="8"
+                md="5"
+                class="text-center"
             >
-                Display error message
-            </v-col>
-            <v-col align="center">
-                <v-btn
-                    variant="flat"
+                <v-icon
+                    size="80"
                     color="error"
-                    size="x-large"
-                    @click="refresh"
+                    class="mb-4"
                 >
-                    {{ t('buttons.refresh') }}
+                    {{ mdiAlertCircleOutline }}
+                </v-icon>
+                <div class="font-weight-bold mb-2 text-h4">
+                    {{ t('views.error.title') }}
+                </div>
+                <div class="mb-6 text-body-1 text-medium-emphasis">
+                    {{ t('views.error.message') }}
+                </div>
+                <v-btn
+                    color="purple"
+                    variant="flat"
+                    size="large"
+                    :prepend-icon="mdiHome"
+                    @click="goHome"
+                >
+                    {{ t('views.error.home') }}
                 </v-btn>
             </v-col>
         </v-row>
@@ -24,13 +44,21 @@
 <script setup lang="ts">
 /**
  * @file Error View.
- * @description Displays critical application errors.
+ * @description Displayed when the user tries to access a protected route without being authenticated.
  */
 import { useI18n } from 'vue-i18n';
+import { mdiAlertCircleOutline, mdiHome } from '@mdi/js';
+import router from '@/router';
 
 const { t } = useI18n();
 
-const refresh = (): void => {
-    window.location.reload();
+const goHome = async (): Promise<void> => {
+    await router.push({ name: 'suggestions' });
 };
 </script>
+
+<style scoped>
+.error-container {
+    height: calc(100vh - 64px);
+}
+</style>

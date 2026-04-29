@@ -125,6 +125,7 @@
 <script setup lang="ts">
 /**
  * @file Edit account.
+ * @description Form for updating user profile information including name, picture and password.
  */
 import { useI18n } from 'vue-i18n';
 import { ref, onMounted } from 'vue';

@@ -34,36 +34,53 @@
                 </v-chip>
             </v-col>
         </v-row>
-        <v-row
-            v-for="feedback in filteredByCreatedAtFeedbacs(liveFeedbacks)"
-            :key="feedback"
-            class="width"
-        >
-            <v-col>
-                <v-card
-                    width="30%"
-                    class="pa-3"
-                >
-                    <v-card-text class="d-flex justify-space-between">
-                        <v-chip
-                            color="green"
-                            class="font-weight-bold"
-                        >
-                            {{ t('chips.released') }}
-                        </v-chip>
-                        <v-chip>
-                            {{ new Date(Number(feedback.createdAt) * 1000).toLocaleString() }}
-                        </v-chip>
-                    </v-card-text>
-                    <v-card-title class="font-weight-bold text-dark-blue text-truncate">
-                        {{ feedback.title }}
-                    </v-card-title>
-                    <v-card-text class="text-content text-truncate text-truncate width">
-                        {{ feedback.description }}
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
+        <template v-if="loading">
+            <v-row
+                v-for="i in 4"
+                :key="i"
+                class="width"
+            >
+                <v-col>
+                    <v-skeleton-loader
+                        boilerplate
+                        type="card"
+                        width="30%"
+                    />
+                </v-col>
+            </v-row>
+        </template>
+        <template v-else>
+            <v-row
+                v-for="feedback in filteredByCreatedAtFeedbacs(liveFeedbacks)"
+                :key="feedback"
+                class="width"
+            >
+                <v-col>
+                    <v-card
+                        width="30%"
+                        class="pa-3"
+                    >
+                        <v-card-text class="d-flex justify-space-between">
+                            <v-chip
+                                color="green"
+                                class="font-weight-bold"
+                            >
+                                {{ t('chips.released') }}
+                            </v-chip>
+                            <v-chip>
+                                {{ new Date(Number(feedback.createdAt) * 1000).toLocaleString() }}
+                            </v-chip>
+                        </v-card-text>
+                        <v-card-title class="font-weight-bold text-dark-blue text-truncate">
+                            {{ feedback.title }}
+                        </v-card-title>
+                        <v-card-text class="text-content text-truncate text-truncate width">
+                            {{ feedback.description }}
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </template>
     </v-container>
 </template>
 
@@ -80,15 +97,19 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const liveFeedbacks = ref<Array<Feedback>>([]);
-const filteredByCreatedAtFeedbacs = (feedbacks: Array<Feedback>): Array<Feedback> => 
+const loading = ref<boolean>(false);
+const filteredByCreatedAtFeedbacs = (feedbacks: Array<Feedback>): Array<Feedback> =>
     feedbacks.sort((a, b) => Number(b.createdAt) - Number(a.createdAt));
 
 const fetchLiveFeedbacks = async (): Promise<void> => {
     try {
+        loading.value = true;
         const res = await db.collection('feedbacks').where('status', '==', Status.Live).get();
         liveFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
         console.log(error);
+    } finally {
+        loading.value = false;
     }
 };
 

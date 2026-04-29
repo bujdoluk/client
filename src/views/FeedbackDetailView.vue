@@ -26,14 +26,28 @@
                 />
             </v-col>
             <v-col cols="12">
+                <v-skeleton-loader
+                    v-if="loading"
+                    boilerplate
+                    type="card"
+                />
                 <FeedbackBar
-                    v-if="feedback" 
+                    v-else-if="feedback"
                     :feedback="feedback"
                     :loading="loading"
                 />
             </v-col>
             <v-col cols="12">
-                <v-card v-if="filteredComments.length + filteredReplies.length > 0">
+                <template v-if="loading">
+                    <v-skeleton-loader
+                        v-for="i in 3"
+                        :key="i"
+                        boilerplate
+                        type="list-item-avatar-two-line"
+                        class="mb-2"
+                    />
+                </template>
+                <v-card v-else-if="filteredComments.length + filteredReplies.length > 0">
                     <v-container fluid>
                         <v-row v-if="filteredComments.length + filteredReplies.length > 0">
                             <v-col class="font-weight-bold pl-10 text-dark-blue">
@@ -104,6 +118,7 @@
 <script setup lang="ts">
 /**
  * @file Feedback Detail View.
+ * @description Full detail page for a single feedback item showing comments, replies and vote count.
  */
 import { useI18n } from 'vue-i18n';
 import { mdiChevronLeft } from '@mdi/js';

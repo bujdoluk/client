@@ -13,6 +13,7 @@
 <script setup lang="ts">
 /**
  * @file Moderation toggle component.
+ * @description Toggle switch that enables or disables content moderation for the board.
  */
 import { useAppStore } from '@/stores/useAppStore';
 import { ref } from 'vue';

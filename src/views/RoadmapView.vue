@@ -69,9 +69,21 @@
         </v-row>
         <v-row class="width">
             <v-col cols="4">
-                <v-row class="d-flex flex-column">  
-                    <v-col   
+                <v-row class="d-flex flex-column">
+                    <template v-if="loading">
+                        <v-col
+                            v-for="i in 3"
+                            :key="i"
+                        >
+                            <v-skeleton-loader
+                                boilerplate
+                                type="card"
+                            />
+                        </v-col>
+                    </template>
+                    <v-col
                         v-for="feedback in filteredPlannedStatus"
+                        v-else
                         :key="feedback.docId"
                     >
                         <FeedbackCard :feedback="feedback" />
@@ -79,9 +91,21 @@
                 </v-row>
             </v-col>
             <v-col cols="4">
-                <v-row class="d-flex flex-column">  
-                    <v-col   
+                <v-row class="d-flex flex-column">
+                    <template v-if="loading">
+                        <v-col
+                            v-for="i in 3"
+                            :key="i"
+                        >
+                            <v-skeleton-loader
+                                boilerplate
+                                type="card"
+                            />
+                        </v-col>
+                    </template>
+                    <v-col
                         v-for="feedback in filteredInProgressStatus"
+                        v-else
                         :key="feedback.docId"
                     >
                         <FeedbackCard :feedback="feedback" />
@@ -89,9 +113,21 @@
                 </v-row>
             </v-col>
             <v-col cols="4">
-                <v-row class="d-flex flex-column">  
-                    <v-col   
+                <v-row class="d-flex flex-column">
+                    <template v-if="loading">
+                        <v-col
+                            v-for="i in 3"
+                            :key="i"
+                        >
+                            <v-skeleton-loader
+                                boilerplate
+                                type="card"
+                            />
+                        </v-col>
+                    </template>
+                    <v-col
                         v-for="feedback in filteredLiveStatus"
+                        v-else
                         :key="feedback.docId"
                     >
                         <FeedbackCard :feedback="feedback" />

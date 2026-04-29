@@ -6,6 +6,7 @@
 <script setup lang="ts">
 /**
  * @file Test View.
+ * @description Temporary sandbox view used for component and feature testing during development.
  */
 import { ref, watch } from 'vue';
 import { db, auth } from '@/firebase/init';

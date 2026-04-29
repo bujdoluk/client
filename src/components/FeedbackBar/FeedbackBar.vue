@@ -93,6 +93,7 @@
 <script lang="ts" setup>
 /**
  * @file FeedbackBar component.
+ * @description Header bar of the feedback detail view showing title, category and action buttons.
  */
 import Tag from '@/components/Tag/Tag.vue';
 import type { Feedback } from '@/types/index.ts';

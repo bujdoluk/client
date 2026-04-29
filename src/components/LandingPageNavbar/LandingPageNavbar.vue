@@ -67,6 +67,7 @@
 <script setup lang="ts">
 /**
  * @file Navbar component.
+ * @description Top navigation bar for the landing page with links and auth buttons.
  */
 import { useI18n } from 'vue-i18n';
 import { mdiTwitter, mdiInstagram } from '@mdi/js';

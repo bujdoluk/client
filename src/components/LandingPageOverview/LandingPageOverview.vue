@@ -54,6 +54,7 @@
 <script setup lang="ts">
 /**
  * @file Overview component.
+ * @description Landing page section showcasing feedback boards and roadmap overview.
  */
 import { useI18n } from 'vue-i18n';
 import { mdiMessageTextOutline, mdiMapOutline, mdiNewspaperVariantOutline } from '@mdi/js';

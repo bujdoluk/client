@@ -22,7 +22,8 @@
 
 <script setup lang="ts">
 /**
- * @file FrontendMentoBox component.
+ * @file FrontendMentorBox component.
+ * @description Sidebar branding card displaying the FrontendMentor project name and subtitle.
  */
 import { useI18n } from 'vue-i18n';
 

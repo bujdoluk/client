@@ -108,6 +108,11 @@
     },
     "views": {
         "changelog": {},
+        "error": {
+            "home": "Přejít na návrhy",
+            "message": "Něco se pokazilo. Zkuste to prosím znovu.",
+            "title": "Jejda!"
+        },
         "landingPage": {
             "allFeedback": "Veškerá zpětná vazba od uživatelů na jednom místě",
             "blog": "Blog",

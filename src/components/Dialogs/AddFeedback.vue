@@ -101,6 +101,7 @@
 <script setup lang="ts">
 /**
  * @file Add Feedback component.
+ * @description Dialog for creating a new feedback item with title, category and description.
  */
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';

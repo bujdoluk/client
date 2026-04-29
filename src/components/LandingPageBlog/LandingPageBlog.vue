@@ -99,6 +99,7 @@
 <script setup lang="ts">
 /**
  * @file Blog component.
+ * @description Landing page section previewing the latest blog posts.
  */
 import { useI18n } from 'vue-i18n';
 import { mdiChartLineVariant, mdiLinkVariant, mdiRocketLaunchOutline } from '@mdi/js';

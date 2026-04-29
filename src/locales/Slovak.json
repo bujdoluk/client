@@ -107,6 +107,11 @@
         "required": "Povinny udaj."
     },
     "views": {
+        "error": {
+            "home": "Prejsť na návrhy",
+            "message": "Niečo sa pokazilo. Skúste to prosím znova.",
+            "title": "Ojoj!"
+        },
         "landingPage": {
             "allFeedback": "Vsetok feedback od uzivatelov na jednom mieste",
             "blog": "Blog",

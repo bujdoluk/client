@@ -15,6 +15,7 @@
 <script setup lang="ts">
 /**
  * @file LoaderOverlay Component.
+ * @description Full-screen overlay with spinner shown during async operations.
  */
 import { storeToRefs } from 'pinia';
 import { useAppStore } from '@/stores/useAppStore';

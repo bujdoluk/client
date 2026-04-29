@@ -26,6 +26,7 @@
 <script setup lang="ts">
 /**
  * @file TagsBox component.
+ * @description Sidebar box of category filter chips for narrowing the feedback list.
  */
 import Tag from '@/components/Tag/Tag.vue';
 
