@@ -52,12 +52,12 @@
 <script setup lang="ts">
 /**
  * @file FeedbackCard component.
+ * @description Card displaying a single feedback item with upvote button and comment count.
  */
 import { mdiChat, mdiChevronUp } from '@mdi/js';
-import { type Feedback } from '@/models/Feedback';
+import { type Feedback, Status } from '@/types/index.ts';
 import Tag from '@/components/Tag/Tag.vue';
 import router from '@/router';
-import { Status } from '@/models/Status';
 
 const props = defineProps<{
     feedback: Feedback;

@@ -25,7 +25,7 @@
  */
 import { useI18n } from 'vue-i18n';
 import { computed } from 'vue';
-import type { User } from '@/models/User';
+import type { User } from '@/types/index.ts';
 
 const props = defineProps<{
     loading: boolean;

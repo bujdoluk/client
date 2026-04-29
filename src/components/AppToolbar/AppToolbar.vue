@@ -18,55 +18,58 @@
             >
         </div>
         <v-spacer />
-        <v-btn
-            v-if="user === null"
-            variant="flat"
-            :disabled="router.currentRoute.value.fullPath === '/signup'"
-            color="purple"
-            :to="{ 'name': 'signup' }"
-        >
-            {{ t('buttons.signup') }}
-        </v-btn>
-        <v-btn
-            v-if="user === null"
-            variant="flat"
-            :disabled="router.currentRoute.value.fullPath === '/login'"
-            color="purple"
-            class="mx-3"
-            :to="{ 'name': 'login' }"
-        >
-            {{ t('buttons.login') }}
-        </v-btn>
-        <v-btn
-            v-if="user && router.currentRoute.value.fullPath === '/'"
-            variant="flat"
-            color="purple"
-            @click="redirecToApp"
-        >
-            {{ t('buttons.backToApp') }}
-        </v-btn>
-        <v-btn
-            v-if="user"
-            variant="outlined"
-            class="mx-3"
-            @click="redirectToChangelog"
-        >
-            {{ t('buttons.changelog') }}
-        </v-btn>
-
-        <ThemeSelect />
-
-        <LanguageSelect />
-        <AvatarMenu
-            v-if="user"
-            :user="user"
-        />
+        <div class="align-center d-flex">
+            <v-btn
+                v-if="user === null"
+                variant="flat"
+                :disabled="router.currentRoute.value.fullPath === '/signup'"
+                color="purple"
+                :to="{ 'name': 'signup' }"
+            >
+                {{ t('buttons.signup') }}
+            </v-btn>
+            <v-btn
+                v-if="user === null"
+                variant="flat"
+                :disabled="router.currentRoute.value.fullPath === '/login'"
+                color="purple"
+                class="mx-3"
+                :to="{ 'name': 'login' }"
+            >
+                {{ t('buttons.login') }}
+            </v-btn>
+            <v-btn
+                v-if="user && router.currentRoute.value.fullPath === '/'"
+                variant="flat"
+                color="purple"
+                @click="redirecToApp"
+            >
+                {{ t('buttons.backToApp') }}
+            </v-btn>
+           
+            <v-btn
+                v-if="user"
+                variant="outlined"
+                class="mx-3"
+                @click="redirectToChangelog"
+            >
+                {{ t('buttons.changelog') }}
+            </v-btn>
+           
+            <ThemeSelect />
+            <LanguageSelect />
+            <AvatarMenu
+                v-if="user"
+                :user="user"
+            />
+        </div>
     </v-app-bar>
 </template>
 
 <script setup lang="ts">
 /**
  * @file AppToolbar.
+ * @description Main app navigation bar with auth buttons, avatar, language, theme and changelog controls.
  */
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';

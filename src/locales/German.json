@@ -14,6 +14,7 @@
         "goToLandingPage": "Zur Startseite",
         "lightMode": "Hellmodus",
         "logInAnonymously": "ANONYM ANMELDEN",
+        "logInWithFacebook": "MIT FACEBOOK ANMELDEN",
         "logInWithGoogle": "MIT GOOGLE ANMELDEN",
         "login": "Anmelden",
         "logout": "Abmelden",
@@ -59,6 +60,8 @@
             "title": "Mein Konto"
         },
         "LogIn": {
+            "or": "ODER",
+            "subtitle": "Melden Sie sich an, um fortzufahren",
             "title": "Anmeldung"
         },
         "ModerationDialog": {
@@ -69,6 +72,7 @@
             "allowModeration": "Moderation erlauben"
         },
         "SignUp": {
+            "subtitle": "Erstellen Sie Ihr Konto, um zu beginnen",
             "title": "Registrierung"
         },
         "VotersCard": {

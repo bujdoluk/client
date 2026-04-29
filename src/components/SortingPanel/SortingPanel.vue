@@ -60,10 +60,11 @@
 <script setup lang="ts">
 /**
  * @file SortingPanel component.
+ * @description Toolbar showing feedback count, sort options and the add feedback button.
  */
 import { ref } from 'vue';
 import { mdiLightbulbOnOutline } from '@mdi/js';
-import { type Feedback } from '@/models/Feedback';
+import { type Feedback } from '@/types/index.ts';
 import AddFeedback from '@/components/Dialogs/AddFeedback.vue';
 import { useI18n } from 'vue-i18n';
 

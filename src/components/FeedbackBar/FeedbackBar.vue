@@ -95,7 +95,7 @@
  * @file FeedbackBar component.
  */
 import Tag from '@/components/Tag/Tag.vue';
-import type { Feedback } from '@/models/Feedback';
+import type { Feedback } from '@/types/index.ts';
 import { mdiChat, mdiChevronUp, mdiPinOutline, mdiPin } from '@mdi/js';
 
 const props = defineProps<{

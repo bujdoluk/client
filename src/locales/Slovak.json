@@ -14,6 +14,7 @@
         "goToLandingPage": "Spat na stranku",
         "lightMode": "Svetly rezim",
         "logInAnonymously": "Prihlasit sa ANONYMNE",
+        "logInWithFacebook": "Prihlasit sa cez FACEBOOK ucet",
         "logInWithGoogle": "Prihlasit sa cez GOOGLE ucet",
         "login": "Prihlasit sa",
         "logout": "Odhlasit sa",
@@ -59,6 +60,8 @@
             "title": "Moj ucet"
         },
         "LogIn": {
+            "or": "ALEBO",
+            "subtitle": "Prihláste sa pre pokračovanie",
             "title": "Prihlasenie"
         },
         "ModerationDialog": {
@@ -69,6 +72,7 @@
             "allowModeration":"Povolit moderovanie obsahu"
         },
         "SignUp": {
+            "subtitle": "Vytvorte si účet a začnite",
             "title": "Registracia"
         },
         "VotersCard": {

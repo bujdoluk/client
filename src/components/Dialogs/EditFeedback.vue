@@ -132,13 +132,13 @@
 <script setup lang="ts">
 /**
  * @file Edit Feedback component.
+ * @description Dialog for editing an existing feedback item's title, category, description and status.
  */
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
 import { db, auth, timestamp } from '@/firebase/init';
-import type { Feedback } from '@/models/Feedback';
-import { Status } from '@/models/Status';
+import { type Feedback, Status } from '@/types/index.ts';
 
 const prop = defineProps<{ feedback: Feedback }>();
 const emit = defineEmits<(e: 'edited' | 'deleted', feedback: Feedback) => void>();

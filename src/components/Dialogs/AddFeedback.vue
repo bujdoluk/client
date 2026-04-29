@@ -106,7 +106,7 @@ import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiPlus } from '@mdi/js';
 import { db, auth, timestamp } from '@/firebase/init';
-import { Status } from '@/models/Status';
+import { Status } from '@/types/index.ts';
 
 const emit = defineEmits<(e: 'feedbackAdded') => void>();
 const user = ref(auth().currentUser);

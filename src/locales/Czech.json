@@ -14,6 +14,7 @@
         "goToLandingPage": "Zpět na stránku",
         "lightMode": "Světlý režim",
         "logInAnonymously": "PŘIHLÁSIT SE ANONYMNĚ",
+        "logInWithFacebook": "PŘIHLÁSIT SE PŘES FACEBOOK",
         "logInWithGoogle": "PŘIHLÁSIT SE PŘES GOOGLE",
         "login": "Přihlásit se",
         "logout": "Odhlásit se",
@@ -59,6 +60,8 @@
             "title": "Můj účet"
         },
         "LogIn": {
+            "or": "NEBO",
+            "subtitle": "Přihlaste se a pokračujte",
             "title": "Přihlášení"
         },
         "ModerationDialog": {
@@ -69,6 +72,7 @@
             "allowModeration": "Povolit moderování obsahu"
         },
         "SignUp": {
+            "subtitle": "Vytvořte si účet a začněte",
             "title": "Registrace"
         },
         "VotersCard": {

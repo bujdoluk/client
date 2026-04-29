@@ -84,10 +84,10 @@
 <script setup lang="ts">
 /**
  * @file RoadmapBox component.
+ * @description Sidebar card summarising planned, in-progress and live feedback counts with links.
  */
 import { computed } from 'vue';
-import { type Feedback } from '@/models/Feedback';
-import { Status } from '@/models/Status';
+import { type Feedback, Status } from '@/types/index.ts';
 import router from '@/router';
 import { useI18n } from 'vue-i18n';
 

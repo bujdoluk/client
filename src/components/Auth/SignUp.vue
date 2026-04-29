@@ -1,87 +1,108 @@
 <template>
     <v-container
-        class="height"
         fluid
+        class="signup-container"
     >
-        <v-row align="center">
-            <v-col>
-                <v-btn 
-                    color="black"
+        <v-row
+            align="center"
+            justify="center"
+            class="fill-height"
+        >
+            <v-col
+                cols="12"
+                sm="9"
+                md="6"
+                lg="5"
+                xl="4"
+            >
+                <v-btn
+                    color="on-surface"
                     variant="text"
                     size="small"
                     :prepend-icon="mdiChevronLeft"
+                    class="mb-4 pl-0"
                     @click="redirect"
                 >
                     {{ t('buttons.back') }}
                 </v-btn>
-            </v-col>
-        </v-row>
-        <v-row> 
-            <v-col
-                cols="12"
-                align="center"
-            >
-                <v-form 
+
+                <v-form
                     ref="form"
                     v-model="isFormValid"
                     fast-fail
                     validate-on="input"
-                    @keydown.enter="submit"    
+                    @keydown.enter="submit"
                 >
                     <v-card
-                        width="500"
-                        :height="errorMessage ? '350' : '320'"
-                        class="pa-3"
-                        elevation="1"
+                        class="pa-6"
+                        elevation="4"
+                        rounded="lg"
                     >
-                        <v-card-title class="pb-4">
-                            {{ t('components.SignUp.title') }}
-                        </v-card-title>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="userName"
-                                density="compact"
-                                :label="t('inputs.userName')"
-                                variant="outlined"
-                            />
-                        </v-card-text>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="email"
-                                density="compact"
-                                type="email"
-                                :label="t('inputs.email')"
-                                variant="outlined"
-                            />
-                        </v-card-text>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="password"
-                                :append-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
-                                :type="showPassword ? 'text' : 'password'"
-                                density="compact"
-                                :label="t('inputs.password')"
-                                variant="outlined"
-                                @click:append="showPassword = !showPassword"
-                            />
-                        </v-card-text>
-               
-                        <v-card-actions> 
-                            <v-spacer />
-                            <v-btn
+                        <div class="mb-6 text-center">
+                            <v-icon
+                                size="52"
                                 color="purple"
-                                variant="flat"
-                                @click="submit"
+                                class="mb-3"
                             >
-                                {{ t('buttons.submit') }}
-                            </v-btn>
-                        </v-card-actions>
-                        <v-card-text
+                                {{ mdiAccountPlus }}
+                            </v-icon>
+                            <div class="font-weight-bold text-h5">
+                                {{ t('components.SignUp.title') }}
+                            </div>
+                            <div class="mt-1 text-body-2 text-medium-emphasis">
+                                {{ t('components.SignUp.subtitle') }}
+                            </div>
+                        </div>
+
+                        <v-text-field
+                            v-model="userName"
+                            density="comfortable"
+                            :label="t('inputs.userName')"
+                            variant="outlined"
+                            :prepend-inner-icon="mdiAccountOutline"
+                            class="mb-2"
+                        />
+                        <v-text-field
+                            v-model="email"
+                            density="comfortable"
+                            type="email"
+                            :label="t('inputs.email')"
+                            variant="outlined"
+                            :prepend-inner-icon="mdiEmailOutline"
+                            class="mb-2"
+                        />
+                        <v-text-field
+                            v-model="password"
+                            density="comfortable"
+                            :append-inner-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
+                            :type="showPassword ? 'text' : 'password'"
+                            :label="t('inputs.password')"
+                            variant="outlined"
+                            :prepend-inner-icon="mdiLockOutline"
+                            @click:append-inner="showPassword = !showPassword"
+                        />
+
+                        <v-btn
+                            color="purple"
+                            variant="flat"
+                            block
+                            size="large"
+                            class="mt-2"
+                            @click="submit"
+                        >
+                            {{ t('buttons.signup') }}
+                        </v-btn>
+
+                        <v-alert
                             v-if="errorMessage"
-                            class="text-error"
+                            type="error"
+                            variant="tonal"
+                            class="mt-4"
+                            density="compact"
+                            rounded="lg"
                         >
                             {{ errorMessage }}
-                        </v-card-text>
+                        </v-alert>
                     </v-card>
                 </v-form>
             </v-col>
@@ -91,13 +112,21 @@
 
 <script setup lang="ts">
 /**
- * @file Sing In component.
- * @description User sign in.
+ * @file SignUp component.
+ * @description User registration.
  */
 import { ref } from 'vue';
-import { useSignup } from '../../plugins/auth';
+import { useSignup } from '@/plugins/auth';
 import { useI18n } from 'vue-i18n';
-import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
+import {
+    mdiChevronLeft,
+    mdiEyeOutline,
+    mdiEyeOffOutline,
+    mdiAccountPlus,
+    mdiAccountOutline,
+    mdiEmailOutline,
+    mdiLockOutline
+} from '@mdi/js';
 import router from '@/router';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -113,7 +142,7 @@ const showPassword = ref<boolean>(false);
 const submit = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
-        await signup(email.value, password.value, userName.value);  
+        await signup(email.value, password.value, userName.value);
         if (!errorMessage.value) {
             router.push({ name: 'login' });
         }
@@ -135,7 +164,7 @@ const redirect = (): void => {
 </script>
 
 <style scoped>
-.height {
-    height: calc(100vh - 64px);
+.signup-container {
+    min-height: calc(100vh - 64px);
 }
 </style>

@@ -81,11 +81,11 @@
 <script setup lang="ts">
 /**
  * @file Reply card component.
+ * @description Displays a single reply to a comment including author and reply text.
  */
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import type { Comment } from '@/models/Comment';
-import type { Reply } from '@/models/Reply';
+import type { Comment, Reply } from '@/types/index.ts';
 
 const props = defineProps<{
     comment: Comment;

@@ -22,8 +22,9 @@ const router = createRouter({
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
                 if (auth().currentUser === null) {
                     next({ name: 'errorView' });
+                } else {
+                    next();
                 }
-                next();
             },
             component: SuggestionsView,
             name: 'suggestions',
@@ -33,8 +34,9 @@ const router = createRouter({
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
                 if (auth().currentUser === null) {
                     next({ name: 'errorView' });
+                } else {
+                    next();
                 }
-                next();
             },
             component: RoadmapView,
             name: 'roadmap',
@@ -49,8 +51,9 @@ const router = createRouter({
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
                 if (auth().currentUser === null) {
                     next({ name: 'errorView' });
+                } else {
+                    next();
                 }
-                next();
             },
             component: FeedbackDetailView,
             name: 'feedback-detail',
@@ -75,8 +78,9 @@ const router = createRouter({
             beforeEnter: (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext): void => {
                 if (auth().currentUser === null) {
                     next({ name: 'errorView' });
+                } else {
+                    next();
                 }
-                next();
             },
             component: ChangelogView,
             name: 'changelog',

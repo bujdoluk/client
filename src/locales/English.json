@@ -14,6 +14,7 @@
         "goToLandingPage": "Go to landing page",
         "lightMode": "Light mode",
         "logInAnonymously": "LOG IN ANONYMOUSLY",
+        "logInWithFacebook": "LOG IN WITH FACEBOOK",
         "logInWithGoogle": "LOG IN WITH GOOGLE",
         "login": "Log in",
         "logout": "Logout",
@@ -59,6 +60,8 @@
             "title": "My account"
         },
         "LogIn": {
+            "or": "OR",
+            "subtitle": "Sign in to continue",
             "title": "Login"
         },
         "ModerationDialog": {
@@ -69,6 +72,7 @@
             "allowModeration":"Allow moderation"
         },
         "SignUp": {
+            "subtitle": "Create your account to get started",
             "title": "Sign up"
         },
         "VotersCard": {

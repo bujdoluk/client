@@ -1,27 +1,32 @@
 <template>
     <v-container
         fluid
-        class="height"
+        class="login-container"
     >
-        <v-row align="center">
-            <v-col>
-                <v-btn 
-                    color="black"
+        <v-row
+            align="center"
+            justify="center"
+            class="fill-height"
+        >
+            <v-col
+                cols="12"
+                sm="9"
+                md="6"
+                lg="5"
+                xl="4"
+            >
+                <v-btn
+                    color="on-surface"
                     variant="text"
                     size="small"
                     :prepend-icon="mdiChevronLeft"
+                    class="mb-4 pl-0"
                     @click="redirect"
                 >
                     {{ t('buttons.back') }}
                 </v-btn>
-            </v-col>
-        </v-row>
-        <v-row> 
-            <v-col
-                cols="12"
-                align="center"
-            >
-                <v-form 
+
+                <v-form
                     ref="form"
                     v-model="isFormValid"
                     fast-fail
@@ -35,66 +40,107 @@
                     />
                     <v-card
                         v-else
-                        width="550"
-                        class="pa-3"
-                        elevation="1"
+                        class="pa-6"
+                        elevation="4"
+                        rounded="lg"
                     >
-                        <v-card-title class="pb-4">
-                            {{ t('components.LogIn.title') }}
-                        </v-card-title> 
-                        <v-card-text class="pb-6">
-                            <v-btn
-                                color="orange"
-                                variant="flat"
-                                class="text-white"
-                                block
-                                @click="onAnonymousButtonClicked"
+                        <div class="mb-6 text-center">
+                            <v-icon
+                                size="52"
+                                color="purple"
+                                class="mb-3"
                             >
-                                {{ t('buttons.logInAnonymously') }}
-                            </v-btn>
-                        </v-card-text> 
-                        <v-card-text class="pb-6">
+                                {{ mdiAccountCircle }}
+                            </v-icon>
+                            <div class="font-weight-bold text-h5">
+                                {{ t('components.LogIn.title') }}
+                            </div>
+                            <div class="mt-1 text-body-2 text-medium-emphasis">
+                                {{ t('components.LogIn.subtitle') }}
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column ga-3 mb-5">
                             <v-btn
-                                color="green"
+                                color="#DB4437"
                                 variant="flat"
                                 block
+                                size="large"
+                                :prepend-icon="mdiGoogle"
+                                class="text-white"
                                 @click="onGoogleButtonClicked"
                             >
                                 {{ t('buttons.logInWithGoogle') }}
                             </v-btn>
-                        </v-card-text>
+                            <v-btn
+                                color="#1877F2"
+                                variant="flat"
+                                block
+                                size="large"
+                                :prepend-icon="mdiFacebook"
+                                class="text-white"
+                                @click="onFacebookButtonClicked"
+                            >
+                                {{ t('buttons.logInWithFacebook') }}
+                            </v-btn>
+                            <v-btn
+                                color="orange-darken-1"
+                                variant="flat"
+                                block
+                                size="large"
+                                :prepend-icon="mdiIncognito"
+                                class="text-white"
+                                @click="onAnonymousButtonClicked"
+                            >
+                                {{ t('buttons.logInAnonymously') }}
+                            </v-btn>
+                        </div>
+
+                        <v-divider class="mb-5">
+                            <span class="px-2 text-caption text-medium-emphasis">{{ t('components.LogIn.or') }}</span>
+                        </v-divider>
+
                         <v-text-field
                             v-model="email"
-                            density="compact"
+                            density="comfortable"
                             type="email"
                             :label="t('inputs.email')"
                             variant="outlined"
+                            :prepend-inner-icon="mdiEmailOutline"
+                            class="mb-2"
                         />
                         <v-text-field
                             v-model="password"
-                            density="compact"
-                            :append-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
+                            density="comfortable"
+                            :append-inner-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
                             :type="showPassword ? 'text' : 'password'"
                             :label="t('inputs.password')"
                             variant="outlined"
-                            @click:append="showPassword = !showPassword"
+                            :prepend-inner-icon="mdiLockOutline"
+                            @click:append-inner="showPassword = !showPassword"
                         />
-                        <v-card-actions>
-                            <v-spacer />
-                            <v-btn
-                                color="purple"
-                                variant="flat"
-                                @click="submit"
-                            >
-                                {{ t('buttons.submit') }}
-                            </v-btn>
-                        </v-card-actions>
-                        <v-card-text
+
+                        <v-btn
+                            color="purple"
+                            variant="flat"
+                            block
+                            size="large"
+                            class="mt-2"
+                            @click="submit"
+                        >
+                            {{ t('buttons.submit') }}
+                        </v-btn>
+
+                        <v-alert
                             v-if="errorMessage"
-                            class="text-error"
+                            type="error"
+                            variant="tonal"
+                            class="mt-4"
+                            density="compact"
+                            rounded="lg"
                         >
                             {{ errorMessage }}
-                        </v-card-text>
+                        </v-alert>
                     </v-card>
                 </v-form>
             </v-col>
@@ -104,14 +150,24 @@
 
 <script setup lang="ts">
 /**
- * @file Log In component.
- * @description User log in.
+ * @file LogIn component.
+ * @description User log in with email/password, Google, Facebook, and anonymous auth.
  */
 import { ref } from 'vue';
 import { useLogin } from '@/plugins/auth';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
-import { mdiChevronLeft, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
+import {
+    mdiChevronLeft,
+    mdiEyeOutline,
+    mdiEyeOffOutline,
+    mdiAccountCircle,
+    mdiGoogle,
+    mdiFacebook,
+    mdiIncognito,
+    mdiEmailOutline,
+    mdiLockOutline
+} from '@mdi/js';
 import { auth, db, firebase } from '@/firebase/init';
 import { useAppStore } from '@/stores/useAppStore';
 
@@ -122,21 +178,30 @@ const email = ref<string>('');
 const password = ref<string>('');
 const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
-const user = ref(auth().currentUser);
 const loading = ref<boolean>(false);
-const provider = new auth.GoogleAuthProvider();
+const googleProvider = new auth.GoogleAuthProvider();
+const facebookProvider = new auth.FacebookAuthProvider();
+
+const navigateAfterAuth = (): void => {
+    const unsubscribe = auth().onAuthStateChanged((loggedInUser) => {
+        if (loggedInUser) {
+            unsubscribe();
+            router.push({ name: 'suggestions' });
+        }
+    });
+};
 
 const createUser = async (): Promise<void> => {
+    const { currentUser } = auth();
+    if (!currentUser) return;
     try {
         loading.value = true;
-        if (user.value) {
-            await db.collection('users').doc(user.value.uid).set({
-                email: user.value.email,
-                picture: '',
-                userId: user.value.uid,
-                userName: user.value.displayName
-            });
-        }
+        await db.collection('users').doc(currentUser.uid).set({
+            email: currentUser.email,
+            picture: '',
+            userId: currentUser.uid,
+            userName: currentUser.displayName
+        });
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -150,10 +215,9 @@ const submit = async (): Promise<void> => {
         await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await login(email.value, password.value);
         if (!errorMessage.value) {
-            router.push({ name: 'suggestions' });
+            navigateAfterAuth();
         }
         await createUser();
-        console.log('USER created');
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -166,13 +230,11 @@ const onAnonymousButtonClicked = async (): Promise<void> => {
         appStore.isLoading = true;
         await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await auth().signInAnonymously();
-        if (!errorMessage.value) {
-            router.push({ name: 'suggestions' });
-        }
     } catch (error: unknown) {
         console.log(error);
     } finally {
         appStore.isLoading = false;
+        navigateAfterAuth();
     }
 };
 
@@ -180,14 +242,25 @@ const onGoogleButtonClicked = async (): Promise<void> => {
     try {
         appStore.isLoading = true;
         await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
-        await auth().signInWithPopup(provider);
-        if (!errorMessage.value) {
-            router.push({ name: 'suggestions' });
-        }
+        await auth().signInWithPopup(googleProvider);
     } catch (error: unknown) {
         console.log(error);
     } finally {
         appStore.isLoading = false;
+        navigateAfterAuth();
+    }
+};
+
+const onFacebookButtonClicked = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        await auth().signInWithPopup(facebookProvider);
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        appStore.isLoading = false;
+        navigateAfterAuth();
     }
 };
 
@@ -199,11 +272,10 @@ const form = ref<{
 const redirect = (): void => {
     router.push({ name: 'landing' });
 };
-
 </script>
 
 <style scoped>
-.height {
-    height: calc(100vh - 64px);
+.login-container {
+    min-height: calc(100vh - 64px);
 }
 </style>

@@ -14,6 +14,7 @@
         "goToLandingPage": "Retour à la page d'accueil",
         "lightMode": "Mode clair",
         "logInAnonymously": "SE CONNECTER ANONYMEMENT",
+        "logInWithFacebook": "SE CONNECTER AVEC FACEBOOK",
         "logInWithGoogle": "SE CONNECTER AVEC GOOGLE",
         "login": "Se connecter",
         "logout": "Se déconnecter",
@@ -59,6 +60,8 @@
             "title": "Mon compte"
         },
         "LogIn": {
+            "or": "OU",
+            "subtitle": "Connectez-vous pour continuer",
             "title": "Connexion"
         },
         "ModerationDialog": {
@@ -69,6 +72,7 @@
             "allowModeration": "Autoriser la modération"
         },
         "SignUp": {
+            "subtitle": "Créez votre compte pour commencer",
             "title": "Inscription"
         },
         "VotersCard": {

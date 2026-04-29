@@ -103,13 +103,12 @@
 <script setup lang="ts">
 /**
  * @file Comment card component.
+ * @description Displays a single comment with its replies and a reply input field.
  */
 import { useI18n } from 'vue-i18n';
-import { type Comment } from '@/models/Comment';
-import { type Reply } from '@/models/Reply';
+import { type Comment, type Reply, type Feedback } from '@/types/index.ts';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
 import { ref, computed } from 'vue';
-import type { Feedback } from '@/models/Feedback';
 
 const props = defineProps<{
     comment: Comment;
