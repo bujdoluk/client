@@ -20,7 +20,7 @@ RUN npm run build:prod
 FROM nginx:stable-alpine as production-stage
 
 # Copy the build application from previous stage to the nginx container
-COPY - from=build-stage /app/dist /usr/share/nginx/html ./
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration file
 COPY ./default.conf /etc/nginx/conf.d/default.conf
@@ -29,4 +29,4 @@ COPY ./default.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 # Start nginx to serve the application
-CMD ["nginx", "-g", "deamon off"]
+CMD ["nginx", "-g", "daemon off;"]
