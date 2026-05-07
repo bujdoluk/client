@@ -18,11 +18,11 @@
             </v-col>
             <v-spacer />
             <v-col cols="auto">
-                <EditFeedback 
+                <FeedbackDialog
                     v-if="feedback"
                     :feedback="feedback"
                     @edited="onEdited"
-                    @deleted="(feedbackId) => onDeleted(feedbackId)" 
+                    @deleted="onDeleted"
                 />
             </v-col>
             <v-col cols="12">
@@ -125,7 +125,7 @@ import { mdiChevronLeft } from '@mdi/js';
 import router from '@/router';
 import type { Reply, Comment, Feedback } from '@/types/index';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
-import EditFeedback from '@/components/Dialogs/EditFeedback.vue';
+import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';

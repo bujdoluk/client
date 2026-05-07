@@ -50,7 +50,7 @@
                     cols="auto"
                     class="pr-4"
                 >
-                    <AddFeedback @feedback-added="onFeedbackAdded" />
+                    <FeedbackDialog @feedback-added="onFeedbackAdded" />
                 </v-col>
             </v-row>
         </v-container>
@@ -65,7 +65,7 @@
 import { ref } from 'vue';
 import { mdiLightbulbOnOutline } from '@mdi/js';
 import { type Feedback } from '@/types/index.ts';
-import AddFeedback from '@/components/Dialogs/AddFeedback.vue';
+import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{

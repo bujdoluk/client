@@ -18,7 +18,7 @@
                     {{ t('views.suggestions.emptyFeedback.subtitle') }}
                 </v-col>
                 <v-col>
-                    <AddFeedback @feedback-added="onFeedbackAdded" />
+                    <FeedbackDialog @feedback-added="onFeedbackAdded" />
                 </v-col>
             </v-row>
         </v-container>
@@ -31,6 +31,7 @@
  * @description Placeholder illustration and message shown when no feedback items exist.
  */
 import { useI18n } from 'vue-i18n';
+import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 
 const emit = defineEmits<(e: 'added') => void>();
 

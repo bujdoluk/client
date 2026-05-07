@@ -25,7 +25,7 @@
                             </v-col>
                             <v-spacer />
                             <v-col cols="auto mr-3">
-                                <AddFeedback @feedback-added="onFeedbackAdded" />
+                                <FeedbackDialog @feedback-added="onFeedbackAdded" />
                             </v-col>
                         </v-row>
                     </v-container>
@@ -144,7 +144,7 @@
  * @description Displays roadmap of all feedbacks with given statuses.
  */
 import { computed, ref, onMounted } from 'vue';
-import AddFeedback from '@/components/Dialogs/AddFeedback.vue';
+import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { useI18n } from 'vue-i18n';
 import { type Feedback, Status } from '@/types/index';
 import FeedbackCard from '@/components/FeedbackCard/FeedbackCard.vue';

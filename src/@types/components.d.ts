@@ -7,15 +7,14 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AddFeedback: typeof import('./../components/Dialogs/AddFeedback.vue')['default']
     AppToolbar: typeof import('./../components/AppToolbar/AppToolbar.vue')['default']
     AvatarMenu: typeof import('./../components/AvatarMenu/AvatarMenu.vue')['default']
     CommentCard: typeof import('./../components/CommentCard/CommentCard.vue')['default']
     EditAccount: typeof import('./../components/EditAccount/EditAccount.vue')['default']
-    EditFeedback: typeof import('./../components/Dialogs/EditFeedback.vue')['default']
     EmptyFeedback: typeof import('./../components/EmptyFeedback/EmptyFeedback.vue')['default']
     FeedbackBar: typeof import('./../components/FeedbackBar/FeedbackBar.vue')['default']
     FeedbackCard: typeof import('./../components/FeedbackCard/FeedbackCard.vue')['default']
+    FeedbackDialog: typeof import('./../components/Dialogs/FeedbackDialog.vue')['default']
     FrontendMentorBox: typeof import('./../components/FrontendMentorBox/FrontendMentorBox.vue')['default']
     GoBackButton: typeof import('./../components/GoBackButton/GoBackButton.vue')['default']
     LandingPageBlog: typeof import('./../components/LandingPageBlog/LandingPageBlog.vue')['default']

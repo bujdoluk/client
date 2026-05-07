@@ -38,6 +38,13 @@ export interface Feedback {
     userId: string;
 }
 
+export interface FeedbackForm {
+    category: string;
+    description: string;
+    status: string;
+    title: string;
+}
+
 export enum Status {
     InProgress = 'In Progress',
     Live = 'Live',

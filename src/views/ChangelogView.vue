@@ -5,6 +5,11 @@
     >
         <v-row class="width">
             <v-col cols="auto">
+                <GoBackButton />
+            </v-col>
+        </v-row>
+        <v-row class="width">
+            <v-col cols="auto">
                 <v-btn
                     color="purple"
                     @click="redirectToSuggestions"
@@ -90,6 +95,7 @@
  * @description Display changes in a changelog view.
  */
 import { db } from '@/firebase/init';
+import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { type Feedback, Status } from '@/types/index';
 import router from '@/router';
 import { onMounted, ref } from 'vue';

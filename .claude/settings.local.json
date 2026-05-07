@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx skills *)"
+      "Bash(npx skills *)",
+      "Bash(Remove-Item \"d:\\\\Projekty\\\\client\\\\src\\\\components\\\\Dialogs\\\\AddFeedback.vue\")",
+      "Bash(Remove-Item \"d:\\\\Projekty\\\\client\\\\src\\\\components\\\\Dialogs\\\\EditFeedback.vue\")"
     ]
   }
 }
