@@ -49,4 +49,8 @@ import LoaderOverlay from '@/components/LoaderOverlay/LoaderOverlay.vue';
     border-radius: 50%;
     display: inline-flex;
 }
+
+.v-card.card-shadow {
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.12) !important;
+}
 </style>

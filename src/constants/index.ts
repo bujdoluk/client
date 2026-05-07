@@ -1,0 +1,14 @@
+/**
+ * @file Application-wide constants.
+ */
+export const CONSTANTS = Object.freeze({
+    COMMENT_TEXTAREA_ROWS: 3,
+    FEEDBACK_CARD_HEIGHT: 250,
+    FEEDBACK_DIALOG_WIDTH: 600,
+    REPLY_TEXTAREA_ROWS: 2,
+    SKELETON_CHANGELOG_COUNT: 4,
+    SKELETON_COUNT: 3,
+    SKELETON_SUGGESTIONS_COUNT: 6,
+    TEXT_MAX_LENGTH: 1000,
+    TITLE_MAX_LENGTH: 100
+} as const);

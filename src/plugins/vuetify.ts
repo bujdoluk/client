@@ -69,6 +69,7 @@ export default createVuetify(
                 rounded: 'lg'
             },
             VCard: {
+                class: 'card-shadow',
                 elevation: 0,
                 rounded: 'lg'
             },
@@ -88,6 +89,9 @@ export default createVuetify(
                 class: 'mx-4',
                 inset: true,
                 vertical: true
+            },
+            VSelect: {
+                color: 'purple'
             },
             VSheet: {
                 class: 'pa-3',

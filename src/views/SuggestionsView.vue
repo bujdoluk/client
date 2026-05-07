@@ -71,7 +71,7 @@
                     </v-row>
                     <template v-if="showSkeleton">
                         <v-row
-                            v-for="i in 6"
+                            v-for="i in CONSTANTS.SKELETON_SUGGESTIONS_COUNT"
                             :key="i"
                         >
                             <v-col class="pt-0">
@@ -117,6 +117,7 @@
  * @description Displays user feedbacks in a list. Its a main view where users can create/edit/delete or sort feedbacks.
  */
 import { ref, computed, watch, onUnmounted, onMounted } from 'vue';
+import { CONSTANTS } from '@/constants/index';
 import type { Feedback, User } from '@/types/index';
 import router from '@/router';
 import FrontendMentorBox from '@/components/FrontendMentorBox/FrontendMentorBox.vue';

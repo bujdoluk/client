@@ -1,8 +1,8 @@
 <template>
     <v-card
-        class="bg-background pa-6"
-        max-height="250px"
-        min-height="250px"
+        class="bg-surface pa-6"
+        :max-height="CONSTANTS.FEEDBACK_CARD_HEIGHT"
+        :min-height="CONSTANTS.FEEDBACK_CARD_HEIGHT"
     >
         <v-row align="center">
             <v-col class="pb-3">
@@ -55,6 +55,7 @@
  * @description Card displaying a single feedback item with upvote button and comment count.
  */
 import { mdiChat, mdiChevronUp } from '@mdi/js';
+import { CONSTANTS } from '@/constants/index';
 import { type Feedback, Status } from '@/types/index.ts';
 import Tag from '@/components/Tag/Tag.vue';
 import router from '@/router';
@@ -127,4 +128,5 @@ const lineColors = (status: string) => {
     top: 0;
     left: -10px;
 }
+
 </style>

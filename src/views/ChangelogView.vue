@@ -41,7 +41,7 @@
         </v-row>
         <template v-if="loading">
             <v-row
-                v-for="i in 4"
+                v-for="i in CONSTANTS.SKELETON_CHANGELOG_COUNT"
                 :key="i"
                 class="width"
             >
@@ -95,6 +95,7 @@
  * @description Display changes in a changelog view.
  */
 import { db } from '@/firebase/init';
+import { CONSTANTS } from '@/constants/index';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { type Feedback, Status } from '@/types/index';
 import router from '@/router';

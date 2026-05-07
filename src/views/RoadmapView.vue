@@ -62,7 +62,7 @@
                 <v-row class="d-flex flex-column">
                     <template v-if="loading">
                         <v-col
-                            v-for="i in 3"
+                            v-for="i in CONSTANTS.SKELETON_COUNT"
                             :key="i"
                         >
                             <v-skeleton-loader
@@ -84,7 +84,7 @@
                 <v-row class="d-flex flex-column">
                     <template v-if="loading">
                         <v-col
-                            v-for="i in 3"
+                            v-for="i in CONSTANTS.SKELETON_COUNT"
                             :key="i"
                         >
                             <v-skeleton-loader
@@ -106,7 +106,7 @@
                 <v-row class="d-flex flex-column">
                     <template v-if="loading">
                         <v-col
-                            v-for="i in 3"
+                            v-for="i in CONSTANTS.SKELETON_COUNT"
                             :key="i"
                         >
                             <v-skeleton-loader
@@ -134,6 +134,7 @@
  * @description Displays roadmap of all feedbacks with given statuses.
  */
 import { computed, ref, onMounted } from 'vue';
+import { CONSTANTS } from '@/constants/index';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { useI18n } from 'vue-i18n';
 import { type Feedback, Status } from '@/types/index';

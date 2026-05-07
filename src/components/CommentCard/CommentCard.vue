@@ -11,7 +11,7 @@
         />
         <v-card
             v-else
-            class="custom-border px-6"
+            class="custom-border pb-4 px-6"
             :rounded="false"
         >
             <v-row>
@@ -34,11 +34,11 @@
                         </v-row>
                     </v-container>
                 </v-col>
-                <v-col cols="auto">
+                <v-col cols="auto" class="pt-4 pr-2">
                     <v-btn
                         variant="text"
                         color="blue"
-                        class="font-weight-bold"
+                        class="font-weight-bold px-4 py-2"
                         @click="onReplyClicked"
                     >
                         {{ t('buttons.reply') }}
@@ -57,9 +57,9 @@
                         <v-textarea
                             v-model="replyText"
                             :placeholder="t('components.reply.typeReply')"
-                            :counter="250"
-                            rows="2"
-                            class="bg-background-secondary"
+                            :counter="CONSTANTS.TEXT_MAX_LENGTH"
+                            :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
+                            class="bg-background-secondary px-3"
                             variant="plain"
                             flat
                             clearable
@@ -87,7 +87,6 @@
                     <ReplyCard
                         :reply="reply"
                         :feedback="feedback"
-                        :user="user"
                         :comment="props.comment"
                         @reply-created="onReplyCreatedFromReply"
                     />
@@ -100,8 +99,9 @@
 <script setup lang="ts">
 /** @file Comment card component. */
 import { ref, computed } from 'vue';
+import { CONSTANTS } from '@/constants/index';
 import { useI18n } from 'vue-i18n';
-import { type Comment, type Reply, type Feedback, type User } from '@/types/index.ts';
+import { type Comment, type Reply, type Feedback } from '@/types/index.ts';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
 import avatarFallback from '@/assets/avatar.png';
 
@@ -110,7 +110,6 @@ const props = defineProps<{
     feedback: Feedback;
     loading: boolean;
     replies: Array<Reply>;
-    user: User;
 }>();
 
 const emit = defineEmits<{
@@ -143,7 +142,7 @@ const onReplyCreatedFromComment = (): void => {
 };
 
 const required = (value: string): string | true => !!value.trim() || t('validations.required');
-const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters');
+const maxCharacters = (value: string): string | true => value.length <= CONSTANTS.TEXT_MAX_LENGTH || t('validations.maxCharacters');
 const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);
 </script>
 

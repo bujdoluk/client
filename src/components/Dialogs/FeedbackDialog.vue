@@ -10,7 +10,7 @@
 
     <v-dialog
         v-model="dialog"
-        width="600"
+        :width="CONSTANTS.FEEDBACK_DIALOG_WIDTH"
         persistent
     >
         <v-skeleton-loader
@@ -47,10 +47,10 @@
                         v-model="form.title"
                         variant="plain"
                         class="bg-background-secondary rounded-lg"
-                        :counter="100"
+                        :counter="CONSTANTS.TITLE_MAX_LENGTH"
                         single-line
                         density="comfortable"
-                        :rules="[required, max100Characters]"
+                        :rules="[required, maxLength(CONSTANTS.TITLE_MAX_LENGTH)]"
                         hide-details="auto"
                     />
                 </div>
@@ -105,9 +105,9 @@
                         no-resize
                         rows="3"
                         class="bg-background-secondary rounded-lg"
-                        :counter="250"
+                        :counter="CONSTANTS.TEXT_MAX_LENGTH"
                         clearable
-                        :rules="[required, max250Characters]"
+                        :rules="[required, maxLength(CONSTANTS.TEXT_MAX_LENGTH)]"
                         hide-details="auto"
                     />
                 </div>
@@ -149,6 +149,7 @@ import { useI18n } from 'vue-i18n';
 import { mdiClose, mdiPencil, mdiPlus } from '@mdi/js';
 import { db, auth, timestamp } from '@/firebase/init';
 import { type Feedback, type FeedbackForm, Status } from '@/types/index.ts';
+import { CONSTANTS } from '@/constants/index';
 
 const props = defineProps<{
     feedback?: Feedback;
@@ -249,8 +250,7 @@ const handleDelete = (): void => {
 };
 
 const required = (value: string): string | true => !!value.trim() || t('validations.required');
-const max100Characters = (value: string): string | true => value.length <= 100 || t('validations.maxCharacters');
-const max250Characters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters');
+const maxLength = (limit: number) => (value: string): string | true => value.length <= limit || t('validations.maxCharacters');
 </script>
 
 <style scoped>

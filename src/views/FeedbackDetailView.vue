@@ -28,10 +28,10 @@
                     :loading="loading"
                 />
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" class="pb-6">
                 <template v-if="loading">
                     <v-skeleton-loader
-                        v-for="i in 3"
+                        v-for="i in CONSTANTS.SKELETON_COUNT"
                         :key="i"
                         boilerplate
                         type="list-item-avatar-three-line"
@@ -42,8 +42,8 @@
                     <v-container fluid>
                         <v-row v-if="filteredComments.length + filteredReplies.length > 0">
                             <v-col class="font-weight-bold pl-10 text-dark-blue">
-                                {{ filteredComments.length + filteredReplies.length }} 
-                                {{ filteredComments.length === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
+                                {{ filteredComments.length + filteredReplies.length }}
+                                {{ (filteredComments.length + filteredReplies.length) === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
                             </v-col>
                         </v-row>
                         <v-row
@@ -56,7 +56,6 @@
                                     :comment="comment"
                                     :feedback="feedback"
                                     :replies="replies"
-                                    :user="user"
                                     :loading="loading"
                                     @reply-created="(reply, commentEmail, commentId) => onReplyCreated(reply, commentEmail, commentId)"
                                 />
@@ -74,12 +73,12 @@
                                     {{ t('components.comment.addComment') }}
                                 </v-card-text>
                                 <v-card-text>
-                                    <v-textarea 
+                                    <v-textarea
                                         v-model="text"
-                                        :placeholder="t('components.comment.typeComment')" 
-                                        :counter="250"
-                                        rows="3"
-                                        class="bg-background-secondary"
+                                        :placeholder="t('components.comment.typeComment')"
+                                        :counter="CONSTANTS.TEXT_MAX_LENGTH"
+                                        :rows="CONSTANTS.COMMENT_TEXTAREA_ROWS"
+                                        class="bg-background-secondary px-3"
                                         variant="plain"
                                         flat
                                         clearable
@@ -118,6 +117,7 @@ import CommentCard from '@/components/CommentCard/CommentCard.vue';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { ref, onMounted, computed } from 'vue';
+import { CONSTANTS } from '@/constants/index';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
 
@@ -306,7 +306,7 @@ onMounted(async () => {
 });
 
 const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
-const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
+const maxCharacters = (value: string): string | true => value.length <= CONSTANTS.TEXT_MAX_LENGTH || t('validations.maxCharacters');
 
 </script>
 
