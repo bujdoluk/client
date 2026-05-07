@@ -10,11 +10,10 @@
         class="cursor"
     >
         <v-container fluid>
-            <v-row>
+            <v-row align="center">
                 <v-col
-                    class="align-top d-flex justify-center"
+                    class="d-flex justify-center"
                     cols="1"
-                    md="1"
                 >
                     <v-btn
                         stacked
@@ -30,54 +29,29 @@
                         {{ props.feedback.upvotes }}
                     </v-btn>
                 </v-col>
-                <v-col
-                    cols="9"
-                    md="9"
-                    class="pb-0"
-                >
-                    <v-card>
-                        <v-card-text class="font-weight-bold text-dark-blue text-truncate">
-                            {{ props.feedback.title }}
-                        </v-card-text>
-                        <v-card-text class="text-content text-truncate text-truncate width">
-                            {{ props.feedback.description }}
-                        </v-card-text>
-                        <v-card-actions class="pl-0">
-                            <Tag
-                                :category="props.feedback.category"
-                            />
-                            <span class="pl-3 text-caption text-content">
-                                {{ new Date(props.feedback.createdAt.seconds * 1000).toLocaleString() }}
-                            </span>
-                        </v-card-actions>
-                    </v-card>
+                <v-col class="py-4">
+                    <p class="font-weight-bold mb-1 text-dark-blue">
+                        {{ props.feedback.title }}
+                    </p>
+                    <p class="mb-2 text-body-2 text-content">
+                        {{ props.feedback.description }}
+                    </p>
+                    <Tag :category="props.feedback.category" />
                 </v-col>
                 <v-spacer />
                 <v-col
-                    class="align-center d-flex font-weight-bold justify-center"
-                    cols="1"
-                    xl="1"
-                    lg="1"
-                    md="1"
+                    cols="auto"
+                    class="align-center d-flex ga-1"
                 >
-                    <v-badge
-                        :content="props.feedback.comments"
-                        color="purple"
-                    >
-                        <v-icon
-                            color="background-primary"
-                            :icon="mdiChat"
-                            size="x-large"
-                        />
-                    </v-badge>
+                    <v-icon
+                        :icon="mdiChat"
+                        color="background-primary"
+                    />
+                    <span class="font-weight-bold text-dark-blue">
+                        {{ props.feedback.comments }}
+                    </span>
                 </v-col>
-                <v-col
-                    class="align-center d-flex font-weight-bold justify-center"
-                    cols="1"
-                    xl="1"
-                    lg="1"
-                    md="1"
-                >
+                <v-col cols="auto">
                     <v-btn
                         variant="plain"
                         color="purple"
@@ -93,20 +67,20 @@
 <script lang="ts" setup>
 /**
  * @file FeedbackBar component.
- * @description Header bar of the feedback detail view showing title, category and action buttons.
+ * @description Feedback list item showing upvote, title, description, category and comment count.
  */
 import Tag from '@/components/Tag/Tag.vue';
 import type { Feedback } from '@/types/index.ts';
-import { mdiChat, mdiChevronUp, mdiPinOutline, mdiPin } from '@mdi/js';
+import { mdiChat, mdiChevronUp, mdiPin, mdiPinOutline } from '@mdi/js';
 
 const props = defineProps<{
     feedback: Feedback;
     loading: boolean;
 }>();
 
-const emits = defineEmits<{ 
-    (e: 'updated', feedback: Feedback): void;
-    (e: 'pinned', feedback: Feedback): void;
+const emits = defineEmits<{
+    pinned: [feedback: Feedback];
+    updated: [feedback: Feedback];
 }>();
 
 const updateFeedBack = (): void => {

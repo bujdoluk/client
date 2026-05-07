@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file Vuetify config.
  * @see https://vuetifyjs.com/.
  */
@@ -37,7 +37,7 @@ const light: ThemeDefinition = {
 
 const dark: ThemeDefinition = {
     colors: {
-        'background': '#232323',
+        'background': '#111111',
         'background-dark-blue': '#363636',
         'background-primary': '#363636',
         'background-secondary': '#363636',
@@ -91,11 +91,11 @@ export default createVuetify(
             },
             VSheet: {
                 class: 'pa-3',
-                color: 'white',
+                color: 'surface',
                 rounded: true
             },
             VTabs: {
-                class: 'bg-white pt-3',
+                class: 'bg-background pt-3',
                 color: 'primary'
             },
             VTextField: {

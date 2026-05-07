@@ -87,6 +87,6 @@ const scrollTo = (id: string): void => {
     width: 70%;
     margin: 0 auto;
     padding: 16px 0;
-    border-bottom: 1px solid rgba(55, 63, 104, 0.08);
+    border-bottom: 1px solid rgba(var(--v-theme-dark-blue), 0.15);
 }
 </style>

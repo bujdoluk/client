@@ -5,16 +5,7 @@
     >
         <v-row class="width">
             <v-col cols="auto">
-                <v-btn
-                    :prepend-icon="mdiChevronLeft"
-                    variant="text"
-                    color="blue"
-                    density="compact"
-                    class="font-weight-bold"
-                    @click="onRedirect"
-                >
-                    {{ t('buttons.back') }}
-                </v-btn>
+                <GoBackButton />
             </v-col>
             <v-spacer />
             <v-col cols="auto">
@@ -121,11 +112,11 @@
  * @description Full detail page for a single feedback item showing comments, replies and vote count.
  */
 import { useI18n } from 'vue-i18n';
-import { mdiChevronLeft } from '@mdi/js';
 import router from '@/router';
 import type { Reply, Comment, Feedback } from '@/types/index';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
+import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
@@ -140,10 +131,6 @@ const replies = ref<Array<Reply>>([]);
 const filteredComments = computed(() => comments.value.filter((comment) => comment.feedbackId === feedback.value?.docId));
 const filteredReplies = computed(() => replies.value.filter((reply) => reply.feedbackId === feedback.value?.docId));
 const loading = ref<boolean>(false);
-
-const onRedirect = (): void => {
-    router.push({ name: 'suggestions' });
-};
 
 const fetchFeedback = async (feedbackID: string): Promise<void> => {
     try {

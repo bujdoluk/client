@@ -6,18 +6,14 @@
     />
     <v-card v-else>
         <v-container fluid>
-            <v-row>
-                <v-col
+            <v-row class="flex-wrap ga-2 pa-2">
+                <Tag
                     v-for="category in props.categories"
                     :key="category"
-                    cols="auto"
-                >
-                    <Tag
-                        :category="category"
-                        :active="props.active"
-                        @click="onClicked(category)"
-                    />
-                </v-col>
+                    :category="category"
+                    :isActive="category === props.activeCategory"
+                    @click="onClicked(category)"
+                />
             </v-row>
         </v-container>
     </v-card>
@@ -31,7 +27,7 @@
 import Tag from '@/components/Tag/Tag.vue';
 
 const props = defineProps<{
-    active: boolean;
+    activeCategory: string;
     categories: Array<string>;
     loading: boolean;
 }>();

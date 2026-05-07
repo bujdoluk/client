@@ -3,7 +3,7 @@
         fluid
         class="min-height"
     >
-        <v-row class="width"> 
+        <v-row class="width">
             <v-col
                 class="pr-0"
                 cols="3"
@@ -23,9 +23,8 @@
                     <v-row>
                         <v-col class="pb-0">
                             <TagsBox
-                                v-if="feedbacks.length > 0"
-                                :categories="filteredByUniqueTags"
-                                :active="active"
+                                :active-category="activeCategory"
+                                :categories="categories"
                                 :loading="loading"
                                 @clicked="onTagClicked"
                             />
@@ -34,7 +33,6 @@
                     <v-row>
                         <v-col class="pb-0">
                             <RoadmapBox
-                                v-if="feedbacks"
                                 :feedbacks="feedbacks"
                                 :loading="loading"
                             />
@@ -71,7 +69,7 @@
                             />
                         </v-col>
                     </v-row>
-                    <template v-if="loading">
+                    <template v-if="showSkeleton">
                         <v-row
                             v-for="i in 6"
                             :key="i"
@@ -84,7 +82,7 @@
                             </v-col>
                         </v-row>
                     </template>
-                    <template v-else>
+                    <template v-else-if="!loading">
                         <v-row
                             v-for="feedback in filteredFeedbacks"
                             :key="feedback.docId"
@@ -107,31 +105,6 @@
                             </v-col>
                         </v-row>
                     </template>
-                    <!--
-                        <v-row>
-                        <v-col cols="auto">
-                        <v-btn
-                        :disabled="prevDisabled"
-                        variant="flat"
-                        color="purple"
-                        @click="prevPage"
-                        >
-                        {{ t('buttons.prev') }}
-                        </v-btn>
-                        </v-col>
-                        <v-spacer />
-                        <v-col cols="auto">
-                        <v-btn
-                        :disabled="nextDisabled"
-                        variant="flat"
-                        color="purple"
-                        @click="nextPage"
-                        >
-                        {{ t('buttons.next') }}
-                        </v-btn>
-                        </v-col>
-                        </v-row> 
-                    -->
                 </v-container>
             </v-col>
         </v-row>
@@ -143,7 +116,7 @@
  * @file Suggestions View.
  * @description Displays user feedbacks in a list. Its a main view where users can create/edit/delete or sort feedbacks.
  */
-import { computed, ref, onMounted } from 'vue';
+import { ref, computed, watch, onUnmounted, onMounted } from 'vue';
 import type { Feedback, User } from '@/types/index';
 import router from '@/router';
 import FrontendMentorBox from '@/components/FrontendMentorBox/FrontendMentorBox.vue';
@@ -152,29 +125,41 @@ import RoadmapBox from '@/components/RoadmapBox/RoadmapBox.vue';
 import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
+import VotersCard from '@/components/VotersCard/VotersCard.vue';
 import { db, increment, auth } from '@/firebase/init';
-// import { useI18n } from 'vue-i18n';
 
-// const { t } = useI18n();
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredFeedbacks = ref<Array<Feedback>>([]);
 const user = ref(auth().currentUser);
-const active = ref<boolean>(false);
-const categories = computed(() => filteredFeedbacks.value.map((feedback) => feedback.category));
-const filteredByUniqueTags = computed(() => categories.value.filter((value, index, array) => array.indexOf(value) === index));
+const categories = computed(() => ['All', ...new Set(feedbacks.value.map((f) => f.category))]);
+const activeCategory = ref<string>('All');
 const loading = ref<boolean>(false);
 const pinnedLoading = ref<boolean>(false);
 const users = ref<Array<User>>([]);
-/* const lastDoc = ref();
-const firstDoc = ref();
-const prevDisabled = ref<boolean>();
-const nextDisabled = ref<boolean>(); */
+
+const showSkeleton = ref(false);
+let skeletonTimer: ReturnType<typeof setTimeout> | undefined;
+
+watch(loading, (isLoading) => {
+    clearTimeout(skeletonTimer);
+    if (isLoading) {
+        skeletonTimer = setTimeout(() => {
+            showSkeleton.value = true; 
+        }, 200);
+    } else {
+        showSkeleton.value = false;
+    }
+});
+
+onUnmounted(() => {
+    clearTimeout(skeletonTimer); 
+});
 
 const fetchUsers = async (): Promise<void> => {
     try {
         loading.value = true;
         const res = await db.collection('users').get();
-        users.value = res.docs.map((user) => user.data() as User);
+        users.value = res.docs.map((u) => u.data() as User);
     } catch (error: unknown) {
         console.log(error);
     } finally {
@@ -186,19 +171,6 @@ const fetchFeedbacks = async (): Promise<void> => {
     try {
         loading.value = true;
         const res = await db.collection('feedbacks').get();
-        
-        /*   firstDoc.value = res.docs[0];
-        lastDoc.value = res.docs[res.docs.length - 2];
-        
-        prevDisabled.value = true;
-        if (res.docs[6].exists) {
-            nextDisabled.value = false;
-        }
-
-        console.log('CHECK IF ELEMENT EXIST', res.docs[6].exists);
-        console.log('firstDoc', firstDoc.value.data());
-        console.log('lastDoc', lastDoc.value.data()); */
-        
         feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
         filteredFeedbacks.value = feedbacks.value;
     } catch (error: unknown) {
@@ -211,8 +183,7 @@ const fetchFeedbacks = async (): Promise<void> => {
 const updateFeedBack = async (feedback: Feedback): Promise<void> => {
     try {
         loading.value = true;
-        const res = db.collection('feedbacks').doc(feedback.docId);
-        await res.set({
+        await db.collection('feedbacks').doc(feedback.docId).set({
             category: feedback.category,
             comments: feedback.comments,
             createdAt: feedback.createdAt,
@@ -224,34 +195,10 @@ const updateFeedBack = async (feedback: Feedback): Promise<void> => {
             upvotes: increment,
             userId: user.value?.uid
         });
-    } catch(error: unknown) {
+    } catch (error: unknown) {
         console.log(error);
     } finally {
         loading.value = false;
-    }
-};
-
-const updatePinnedFeedBack = async (feedback: Feedback): Promise<void> => {
-    try {
-        pinnedLoading.value = true;
-        const res = db.collection('feedbacks').doc(feedback.docId);
-        await res.set({
-            category: feedback.category,
-            comments: feedback.comments,
-            createdAt: feedback.createdAt,
-            description: feedback.description,
-            docId: feedback.docId,
-            pinned: feedback.pinned = !feedback.pinned,
-            status: feedback.status,
-            title: feedback.title,
-            upvotes: feedback.upvotes,
-            userId: user.value?.uid
-        });
-    } catch(error: unknown) {
-        console.log(error);
-    } finally {
-        pinnedLoading.value = false;
-        fetchPinnedFeedbacks();
     }
 };
 
@@ -271,6 +218,29 @@ const fetchPinnedFeedbacks = async (): Promise<void> => {
     } catch (error: unknown) {
         console.log(error);
     } finally {
+        pinnedLoading.value = false;
+    }
+};
+
+const updatePinnedFeedBack = async (feedback: Feedback): Promise<void> => {
+    try {
+        pinnedLoading.value = true;
+        await db.collection('feedbacks').doc(feedback.docId).set({
+            category: feedback.category,
+            comments: feedback.comments,
+            createdAt: feedback.createdAt,
+            description: feedback.description,
+            docId: feedback.docId,
+            pinned: !feedback.pinned,
+            status: feedback.status,
+            title: feedback.title,
+            upvotes: feedback.upvotes,
+            userId: user.value?.uid
+        });
+    } catch (error: unknown) {
+        console.log(error);
+    } finally {
+        await fetchPinnedFeedbacks();
         pinnedLoading.value = false;
     }
 };
@@ -298,77 +268,27 @@ const onSelected = async (selectedValue: string): Promise<void> => {
     }
 };
 
-const onTagClicked = async (selectedItem: any): Promise<void> => {
-    active.value = !active.value;
-    loading.value = true;
-    if (active.value) {
-        try {
-            const res = await db.collection('feedbacks').where('category', '==', selectedItem).get();
-            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        } catch (error: unknown) {
-            console.log(error);
-        } 
-    } else { 
+const onTagClicked = async (category: string): Promise<void> => {
+    activeCategory.value = category;
+    if (category === 'All') {
         filteredFeedbacks.value = feedbacks.value;
+        return;
     }
-    loading.value = false;
-};
-
-/* const nextPage = async (): Promise<void> => {
     try {
         loading.value = true;
-        const res = await db.collection('feedbacks').orderBy('title').startAfter(lastDoc.value).limit(7).get();
-        firstDoc.value = res.docs[0];
-        lastDoc.value = res.docs[res.docs.length - 2];
-
-        console.log('CHECK IF ELEMENT EXIST', res.docs[6].exists);
-        console.log('firstDoc', firstDoc.value.data());
-        console.log('lastDoc', lastDoc.value.data());
-
-        if (res.docs[6] === undefined) {
-            nextDisabled.value = true;
-            prevDisabled.value = false;
-        }
-
-        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        filteredFeedbacks.value = feedbacks.value;
+        const res = await db.collection('feedbacks').where('category', '==', category).get();
+        filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
         console.log(error);
     } finally {
         loading.value = false;
     }
 };
-
-const prevPage = async (): Promise<void> => {
-    try {
-        loading.value = true;
-        const res = await db.collection('feedbacks').orderBy('title').endBefore(firstDoc.value).limitToLast(7).get();
-        firstDoc.value = res.docs[0];
-        lastDoc.value = res.docs[res.docs.length - 1];
-
-        console.log('CHECK IF ELEMENT EXIST', res.docs[6].exists);
-        console.log('firstDoc', firstDoc.value.data());
-        console.log('lastDoc', lastDoc.value.data());
-
-        if (res.docs[6] === undefined) {
-            nextDisabled.value = false;
-            prevDisabled.value = true;
-        }
-
-        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        filteredFeedbacks.value = feedbacks.value;
-    } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        loading.value = false;
-    }
-}; */
 
 onMounted(async () => {
     await fetchFeedbacks();
     await fetchUsers();
 });
-
 </script>
 
 <style scoped>

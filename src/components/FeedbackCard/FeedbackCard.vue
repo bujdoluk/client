@@ -1,6 +1,6 @@
 <template>
     <v-card
-        class="bg-white pa-6"
+        class="bg-background pa-6"
         max-height="250px"
         min-height="250px"
     >

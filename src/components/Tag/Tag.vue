@@ -1,10 +1,10 @@
 <template>
-    <v-btn 
-        variant="tonal"
-        :active="props.active"
+    <v-btn
+        :variant="props.isActive ? 'flat' : 'tonal'"
         color="blue"
         class="font-weight-bold"
         size="small"
+        rounded="lg"
     >
         {{ props.category }}
     </v-btn>
@@ -16,7 +16,7 @@
  * @description Chip displaying a feedback category label.
  */
 const props = defineProps<{
-    active?: boolean;
     category?: string;
+    isActive?: boolean;
 }>();
 </script>

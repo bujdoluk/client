@@ -1,7 +1,8 @@
 <template>
-    <v-btn 
+    <v-btn
         variant="text"
         size="small"
+        :color="props.color ?? 'dark-blue'"
         :prepend-icon="mdiChevronLeft"
         @click="onRedirect"
     >
@@ -18,11 +19,13 @@ import { mdiChevronLeft } from '@mdi/js';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 
+const props = defineProps<{
+    color?: string;
+}>();
+
 const { t } = useI18n();
 
 const onRedirect = (): void => {
     router.back();
 };
-
 </script>
-

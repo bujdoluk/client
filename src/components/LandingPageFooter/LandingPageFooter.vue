@@ -209,10 +209,10 @@ const { t } = useI18n();
 }
 
 .footer-bg {
-    background-color: #f9f0fd;
+    background-color: rgb(var(--v-theme-background-secondary));
 }
 
 .legal-bg {
-    background-color: #f1e5fa;
+    background-color: rgb(var(--v-theme-background-primary));
 }
 </style>

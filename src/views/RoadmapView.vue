@@ -5,68 +5,58 @@
     >
         <v-row class="width">
             <v-col class="pb-0">
-                <v-card class="bg-background-dark-blue">
-                    <v-container
-                        fluid
-                        class="bg-background-dark-blue"
+                <v-card class="bg-background-dark-blue px-6 py-4">
+                    <v-row
+                        align="center"
+                        no-gutters
                     >
-                        <v-row align="center">
-                            <v-col>
-                                <v-row>
-                                    <v-col>
-                                        <GoBackButton />
-                                    </v-col>
-                                </v-row>
-                                <v-row class="font-weight-bold ml-2 mt-0">
-                                    <v-col>
-                                        {{ t('views.roadmap.title') }}
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                            <v-spacer />
-                            <v-col cols="auto mr-3">
-                                <FeedbackDialog @feedback-added="onFeedbackAdded" />
-                            </v-col>
-                        </v-row>
-                    </v-container>
+                        <v-col>
+                            <GoBackButton color="white" />
+                            <h2 class="font-weight-bold ml-2 text-white">
+                                {{ t('views.roadmap.title') }}
+                            </h2>
+                        </v-col>
+                        <v-col cols="auto">
+                            <FeedbackDialog @feedback-added="onFeedbackAdded" />
+                        </v-col>
+                    </v-row>
                 </v-card>
             </v-col>
         </v-row>
+
         <v-row class="width">
             <v-col cols="4">
-                <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
-                        {{ t('views.roadmap.status.planned') }}
-                        {{ `(${filteredPlannedStatus.length})` }}
-                    </v-card-title>
-                    <v-card-text class="text-content">
-                        {{ t('views.roadmap.status.subtitle.planned') }}
-                    </v-card-text>
-                </v-card>
+                <v-card-title class="align-center d-flex font-weight-bold ga-2 text-body-1 text-dark-blue">
+                    <span class="dot-orange" />
+                    {{ t('views.roadmap.status.planned') }}
+                    ({{ filteredPlannedStatus.length }})
+                </v-card-title>
+                <v-card-text class="text-content">
+                    {{ t('views.roadmap.status.subtitle.planned') }}
+                </v-card-text>
             </v-col>
             <v-col cols="4">
-                <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
-                        {{ t('views.roadmap.status.inProgress') }}
-                        {{ `(${filteredInProgressStatus.length})` }}
-                    </v-card-title>
-                    <v-card-text class="text-content">
-                        {{ t('views.roadmap.status.subtitle.inProgress') }}
-                    </v-card-text>
-                </v-card>
+                <v-card-title class="align-center d-flex font-weight-bold ga-2 text-body-1 text-dark-blue">
+                    <span class="dot-pink" />
+                    {{ t('views.roadmap.status.inProgress') }}
+                    ({{ filteredInProgressStatus.length }})
+                </v-card-title>
+                <v-card-text class="text-content">
+                    {{ t('views.roadmap.status.subtitle.inProgress') }}
+                </v-card-text>
             </v-col>
             <v-col cols="4">
-                <v-card class="bg-background">
-                    <v-card-title class="font-weight-bold pb-0 text-body-1 text-dark-blue">
-                        {{ t('views.roadmap.status.live') }}
-                        {{ `(${filteredLiveStatus.length})` }}
-                    </v-card-title>
-                    <v-card-text class="text-content">
-                        {{ t('views.roadmap.status.subtitle.live') }}
-                    </v-card-text>
-                </v-card>
+                <v-card-title class="align-center d-flex font-weight-bold ga-2 text-body-1 text-dark-blue">
+                    <span class="dot-teal" />
+                    {{ t('views.roadmap.status.live') }}
+                    ({{ filteredLiveStatus.length }})
+                </v-card-title>
+                <v-card-text class="text-content">
+                    {{ t('views.roadmap.status.subtitle.live') }}
+                </v-card-text>
             </v-col>
         </v-row>
+
         <v-row class="width">
             <v-col cols="4">
                 <v-row class="d-flex flex-column">
@@ -175,9 +165,8 @@ const onFeedbackAdded = async (): Promise<void> => {
 };
 
 onMounted(async () => {
-    await fetchFeedbacks(); 
+    await fetchFeedbacks();
 });
-
 </script>
 
 <style scoped>

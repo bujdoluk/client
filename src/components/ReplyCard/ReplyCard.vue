@@ -113,6 +113,6 @@ const onReplyClicked = (): void => {
 
 <style scoped>
 .custom-border {
-    border-left: 1px solid rgb(232, 232, 232);
+    border-left: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 </style>

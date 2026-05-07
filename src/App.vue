@@ -18,6 +18,10 @@ import LoaderOverlay from '@/components/LoaderOverlay/LoaderOverlay.vue';
 </script>
 
 <style>
+* {
+    font-family: 'Jost', sans-serif;
+}
+
 .cursor:hover {
     cursor: pointer;
 }
