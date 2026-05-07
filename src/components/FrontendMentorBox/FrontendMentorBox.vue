@@ -2,7 +2,8 @@
     <v-skeleton-loader
         v-if="props.loading"
         boilerplate
-        type="card"
+        type="image"
+        :height="110"
     />
     <v-card
         v-else

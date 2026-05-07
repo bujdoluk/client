@@ -48,7 +48,7 @@
                 <v-col>
                     <v-skeleton-loader
                         boilerplate
-                        type="card"
+                        type="chip, chip, heading, text"
                         width="30%"
                     />
                 </v-col>

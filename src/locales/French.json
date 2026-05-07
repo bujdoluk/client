@@ -1,5 +1,5 @@
 {
-    "all": "TOUT",
+    "all": "Tout",
     "buttons": {
         "add": "Ajouter un retour",
         "back": "Retour",
@@ -96,18 +96,27 @@
         "picture": "Sélectionner une image",
         "userName": "Nom d'utilisateur"
     },
+    "tabs": {
+        "information": {
+            "appearance": "Apparence",
+            "password": "Mot de passe",
+            "personal": "Informations personnelles"
+        }
+    },
     "validation": {
         "incorrectEmailOrPassword": "E-mail ou mot de passe incorrect.",
-        "incorrectPassword": "Mot de passe incorrect",
+        "incorrectPassword": "Mot de passe incorrect.",
         "invalidEmail": "E-mail invalide.",
         "userNotFound": "Aucun compte trouvé avec cet e-mail."
     },
     "validations": {
-        "maxCharacters": "Maximum 250 caractères.",
+        "maxCharacters": "Limite de caractères dépassée.",
         "required": "Champ obligatoire."
     },
     "views": {
-        "changelog": {},
+        "changelog": {
+            "title": "Journal des modifications"
+        },
         "error": {
             "home": "Aller aux suggestions",
             "message": "Quelque chose s'est mal passé. Veuillez réessayer.",
@@ -156,7 +165,7 @@
                 "title": "Voter au nom de"
             },
             "changelog": {
-                "comunicate": "Avec votre Journal des modifications, communiquer les nouvelles mises à jour devient simple et amusant !",
+                "comunicate": "Avec votre journal des modifications, communiquer les nouvelles mises à jour devient simple et amusant !",
                 "share": "Partagez vos dernières sorties et mises à jour",
                 "title": "Journal des modifications"
             },

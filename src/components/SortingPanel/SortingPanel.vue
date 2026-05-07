@@ -2,7 +2,7 @@
     <v-skeleton-loader
         v-if="props.loading"
         boilerplate
-        type="card"
+        type="heading"
     />
     <v-card
         v-else
@@ -62,7 +62,7 @@
  * @file SortingPanel component.
  * @description Toolbar showing feedback count, sort options and the add feedback button.
  */
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { mdiLightbulbOnOutline } from '@mdi/js';
 import { type Feedback } from '@/types/index.ts';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
@@ -79,14 +79,14 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
-const items = [
+const items = computed(() => [
     { title: t('views.suggestions.topbar.mostUpvotes'), value: 'descU' },
     { title: t('views.suggestions.topbar.leastUpvotes'), value: 'ascU' },
     { title: t('views.suggestions.topbar.mostComments'), value: 'descC' },
     { title: t('views.suggestions.topbar.leastComments'), value: 'ascC' }
-];
+]);
 
-const selectedItem = ref<any>(items[0]);
+const selectedItem = ref('descU');
 
 const onSelected = (): void => {
     emit('selected', selectedItem.value);

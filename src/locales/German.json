@@ -1,5 +1,5 @@
 {
-    "all": "ALLE",
+    "all": "Alle",
     "buttons": {
         "add": "Feedback hinzufügen",
         "back": "Zurück",
@@ -96,18 +96,27 @@
         "picture": "Bild auswählen",
         "userName": "Benutzername"
     },
+    "tabs": {
+        "information": {
+            "appearance": "Erscheinungsbild",
+            "password": "Passwort",
+            "personal": "Persönliche Informationen"
+        }
+    },
     "validation": {
         "incorrectEmailOrPassword": "E-Mail oder Passwort ist falsch.",
-        "incorrectPassword": "Falsches Passwort",
+        "incorrectPassword": "Falsches Passwort.",
         "invalidEmail": "Ungültige E-Mail.",
         "userNotFound": "Kein Konto mit dieser E-Mail-Adresse gefunden."
     },
     "validations": {
-        "maxCharacters": "Maximal 250 Zeichen.",
+        "maxCharacters": "Zeichenlimit überschritten.",
         "required": "Pflichtfeld."
     },
     "views": {
-        "changelog": {},
+        "changelog": {
+            "title": "Änderungsprotokoll"
+        },
         "error": {
             "home": "Zu Vorschlägen",
             "message": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
@@ -209,7 +218,7 @@
                 "share": "Teilen Sie automatisch alle neuen Funktionen, an denen Sie arbeiten.",
                 "title": "Roadmap"
             },
-            "trustedBy": "Vertrauen uns"
+            "trustedBy": "Von diesen vertraut"
         },
         "roadmap": {
             "status": {

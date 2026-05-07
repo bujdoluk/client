@@ -36,7 +36,7 @@
                     <v-skeleton-loader
                         v-if="loading"
                         boilerplate
-                        type="card"
+                        type="heading, button, button, button, divider, text, text, button"
                     />
                     <v-card
                         v-else

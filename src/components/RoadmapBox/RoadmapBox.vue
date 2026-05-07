@@ -2,90 +2,53 @@
     <v-skeleton-loader
         v-if="props.loading"
         boilerplate
-        type="card"
+        type="heading, divider, list-item, list-item, list-item"
     />
-    <v-card v-else>
-        <v-container fluid>
-            <v-row>
-                <v-col cols="auto">
-                    <h2 class="text-dark-blue">
-                        {{ t('views.suggestions.roadmap.title') }}
-                    </h2>
-                </v-col>
-                <v-spacer />
-                <v-col class="d-flex justify-end">
-                    <v-btn
-                        class="cursor font-weight-bold pr-2 text-decoration-underline"
-                        density="compact"
-                        variant="text"
-                        color="blue"
-                        flat
-                        @click="onRedirect"
-                    >
-                        {{ t('views.suggestions.roadmap.view') }}
-                    </v-btn>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="auto">
-                    <span class="dot-orange" />
-                </v-col>
-                <v-col class="text-content">
-                    {{ t('views.suggestions.roadmap.planned') }}
-                </v-col>
-                <v-col
-                    cols="auto"
-                    class="font-weight-bold text-dark-blue"
-                    align="center"
-                >
-                    <h3 class="text-dark-blue">
-                        {{ plannedFeedbacks.length }}
-                    </h3>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="auto">
-                    <span class="dot-pink" />
-                </v-col>
-                <v-col class="text-content">
-                    {{ t('views.suggestions.roadmap.inProgress') }}
-                </v-col>
-                <v-col
-                    cols="auto"
-                    class="font-weight-bold"
-                    align="center"
-                >
-                    <h3 class="text-dark-blue">
-                        {{ inProgressFeedbacks.length }}
-                    </h3>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="auto">
-                    <span class="dot-teal" />
-                </v-col>
-                <v-col class="text-content">
-                    {{ t('views.suggestions.roadmap.live') }}
-                </v-col>
-                <v-col
-                    cols="auto"
-                    class="font-weight-bold"
-                    align="center"
-                >
-                    <h3 class="text-dark-blue">
-                        {{ liveFeedbacks.length }}
-                    </h3>
-                </v-col>
-            </v-row>
-        </v-container>
+    <v-card
+        v-else
+        class="pa-5"
+    >
+        <div class="align-center d-flex" :class="{ 'mb-4': statuses.length > 0 }">
+            <span class="font-weight-bold text-dark-blue text-subtitle-1">
+                {{ t('views.suggestions.roadmap.title') }}
+            </span>
+            <v-spacer />
+            <v-btn
+                color="blue"
+                density="compact"
+                variant="text"
+                class="text-decoration-underline"
+                @click="onRedirect"
+            >
+                {{ t('views.suggestions.roadmap.view') }}
+            </v-btn>
+        </div>
+
+        <div class="mb-4 separator" />
+
+        <div class="d-flex flex-column ga-3">
+            <div
+                v-for="status in statuses"
+                :key="status.dotClass"
+                class="align-center d-flex"
+            >
+                <span
+                    class="dot mr-3"
+                    :class="status.dotClass"
+                />
+                <span class="flex-grow-1 text-body-2 text-content">
+                    {{ status.label }}
+                </span>
+                <span class="font-weight-bold text-body-2 text-dark-blue">
+                    {{ status.count }}
+                </span>
+            </div>
+        </div>
     </v-card>
 </template>
 
 <script setup lang="ts">
-/**
- * @file RoadmapBox component.
- * @description Sidebar card summarising planned, in-progress and live feedback counts with links.
- */
+/** @file RoadmapBox component. */
 import { computed } from 'vue';
 import { type Feedback, Status } from '@/types/index.ts';
 import router from '@/router';
@@ -98,11 +61,35 @@ const props = defineProps<{
 
 const { t } = useI18n();
 
-const plannedFeedbacks = computed(() => props.feedbacks.filter((feedback) => feedback.status === Status.Planned));
-const inProgressFeedbacks = computed(() => props.feedbacks.filter((feedback) => feedback.status === Status.InProgress));
-const liveFeedbacks = computed(() => props.feedbacks.filter((feedback) => feedback.status === Status.Live));
+const plannedCount = computed(() => props.feedbacks.filter((f) => f.status === Status.Planned).length);
+const inProgressCount = computed(() => props.feedbacks.filter((f) => f.status === Status.InProgress).length);
+const liveCount = computed(() => props.feedbacks.filter((f) => f.status === Status.Live).length);
+
+const statuses = computed(() => [
+    { count: plannedCount.value, dotClass: 'dot--orange', label: t('views.suggestions.roadmap.planned') },
+    { count: inProgressCount.value, dotClass: 'dot--pink', label: t('views.suggestions.roadmap.inProgress') },
+    { count: liveCount.value, dotClass: 'dot--teal', label: t('views.suggestions.roadmap.live') }
+]);
 
 const onRedirect = (): void => {
     router.push({ name: 'roadmap' });
 };
 </script>
+
+<style scoped>
+.separator {
+    border-top: thin solid rgba(var(--v-border-color), var(--v-border-opacity));
+}
+
+.dot {
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    height: 8px;
+    width: 8px;
+}
+
+.dot--orange { background-color: #F49F85; }
+.dot--pink   { background-color: #AD1FEA; }
+.dot--teal   { background-color: #62BCFA; }
+</style>

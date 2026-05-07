@@ -2,7 +2,7 @@
     <v-skeleton-loader
         v-if="props.loading"
         boilerplate
-        type="card"
+        type="chip, chip, chip, chip"
     />
     <v-card v-else>
         <v-container fluid>

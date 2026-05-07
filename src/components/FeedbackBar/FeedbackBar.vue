@@ -2,7 +2,7 @@
     <v-skeleton-loader
         v-if="props.loading"
         boilerplate
-        type="card"
+        type="list-item-two-line"
     />
     <v-card
         v-else

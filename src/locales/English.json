@@ -1,5 +1,5 @@
 {
-    "all": "LOL",
+    "all": "All",
     "buttons": {
         "add": "Add Feedback",
         "back": "Go Back",
@@ -69,7 +69,7 @@
             "title": "Do you really want to approve this feedback/comment?"
         },
         "ModerationToggle": {
-            "allowModeration":"Allow moderation"
+            "allowModeration": "Allow moderation"
         },
         "SignUp": {
             "subtitle": "Create your account to get started",
@@ -110,17 +110,17 @@
         "userNotFound": "No account with that email was found."
     },
     "validations": {
-        "maxCharacters": "Maximum 250 characters.",
+        "maxCharacters": "Character limit exceeded.",
         "required": "Required."
     },
     "views": {
         "changelog": {
+            "title": "Changelog"
         },
         "error": {
             "home": "Go to Suggestions",
             "message": "Something went wrong. Please try again.",
             "title": "Oops!"
-
         },
         "landingPage": {
             "allFeedback": "All of your user feedback in one single place",
@@ -191,7 +191,7 @@
                 "pricing": "Pricing",
                 "privacy": "Privacy",
                 "product": "Product",
-                "signUp": "Sing Up",
+                "signUp": "Sign Up",
                 "solutions": "Solutions",
                 "terms": "Terms"
             },
@@ -200,7 +200,7 @@
                 "subtitle": "Turn user feedback into actionable product optimizations!",
                 "title": "Instant feedback to build better products."
             },
-            "integrate": "Integrates with your workflow ",
+            "integrate": "Integrates with your workflow",
             "logos": {
                 "Facebook": "Facebook logo",
                 "Google": "Google logo",
@@ -214,7 +214,7 @@
                 "pricing": "Pricing"
             },
             "roadmap": {
-                "comunicate": " Communicate updates with 1 click",
+                "comunicate": "Communicate updates with 1 click",
                 "share": "Automatically share all the cool new features you're working on. Your users will love you!",
                 "title": "Roadmap"
             },
@@ -223,7 +223,7 @@
         "roadmap": {
             "status": {
                 "inProgress": "In-Progress",
-                "live": "Live", 
+                "live": "Live",
                 "planned": "Planned",
                 "subtitle": {
                     "inProgress": "Currently being developed",
@@ -231,7 +231,7 @@
                     "planned": "Ideas prioritized for research"
                 }
             },
-            "title": "Roadmap" 
+            "title": "Roadmap"
         },
         "suggestions": {
             "emptyFeedback": {

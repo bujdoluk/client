@@ -29,7 +29,7 @@
                 <v-skeleton-loader
                     v-if="loading"
                     boilerplate
-                    type="card"
+                    type="list-item-two-line"
                 />
                 <FeedbackBar
                     v-else-if="feedback"
@@ -43,7 +43,7 @@
                         v-for="i in 3"
                         :key="i"
                         boilerplate
-                        type="list-item-avatar-two-line"
+                        type="list-item-avatar-three-line"
                         class="mb-2"
                     />
                 </template>

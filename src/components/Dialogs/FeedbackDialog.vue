@@ -16,7 +16,7 @@
         <v-skeleton-loader
             v-if="loading"
             boilerplate
-            type="card"
+            type="heading, paragraph, actions"
         />
         <v-card
             v-else

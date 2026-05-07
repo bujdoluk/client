@@ -41,7 +41,7 @@
                         </v-col>
                     </v-row>
                     <v-row>
-                        <v-col>
+                        <v-col class="pb-0">
                             <VotersCard
                                 :loading="loading"
                                 :users="users"
@@ -79,7 +79,7 @@
                             <v-col class="pt-0">
                                 <v-skeleton-loader
                                     boilerplate
-                                    type="card"
+                                    type="list-item-two-line"
                                 />
                             </v-col>
                         </v-row>

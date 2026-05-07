@@ -1,17 +1,17 @@
 {
-    "all": "VŠE",
+    "all": "Vše",
     "buttons": {
         "add": "Přidat zpětnou vazbu",
         "back": "Zpět",
         "backToApp": "Zpět do aplikace",
         "cancel": "Zrušit",
-        "changelog": "Changelog",
+        "changelog": "Přehled změn",
         "close": "Zavřít",
         "darkMode": "Tmavý režim",
         "delete": "Smazat",
         "edit": "Upravit zpětnou vazbu",
         "editAccount": "Upravit účet",
-        "goToLandingPage": "Zpět na stránku",
+        "goToLandingPage": "Zpět na úvodní stránku",
         "lightMode": "Světlý režim",
         "logInAnonymously": "PŘIHLÁSIT SE ANONYMNĚ",
         "logInWithFacebook": "PŘIHLÁSIT SE PŘES FACEBOOK",
@@ -96,18 +96,27 @@
         "picture": "Vyberte obrázek",
         "userName": "Uživatelské jméno"
     },
+    "tabs": {
+        "information": {
+            "appearance": "Vzhled",
+            "password": "Heslo",
+            "personal": "Osobní informace"
+        }
+    },
     "validation": {
         "incorrectEmailOrPassword": "E-mail nebo heslo je nesprávné.",
-        "incorrectPassword": "Nesprávné heslo",
+        "incorrectPassword": "Nesprávné heslo.",
         "invalidEmail": "Neplatný e-mail.",
         "userNotFound": "Účet s tímto e-mailem nebyl nalezen."
     },
     "validations": {
-        "maxCharacters": "Maximálně 250 znaků.",
+        "maxCharacters": "Byl překročen limit počtu znaků.",
         "required": "Povinné pole."
     },
     "views": {
-        "changelog": {},
+        "changelog": {
+            "title": "Přehled změn"
+        },
         "error": {
             "home": "Přejít na návrhy",
             "message": "Něco se pokazilo. Zkuste to prosím znovu.",
@@ -156,9 +165,9 @@
                 "title": "Hlasovat jménem"
             },
             "changelog": {
-                "comunicate": "S vaším Changelogem se komunikace o nových aktualizacích stane snadnou a zábavnou!",
+                "comunicate": "S vaším přehledem změn se komunikace o nových aktualizacích stane snadnou a zábavnou!",
                 "share": "Sdílejte svá nejnovější vydání a aktualizace",
-                "title": "Changelog"
+                "title": "Přehled změn"
             },
             "features": "Funkce",
             "feedbackBoards": {

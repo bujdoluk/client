@@ -7,7 +7,7 @@
         <v-skeleton-loader
             v-if="props.loading"
             boilerplate
-            type="card"
+            type="list-item-avatar-three-line"
         />
         <v-card
             v-else

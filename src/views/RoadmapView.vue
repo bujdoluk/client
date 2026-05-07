@@ -77,7 +77,7 @@
                         >
                             <v-skeleton-loader
                                 boilerplate
-                                type="card"
+                                type="article, chip, button"
                             />
                         </v-col>
                     </template>
@@ -99,7 +99,7 @@
                         >
                             <v-skeleton-loader
                                 boilerplate
-                                type="card"
+                                type="article, chip, button"
                             />
                         </v-col>
                     </template>
@@ -121,7 +121,7 @@
                         >
                             <v-skeleton-loader
                                 boilerplate
-                                type="card"
+                                type="article, chip, button"
                             />
                         </v-col>
                     </template>
