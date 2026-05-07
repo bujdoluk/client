@@ -18,10 +18,7 @@
                 <v-col cols="auto">
                     <v-avatar
                         size="large"
-                        :image="
-                            props.comment.picture
-                                ? props.comment.picture
-                                : '../../../src//assets/avatar.png'"
+                        :image="props.comment.picture || avatarFallback"
                     />
                 </v-col>
                 <v-col>
@@ -32,7 +29,7 @@
                         <v-row class="pb-3 text-body-2 text-content">
                             {{ props.comment.email }}
                         </v-row>
-                        <v-row class="text-body-2 text-contan">
+                        <v-row class="text-body-2 text-content">
                             {{ props.comment.text }}
                         </v-row>
                     </v-container>
@@ -50,16 +47,16 @@
             </v-row>
             <v-row>
                 <v-col class="d-flex justify-end pt-0 text-caption text-dark-blue">
-                    {{ new Date(props.comment.createdAt.seconds * 1000).toLocaleString() }}
+                    {{ formattedDate }}
                 </v-col>
             </v-row>
 
             <v-card v-if="showReply">
                 <v-row class="pt-6 px-6">
                     <v-col>
-                        <v-textarea 
+                        <v-textarea
                             v-model="replyText"
-                            :placeholder="t('components.reply.typeReply')" 
+                            :placeholder="t('components.reply.typeReply')"
                             :counter="250"
                             rows="2"
                             class="bg-background-secondary"
@@ -87,12 +84,12 @@
                 :key="reply.docId"
             >
                 <v-col class="ml-9">
-                    <ReplyCard 
+                    <ReplyCard
                         :reply="reply"
                         :feedback="feedback"
                         :user="user"
                         :comment="props.comment"
-                        @reply-created="(reply) => onReplyCreatedFromReply(reply)"    
+                        @reply-created="onReplyCreatedFromReply"
                     />
                 </v-col>
             </v-row>
@@ -101,50 +98,53 @@
 </template>
 
 <script setup lang="ts">
-/**
- * @file Comment card component.
- * @description Displays a single comment with its replies and a reply input field.
- */
-import { useI18n } from 'vue-i18n';
-import { type Comment, type Reply, type Feedback } from '@/types/index.ts';
-import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
+/** @file Comment card component. */
 import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { type Comment, type Reply, type Feedback, type User } from '@/types/index.ts';
+import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
+import avatarFallback from '@/assets/avatar.png';
 
 const props = defineProps<{
     comment: Comment;
     feedback: Feedback;
     loading: boolean;
     replies: Array<Reply>;
-    user: any;
+    user: User;
 }>();
 
-const emits = defineEmits<(e: 'replyCreated', replyText: string, commentEmail: string, commentId: string) => void>();
+const emit = defineEmits<{
+    replyCreated: [replyText: string, commentEmail: string, commentId: string];
+}>();
 
 const { t } = useI18n();
-const replyText = ref<string>('');
-const showReply = ref<boolean>(false);
-const isValidComment = ref<boolean>(false);
+const replyText = ref('');
+const showReply = ref(false);
+const isValidComment = ref(false);
+
 const filteredReplies = computed(() => props.replies.filter((reply) => reply.commentId === props.comment.docId));
+// createdAt is a Firestore Timestamp at runtime despite the string type in the interface
+const formattedDate = computed(() => new Date((props.comment.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
 
 const onReplyClicked = (): void => {
     showReply.value = !showReply.value;
-    // replyText.value = '';
+    replyText.value = '';
 };
 
 const onReplyCreatedFromReply = (text: string): void => {
-    emits('replyCreated', text, props.comment.email, props.comment.docId);
+    emit('replyCreated', text, props.comment.email, props.comment.docId);
     showReply.value = false;
 };
 
 const onReplyCreatedFromComment = (): void => {
-    emits('replyCreated', replyText.value, props.comment.email, props.comment.docId);
+    emit('replyCreated', replyText.value, props.comment.email, props.comment.docId);
+    replyText.value = '';
     showReply.value = false;
 };
 
-const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
-const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters'); 
+const required = (value: string): string | true => !!value.trim() || t('validations.required');
+const maxCharacters = (value: string): string | true => value.length <= 250 || t('validations.maxCharacters');
 const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);
-
 </script>
 
 <style scoped>
@@ -152,4 +152,3 @@ const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCa
     border-bottom: 1px solid rgb(232, 232, 232);
 }
 </style>
-
