@@ -7,12 +7,10 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AddFeedback: typeof import('./src/components/Dialogs/AddFeedback.vue')['default']
     AppToolbar: typeof import('./src/components/AppToolbar/AppToolbar.vue')['default']
     AvatarMenu: typeof import('./src/components/AvatarMenu/AvatarMenu.vue')['default']
     CommentCard: typeof import('./src/components/CommentCard/CommentCard.vue')['default']
     EditAccount: typeof import('./src/components/EditAccount/EditAccount.vue')['default']
-    EditFeedback: typeof import('./src/components/Dialogs/EditFeedback.vue')['default']
     EmptyFeedback: typeof import('./src/components/EmptyFeedback/EmptyFeedback.vue')['default']
     FeedbackBar: typeof import('./src/components/FeedbackBar/FeedbackBar.vue')['default']
     FeedbackCard: typeof import('./src/components/FeedbackCard/FeedbackCard.vue')['default']
@@ -33,7 +31,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SignUp: typeof import('./src/components/Auth/SignUp.vue')['default']
     SortingPanel: typeof import('./src/components/SortingPanel/SortingPanel.vue')['default']
-    Tag: typeof import('./src/components/Tag/Tag.vue')['default']
+    TagItem: typeof import('./src/components/TagItem/TagItem.vue')['default']
     TagsBox: typeof import('./src/components/TagsBox/TagsBox.vue')['default']
   }
 }

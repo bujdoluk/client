@@ -111,6 +111,7 @@
  * @description Full detail page for a single feedback item showing comments, replies and vote count.
  */
 import { useI18n } from 'vue-i18n';
+import { handleError } from '@/plugins/error';
 import router from '@/router';
 import type { Reply, Comment, Feedback } from '@/types/index';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
@@ -142,7 +143,7 @@ const fetchFeedback = async (feedbackID: string): Promise<void> => {
         
         feedback.value = res.data() as Feedback;
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -169,7 +170,7 @@ const fetchReplies = async (): Promise<void> => {
         const res = await db.collection('replies').get();
         replies.value = res.docs.map((doc) => doc.data() as Reply);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -192,7 +193,7 @@ const createReply = async (reply: string, commentEmail: string, commentId: strin
             userName: user.value?.displayName
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         await fetchReplies();
         await fetchComments();
@@ -207,7 +208,7 @@ const fetchComments = async (): Promise<void> => {
         const res = await db.collection('comments').get();
         comments.value = res.docs.map((doc) => doc.data() as Comment);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -228,7 +229,7 @@ const createComment = async (): Promise<void> => {
             userName: user.value?.displayName
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
         await fetchComments();
@@ -246,7 +247,7 @@ const deleteReplies = async (feedback: Feedback): Promise<void> => {
             }
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -261,7 +262,7 @@ const deleteComments = async (feedback: Feedback): Promise<void> => {
             }
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -276,7 +277,7 @@ const deleteFeedback = async (feedback: Feedback): Promise<void> => {
             alert('You can not delete another user feedback!');
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }

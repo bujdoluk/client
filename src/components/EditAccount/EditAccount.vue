@@ -129,6 +129,7 @@
  */
 import { useI18n } from 'vue-i18n';
 import { ref, onMounted } from 'vue';
+import { handleError } from '@/plugins/error';
 import { updateEmail, updateProfile } from 'firebase/auth';
 import { auth, db } from '@/firebase/init';
 import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
@@ -169,7 +170,7 @@ const updateUserPassword = async (): Promise<void> => {
             await user.value.updatePassword(newPassword.value);
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -182,7 +183,7 @@ const resetPassword = async (): Promise<void> => {
             await auth().sendPasswordResetEmail(user.value.email);
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -195,7 +196,7 @@ const getUser = async (): Promise<void> => {
             await db.collection('users').doc(user.value.uid).get();
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -212,7 +213,7 @@ const updateUser = async (): Promise<void> => {
             });
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -222,7 +223,7 @@ const updateAccount = async (): Promise<void> => {
     try {
         loadingUserAccount.value = true;
         if (user.value) {
-       /*      const commentsRef = db.collection('comments').doc(user.value.uid);
+            /*      const commentsRef = db.collection('comments').doc(user.value.uid);
             const repliesRef = db.collection('replies').doc(user.value.uid);
 
             console.log(commentsRef);
@@ -240,7 +241,7 @@ const updateAccount = async (): Promise<void> => {
             await updateUser();
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loadingUserAccount.value = false;
         getUser();
@@ -254,7 +255,7 @@ const updateProfilePicture = async (): Promise<void> => {
             await uploadImage(file.value);
         }
     } catch (error: any) {
-        console.log(error);
+        handleError(error);
     } finally {
         loadingPicture.value = false;
         profilePictureUrl.value = await getImage();
@@ -276,14 +277,14 @@ const updateUserProfilePicture = async (pic: string): Promise<void> => {
             userName: user.value?.displayName 
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loadingPicture.value = false;
         emit('downloaded', profilePictureUrl.value);
     }
 };
 
-onMounted(async () => {
+onMounted(async (): Promise<void> => {
     await getUser();
 });
 

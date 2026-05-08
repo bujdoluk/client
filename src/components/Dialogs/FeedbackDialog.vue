@@ -66,7 +66,9 @@
                         v-model="form.category"
                         variant="plain"
                         class="bg-background-secondary rounded-lg"
-                        :items="CATEGORIES"
+                        :items="categories"
+                        item-title="title"
+                        item-value="value"
                         single-line
                         hide-details
                     />
@@ -84,7 +86,9 @@
                             v-model="form.status"
                             variant="plain"
                             class="bg-background-secondary rounded-lg"
-                            :items="STATUSES"
+                            :items="statuses"
+                            item-title="title"
+                            item-value="value"
                             single-line
                             hide-details
                         />
@@ -150,6 +154,7 @@ import { mdiClose, mdiPencil, mdiPlus } from '@mdi/js';
 import { db, auth, timestamp } from '@/firebase/init';
 import { type Feedback, type FeedbackForm, Status } from '@/types/index.ts';
 import { CONSTANTS } from '@/constants/index';
+import { handleError } from '@/plugins/error';
 
 const props = defineProps<{
     feedback?: Feedback;
@@ -161,16 +166,28 @@ const emit = defineEmits<{
     feedbackAdded: [];
 }>();
 
-const CATEGORIES = ['Feature', 'Bug', 'Enhancement', 'UI', 'UX', 'All'];
-const STATUSES = [Status.Planned, Status.Live, Status.InProgress];
-
 const { t } = useI18n();
+
+const categories = computed(() => [
+    { title: t('components.Dialog.categories.feature'), value: 'Feature' },
+    { title: t('components.Dialog.categories.bug'), value: 'Bug' },
+    { title: t('components.Dialog.categories.enhancement'), value: 'Enhancement' },
+    { title: 'UI', value: 'UI' },
+    { title: 'UX', value: 'UX' },
+    { title: t('components.Dialog.categories.all'), value: 'All' }
+]);
+
+const statuses = computed(() => [
+    { title: t('views.roadmap.status.planned'), value: Status.Planned },
+    { title: t('views.roadmap.status.live'), value: Status.Live },
+    { title: t('views.roadmap.status.inProgress'), value: Status.InProgress }
+]);
 const isEditMode = computed(() => !!props.feedback);
 const dialog = ref(false);
 const loading = ref(false);
 
 const createForm = (): FeedbackForm => ({
-    category: props.feedback?.category ?? CATEGORIES[0],
+    category: props.feedback?.category ?? categories.value[0].value,
     description: props.feedback?.description ?? '',
     status: props.feedback?.status ?? Status.Planned,
     title: props.feedback?.title ?? ''
@@ -209,7 +226,7 @@ const addFeedback = async (): Promise<void> => {
         });
         emit('feedbackAdded');
     } catch (error: unknown) {
-        console.error(error);
+        handleError(error);
     } finally {
         close();
         loading.value = false;
@@ -228,7 +245,7 @@ const editFeedback = async (): Promise<void> => {
         });
         emit('edited', props.feedback);
     } catch (error: unknown) {
-        console.error(error);
+        handleError(error);
     } finally {
         close();
         loading.value = false;

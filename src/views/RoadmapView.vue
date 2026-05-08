@@ -134,6 +134,7 @@
  * @description Displays roadmap of all feedbacks with given statuses.
  */
 import { computed, ref, onMounted } from 'vue';
+import { handleError } from '@/plugins/error';
 import { CONSTANTS } from '@/constants/index';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { useI18n } from 'vue-i18n';
@@ -155,7 +156,7 @@ const fetchFeedbacks = async (): Promise<void> => {
         const res = await db.collection('feedbacks').get();
         feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }

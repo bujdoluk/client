@@ -35,7 +35,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SignUp: typeof import('./../components/Auth/SignUp.vue')['default']
     SortingPanel: typeof import('./../components/SortingPanel/SortingPanel.vue')['default']
-    Tag: typeof import('./../components/Tag/Tag.vue')['default']
+    TagItem: typeof import('./../components/TagItem/TagItem.vue')['default']
     TagsBox: typeof import('./../components/TagsBox/TagsBox.vue')['default']
     ThemeSelect: typeof import('./../components/ThemeSelect/ThemeSelect.vue')['default']
     VotersCard: typeof import('./../components/VotersCard/VotersCard.vue')['default']

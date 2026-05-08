@@ -43,6 +43,12 @@
             "title": "Feedback"
         },
         "Dialog": {
+            "categories": {
+                "all": "Vše",
+                "bug": "Chyba",
+                "enhancement": "Vylepšení",
+                "feature": "Funkce"
+            },
             "category": "Kategorie",
             "categorySubtitle": "Vyberte kategorii pro zpětnou vazbu",
             "feedbackDetail": "Detail zpětné vazby",

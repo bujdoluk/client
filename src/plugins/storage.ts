@@ -5,6 +5,7 @@
 
 import { ref } from 'vue';
 import { auth, storage } from '@/firebase/init';
+import { handleError } from '@/plugins/error';
 
 const user = ref(auth().currentUser);
 const error = ref<string | null>(null);
@@ -19,7 +20,7 @@ const uploadImage = async (file: any): Promise<void> => {
             url.value = await res.ref.getDownloadURL();
         }
     } catch (error: any) {
-        console.log(error);
+        handleError(error);
         error.value = error;
     }
 };
@@ -28,7 +29,7 @@ const deleteImage = async (path: any): Promise<void> => {
     try {
         await storage().ref(path).delete();
     } catch (error: any) {
-        console.log(error);
+        handleError(error);
         error.value = error;
     }
 };
@@ -39,7 +40,7 @@ const getImage = async (): Promise<void> => {
             await storage().ref(filePath.value).getDownloadURL();
         }
     } catch (error: any) {
-        console.log(error);
+        handleError(error);
         error.value = error;
     }
 };

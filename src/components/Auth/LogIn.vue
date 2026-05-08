@@ -156,6 +156,7 @@
 import { ref } from 'vue';
 import { useLogin } from '@/plugins/auth';
 import { useI18n } from 'vue-i18n';
+import { handleError } from '@/plugins/error';
 import router from '@/router';
 import {
     mdiChevronLeft,
@@ -203,7 +204,7 @@ const createUser = async (): Promise<void> => {
             userName: currentUser.displayName
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -219,7 +220,7 @@ const submit = async (): Promise<void> => {
         }
         await createUser();
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         appStore.isLoading = false;
     }
@@ -231,7 +232,7 @@ const onAnonymousButtonClicked = async (): Promise<void> => {
         await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await auth().signInAnonymously();
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         appStore.isLoading = false;
         navigateAfterAuth();
@@ -244,7 +245,7 @@ const onGoogleButtonClicked = async (): Promise<void> => {
         await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await auth().signInWithPopup(googleProvider);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         appStore.isLoading = false;
         navigateAfterAuth();
@@ -257,7 +258,7 @@ const onFacebookButtonClicked = async (): Promise<void> => {
         await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
         await auth().signInWithPopup(facebookProvider);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         appStore.isLoading = false;
         navigateAfterAuth();

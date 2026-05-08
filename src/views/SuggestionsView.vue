@@ -94,7 +94,7 @@
                                 <FeedbackBar
                                     :feedback="feedback"
                                     :loading="pinnedLoading"
-                                    @updated="(value) => updateFeedBack(value)"
+                                    @updated="(payload) => updateFeedBack(payload.feedback, payload.isActiveVote)"
                                     @pinned="(value) => updatePinnedFeedBack(value)"
                                 />
                             </v-col>
@@ -117,6 +117,7 @@
  * @description Displays user feedbacks in a list. Its a main view where users can create/edit/delete or sort feedbacks.
  */
 import { ref, computed, watch, onUnmounted, onMounted } from 'vue';
+import { handleError } from '@/plugins/error';
 import { CONSTANTS } from '@/constants/index';
 import type { Feedback, User } from '@/types/index';
 import router from '@/router';
@@ -127,7 +128,7 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
 import VotersCard from '@/components/VotersCard/VotersCard.vue';
-import { db, increment, auth } from '@/firebase/init';
+import { db, increment, decrement, auth } from '@/firebase/init';
 
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredFeedbacks = ref<Array<Feedback>>([]);
@@ -162,7 +163,7 @@ const fetchUsers = async (): Promise<void> => {
         const res = await db.collection('users').get();
         users.value = res.docs.map((u) => u.data() as User);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -175,31 +176,21 @@ const fetchFeedbacks = async (): Promise<void> => {
         feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
         filteredFeedbacks.value = feedbacks.value;
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
 };
 
-const updateFeedBack = async (feedback: Feedback): Promise<void> => {
+const updateFeedBack = async (feedback: Feedback, isActiveVote: boolean): Promise<void> => {
     try {
-        loading.value = true;
-        await db.collection('feedbacks').doc(feedback.docId).set({
-            category: feedback.category,
-            comments: feedback.comments,
-            createdAt: feedback.createdAt,
-            description: feedback.description,
-            docId: feedback.docId,
-            pinned: feedback.pinned,
-            status: feedback.status,
-            title: feedback.title,
-            upvotes: increment,
-            userId: user.value?.uid
+        await db.collection('feedbacks').doc(feedback.docId).update({
+            upvotes: isActiveVote ? increment : decrement
         });
+        const local = feedbacks.value.find((f) => f.docId === feedback.docId);
+        if (local) local.upvotes += isActiveVote ? 1 : -1;
     } catch (error: unknown) {
-        console.log(error);
-    } finally {
-        loading.value = false;
+        handleError(error);
     }
 };
 
@@ -217,7 +208,7 @@ const fetchPinnedFeedbacks = async (): Promise<void> => {
         const res = await db.collection('feedbacks').orderBy('pinned', 'desc').get();
         filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         pinnedLoading.value = false;
     }
@@ -239,7 +230,7 @@ const updatePinnedFeedBack = async (feedback: Feedback): Promise<void> => {
             userId: user.value?.uid
         });
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         await fetchPinnedFeedbacks();
         pinnedLoading.value = false;
@@ -263,7 +254,7 @@ const onSelected = async (selectedValue: string): Promise<void> => {
             filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
         }
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }
@@ -280,7 +271,7 @@ const onTagClicked = async (category: string): Promise<void> => {
         const res = await db.collection('feedbacks').where('category', '==', category).get();
         filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }

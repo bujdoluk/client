@@ -21,17 +21,18 @@
                     {{ props.feedback.description }}
                 </v-card-text>
                 <v-card-text class="pt-6">
-                    <Tag :category="props.feedback.category" />
+                    <TagItem :category="props.feedback.category" />
                 </v-card-text>
             </v-col>
         </v-row>
         <v-row align="center">
             <v-col class="pt-0">
-                <v-btn 
+                <v-btn
                     color="blue"
-                    variant="tonal"
+                    :variant="isActiveVote ? 'flat' : 'tonal'"
+                    @click.stop="onVote"
                 >
-                    <v-icon :icon="mdiChevronUp" />   
+                    <v-icon :icon="mdiChevronUp" />
                     {{ props.feedback.upvotes }}
                 </v-btn>
             </v-col>
@@ -54,15 +55,22 @@
  * @file FeedbackCard component.
  * @description Card displaying a single feedback item with upvote button and comment count.
  */
+import { shallowRef } from 'vue';
 import { mdiChat, mdiChevronUp } from '@mdi/js';
 import { CONSTANTS } from '@/constants/index';
 import { type Feedback, Status } from '@/types/index.ts';
-import Tag from '@/components/Tag/Tag.vue';
+import TagItem from '@/components/TagItem/TagItem.vue';
 import router from '@/router';
 
 const props = defineProps<{
     feedback: Feedback;
 }>();
+
+const isActiveVote = shallowRef(false);
+
+const onVote = (): void => {
+    isActiveVote.value = !isActiveVote.value;
+};
 
 const onRedirect = (id?: string): void => {
     router.push({ name: 'feedback-detail', params: { id } });
@@ -128,5 +136,4 @@ const lineColors = (status: string) => {
     top: 0;
     left: -10px;
 }
-
 </style>

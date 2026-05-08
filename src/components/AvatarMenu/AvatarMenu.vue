@@ -69,6 +69,7 @@
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { auth } from '@/firebase/init';
+import { handleError } from '@/plugins/error';
 import EditAccount from '@/components/EditAccount/EditAccount.vue';
 import { ref } from 'vue';
 
@@ -85,7 +86,7 @@ const logout = async (): Promise<void> => {
         loading.value = true;
         await auth().signOut();
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         localStorage.clear();
         router.push({ name: 'landing' });

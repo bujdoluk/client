@@ -43,6 +43,12 @@
             "title": "Feedback"
         },
         "Dialog": {
+            "categories": {
+                "all": "Tout",
+                "bug": "Bogue",
+                "enhancement": "Amélioration",
+                "feature": "Fonctionnalité"
+            },
             "category": "Catégorie",
             "categorySubtitle": "Choisissez une catégorie pour votre retour",
             "feedbackDetail": "Détail du retour",

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 /**
- * @file Tag component.
+ * @file TagItem component.
  * @description Chip displaying a feedback category label.
  */
 const props = defineProps<{

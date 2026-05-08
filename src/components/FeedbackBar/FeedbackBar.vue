@@ -20,7 +20,7 @@
                         class="font-weight-bold text-caption"
                         color="blue"
                         density="compact"
-                        variant="tonal"
+                        :variant="isActiveVote ? 'flat' : 'tonal'"
                         flat
                         size="40"
                         @click.stop="updateFeedBack"
@@ -36,7 +36,7 @@
                     <p class="mb-2 text-body-2 text-content">
                         {{ props.feedback.description }}
                     </p>
-                    <Tag :category="props.feedback.category" />
+                    <TagItem :category="props.feedback.category" />
                 </v-col>
                 <v-spacer />
                 <v-col
@@ -69,7 +69,8 @@
  * @file FeedbackBar component.
  * @description Feedback list item showing upvote, title, description, category and comment count.
  */
-import Tag from '@/components/Tag/Tag.vue';
+import { ref } from 'vue';
+import TagItem from '@/components/TagItem/TagItem.vue';
 import type { Feedback } from '@/types/index.ts';
 import { mdiChat, mdiChevronUp, mdiPin, mdiPinOutline } from '@mdi/js';
 
@@ -80,11 +81,14 @@ const props = defineProps<{
 
 const emits = defineEmits<{
     pinned: [feedback: Feedback];
-    updated: [feedback: Feedback];
+    updated: [payload: { feedback: Feedback; isActiveVote: boolean }];
 }>();
 
+const isActiveVote = ref<boolean>(false);
+
 const updateFeedBack = (): void => {
-    emits('updated', props.feedback);
+    isActiveVote.value = !isActiveVote.value;
+    emits('updated', { feedback: props.feedback, isActiveVote: isActiveVote.value });
 };
 
 const updatePinnedFeedBack = (): void => {

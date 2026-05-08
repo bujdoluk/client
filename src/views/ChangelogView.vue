@@ -94,6 +94,7 @@
  * @file Changelog View.
  * @description Display changes in a changelog view.
  */
+import { handleError } from '@/plugins/error';
 import { db } from '@/firebase/init';
 import { CONSTANTS } from '@/constants/index';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
@@ -114,7 +115,7 @@ const fetchLiveFeedbacks = async (): Promise<void> => {
         const res = await db.collection('feedbacks').where('status', '==', Status.Live).get();
         liveFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
     } catch (error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         loading.value = false;
     }

@@ -43,6 +43,12 @@
             "title": "Feedback"
         },
         "Dialog": {
+            "categories": {
+                "all": "All",
+                "bug": "Bug",
+                "enhancement": "Enhancement",
+                "feature": "Feature"
+            },
             "category": "Category",
             "categorySubtitle": "Choose a category for your feedback",
             "feedbackDetail": "Feedback Detail",

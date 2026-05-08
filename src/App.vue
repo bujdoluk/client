@@ -5,6 +5,22 @@
         <v-main class="bg-background">
             <RouterView />
         </v-main>
+        <v-snackbar
+            v-model="visible"
+            color="error"
+            :timeout="CONSTANTS.SNACKBAR_TIMEOUT"
+            location="bottom right"
+        >
+            {{ message }}
+            <template #actions>
+                <v-btn
+                    variant="text"
+                    @click="hide"
+                >
+                    {{ t('buttons.close') }}
+                </v-btn>
+            </template>
+        </v-snackbar>
     </v-layout>
 </template>
 
@@ -13,8 +29,14 @@
  * @file App.vue.
  * @description Main application component.
  */
+import { useI18n } from 'vue-i18n';
 import AppToolbar from '@/components/AppToolbar/AppToolbar.vue';
 import LoaderOverlay from '@/components/LoaderOverlay/LoaderOverlay.vue';
+import { useSnackBarStore } from '@/stores/useSnackBarStore';
+import { CONSTANTS } from '@/constants/index';
+
+const { t } = useI18n();
+const { hide, message, visible } = useSnackBarStore();
 </script>
 
 <style>
