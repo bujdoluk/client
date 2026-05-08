@@ -9,21 +9,6 @@
             </v-col>
         </v-row>
         <v-row class="width">
-            <v-col cols="auto">
-                <v-btn
-                    color="purple"
-                    @click="redirectToSuggestions"
-                >
-                    {{ t('buttons.suggestions') }}
-                </v-btn>
-            </v-col>
-            <v-col>
-                <v-btn color="purple">
-                    {{ t('buttons.changelog') }}
-                </v-btn>
-            </v-col>
-        </v-row>
-        <v-row class="width">
             <v-col>
                 <v-chip
                     color="green"
@@ -99,7 +84,6 @@ import { db } from '@/firebase/init';
 import { CONSTANTS } from '@/constants/index';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { type Feedback, Status } from '@/types/index';
-import router from '@/router';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -119,10 +103,6 @@ const fetchLiveFeedbacks = async (): Promise<void> => {
     } finally {
         loading.value = false;
     }
-};
-
-const redirectToSuggestions = (): void => {
-    router.push({ name: 'suggestions' });
 };
 
 onMounted(() => {

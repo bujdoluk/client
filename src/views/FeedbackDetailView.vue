@@ -28,7 +28,10 @@
                     :loading="loading"
                 />
             </v-col>
-            <v-col cols="12" class="pb-6">
+            <v-col
+                cols="12"
+                class="pb-6"
+            >
                 <template v-if="loading">
                     <v-skeleton-loader
                         v-for="i in CONSTANTS.SKELETON_COUNT"
@@ -43,7 +46,7 @@
                         <v-row v-if="filteredComments.length + filteredReplies.length > 0">
                             <v-col class="font-weight-bold pl-10 text-dark-blue">
                                 {{ filteredComments.length + filteredReplies.length }}
-                                {{ (filteredComments.length + filteredReplies.length) === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
+                                {{ filteredComments.length + filteredReplies.length === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
                             </v-col>
                         </v-row>
                         <v-row
@@ -68,35 +71,40 @@
                 <v-container fluid>
                     <v-row>
                         <v-col class="pa-0">
-                            <v-card class="pa-6">
-                                <v-card-text class="font-weight-bold py-3 text-dark-blue text-h6">
-                                    {{ t('components.comment.addComment') }}
-                                </v-card-text>
-                                <v-card-text>
-                                    <v-textarea
-                                        v-model="text"
-                                        :placeholder="t('components.comment.typeComment')"
-                                        :counter="CONSTANTS.TEXT_MAX_LENGTH"
-                                        :rows="CONSTANTS.COMMENT_TEXTAREA_ROWS"
-                                        class="bg-background-secondary px-3"
-                                        variant="plain"
-                                        flat
-                                        clearable
-                                        hide-details
-                                        :rules="[required, maxCharacters]"
-                                    />
-                                </v-card-text>
-                                <v-card-actions class="pr-0 pt-3">
-                                    <v-spacer />
-                                    <v-btn 
-                                        variant="flat"
-                                        color="purple"
-                                        @click="createComment"
-                                    >
-                                        {{ t('buttons.postComment') }}
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
+                            <v-form
+                                ref="form"
+                                validate-on="submit"
+                            >
+                                <v-card class="pa-6">
+                                    <v-card-text class="font-weight-bold py-3 text-dark-blue text-h6">
+                                        {{ t('components.comment.addComment') }}
+                                    </v-card-text>
+                                    <v-card-text>
+                                        <v-textarea
+                                            v-model="text"
+                                            :placeholder="t('components.comment.typeComment')"
+                                            :counter="CONSTANTS.TEXT_MAX_LENGTH"
+                                            :rows="CONSTANTS.COMMENT_TEXTAREA_ROWS"
+                                            class="bg-background-secondary px-3"
+                                            variant="plain"
+                                            flat
+                                            clearable
+                                            hide-details="auto"
+                                            :rules="[required, maxCharacters]"
+                                        />
+                                    </v-card-text>
+                                    <v-card-actions class="pr-0 pt-3">
+                                        <v-spacer />
+                                        <v-btn
+                                            variant="flat"
+                                            color="purple"
+                                            @click="createComment"
+                                        >
+                                            {{ t('buttons.postComment') }}
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-form>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -117,7 +125,8 @@ import type { Reply, Comment, Feedback } from '@/types/index';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
-import { ref, onMounted, computed } from 'vue';
+import { ref, shallowRef, onMounted, computed } from 'vue';
+import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
@@ -126,6 +135,7 @@ const route = useRoute();
 const { t } = useI18n();
 const comments = ref<Array<Comment>>([]);
 const feedback = ref<Feedback>();
+const form = shallowRef<InstanceType<typeof VForm>>();
 const text = ref<string>('');
 const user = ref(auth().currentUser);
 const replies = ref<Array<Reply>>([]);
@@ -157,7 +167,7 @@ const updateFeedback = async (): Promise<void> => {
             comments: filteredComments.value.length + filteredReplies.value.length
         });
     } catch(error: unknown) {
-        console.log(error);
+        handleError(error);
     } finally {
         await fetchFeedback(String(route.params.id));
         loading.value = false; 
@@ -215,6 +225,8 @@ const fetchComments = async (): Promise<void> => {
 };
 
 const createComment = async (): Promise<void> => {
+    const { valid } = await form.value!.validate();
+    if (!valid) return;
     try {
         loading.value = true;
         const docId = db.collection('comments').doc().id;
@@ -235,6 +247,7 @@ const createComment = async (): Promise<void> => {
         await fetchComments();
         await updateFeedback();
         text.value = '';
+        form.value?.resetValidation();
     }
 };
 
@@ -297,7 +310,7 @@ const onDeleted = async (feedback: Feedback): Promise<void> => {
         deleteComments(feedback),
         deleteReplies(feedback)
     ]);
-    router.push({ name: 'suggestions' });
+    await router.push({ name: 'suggestions' });
 };
 
 onMounted(async () => {

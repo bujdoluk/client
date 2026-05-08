@@ -23,7 +23,7 @@
                     </v-row>
                     <v-row class="text-body-2">
                         <span class="font-weight-bold pr-2 text-purple">
-                            {{ props.comment.email }}
+                            {{ comment.email }}
                         </span>
                         <span class="text-content">
                             {{ props.reply.text }}
@@ -31,14 +31,17 @@
                     </v-row>
                 </v-container>
             </v-col>
-            <v-col cols="auto" class="pt-4 pr-2">
+            <v-col
+                cols="auto"
+                class="pr-2 pt-4"
+            >
                 <v-btn
                     variant="text"
                     color="blue"
                     class="font-weight-bold px-4 py-2"
                     @click="onReplyClicked"
                 >
-                    {{ t('buttons.reply') }}
+                    {{ showReply ? t('buttons.hide') : t('buttons.reply') }}
                 </v-btn>
             </v-col>
         </v-row>
@@ -49,33 +52,39 @@
         </v-row>
     </v-card>
 
-    <v-card v-if="showReply">
-        <v-row class="pa-6">
-            <v-col cols="10">
-                <v-textarea 
-                    v-model="replyText"
-                    :placeholder="t('components.reply.typeReply')" 
-                    :counter="CONSTANTS.TEXT_MAX_LENGTH"
-                    :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
-                    class="bg-background-secondary px-3"
-                    variant="plain"
-                    flat
-                    clearable
-                    hide-details
-                    :rules="[required, maxCharacters]"
-                />
-            </v-col>
-            <v-col cols="2">
-                <v-btn
-                    variant="flat"
-                    color="purple"
-                    @click="createReply"
-                >
-                    {{ t('buttons.postReply') }}
-                </v-btn>
-            </v-col>
-        </v-row>
-    </v-card>
+    <v-form
+        v-if="showReply"
+        ref="form"
+        validate-on="submit"
+    >
+        <v-card>
+            <v-row class="pa-6">
+                <v-col cols="10">
+                    <v-textarea
+                        v-model="replyText"
+                        :placeholder="t('components.reply.typeReply')"
+                        :counter="CONSTANTS.TEXT_MAX_LENGTH"
+                        :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
+                        class="bg-background-secondary px-3"
+                        variant="plain"
+                        flat
+                        clearable
+                        hide-details="auto"
+                        :rules="[required, maxCharacters]"
+                    />
+                </v-col>
+                <v-col cols="2">
+                    <v-btn
+                        variant="flat"
+                        color="purple"
+                        @click="createReply"
+                    >
+                        {{ t('buttons.postReply') }}
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-card>
+    </v-form>
 </template>
 
 <script setup lang="ts">
@@ -84,7 +93,8 @@
  * @description Displays a single reply to a comment including author and reply text.
  */
 import { useI18n } from 'vue-i18n';
-import { ref, computed } from 'vue';
+import { ref, shallowRef, computed } from 'vue';
+import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import type { Comment, Reply } from '@/types/index.ts';
 
@@ -95,6 +105,7 @@ const props = defineProps<{
 
 const emits = defineEmits<(e: 'replyCreated', replyText: string) => void>();
 const { t } = useI18n();
+const form = shallowRef<InstanceType<typeof VForm>>();
 const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
 const formattedDate = computed(() => new Date((props.reply.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
@@ -103,6 +114,8 @@ const maxCharacters = (value: string): string | true => value.length <= CONSTANT
 const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);
 
 const createReply = async (): Promise<void> => {
+    const { valid } = await form.value!.validate();
+    if (!valid) return;
     emits('replyCreated', replyText.value);
 };
 

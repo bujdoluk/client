@@ -89,7 +89,7 @@ const logout = async (): Promise<void> => {
         handleError(error);
     } finally {
         localStorage.clear();
-        router.push({ name: 'landing' });
+        await router.push({ name: 'landing' });
         loading.value = false;
     }
 };

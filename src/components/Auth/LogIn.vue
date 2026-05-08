@@ -184,10 +184,10 @@ const googleProvider = new auth.GoogleAuthProvider();
 const facebookProvider = new auth.FacebookAuthProvider();
 
 const navigateAfterAuth = (): void => {
-    const unsubscribe = auth().onAuthStateChanged((loggedInUser) => {
+    const unsubscribe = auth().onAuthStateChanged(async (loggedInUser) => {
         if (loggedInUser) {
             unsubscribe();
-            router.push({ name: 'suggestions' });
+            await router.push({ name: 'suggestions' });
         }
     });
 };
@@ -270,8 +270,8 @@ const form = ref<{
     validate: () => boolean;
 }>;
 
-const redirect = (): void => {
-    router.push({ name: 'landing' });
+const redirect = async (): Promise<void> => {
+    await router.push({ name: 'landing' });
 };
 </script>
 

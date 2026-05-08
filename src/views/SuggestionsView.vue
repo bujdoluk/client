@@ -194,8 +194,8 @@ const updateFeedBack = async (feedback: Feedback, isActiveVote: boolean): Promis
     }
 };
 
-const onRedirect = (name: string, id?: string): void => {
-    router.push({ name, params: { id } });
+const onRedirect = async (name: string, id?: string): Promise<void> => {
+    await router.push({ name, params: { id } });
 };
 
 const onFeedbackAdded = async (): Promise<void> => {

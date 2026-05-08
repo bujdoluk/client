@@ -72,8 +72,8 @@ const onVote = (): void => {
     isActiveVote.value = !isActiveVote.value;
 };
 
-const onRedirect = (id?: string): void => {
-    router.push({ name: 'feedback-detail', params: { id } });
+const onRedirect = async (id?: string): Promise<void> => {
+    await router.push({ name: 'feedback-detail', params: { id } });
 };
 
 const statusColors = (status: string) => {

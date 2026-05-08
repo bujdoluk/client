@@ -84,18 +84,18 @@ auth().onAuthStateChanged((_user) => {
     user.value = _user;
 });
 
-const redirectToLandingPage = (): void => {
-    router.push({ name: 'landing' });
+const redirectToLandingPage = async (): Promise<void> => {
+    await router.push({ name: 'landing' });
 };
 
-const redirecToApp = (): void => {
+const redirecToApp = async (): Promise<void> => {
     if (user.value) {
-        router.push({ name: 'suggestions' });
+        await router.push({ name: 'suggestions' });
     }
 };
 
-const redirectToChangelog = (): void => {
-    router.push({ name: 'changelog' });
+const redirectToChangelog = async (): Promise<void> => {
+    await router.push({ name: 'changelog' });
 };
 </script>
 

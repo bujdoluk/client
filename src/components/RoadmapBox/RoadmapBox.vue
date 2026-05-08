@@ -71,8 +71,8 @@ const statuses = computed(() => [
     { count: liveCount.value, dotClass: 'dot--teal', label: t('views.suggestions.roadmap.live') }
 ]);
 
-const onRedirect = (): void => {
-    router.push({ name: 'roadmap' });
+const onRedirect = async (): Promise<void> => {
+    await router.push({ name: 'roadmap' });
 };
 </script>
 

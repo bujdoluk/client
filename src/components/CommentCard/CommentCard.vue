@@ -1,11 +1,10 @@
 <template>
     <v-form
-        ref="formComment"
-        v-model="isValidComment"
-        validate-on="input"
+        ref="form"
+        validate-on="submit"
     >
         <v-skeleton-loader
-            v-if="props.loading"
+            v-if="loading"
             boilerplate
             type="list-item-avatar-three-line"
         />
@@ -34,14 +33,17 @@
                         </v-row>
                     </v-container>
                 </v-col>
-                <v-col cols="auto" class="pt-4 pr-2">
+                <v-col
+                    cols="auto"
+                    class="pr-2 pt-4"
+                >
                     <v-btn
                         variant="text"
                         color="blue"
                         class="font-weight-bold px-4 py-2"
                         @click="onReplyClicked"
                     >
-                        {{ t('buttons.reply') }}
+                        {{ showReply ? t('buttons.hide') : t('buttons.reply') }}
                     </v-btn>
                 </v-col>
             </v-row>
@@ -63,7 +65,7 @@
                             variant="plain"
                             flat
                             clearable
-                            hide-details
+                            hide-details="auto"
                             :rules="[required, maxCharacters]"
                         />
                     </v-col>
@@ -98,7 +100,8 @@
 
 <script setup lang="ts">
 /** @file Comment card component. */
-import { ref, computed } from 'vue';
+import { ref, shallowRef, computed } from 'vue';
+import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import { useI18n } from 'vue-i18n';
 import { type Comment, type Reply, type Feedback } from '@/types/index.ts';
@@ -117,9 +120,9 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const form = shallowRef<InstanceType<typeof VForm>>();
 const replyText = ref('');
 const showReply = ref(false);
-const isValidComment = ref(false);
 
 const filteredReplies = computed(() => props.replies.filter((reply) => reply.commentId === props.comment.docId));
 // createdAt is a Firestore Timestamp at runtime despite the string type in the interface
@@ -128,6 +131,7 @@ const formattedDate = computed(() => new Date((props.comment.createdAt as unknow
 const onReplyClicked = (): void => {
     showReply.value = !showReply.value;
     replyText.value = '';
+    if (!showReply.value) form.value?.resetValidation();
 };
 
 const onReplyCreatedFromReply = (text: string): void => {
@@ -135,10 +139,13 @@ const onReplyCreatedFromReply = (text: string): void => {
     showReply.value = false;
 };
 
-const onReplyCreatedFromComment = (): void => {
+const onReplyCreatedFromComment = async (): Promise<void> => {
+    const { valid } = await form.value!.validate();
+    if (!valid) return;
     emit('replyCreated', replyText.value, props.comment.email, props.comment.docId);
     replyText.value = '';
     showReply.value = false;
+    form.value?.resetValidation();
 };
 
 const required = (value: string): string | true => !!value.trim() || t('validations.required');

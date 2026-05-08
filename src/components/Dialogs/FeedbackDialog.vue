@@ -22,7 +22,10 @@
             v-else
             class="pa-6"
         >
-            <v-form validate-on="input">
+            <v-form
+                ref="form"
+                validate-on="submit"
+            >
                 <div class="align-center d-flex pb-6">
                     <span class="font-weight-bold text-h5">
                         {{ isEditMode ? `Editing "${props.feedback?.title}"` : t('components.Dialog.title') }}
@@ -44,7 +47,7 @@
                         {{ t('components.Dialog.feedbackSubtitle') }}
                     </p>
                     <v-text-field
-                        v-model="form.title"
+                        v-model="formData.title"
                         variant="plain"
                         class="bg-background-secondary rounded-lg"
                         :counter="CONSTANTS.TITLE_MAX_LENGTH"
@@ -63,7 +66,7 @@
                         {{ t('components.Dialog.categorySubtitle') }}
                     </p>
                     <v-select
-                        v-model="form.category"
+                        v-model="formData.category"
                         variant="plain"
                         class="bg-background-secondary rounded-lg"
                         :items="categories"
@@ -79,7 +82,7 @@
                             >
                                 <template #append>
                                     <v-icon
-                                        v-if="item.raw.value === form.category"
+                                        v-if="item.raw.value === formData.category"
                                         :icon="mdiCheck"
                                         color="purple"
                                         size="small"
@@ -99,7 +102,7 @@
                             {{ t('components.Dialog.updateStatusSubtitle') }}
                         </p>
                         <v-select
-                            v-model="form.status"
+                            v-model="formData.status"
                             variant="plain"
                             class="bg-background-secondary rounded-lg"
                             :items="statuses"
@@ -115,7 +118,7 @@
                                 >
                                     <template #append>
                                         <v-icon
-                                            v-if="item.raw.value === form.status"
+                                            v-if="item.raw.value === formData.status"
                                             :icon="mdiCheck"
                                             color="purple"
                                             size="small"
@@ -135,7 +138,7 @@
                         {{ t('components.Dialog.feedbackDetailSubtitle') }}
                     </p>
                     <v-textarea
-                        v-model="form.description"
+                        v-model="formData.description"
                         variant="plain"
                         density="comfortable"
                         no-resize
@@ -180,9 +183,10 @@
 
 <script setup lang="ts">
 /** @file FeedbackDialog component. */
-import { ref, computed, watch } from 'vue';
+import { ref, shallowRef, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { mdiClose, mdiCheck, mdiPencil, mdiPlus } from '@mdi/js';
+import type { VForm } from 'vuetify/components';
 import { db, auth, timestamp } from '@/firebase/init';
 import { type Feedback, type FeedbackForm, Status } from '@/types/index.ts';
 import { CONSTANTS } from '@/constants/index';
@@ -225,10 +229,11 @@ const createForm = (): FeedbackForm => ({
     title: props.feedback?.title ?? ''
 });
 
-const form = ref<FeedbackForm>(createForm());
+const form = shallowRef<InstanceType<typeof VForm>>();
+const formData = ref<FeedbackForm>(createForm());
 
 watch(() => props.feedback, () => {
-    form.value = createForm();
+    formData.value = createForm();
 });
 
 const open = (): void => {
@@ -236,7 +241,8 @@ const open = (): void => {
 };
 
 const close = (): void => {
-    form.value = createForm();
+    formData.value = createForm();
+    form.value?.resetValidation();
     dialog.value = false;
 };
 
@@ -245,14 +251,14 @@ const addFeedback = async (): Promise<void> => {
         loading.value = true;
         const docId = db.collection('feedbacks').doc().id;
         await db.collection('feedbacks').doc(docId).set({
-            category: form.value.category,
+            category: formData.value.category,
             comments: 0,
             createdAt: timestamp,
-            description: form.value.description,
+            description: formData.value.description,
             docId,
             pinned: false,
             status: Status.Planned,
-            title: form.value.title,
+            title: formData.value.title,
             upvotes: 0,
             userId: auth().currentUser?.uid
         });
@@ -270,10 +276,10 @@ const editFeedback = async (): Promise<void> => {
     try {
         loading.value = true;
         await db.collection('feedbacks').doc(props.feedback.docId).update({
-            category: form.value.category,
-            description: form.value.description,
-            status: form.value.status,
-            title: form.value.title
+            category: formData.value.category,
+            description: formData.value.description,
+            status: formData.value.status,
+            title: formData.value.title
         });
         emit('edited', props.feedback);
     } catch (error: unknown) {
@@ -285,6 +291,8 @@ const editFeedback = async (): Promise<void> => {
 };
 
 const handleSubmit = async (): Promise<void> => {
+    const { valid } = await form.value!.validate();
+    if (!valid) return;
     if (isEditMode.value) {
         await editFeedback();
     } else {

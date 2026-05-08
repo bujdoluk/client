@@ -129,6 +129,7 @@ import {
 } from '@mdi/js';
 import router from '@/router';
 import { useAppStore } from '@/stores/useAppStore';
+import { handleError } from '@/plugins/error';
 
 const { t } = useI18n();
 const appStore = useAppStore();
@@ -144,10 +145,10 @@ const submit = async (): Promise<void> => {
         appStore.isLoading = true;
         await signup(email.value, password.value, userName.value);
         if (!errorMessage.value) {
-            router.push({ name: 'login' });
+            await router.push({ name: 'login' });
         }
-    } catch (e: unknown) {
-        console.log(e);
+    } catch (error: unknown) {
+        handleError(error);
     } finally {
         appStore.isLoading = false;
     }
@@ -158,8 +159,8 @@ const form = ref<{
     validate: () => boolean;
 }>;
 
-const redirect = (): void => {
-    router.push({ name: 'landing' });
+const redirect = async (): Promise<void> => {
+    await router.push({ name: 'landing' });
 };
 </script>
 
