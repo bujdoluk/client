@@ -59,6 +59,28 @@
   cursor: pointer;
 }
 
+.v-input {
+    border-radius: 8px;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.v-input .v-field__overlay {
+    display: none;
+}
+
+.v-input:hover:not(:has(.v-field--focused)):not(:has(.v-field--error)) {
+    background-color: color-mix(in srgb, rgb(var(--v-theme-background-secondary)) 94%, #000000) !important;
+}
+
+.v-input:has(.v-field--focused):not(:has(.v-field--error)) {
+    background-color: rgb(var(--v-theme-blue) / 0.06) !important;
+    box-shadow: 0 0 0 1px rgb(var(--v-theme-blue));
+}
+
+.v-input:has(.v-field--error) {
+    box-shadow: 0 0 0 1px rgb(var(--v-theme-error)) !important;
+}
+
 .option-item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     --v-hover-opacity: 0;
