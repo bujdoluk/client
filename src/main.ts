@@ -1,6 +1,7 @@
 /**
  * @file Entry point of the application.
  */
+import '@/style.css';
 import App from '@/App.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';

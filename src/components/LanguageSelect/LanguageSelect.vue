@@ -25,6 +25,7 @@
             <v-list-item
                 v-bind="props"
                 :title="undefined"
+                class="option-item"
             >
                 <template #prepend>
                     <img
@@ -36,6 +37,14 @@
                 <v-list-item-title class="text-body-2">
                     {{ item.raw.label }}
                 </v-list-item-title>
+                <template #append>
+                    <v-icon
+                        v-if="item.raw.value === selectedLanguage"
+                        :icon="mdiCheck"
+                        color="purple"
+                        size="small"
+                    />
+                </template>
             </v-list-item>
         </template>
     </v-select>
@@ -48,6 +57,7 @@
  */
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
+import { mdiCheck } from '@mdi/js';
 
 const { locale } = useI18n();
 

@@ -71,7 +71,23 @@
                         item-value="value"
                         single-line
                         hide-details
-                    />
+                    >
+                        <template #item="{ item, 'props': itemProps }">
+                            <v-list-item
+                                v-bind="itemProps"
+                                class="option-item"
+                            >
+                                <template #append>
+                                    <v-icon
+                                        v-if="item.raw.value === form.category"
+                                        :icon="mdiCheck"
+                                        color="purple"
+                                        size="small"
+                                    />
+                                </template>
+                            </v-list-item>
+                        </template>
+                    </v-select>
                 </div>
 
                 <template v-if="isEditMode">
@@ -91,7 +107,23 @@
                             item-value="value"
                             single-line
                             hide-details
-                        />
+                        >
+                            <template #item="{ item, 'props': itemProps }">
+                                <v-list-item
+                                    v-bind="itemProps"
+                                    class="option-item"
+                                >
+                                    <template #append>
+                                        <v-icon
+                                            v-if="item.raw.value === form.status"
+                                            :icon="mdiCheck"
+                                            color="purple"
+                                            size="small"
+                                        />
+                                    </template>
+                                </v-list-item>
+                            </template>
+                        </v-select>
                     </div>
                 </template>
 
@@ -150,7 +182,7 @@
 /** @file FeedbackDialog component. */
 import { ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { mdiClose, mdiPencil, mdiPlus } from '@mdi/js';
+import { mdiClose, mdiCheck, mdiPencil, mdiPlus } from '@mdi/js';
 import { db, auth, timestamp } from '@/firebase/init';
 import { type Feedback, type FeedbackForm, Status } from '@/types/index.ts';
 import { CONSTANTS } from '@/constants/index';

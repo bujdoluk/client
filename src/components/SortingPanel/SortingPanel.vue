@@ -1,6 +1,6 @@
 <template>
     <v-skeleton-loader
-        v-if="props.loading"
+        v-if="loading"
         boilerplate
         type="heading"
     />
@@ -18,7 +18,7 @@
                 </v-col>
                 <v-col cols="auto font-weight-bold">
                     <h3>
-                        {{ props.feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
+                        {{ feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
                     </h3>
                 </v-col>
                 <v-col cols="auto">
@@ -41,7 +41,23 @@
                                 color="purple"
                                 flat
                                 @update:model-value="onSelected"
-                            />
+                            >
+                                <template #item="{ item, 'props': itemProps }">
+                                    <v-list-item
+                                        v-bind="itemProps"
+                                        class="option-item"
+                                    >
+                                        <template #append>
+                                            <v-icon
+                                                v-if="item.raw.value === selectedItem"
+                                                :icon="mdiCheck"
+                                                color="purple"
+                                                size="small"
+                                            />
+                                        </template>
+                                    </v-list-item>
+                                </template>
+                            </v-select>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -63,19 +79,19 @@
  * @description Toolbar showing feedback count, sort options and the add feedback button.
  */
 import { ref, computed } from 'vue';
-import { mdiLightbulbOnOutline } from '@mdi/js';
+import { mdiCheck, mdiLightbulbOnOutline } from '@mdi/js';
 import { type Feedback } from '@/types/index.ts';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { useI18n } from 'vue-i18n';
 
-const props = defineProps<{
+defineProps<{
     feedbacks: Array<Feedback>;
     loading: boolean;
 }>();
 
 const emit = defineEmits<{
-    (e: 'added'): void;
-    (e: 'selected', selectedItem: any): void;
+    added: [];
+    selected: [value: string];
 }>();
 
 const { t } = useI18n();

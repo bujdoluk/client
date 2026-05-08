@@ -58,3 +58,20 @@
 .btn:hover {
   cursor: pointer;
 }
+
+.option-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    --v-hover-opacity: 0;
+}
+
+.option-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.option-item.v-list-item--active {
+    --v-activated-opacity: 0;
+}
+
+.option-item.v-list-item--active .v-list-item-title {
+    color: rgb(var(--v-theme-purple));
+}
