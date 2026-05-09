@@ -95,6 +95,9 @@
             "typeReply": "Zde napište odpověď"
         }
     },
+    "errors": {
+        "deleteOtherUserFeedback": "Nemůžete smazat zpětnou vazbu jiného uživatele."
+    },
     "inputs": {
         "currentPassword": "Aktuální heslo",
         "email": "E-mail",

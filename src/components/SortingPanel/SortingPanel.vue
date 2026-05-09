@@ -18,7 +18,7 @@
                 </v-col>
                 <v-col cols="auto font-weight-bold">
                     <h3>
-                        {{ feedbacks.length }} {{ t('views.suggestions.topbar.suggestions') }}
+                        {{ total }} {{ t('views.suggestions.topbar.suggestions') }}
                     </h3>
                 </v-col>
                 <v-col cols="auto">
@@ -40,12 +40,13 @@
                                 hide-details
                                 color="purple"
                                 flat
+                                :list-props="{ 'class': 'pa-0' }"
                                 @update:model-value="onSelected"
                             >
                                 <template #item="{ item, 'props': itemProps }">
                                     <v-list-item
                                         v-bind="itemProps"
-                                        class="option-item"
+                                        class="border-b-sm option-item"
                                     >
                                         <template #append>
                                             <v-icon
@@ -80,13 +81,12 @@
  */
 import { ref, computed } from 'vue';
 import { mdiCheck, mdiLightbulbOnOutline } from '@mdi/js';
-import { type Feedback } from '@/types/index.ts';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import { useI18n } from 'vue-i18n';
 
-defineProps<{
-    feedbacks: Array<Feedback>;
+const props = defineProps<{
     loading: boolean;
+    total: number;
 }>();
 
 const emit = defineEmits<{
@@ -102,7 +102,8 @@ const items = computed(() => [
     { title: t('views.suggestions.topbar.leastComments'), value: 'ascC' }
 ]);
 
-const selectedItem = ref('descU');
+const selectedItem = ref<string>('descU');
+const loading = computed(() => props.loading);
 
 const onSelected = (): void => {
     emit('selected', selectedItem.value);

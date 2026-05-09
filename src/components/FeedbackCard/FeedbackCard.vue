@@ -1,8 +1,8 @@
 <template>
     <v-card
         class="bg-surface pa-6"
-        :max-height="CONSTANTS.FEEDBACK_CARD_HEIGHT"
-        :min-height="CONSTANTS.FEEDBACK_CARD_HEIGHT"
+        :max-height="250"
+        :min-height="250"
     >
         <v-row align="center">
             <v-col class="pb-3">
@@ -57,7 +57,6 @@
  */
 import { shallowRef } from 'vue';
 import { mdiChat, mdiChevronUp } from '@mdi/js';
-import { CONSTANTS } from '@/constants/index';
 import { type Feedback, Status } from '@/types/index.ts';
 import TagItem from '@/components/TagItem/TagItem.vue';
 import router from '@/router';
@@ -76,24 +75,22 @@ const onRedirect = async (id?: string): Promise<void> => {
     await router.push({ name: 'feedback-detail', params: { id } });
 };
 
-const statusColors = (status: string) => {
+const statusColors = (status: string): string | undefined => {
     if (status === Status.Planned) {
         return 'dot-orange';
     } else if (status === Status.InProgress) {
         return 'dot-pink';
-    } else if (status === Status.Live) {
-        return 'dot-teal';
-    }
+    } 
+    return 'dot-teal';
 };
 
-const lineColors = (status: string) => {
+const lineColors = (status: string): string | undefined => {
     if (status === Status.Planned) {
         return 'top-line-orange';
     } else if (status === Status.InProgress) {
         return 'top-line-purple';
-    } else if (status === Status.Live) {
-        return 'top-line-teal';
-    }
+    } 
+    return 'top-line-teal';
 };
 
 </script>
@@ -109,6 +106,7 @@ const lineColors = (status: string) => {
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     white-space: normal;
 }
@@ -116,9 +114,9 @@ const lineColors = (status: string) => {
 .top-line-orange {
     border: 4px solid #F49F85;
     position: absolute;
-    width: 110%;
     top: 0;
     left: -10px;
+    width: 110%;
 }
 
 .top-line-purple {

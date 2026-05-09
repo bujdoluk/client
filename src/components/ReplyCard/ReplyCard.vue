@@ -109,7 +109,7 @@ const form = shallowRef<InstanceType<typeof VForm>>();
 const replyText = ref<string>('');
 const showReply = ref<boolean>(false);
 const formattedDate = computed(() => new Date((props.reply.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
-const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
+const required = (value: string): string | true => !!value.trim() || t('validations.required');
 const maxCharacters = (value: string): string | true => value.length <= CONSTANTS.TEXT_MAX_LENGTH || t('validations.maxCharacters');
 const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);
 

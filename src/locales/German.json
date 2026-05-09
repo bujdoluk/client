@@ -95,6 +95,9 @@
             "typeReply": "Antwort hier eingeben"
         }
     },
+    "errors": {
+        "deleteOtherUserFeedback": "Sie können das Feedback eines anderen Nutzers nicht löschen."
+    },
     "inputs": {
         "currentPassword": "Aktuelles Passwort",
         "email": "E-Mail",

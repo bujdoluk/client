@@ -62,7 +62,7 @@
                     <v-row>
                         <v-col>
                             <SortingPanel
-                                :feedbacks="feedbacks"
+                                :total="feedbacks.length"
                                 :loading="loading"
                                 @added="onFeedbackAdded"
                                 @selected="(value) => onSelected(value)"
@@ -105,6 +105,28 @@
                             </v-col>
                         </v-row>
                     </template>
+
+                    <div
+                        v-if="!showSkeleton && !loading && (page > 0 || hasMore)"
+                        class="d-flex flex-shrink-0 ga-2 justify-end pt-3"
+                    >
+                        <v-btn
+                            v-if="page > 0"
+                            variant="tonal"
+                            color="purple"
+                            @click="prevPage"
+                        >
+                            {{ t('buttons.prev') }}
+                        </v-btn>
+                        <v-btn
+                            v-if="hasMore"
+                            variant="flat"
+                            color="purple"
+                            @click="nextPage"
+                        >
+                            {{ t('buttons.next') }}
+                        </v-btn>
+                    </div>
                 </v-container>
             </v-col>
         </v-row>
@@ -117,6 +139,7 @@
  * @description Displays user feedbacks in a list. Its a main view where users can create/edit/delete or sort feedbacks.
  */
 import { ref, computed, watch, onUnmounted, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { handleError } from '@/plugins/error';
 import { CONSTANTS } from '@/constants/index';
 import type { Feedback, User } from '@/types/index';
@@ -128,8 +151,11 @@ import SortingPanel from '@/components/SortingPanel/SortingPanel.vue';
 import TagsBox from '@/components/TagsBox/TagsBox.vue';
 import EmptyFeedback from '@/components/EmptyFeedback/EmptyFeedback.vue';
 import VotersCard from '@/components/VotersCard/VotersCard.vue';
-import { db, increment, decrement, auth } from '@/firebase/init';
+import { db, increment, decrement, auth, firebase } from '@/firebase/init';
 
+type QueryDocSnap = firebase.firestore.QueryDocumentSnapshot;
+
+const { t } = useI18n();
 const feedbacks = ref<Array<Feedback>>([]);
 const filteredFeedbacks = ref<Array<Feedback>>([]);
 const user = ref(auth().currentUser);
@@ -142,11 +168,35 @@ const users = ref<Array<User>>([]);
 const showSkeleton = ref(false);
 let skeletonTimer: ReturnType<typeof setTimeout> | undefined;
 
+// Pagination
+const currentSort = ref<string>('descU');
+const page = ref<number>(0);
+const hasMore = ref<boolean>(false);
+let pageCursors: Array<QueryDocSnap | null> = [null];
+
+const sortMap: Record<string, { dir: 'asc' | 'desc'; field: string }> = {
+    ascC: { dir: 'asc', field: 'comments' },
+    ascU: { dir: 'asc', field: 'upvotes' },
+    descC: { dir: 'desc', field: 'comments' },
+    descU: { dir: 'desc', field: 'upvotes' }
+};
+
+const buildQuery = (): firebase.firestore.Query => {
+    const { field, dir } = sortMap[currentSort.value];
+    return db.collection('feedbacks').orderBy(field, dir);
+};
+
+const resetPagination = (): void => {
+    page.value = 0;
+    pageCursors = [null];
+    hasMore.value = false;
+};
+
 watch(loading, (isLoading) => {
     clearTimeout(skeletonTimer);
     if (isLoading) {
         skeletonTimer = setTimeout(() => {
-            showSkeleton.value = true; 
+            showSkeleton.value = true;
         }, 200);
     } else {
         showSkeleton.value = false;
@@ -154,8 +204,17 @@ watch(loading, (isLoading) => {
 });
 
 onUnmounted(() => {
-    clearTimeout(skeletonTimer); 
+    clearTimeout(skeletonTimer);
 });
+
+const fetchFeedbacks = async (): Promise<void> => {
+    try {
+        const res = await db.collection('feedbacks').get();
+        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+    } catch (error: unknown) {
+        handleError(error);
+    }
+};
 
 const fetchUsers = async (): Promise<void> => {
     try {
@@ -169,12 +228,24 @@ const fetchUsers = async (): Promise<void> => {
     }
 };
 
-const fetchFeedbacks = async (): Promise<void> => {
+const fetchPage = async (targetPage: number): Promise<void> => {
     try {
         loading.value = true;
-        const res = await db.collection('feedbacks').get();
-        feedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        filteredFeedbacks.value = feedbacks.value;
+        const cursor = pageCursors[targetPage] ?? null;
+        let q = buildQuery().limit(CONSTANTS.PAGE_SIZE + 1);
+        if (cursor) q = q.startAfter(cursor);
+
+        const res = await q.get();
+        const { docs } = res;
+
+        hasMore.value = docs.length > CONSTANTS.PAGE_SIZE;
+        filteredFeedbacks.value = docs.slice(0, CONSTANTS.PAGE_SIZE).map((doc) => doc.data() as Feedback);
+
+        if (hasMore.value) {
+            pageCursors[targetPage + 1] = docs[CONSTANTS.PAGE_SIZE - 1];
+        }
+
+        page.value = targetPage;
     } catch (error: unknown) {
         handleError(error);
     } finally {
@@ -187,8 +258,11 @@ const updateFeedBack = async (feedback: Feedback, isActiveVote: boolean): Promis
         await db.collection('feedbacks').doc(feedback.docId).update({
             upvotes: isActiveVote ? increment : decrement
         });
-        const local = feedbacks.value.find((f) => f.docId === feedback.docId);
-        if (local) local.upvotes += isActiveVote ? 1 : -1;
+        const delta = isActiveVote ? 1 : -1;
+        const inAll = feedbacks.value.find((f) => f.docId === feedback.docId);
+        if (inAll) inAll.upvotes += delta;
+        const inPage = filteredFeedbacks.value.find((f) => f.docId === feedback.docId);
+        if (inPage) inPage.upvotes += delta;
     } catch (error: unknown) {
         handleError(error);
     }
@@ -200,6 +274,7 @@ const onRedirect = async (name: string, id?: string): Promise<void> => {
 
 const onFeedbackAdded = async (): Promise<void> => {
     await fetchFeedbacks();
+    await fetchPage(0);
 };
 
 const fetchPinnedFeedbacks = async (): Promise<void> => {
@@ -238,48 +313,50 @@ const updatePinnedFeedBack = async (feedback: Feedback): Promise<void> => {
 };
 
 const onSelected = async (selectedValue: string): Promise<void> => {
-    try {
-        loading.value = true;
-        if (selectedValue === 'descC') {
-            const res = await db.collection('feedbacks').orderBy('comments', 'desc').get();
-            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        } else if (selectedValue === 'ascC') {
-            const res = await db.collection('feedbacks').orderBy('comments', 'asc').get();
-            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        } else if (selectedValue === 'descU') {
-            const res = await db.collection('feedbacks').orderBy('upvotes', 'desc').get();
-            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        } else if (selectedValue === 'ascU') {
-            const res = await db.collection('feedbacks').orderBy('upvotes', 'asc').get();
-            filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-        }
-    } catch (error: unknown) {
-        handleError(error);
-    } finally {
-        loading.value = false;
-    }
+    currentSort.value = selectedValue;
+    activeCategory.value = 'All';
+    resetPagination();
+    await fetchPage(0);
+};
+
+const applyTagPage = (targetPage: number): void => {
+    const all = feedbacks.value.filter((f) => f.category === activeCategory.value);
+    const start = targetPage * CONSTANTS.PAGE_SIZE;
+    filteredFeedbacks.value = all.slice(start, start + CONSTANTS.PAGE_SIZE);
+    hasMore.value = start + CONSTANTS.PAGE_SIZE < all.length;
+    page.value = targetPage;
 };
 
 const onTagClicked = async (category: string): Promise<void> => {
     activeCategory.value = category;
+    resetPagination();
     if (category === 'All') {
-        filteredFeedbacks.value = feedbacks.value;
-        return;
+        await fetchPage(0);
+    } else {
+        applyTagPage(0);
     }
-    try {
-        loading.value = true;
-        const res = await db.collection('feedbacks').where('category', '==', category).get();
-        filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
-    } catch (error: unknown) {
-        handleError(error);
-    } finally {
-        loading.value = false;
+};
+
+const nextPage = async (): Promise<void> => {
+    if (activeCategory.value === 'All') {
+        await fetchPage(page.value + 1);
+    } else {
+        applyTagPage(page.value + 1);
+    }
+};
+
+const prevPage = async (): Promise<void> => {
+    if (activeCategory.value === 'All') {
+        await fetchPage(page.value - 1);
+    } else {
+        applyTagPage(page.value - 1);
     }
 };
 
 onMounted(async () => {
     await fetchFeedbacks();
     await fetchUsers();
+    await fetchPage(0);
 });
 </script>
 

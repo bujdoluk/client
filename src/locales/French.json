@@ -95,6 +95,9 @@
             "typeReply": "Saisissez votre réponse ici"
         }
     },
+    "errors": {
+        "deleteOtherUserFeedback": "Vous ne pouvez pas supprimer le retour d'un autre utilisateur."
+    },
     "inputs": {
         "currentPassword": "Mot de passe actuel",
         "email": "E-mail",

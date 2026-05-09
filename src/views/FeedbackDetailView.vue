@@ -46,7 +46,9 @@
                         <v-row v-if="filteredComments.length + filteredReplies.length > 0">
                             <v-col class="font-weight-bold pl-10 text-dark-blue">
                                 {{ filteredComments.length + filteredReplies.length }}
-                                {{ filteredComments.length + filteredReplies.length === 1 ? t('components.comment.oneComment') : t('components.comment.multipleComments') }}
+                                {{ filteredComments.length + filteredReplies.length === 1 
+                                    ? t('components.comment.oneComment') 
+                                    : t('components.comment.multipleComments') }}
                             </v-col>
                         </v-row>
                         <v-row
@@ -130,9 +132,11 @@ import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import { useRoute } from 'vue-router';
 import { db, auth, timestamp } from '@/firebase/init';
+import { useSnackBarStore } from '@/stores/useSnackBarStore';
 
 const route = useRoute();
 const { t } = useI18n();
+const { show } = useSnackBarStore();
 const comments = ref<Array<Comment>>([]);
 const feedback = ref<Feedback>();
 const form = shallowRef<InstanceType<typeof VForm>>();
@@ -186,6 +190,18 @@ const fetchReplies = async (): Promise<void> => {
     }
 };
 
+const fetchComments = async (): Promise<void> => {
+    try {
+        loading.value = true;
+        const res = await db.collection('comments').get();
+        comments.value = res.docs.map((doc) => doc.data() as Comment);
+    } catch (error: unknown) {
+        handleError(error);
+    } finally {
+        loading.value = false;
+    }
+};
+
 const createReply = async (reply: string, commentEmail: string, commentId: string): Promise<void> => {
     try {
         loading.value = true;
@@ -212,21 +228,12 @@ const createReply = async (reply: string, commentEmail: string, commentId: strin
     }
 };
 
-const fetchComments = async (): Promise<void> => {
-    try {
-        loading.value = true;
-        const res = await db.collection('comments').get();
-        comments.value = res.docs.map((doc) => doc.data() as Comment);
-    } catch (error: unknown) {
-        handleError(error);
-    } finally {
-        loading.value = false;
-    }
-};
-
 const createComment = async (): Promise<void> => {
     const { valid } = await form.value!.validate();
     if (!valid) return;
+    const commentText = text.value;
+    text.value = '';
+    form.value?.resetValidation();
     try {
         loading.value = true;
         const docId = db.collection('comments').doc().id;
@@ -236,7 +243,7 @@ const createComment = async (): Promise<void> => {
             email: user.value?.email,
             feedbackId: feedback.value?.docId,
             picture: '',
-            text: text.value,
+            text: commentText,
             userId: user.value?.uid,
             userName: user.value?.displayName
         });
@@ -246,8 +253,6 @@ const createComment = async (): Promise<void> => {
         loading.value = false;
         await fetchComments();
         await updateFeedback();
-        text.value = '';
-        form.value?.resetValidation();
     }
 };
 
@@ -287,7 +292,7 @@ const deleteFeedback = async (feedback: Feedback): Promise<void> => {
         if (user.value?.uid === feedback.userId) {
             await db.collection('feedbacks').doc(feedback.docId).delete();
         } else {
-            alert('You can not delete another user feedback!');
+            show(t('errors.deleteOtherUserFeedback'));
         }
     } catch (error: unknown) {
         handleError(error);
@@ -319,7 +324,7 @@ onMounted(async () => {
     await fetchReplies();
 });
 
-const required = (value: string): string | true => Number(value) > 0 || t('validations.required'); 
+const required = (value: string): string | true => !!value.trim() || t('validations.required');
 const maxCharacters = (value: string): string | true => value.length <= CONSTANTS.TEXT_MAX_LENGTH || t('validations.maxCharacters');
 
 </script>

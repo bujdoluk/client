@@ -74,11 +74,12 @@
                         item-value="value"
                         single-line
                         hide-details
+                        :list-props="{ 'class': 'pa-0' }"
                     >
                         <template #item="{ item, 'props': itemProps }">
                             <v-list-item
                                 v-bind="itemProps"
-                                class="option-item"
+                                class="border-b-sm option-item"
                             >
                                 <template #append>
                                     <v-icon
@@ -110,11 +111,12 @@
                             item-value="value"
                             single-line
                             hide-details
+                            :list-props="{ 'class': 'pa-0' }"
                         >
                             <template #item="{ item, 'props': itemProps }">
                                 <v-list-item
                                     v-bind="itemProps"
-                                    class="option-item"
+                                    class="border-b-sm option-item"
                                 >
                                     <template #append>
                                         <v-icon

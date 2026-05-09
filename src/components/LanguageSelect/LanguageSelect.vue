@@ -10,6 +10,7 @@
         variant="solo"
         flat
         class="bg-background-secondary language-select"
+        :list-props="{ 'class': 'pa-0' }"
         @update:model-value="onSelectLanguage"
     >
         <template #selection="{ item }">
@@ -25,7 +26,7 @@
             <v-list-item
                 v-bind="props"
                 :title="undefined"
-                class="option-item"
+                class="border-b-sm option-item"
             >
                 <template #prepend>
                     <img

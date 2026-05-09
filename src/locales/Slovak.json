@@ -95,6 +95,9 @@
             "typeReply": "Tu napíšte odpoveď"
         }
     },
+    "errors": {
+        "deleteOtherUserFeedback": "Nemôžete zmazať spätnú väzbu iného používateľa."
+    },
     "inputs": {
         "currentPassword": "Aktuálne heslo",
         "email": "E-mail",
