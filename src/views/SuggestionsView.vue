@@ -231,7 +231,8 @@ const fetchUsers = async (): Promise<void> => {
 const fetchPage = async (targetPage: number): Promise<void> => {
     try {
         loading.value = true;
-        const cursor = pageCursors[targetPage] ?? null;
+        const cursors = pageCursors;
+        const cursor = cursors[targetPage] ?? null;
         let q = buildQuery().limit(CONSTANTS.PAGE_SIZE + 1);
         if (cursor) q = q.startAfter(cursor);
 
@@ -242,7 +243,7 @@ const fetchPage = async (targetPage: number): Promise<void> => {
         filteredFeedbacks.value = docs.slice(0, CONSTANTS.PAGE_SIZE).map((doc) => doc.data() as Feedback);
 
         if (hasMore.value) {
-            pageCursors[targetPage + 1] = docs[CONSTANTS.PAGE_SIZE - 1];
+            cursors[targetPage + 1] = docs[CONSTANTS.PAGE_SIZE - 1];
         }
 
         page.value = targetPage;

@@ -1,8 +1,3 @@
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
 
 #app {
   height: 100vh;
@@ -65,7 +60,7 @@ body {
   cursor: pointer;
 }
 
-.v-input {
+.v-input .v-field {
     border-radius: 8px;
     transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -74,16 +69,16 @@ body {
     display: none;
 }
 
-.v-input:hover:not(:has(.v-field--focused)):not(:has(.v-field--error)) {
+.v-input:hover:not(:has(.v-field--focused)):not(:has(.v-field--error)) .v-field {
     background-color: color-mix(in srgb, rgb(var(--v-theme-background-secondary)) 94%, #000000) !important;
 }
 
-.v-input:has(.v-field--focused):not(:has(.v-field--error)) {
+.v-input:has(.v-field--focused):not(:has(.v-field--error)) .v-field {
     background-color: rgb(var(--v-theme-blue) / 0.06) !important;
     box-shadow: 0 0 0 1px rgb(var(--v-theme-blue));
 }
 
-.v-input:has(.v-field--error) {
+.v-input:has(.v-field--error) .v-field {
     box-shadow: 0 0 0 1px rgb(var(--v-theme-error)) !important;
 }
 

@@ -11,21 +11,37 @@
         width="30%"
     >
         <v-card class="px-3 py-2">
-            <v-card-title class="font-weight-bold">
-                {{ t('components.EditAccount.title') }}
-            </v-card-title>
+            <div class="align-center d-flex pb-3 pt-3 px-4">
+                <span class="font-weight-bold text-h6">
+                    {{ t('components.EditAccount.title') }}
+                </span>
+                <v-spacer />
+                <v-btn
+                    :icon="mdiClose"
+                    density="compact"
+                    variant="text"
+                    @click="close"
+                />
+            </div>
 
-            <span class="pb-2">
+            <v-divider />
+
+            <p class="font-weight-bold mb-1 pt-4 px-4 text-body-2">
                 {{ t('components.EditAccount.picture') }}
-            </span>  
-            <v-file-input
-                v-model="file"
-                :label="t('inputs.picture')"
-                density="compact"   
-                variant="outlined"
-                show-size="1000"
-            />
-            <v-card-actions class="pr-0">
+            </p>
+            <div class="align-center d-flex ga-3 px-4">
+                <v-icon :icon="mdiPaperclip" />
+                <v-file-input
+                    v-model="file"
+                    variant="plain"
+                    class="bg-background-secondary flex-grow-1 rounded-lg"
+                    density="comfortable"
+                    hide-details="auto"
+                    prepend-icon=""
+                    show-size="1000"
+                />
+            </div>
+            <v-card-actions class="pb-4 pt-3 px-4">
                 <v-spacer />
                 <v-btn
                     variant="flat"
@@ -37,25 +53,33 @@
                 </v-btn>
             </v-card-actions>
 
-            <span class="pb-2">
+            <v-divider />
+
+            <p class="font-weight-bold mb-1 pt-4 px-4 text-body-2">
                 {{ t('components.EditAccount.information') }}
-            </span>     
-            <v-card-text>
-                <v-text-field 
-                    v-model="displayName" 
-                    :label="t('inputs.userName')"
-                    density="compact"   
-                    variant="outlined"
+            </p>
+            <div class="px-4">
+                <v-text-field
+                    v-model="displayName"
+                    :placeholder="t('inputs.userName')"
+                    variant="plain"
+                    class="bg-background-secondary mb-3 rounded-lg"
+                    density="comfortable"
+                    single-line
+                    hide-details="auto"
                 />
                 <v-text-field
                     v-model="email"
-                    :label="t('inputs.email')"
+                    :placeholder="t('inputs.email')"
                     type="email"
-                    density="compact"
-                    variant="outlined"
+                    variant="plain"
+                    class="bg-background-secondary rounded-lg"
+                    density="comfortable"
+                    single-line
+                    hide-details="auto"
                 />
-            </v-card-text>
-            <v-card-actions class="pr-0">
+            </div>
+            <v-card-actions class="pb-4 pt-3 px-4">
                 <v-spacer />
                 <v-btn
                     variant="flat"
@@ -67,28 +91,38 @@
                 </v-btn>
             </v-card-actions>
 
-            <span class="pb-2">{{ t('components.EditAccount.passwordInformation') }}</span>
-            <v-card-text> 
+            <v-divider />
+
+            <p class="font-weight-bold mb-1 pt-4 px-4 text-body-2">
+                {{ t('components.EditAccount.passwordInformation') }}
+            </p>
+            <div class="px-4">
                 <v-text-field
                     v-model="password"
-                    :label="t('inputs.currentPassword')"
-                    :append-icon="showCurrentPassword ? mdiEyeOutline : mdiEyeOffOutline"
+                    :placeholder="t('inputs.currentPassword')"
+                    :append-inner-icon="showCurrentPassword ? mdiEyeOutline : mdiEyeOffOutline"
                     :type="showCurrentPassword ? 'text' : 'password'"
-                    density="compact"
-                    variant="outlined"
-                    @click:append="showCurrentPassword = !showCurrentPassword"
+                    variant="plain"
+                    class="bg-background-secondary mb-3 rounded-lg"
+                    density="comfortable"
+                    single-line
+                    hide-details="auto"
+                    @click:append-inner="showCurrentPassword = !showCurrentPassword"
                 />
                 <v-text-field
                     v-model="newPassword"
-                    :label="t('inputs.newPassword')"
-                    :append-icon="showNewPassword ? mdiEyeOutline : mdiEyeOffOutline"
+                    :placeholder="t('inputs.newPassword')"
+                    :append-inner-icon="showNewPassword ? mdiEyeOutline : mdiEyeOffOutline"
                     :type="showNewPassword ? 'text' : 'password'"
-                    density="compact"
-                    variant="outlined"
-                    @click:append="showNewPassword = !showNewPassword"
+                    variant="plain"
+                    class="bg-background-secondary rounded-lg"
+                    density="comfortable"
+                    single-line
+                    hide-details="auto"
+                    @click:append-inner="showNewPassword = !showNewPassword"
                 />
-            </v-card-text>
-            <v-card-actions class="pr-0">
+            </div>
+            <v-card-actions class="pb-4 pt-3 px-4">
                 <v-spacer />
                 <v-btn
                     variant="outlined"
@@ -107,9 +141,9 @@
                 </v-btn>
             </v-card-actions>
 
-            <ModerationToggle />
-            
-            <v-card-actions class="pl-0 pt-5">
+            <v-divider />
+
+            <v-card-actions class="pb-2 pt-2 px-4">
                 <v-btn
                     variant="flat"
                     color="dark-blue"
@@ -128,24 +162,26 @@
  * @description Form for updating user profile information including name, picture and password.
  */
 import { useI18n } from 'vue-i18n';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { handleError } from '@/plugins/error';
-import { updateEmail, updateProfile } from 'firebase/auth';
-import { auth, db } from '@/firebase/init';
-import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js';
+import { auth, db, firebase } from '@/firebase/init';
+import { mdiClose, mdiEyeOffOutline, mdiEyeOutline, mdiPaperclip } from '@mdi/js';
 import { useStorage } from '@/plugins/storage';
+import { useSnackBarStore } from '@/stores/useSnackBarStore';
 
-const emit = defineEmits<(e: 'downloaded', picture: any) => void>();
+const emit = defineEmits<{
+    downloaded: [picture: string];
+}>();
 
 const { t } = useI18n();
+const { show } = useSnackBarStore();
 const user = ref(auth().currentUser);
-const email = ref<string>(user.value?.email!);
-const displayName = ref<string>(user.value?.displayName!);
+const email = ref<string>(user.value?.email ?? '');
+const displayName = ref<string>(user.value?.displayName ?? '');
 const password = ref<string>('');
 const newPassword = ref<string>('');
-const { getImage, uploadImage } = useStorage();
-const file = ref(null);
-const profilePictureUrl = ref();
+const { uploadImage, url } = useStorage();
+const file = ref<File | null>(null);
 const dialog = ref<boolean>(false);
 
 const loading = ref<boolean>(false);
@@ -164,13 +200,18 @@ const close = (): void => {
 };
 
 const updateUserPassword = async (): Promise<void> => {
+    if (!user.value?.email || !password.value || !newPassword.value) return;
+    const currentPassword = password.value;
+    const currentNewPassword = newPassword.value;
+    password.value = '';
+    newPassword.value = '';
     try {
         loading.value = true;
-        if (user.value) {
-            await user.value.updatePassword(newPassword.value);
-        }
-    } catch (error: unknown) {
-        handleError(error);
+        const credential = firebase.auth.EmailAuthProvider.credential(user.value.email, currentPassword);
+        await user.value.reauthenticateWithCredential(credential);
+        await user.value.updatePassword(currentNewPassword);
+    } catch (err: unknown) {
+        handleError(err);
     } finally {
         loading.value = false;
     }
@@ -181,111 +222,74 @@ const resetPassword = async (): Promise<void> => {
         loading.value = true;
         if (user.value?.email) {
             await auth().sendPasswordResetEmail(user.value.email);
+            password.value = '';
+            newPassword.value = '';
         }
-    } catch (error: unknown) {
-        handleError(error);
-    } finally {
-        loading.value = false;
-    }
-};
-
-const getUser = async (): Promise<void> => {
-    try {
-        loading.value = true;
-        if (user.value) {
-            await db.collection('users').doc(user.value.uid).get();
-        }
-    } catch (error: unknown) {
-        handleError(error);
+    } catch (err: unknown) {
+        handleError(err);
     } finally {
         loading.value = false;
     }
 };
 
 const updateUser = async (): Promise<void> => {
-    try {
-        loading.value = true;
-        if (user.value) {
-            const res = await db.collection('users').doc(user.value.uid);
-            res.update({
-                email: email.value,
-                userName: displayName.value
-            });
-        }
-    } catch (error: unknown) {
-        handleError(error);
-    } finally {
-        loading.value = false;
-    }
+    if (!user.value) return;
+    await db.collection('users').doc(user.value.uid).update({
+        email: email.value,
+        userName: displayName.value
+    });
 };
 
 const updateAccount = async (): Promise<void> => {
+    if (!user.value) return;
     try {
         loadingUserAccount.value = true;
-        if (user.value) {
-            /*      const commentsRef = db.collection('comments').doc(user.value.uid);
-            const repliesRef = db.collection('replies').doc(user.value.uid);
-
-            console.log(commentsRef);
-         
-            await db.runTransaction(async (transaction) => {
-                const commentDoc = await transaction.get(commentsRef);
-                const repliesDoc = await transaction.get(repliesRef);
-
-                transaction.update(commentsRef, { email: email.value, userName: displayName.value });
-                transaction.update(repliesRef, { email: email.value, userName: displayName.value });
-            });
- */
-            await updateProfile(user.value, { displayName: displayName.value });
-            await updateEmail(user.value, email.value);
-            await updateUser();
-        }
-    } catch (error: unknown) {
-        handleError(error);
+        await user.value.updateProfile({ displayName: displayName.value });
+        await user.value.updateEmail(email.value);
+        await updateUser();
+        show(t('success.accountUpdated'));
+    } catch (err: unknown) {
+        handleError(err);
     } finally {
         loadingUserAccount.value = false;
-        getUser();
-    }
-};
-
-const updateProfilePicture = async (): Promise<void> => {
-    try {
-        loadingPicture.value = true;
-        if (file.value) {
-            await uploadImage(file.value);
-        }
-    } catch (error: any) {
-        handleError(error);
-    } finally {
-        loadingPicture.value = false;
-        profilePictureUrl.value = await getImage();
-        if (profilePictureUrl.value) {
-            updateUserProfilePicture(profilePictureUrl.value);
-        }
-        console.log('pic', profilePictureUrl.value);
     }
 };
 
 const updateUserProfilePicture = async (pic: string): Promise<void> => {
+    if (!user.value) return;
+    await user.value.updateProfile({ photoURL: pic });
+    await db.collection('users').doc(user.value.uid).set({
+        email: user.value.email,
+        picture: pic,
+        userId: user.value.uid,
+        userName: user.value.displayName
+    });
+    emit('downloaded', pic);
+};
+
+const updateProfilePicture = async (): Promise<void> => {
+    if (!file.value) return;
     try {
         loadingPicture.value = true;
-        const res = db.collection('users').doc(user.value?.uid);
-        await res.set({
-            email: user.value?.email,
-            picture: pic,
-            userId: user.value?.uid,
-            userName: user.value?.displayName 
-        });
-    } catch (error: unknown) {
-        handleError(error);
+        await uploadImage(file.value);
+        if (url.value) {
+            await updateUserProfilePicture(url.value);
+        }
+    } catch (err: unknown) {
+        handleError(err);
     } finally {
         loadingPicture.value = false;
-        emit('downloaded', profilePictureUrl.value);
     }
 };
 
-onMounted(async (): Promise<void> => {
-    await getUser();
-});
-
 </script>
+
+<style scoped>
+:deep(.v-field--variant-plain .v-field__input) {
+    padding-inline: 12px;
+}
+
+:deep(.v-field--variant-plain .v-field__append-inner) {
+    padding-inline-end: 8px;
+}
+</style>

@@ -106,6 +106,9 @@
         "picture": "Sélectionner une image",
         "userName": "Nom d'utilisateur"
     },
+    "success": {
+        "accountUpdated": "Informations du compte mises à jour avec succès."
+    },
     "tabs": {
         "information": {
             "appearance": "Apparence",

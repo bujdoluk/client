@@ -106,6 +106,9 @@
         "picture": "Vyberte obrázek",
         "userName": "Uživatelské jméno"
     },
+    "success": {
+        "accountUpdated": "Informace o účtu byly úspěšně aktualizovány."
+    },
     "tabs": {
         "information": {
             "appearance": "Vzhled",

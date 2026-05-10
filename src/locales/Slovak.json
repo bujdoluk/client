@@ -106,6 +106,9 @@
         "picture": "Vyberte fotku",
         "userName": "Meno používateľa"
     },
+    "success": {
+        "accountUpdated": "Informácie o účte boli úspešne aktualizované."
+    },
     "tabs": {
         "information": {
             "appearance": "Vzhľad",
