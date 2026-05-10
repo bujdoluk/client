@@ -1,16 +1,15 @@
 <template>
     <v-container
         fluid
-        class="min-height"
+        class="suggestion-container"
     >
-        <v-row class="width">
+        <v-row>
             <v-col
-                class="pr-0"
-                cols="3"
+                cols="12"
                 xxl="3"
                 xl="3"
                 lg="3"
-                md="12"
+                md="3"
                 sm="12"
                 xs="12"
             >
@@ -49,12 +48,11 @@
                 </v-container>
             </v-col>
             <v-col
-                class="pl-0"
-                cols="9"
+                cols="12"
                 xxl="9"
                 xl="9"
                 lg="9"
-                md="12"
+                md="9"
                 sm="12"
                 xs="12"
             >
@@ -362,12 +360,14 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.width {
+.suggestion-container {
+    min-height: calc(100vh - 64px);
     width: 70vw;
-    margin: 0 auto;
 }
 
-.min-height {
-    min-height: calc(100vh - 64px);
+@media screen and (max-width: 1279px) {
+    .suggestion-container {
+        width: 100vw;
+    }
 }
 </style>

@@ -6,12 +6,12 @@
     />
     <v-card
         v-else
-        class="card-height cursor"
+        class="card-height cursor pl-3"
     >
         <v-row align="center">
             <v-col
-                class="align-center d-flex justify-center"
-                cols="1"
+                cols="auto"
+                class="align-center d-flex flex-shrink-0 justify-center px-3"
             >
                 <v-btn
                     stacked
@@ -19,7 +19,6 @@
                     color="blue"
                     density="compact"
                     :variant="isActiveVote ? 'flat' : 'tonal'"
-                    flat
                     size="40"
                     @click.stop="updateFeedBack"
                 >
