@@ -56,7 +56,10 @@
                 sm="12"
                 xs="12"
             >
-                <v-container fluid>
+                <v-container
+                    fluid
+                    class="pa-0"
+                >
                     <v-row>
                         <v-col>
                             <SortingPanel
@@ -67,49 +70,47 @@
                             />
                         </v-col>
                     </v-row>
-                    <template v-if="showSkeleton">
-                        <v-row
-                            v-for="i in CONSTANTS.SKELETON_SUGGESTIONS_COUNT"
-                            :key="i"
-                        >
-                            <v-col class="pt-0">
-                                <v-skeleton-loader
-                                    boilerplate
-                                    type="list-item-two-line"
-                                />
-                            </v-col>
-                        </v-row>
-                    </template>
-                    <template v-else-if="!loading">
-                        <v-row
-                            v-for="feedback in filteredFeedbacks"
-                            :key="feedback.docId"
-                        >
-                            <v-col
-                                class="pt-0"
-                                @click="onRedirect('feedback-detail', feedback.docId)"
+                    <div class="feedback-area">
+                        <template v-if="showSkeleton">
+                            <v-row
+                                v-for="i in CONSTANTS.SKELETON_SUGGESTIONS_COUNT"
+                                :key="i"
                             >
-                                <FeedbackBar
-                                    :feedback="feedback"
-                                    :loading="pinnedLoading"
-                                    @updated="(payload) => updateFeedBack(payload.feedback, payload.isActiveVote)"
-                                    @pinned="(value) => updatePinnedFeedBack(value)"
-                                />
-                            </v-col>
-                        </v-row>
-                        <v-row v-if="feedbacks.length === 0">
-                            <v-col>
-                                <EmptyFeedback />
-                            </v-col>
-                        </v-row>
-                    </template>
-
-                    <div
-                        v-if="!showSkeleton && !loading && (page > 0 || hasMore)"
-                        class="d-flex flex-shrink-0 ga-2 justify-end pt-3"
-                    >
+                                <v-col class="pt-0">
+                                    <v-skeleton-loader
+                                        boilerplate
+                                        type="list-item-two-line"
+                                    />
+                                </v-col>
+                            </v-row>
+                        </template>
+                        <template v-else-if="!loading">
+                            <v-row
+                                v-for="feedback in filteredFeedbacks"
+                                :key="feedback.docId"
+                            >
+                                <v-col
+                                    class="pt-0"
+                                    @click="onRedirect('feedback-detail', feedback.docId)"
+                                >
+                                    <FeedbackBar
+                                        :feedback="feedback"
+                                        :loading="pinnedLoading"
+                                        @updated="(payload) => updateFeedBack(payload.feedback, payload.isActiveVote)"
+                                        @pinned="(value) => updatePinnedFeedBack(value)"
+                                    />
+                                </v-col>
+                            </v-row>
+                            <v-row v-if="feedbacks.length === 0">
+                                <v-col>
+                                    <EmptyFeedback />
+                                </v-col>
+                            </v-row>
+                        </template>
+                    </div>
+                    <div class="d-flex flex-shrink-0 ga-2 justify-end pagination-row pt-3">
                         <v-btn
-                            v-if="page > 0"
+                            v-show="!showSkeleton && !loading && page > 0"
                             variant="tonal"
                             color="purple"
                             @click="prevPage"
@@ -117,7 +118,7 @@
                             {{ t('buttons.prev') }}
                         </v-btn>
                         <v-btn
-                            v-if="hasMore"
+                            v-show="!showSkeleton && !loading && hasMore"
                             variant="flat"
                             color="purple"
                             @click="nextPage"
@@ -360,6 +361,15 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.feedback-area {
+    min-height: calc(6 * (100px + 12px));
+    padding-top: 24px;
+}
+
+.pagination-row {
+    min-height: 52px;
+}
+
 .suggestion-container {
     min-height: calc(100vh - 64px);
     width: 70vw;
