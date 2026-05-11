@@ -113,6 +113,7 @@
                             v-show="!showSkeleton && !loading && page > 0"
                             variant="tonal"
                             color="purple"
+                            data-cy="pagination-prev-btn"
                             @click="prevPage"
                         >
                             {{ t('buttons.prev') }}
@@ -121,6 +122,7 @@
                             v-show="!showSkeleton && !loading && hasMore"
                             variant="flat"
                             color="purple"
+                            data-cy="pagination-next-btn"
                             @click="nextPage"
                         >
                             {{ t('buttons.next') }}

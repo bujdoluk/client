@@ -7,6 +7,7 @@
     <v-card
         v-else
         class="card-height cursor pl-3"
+        data-cy="feedback-bar-card"
     >
         <v-row align="center">
             <v-col
@@ -20,6 +21,7 @@
                     density="compact"
                     :variant="isActiveVote ? 'flat' : 'tonal'"
                     size="40"
+                    data-cy="feedback-upvote-btn"
                     @click.stop="updateFeedBack"
                 >
                     <v-icon :icon="mdiChevronUp" />
@@ -56,6 +58,7 @@
                     variant="plain"
                     color="purple"
                     :icon="props.feedback.pinned ? mdiPin : mdiPinOutline"
+                    data-cy="feedback-pin-btn"
                     @click.stop="updatePinnedFeedBack"
                 />
             </v-col>

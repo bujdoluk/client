@@ -24,6 +24,7 @@
                 variant="flat"
                 :disabled="router.currentRoute.value.fullPath === '/signup'"
                 color="purple"
+                data-cy="toolbar-signup-btn"
                 :to="{ 'name': 'signup' }"
             >
                 {{ t('buttons.signup') }}
@@ -34,6 +35,7 @@
                 :disabled="router.currentRoute.value.fullPath === '/login'"
                 color="purple"
                 class="mx-3"
+                data-cy="toolbar-login-btn"
                 :to="{ 'name': 'login' }"
             >
                 {{ t('buttons.login') }}
@@ -42,15 +44,17 @@
                 v-if="user && router.currentRoute.value.fullPath === '/'"
                 variant="flat"
                 color="purple"
+                data-cy="toolbar-back-to-app-btn"
                 @click="redirecToApp"
             >
                 {{ t('buttons.backToApp') }}
             </v-btn>
-           
+
             <v-btn
                 v-if="user"
                 variant="outlined"
                 class="mx-3"
+                data-cy="toolbar-changelog-btn"
                 @click="redirectToChangelog"
             >
                 {{ t('buttons.changelog') }}

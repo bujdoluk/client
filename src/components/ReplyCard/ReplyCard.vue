@@ -2,6 +2,7 @@
     <v-card
         class="custom-border pl-6"
         :rounded="false"
+        data-cy="reply-card"
     >
         <v-row>
             <v-col cols="auto">
@@ -39,6 +40,7 @@
                     variant="text"
                     color="blue"
                     class="font-weight-bold px-4 py-2"
+                    data-cy="reply-toggle-btn"
                     @click="onReplyClicked"
                 >
                     {{ showReply ? t('buttons.hide') : t('buttons.reply') }}
@@ -57,7 +59,7 @@
         ref="form"
         validate-on="submit"
     >
-        <v-card>
+        <v-card data-cy="reply-form-card">
             <v-row class="pa-6">
                 <v-col cols="10">
                     <v-textarea
@@ -71,12 +73,14 @@
                         clearable
                         hide-details="auto"
                         :rules="[required, maxCharacters]"
+                        data-cy="reply-textarea"
                     />
                 </v-col>
                 <v-col cols="2">
                     <v-btn
                         variant="flat"
                         color="purple"
+                        data-cy="reply-post-btn"
                         @click="createReply"
                     >
                         {{ t('buttons.postReply') }}

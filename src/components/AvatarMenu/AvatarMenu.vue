@@ -14,6 +14,7 @@
                     <v-btn
                         icon
                         v-bind="props"
+                        data-cy="avatar-menu-btn"
                     >
                         <v-avatar
                             size="large"
@@ -26,6 +27,7 @@
                     :height="250"
                     class="pa-4"
                     elevation="1"
+                    data-cy="avatar-menu-card"
                 > 
                     <v-card-text class="pb-3 text-center">
                         <v-avatar
@@ -50,6 +52,7 @@
                             color="purple"
                             block
                             :to="{ 'name': 'landing' }"
+                            data-cy="avatar-logout-btn"
                             @click="logout"
                         >
                             {{ t('buttons.logout') }}

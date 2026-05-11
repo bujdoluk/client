@@ -41,7 +41,10 @@
                         class="mb-2"
                     />
                 </template>
-                <v-card v-else-if="filteredComments.length + filteredReplies.length > 0">
+                <v-card
+                    v-else-if="filteredComments.length + filteredReplies.length > 0"
+                    data-cy="comments-card"
+                >
                     <v-container fluid>
                         <v-row v-if="filteredComments.length + filteredReplies.length > 0">
                             <v-col class="font-weight-bold pl-10 text-dark-blue">
@@ -77,7 +80,10 @@
                                 ref="form"
                                 validate-on="submit"
                             >
-                                <v-card class="pa-6">
+                                <v-card
+                                    class="pa-6"
+                                    data-cy="add-comment-card"
+                                >
                                     <v-card-text class="font-weight-bold py-3 text-dark-blue text-h6">
                                         {{ t('components.comment.addComment') }}
                                     </v-card-text>
@@ -93,6 +99,7 @@
                                             clearable
                                             hide-details="auto"
                                             :rules="[required, maxCharacters]"
+                                            data-cy="comment-textarea"
                                         />
                                     </v-card-text>
                                     <v-card-actions class="pr-0 pt-3">
@@ -100,6 +107,7 @@
                                         <v-btn
                                             variant="flat"
                                             color="purple"
+                                            data-cy="post-comment-btn"
                                             @click="createComment"
                                         >
                                             {{ t('buttons.postComment') }}

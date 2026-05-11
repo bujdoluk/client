@@ -21,6 +21,7 @@
                     size="small"
                     :prepend-icon="mdiChevronLeft"
                     class="mb-4 pl-0"
+                    data-cy="login-back-btn"
                     @click="redirect"
                 >
                     {{ t('buttons.back') }}
@@ -43,6 +44,7 @@
                         class="pa-6"
                         elevation="4"
                         rounded="lg"
+                        data-cy="login-card"
                     >
                         <div class="mb-6 text-center">
                             <v-icon
@@ -68,6 +70,7 @@
                                 size="large"
                                 :prepend-icon="mdiGoogle"
                                 class="text-white"
+                                data-cy="login-google-btn"
                                 @click="onGoogleButtonClicked"
                             >
                                 {{ t('buttons.logInWithGoogle') }}
@@ -79,6 +82,7 @@
                                 size="large"
                                 :prepend-icon="mdiFacebook"
                                 class="text-white"
+                                data-cy="login-facebook-btn"
                                 @click="onFacebookButtonClicked"
                             >
                                 {{ t('buttons.logInWithFacebook') }}
@@ -90,6 +94,7 @@
                                 size="large"
                                 :prepend-icon="mdiIncognito"
                                 class="text-white"
+                                data-cy="login-anonymous-btn"
                                 @click="onAnonymousButtonClicked"
                             >
                                 {{ t('buttons.logInAnonymously') }}
@@ -108,6 +113,7 @@
                             variant="outlined"
                             :prepend-inner-icon="mdiEmailOutline"
                             class="mb-2"
+                            data-cy="login-email-input"
                         />
                         <v-text-field
                             v-model="password"
@@ -117,6 +123,7 @@
                             :label="t('inputs.password')"
                             variant="outlined"
                             :prepend-inner-icon="mdiLockOutline"
+                            data-cy="login-password-input"
                             @click:append-inner="showPassword = !showPassword"
                         />
 
@@ -126,6 +133,7 @@
                             block
                             size="large"
                             class="mt-2"
+                            data-cy="login-submit-btn"
                             @click="submit"
                         >
                             {{ t('buttons.submit') }}

@@ -2,6 +2,7 @@
     <v-btn
         variant="outlined"
         block
+        data-cy="edit-account-open-btn"
         @click="open"
     >
         {{ t('buttons.editAccount') }}
@@ -10,7 +11,10 @@
         v-model="dialog"
         width="30%"
     >
-        <v-card class="px-3 py-2">
+        <v-card
+            class="px-3 py-2"
+            data-cy="edit-account-card"
+        >
             <div class="align-center d-flex pb-3 pt-3 px-4">
                 <span class="font-weight-bold text-h6">
                     {{ t('components.EditAccount.title') }}
@@ -20,6 +24,7 @@
                     :icon="mdiClose"
                     density="compact"
                     variant="text"
+                    data-cy="edit-account-close-btn"
                     @click="close"
                 />
             </div>
@@ -39,6 +44,7 @@
                     hide-details="auto"
                     prepend-icon=""
                     show-size="1000"
+                    data-cy="edit-account-picture-input"
                 />
             </div>
             <v-card-actions class="pb-4 pt-3 px-4">
@@ -47,6 +53,7 @@
                     variant="flat"
                     color="purple"
                     :loading="loadingPicture"
+                    data-cy="edit-account-update-picture-btn"
                     @click="updateProfilePicture"
                 >
                     {{ t('buttons.udpateProfilePicture') }}
@@ -67,6 +74,7 @@
                     density="comfortable"
                     single-line
                     hide-details="auto"
+                    data-cy="edit-account-name-input"
                 />
                 <v-text-field
                     v-model="email"
@@ -77,6 +85,7 @@
                     density="comfortable"
                     single-line
                     hide-details="auto"
+                    data-cy="edit-account-email-input"
                 />
             </div>
             <v-card-actions class="pb-4 pt-3 px-4">
@@ -85,6 +94,7 @@
                     variant="flat"
                     color="purple"
                     :loading="loadingUserAccount"
+                    data-cy="edit-account-update-info-btn"
                     @click="updateAccount"
                 >
                     {{ t('buttons.udpateAccountInformation') }}
@@ -107,6 +117,7 @@
                     density="comfortable"
                     single-line
                     hide-details="auto"
+                    data-cy="edit-account-current-password-input"
                     @click:append-inner="showCurrentPassword = !showCurrentPassword"
                 />
                 <v-text-field
@@ -119,6 +130,7 @@
                     density="comfortable"
                     single-line
                     hide-details="auto"
+                    data-cy="edit-account-new-password-input"
                     @click:append-inner="showNewPassword = !showNewPassword"
                 />
             </div>
@@ -127,6 +139,7 @@
                 <v-btn
                     variant="outlined"
                     :loading="loading"
+                    data-cy="edit-account-reset-password-btn"
                     @click="resetPassword"
                 >
                     {{ t('buttons.resetPassword') }}
@@ -135,6 +148,7 @@
                     variant="flat"
                     color="purple"
                     :loading="loading"
+                    data-cy="edit-account-update-password-btn"
                     @click="updateUserPassword"
                 >
                     {{ t('buttons.updatePassword') }}
@@ -147,6 +161,7 @@
                 <v-btn
                     variant="flat"
                     color="dark-blue"
+                    data-cy="edit-account-dialog-close-btn"
                     @click="close"
                 >
                     {{ t('buttons.close') }}

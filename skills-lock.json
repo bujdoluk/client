@@ -6,6 +6,24 @@
             "source": "vuejs-ai/skills",
             "sourceType": "github"
         },
+        "cypress-author": {
+            "computedHash": "f537b3a2e715270c7600b062bbd35d7035bdcdd0b7ec1134949f391b9d83e103",
+            "skillPath": "skills/cypress-author/SKILL.md",
+            "source": "cypress-io/ai-toolkit",
+            "sourceType": "github"
+        },
+        "cypress-docs": {
+            "computedHash": "5b8994050f94293b83a4d8f7bbb94f9b545a7d1afa16ba331ee694ee7411e7b8",
+            "skillPath": "skills/cypress-docs/SKILL.md",
+            "source": "cypress-io/ai-toolkit",
+            "sourceType": "github"
+        },
+        "cypress-explain": {
+            "computedHash": "6532d04771211d18d2dcb20bb55d5c0d6ea8b89bfa9893305b7d0b075e881cac",
+            "skillPath": "skills/cypress-explain/SKILL.md",
+            "source": "cypress-io/ai-toolkit",
+            "sourceType": "github"
+        },
         "vue-best-practices": {
             "computedHash": "3df585ad31aec78fe55c56c1411262737e6b231677a3153dec512a882fde80cd",
             "skillPath": "skills/vue-best-practices/SKILL.md",

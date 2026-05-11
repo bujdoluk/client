@@ -15,6 +15,7 @@
             <template #actions>
                 <v-btn
                     variant="text"
+                    data-cy="snackbar-close-btn"
                     @click="hide"
                 >
                     {{ t('buttons.close') }}

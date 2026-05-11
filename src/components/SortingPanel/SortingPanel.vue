@@ -7,6 +7,7 @@
     <v-card
         v-else
         class="bg-background-dark-blue"
+        data-cy="sorting-panel-card"
     >
         <v-container fluid>
             <v-row align="center">
@@ -37,10 +38,11 @@
                                 item-value="value"
                                 variant="solo"
                                 density="compact"
-                                hide-details
+                                hide-details="auto"
                                 color="purple"
                                 flat
                                 :list-props="{ 'class': 'pa-0' }"
+                                data-cy="sort-select"
                                 @update:model-value="onSelected"
                             >
                                 <template #item="{ item, 'props': itemProps }">

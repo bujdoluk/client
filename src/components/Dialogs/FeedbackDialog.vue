@@ -3,6 +3,7 @@
         variant="flat"
         :color="isEditMode ? 'blue' : 'purple'"
         :prepend-icon="isEditMode ? mdiPencil : mdiPlus"
+        data-cy="open-feedback-dialog-btn"
         @click="open"
     >
         {{ t(isEditMode ? 'buttons.edit' : 'buttons.add') }}
@@ -55,6 +56,7 @@
                         density="comfortable"
                         :rules="[required, maxLength(CONSTANTS.TITLE_MAX_LENGTH)]"
                         hide-details="auto"
+                        data-cy="feedback-title-input"
                     />
                 </div>
 
@@ -73,8 +75,8 @@
                         item-title="title"
                         item-value="value"
                         single-line
-                        hide-details
                         :list-props="{ 'class': 'pa-0' }"
+                        data-cy="feedback-category-select"
                     >
                         <template #item="{ item, 'props': itemProps }">
                             <v-list-item
@@ -110,8 +112,8 @@
                             item-title="title"
                             item-value="value"
                             single-line
-                            hide-details
                             :list-props="{ 'class': 'pa-0' }"
+                            data-cy="feedback-status-select"
                         >
                             <template #item="{ item, 'props': itemProps }">
                                 <v-list-item
@@ -150,6 +152,7 @@
                         clearable
                         :rules="[required, maxLength(CONSTANTS.TEXT_MAX_LENGTH)]"
                         hide-details="auto"
+                        data-cy="feedback-description-textarea"
                     />
                 </div>
 
@@ -157,6 +160,7 @@
                     <v-btn
                         variant="flat"
                         color="dark-blue"
+                        data-cy="feedback-close-btn"
                         @click="close"
                     >
                         {{ t('buttons.close') }}
@@ -166,6 +170,7 @@
                         v-if="isEditMode"
                         variant="flat"
                         color="error"
+                        data-cy="feedback-delete-btn"
                         @click="handleDelete"
                     >
                         {{ t('buttons.delete') }}
@@ -173,6 +178,7 @@
                     <v-btn
                         variant="flat"
                         color="purple"
+                        data-cy="feedback-submit-btn"
                         @click="handleSubmit"
                     >
                         {{ t(isEditMode ? 'buttons.submit' : 'buttons.add') }}

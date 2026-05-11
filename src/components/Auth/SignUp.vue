@@ -21,6 +21,7 @@
                     size="small"
                     :prepend-icon="mdiChevronLeft"
                     class="mb-4 pl-0"
+                    data-cy="signup-back-btn"
                     @click="redirect"
                 >
                     {{ t('buttons.back') }}
@@ -37,6 +38,7 @@
                         class="pa-6"
                         elevation="4"
                         rounded="lg"
+                        data-cy="signup-card"
                     >
                         <div class="mb-6 text-center">
                             <v-icon
@@ -61,6 +63,8 @@
                             variant="outlined"
                             :prepend-inner-icon="mdiAccountOutline"
                             class="mb-2"
+                            data-cy="signup-username-input"
+                            hide-details="auto"
                         />
                         <v-text-field
                             v-model="email"
@@ -70,6 +74,8 @@
                             variant="outlined"
                             :prepend-inner-icon="mdiEmailOutline"
                             class="mb-2"
+                            data-cy="signup-email-input"
+                            hide-details="auto"
                         />
                         <v-text-field
                             v-model="password"
@@ -79,6 +85,8 @@
                             :label="t('inputs.password')"
                             variant="outlined"
                             :prepend-inner-icon="mdiLockOutline"
+                            data-cy="signup-password-input"
+                            hide-details="auto"
                             @click:append-inner="showPassword = !showPassword"
                         />
 
@@ -88,6 +96,7 @@
                             block
                             size="large"
                             class="mt-2"
+                            data-cy="signup-submit-btn"
                             @click="submit"
                         >
                             {{ t('buttons.signup') }}

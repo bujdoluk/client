@@ -12,6 +12,7 @@
             v-else
             class="custom-border pb-4 px-6"
             :rounded="false"
+            data-cy="comment-card"
         >
             <v-row>
                 <v-col cols="auto">
@@ -41,6 +42,7 @@
                         variant="text"
                         color="blue"
                         class="font-weight-bold px-4 py-2"
+                        data-cy="comment-reply-toggle-btn"
                         @click="onReplyClicked"
                     >
                         {{ showReply ? t('buttons.hide') : t('buttons.reply') }}
@@ -53,7 +55,10 @@
                 </v-col>
             </v-row>
 
-            <v-card v-if="showReply">
+            <v-card
+                v-if="showReply"
+                data-cy="comment-reply-form-card"
+            >
                 <v-row class="pt-6 px-6">
                     <v-col>
                         <v-textarea
@@ -67,12 +72,14 @@
                             clearable
                             hide-details="auto"
                             :rules="[required, maxCharacters]"
+                            data-cy="comment-reply-textarea"
                         />
                     </v-col>
                     <v-col cols="auto">
                         <v-btn
                             variant="flat"
                             color="purple"
+                            data-cy="comment-post-reply-btn"
                             @click="onReplyCreatedFromComment"
                         >
                             {{ t('buttons.postReply') }}
