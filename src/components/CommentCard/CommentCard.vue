@@ -57,16 +57,17 @@
 
             <v-card
                 v-if="showReply"
+                class="mb-3 mt-4"
                 data-cy="comment-reply-form-card"
             >
-                <v-row class="pt-6 px-6">
+                <v-row class="pa-4">
                     <v-col>
                         <v-textarea
                             v-model="replyText"
                             :placeholder="t('components.reply.typeReply')"
                             :counter="CONSTANTS.TEXT_MAX_LENGTH"
                             :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
-                            class="bg-background-secondary px-3"
+                            class="bg-background-secondary"
                             variant="plain"
                             flat
                             clearable
@@ -107,13 +108,14 @@
 
 <script setup lang="ts">
 /** @file Comment card component. */
-import { ref, shallowRef, computed } from 'vue';
+import { shallowRef, computed, ref } from 'vue';
 import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import { useI18n } from 'vue-i18n';
 import { type Comment, type Reply, type Feedback } from '@/types/index.ts';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
 import avatarFallback from '@/assets/avatar.png';
+import { useAppStore } from '@/stores/useAppStore';
 
 const props = defineProps<{
     comment: Comment;
@@ -127,32 +129,35 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const { toggleForm, isFormOpen, closeForm } = useAppStore();
 const form = shallowRef<InstanceType<typeof VForm>>();
 const replyText = ref('');
-const showReply = ref(false);
+
+const formId = computed(() => `comment-reply-${props.comment.docId}`);
+const showReply = computed(() => isFormOpen(formId.value));
 
 const filteredReplies = computed(() => props.replies.filter((reply) => reply.commentId === props.comment.docId));
 // createdAt is a Firestore Timestamp at runtime despite the string type in the interface
 const formattedDate = computed(() => new Date((props.comment.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
 
 const onReplyClicked = (): void => {
-    showReply.value = !showReply.value;
     replyText.value = '';
-    if (!showReply.value) form.value?.resetValidation();
+    form.value?.resetValidation();
+    toggleForm(formId.value);
 };
 
 const onReplyCreatedFromReply = (text: string): void => {
     emit('replyCreated', text, props.comment.email, props.comment.docId);
-    showReply.value = false;
 };
 
 const onReplyCreatedFromComment = async (): Promise<void> => {
     const { valid } = await form.value!.validate();
     if (!valid) return;
-    emit('replyCreated', replyText.value, props.comment.email, props.comment.docId);
+    const text = replyText.value;
     replyText.value = '';
-    showReply.value = false;
     form.value?.resetValidation();
+    closeForm();
+    emit('replyCreated', text, props.comment.email, props.comment.docId);
 };
 
 const required = (value: string): string | true => !!value.trim() || t('validations.required');

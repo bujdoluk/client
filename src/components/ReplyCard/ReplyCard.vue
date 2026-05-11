@@ -59,8 +59,11 @@
         ref="form"
         validate-on="submit"
     >
-        <v-card data-cy="reply-form-card">
-            <v-row class="pa-6">
+        <v-card
+            class="mt-4"
+            data-cy="reply-form-card"
+        >
+            <v-row class="pa-4">
                 <v-col cols="10">
                     <v-textarea
                         v-model="replyText"
@@ -101,17 +104,25 @@ import { ref, shallowRef, computed } from 'vue';
 import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import type { Comment, Reply } from '@/types/index.ts';
+import { useAppStore } from '@/stores/useAppStore';
 
 const props = defineProps<{
     comment: Comment;
     reply: Reply;
 }>();
 
-const emits = defineEmits<(e: 'replyCreated', replyText: string) => void>();
+const emits = defineEmits<{
+    replyCreated: [replyText: string];
+}>();
+
 const { t } = useI18n();
+const { toggleForm, isFormOpen, closeForm } = useAppStore();
 const form = shallowRef<InstanceType<typeof VForm>>();
 const replyText = ref<string>('');
-const showReply = ref<boolean>(false);
+
+const formId = computed(() => `reply-${props.reply.docId}`);
+const showReply = computed(() => isFormOpen(formId.value));
+
 const formattedDate = computed(() => new Date((props.reply.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
 const required = (value: string): string | true => !!value.trim() || t('validations.required');
 const maxCharacters = (value: string): string | true => value.length <= CONSTANTS.TEXT_MAX_LENGTH || t('validations.maxCharacters');
@@ -120,12 +131,17 @@ const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCa
 const createReply = async (): Promise<void> => {
     const { valid } = await form.value!.validate();
     if (!valid) return;
-    emits('replyCreated', replyText.value);
+    const text = replyText.value;
+    replyText.value = '';
+    form.value?.resetValidation();
+    closeForm();
+    emits('replyCreated', text);
 };
 
 const onReplyClicked = (): void => {
-    showReply.value = !showReply.value;
     replyText.value = '';
+    form.value?.resetValidation();
+    toggleForm(formId.value);
 };
 
 </script>

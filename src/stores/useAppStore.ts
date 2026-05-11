@@ -16,7 +16,19 @@ export const useAppStore = defineStore(
         const isLoading = ref<boolean>(false);
         const showCreateReply = ref<boolean>(false);
         const isModerationAllowed = ref<boolean>(false);
-        return { isLoading, isModerationAllowed, showCreateReply };
+        const activeFormId = ref<string | null>(null);
+
+        const toggleForm = (id: string): void => {
+            activeFormId.value = activeFormId.value === id ? null : id;
+        };
+
+        const closeForm = (): void => {
+            activeFormId.value = null;
+        };
+
+        const isFormOpen = (id: string): boolean => activeFormId.value === id;
+
+        return { activeFormId, closeForm, isFormOpen, isLoading, isModerationAllowed, showCreateReply, toggleForm };
     }
 );
 
