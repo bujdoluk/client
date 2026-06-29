@@ -12,7 +12,6 @@
     <v-dialog
         v-model="dialog"
         :width="CONSTANTS.FEEDBACK_DIALOG_WIDTH"
-        persistent
     >
         <v-skeleton-loader
             v-if="loading"
@@ -50,7 +49,6 @@
                     <v-text-field
                         v-model="formData.title"
                         variant="plain"
-                        class="bg-background-secondary rounded-lg"
                         :counter="CONSTANTS.TITLE_MAX_LENGTH"
                         single-line
                         density="comfortable"
@@ -70,7 +68,6 @@
                     <v-select
                         v-model="formData.category"
                         variant="plain"
-                        class="bg-background-secondary rounded-lg"
                         :items="categories"
                         item-title="title"
                         item-value="value"
@@ -107,7 +104,6 @@
                         <v-select
                             v-model="formData.status"
                             variant="plain"
-                            class="bg-background-secondary rounded-lg"
                             :items="statuses"
                             item-title="title"
                             item-value="value"
@@ -147,7 +143,6 @@
                         density="comfortable"
                         no-resize
                         rows="3"
-                        class="bg-background-secondary rounded-lg"
                         :counter="CONSTANTS.TEXT_MAX_LENGTH"
                         clearable
                         :rules="[required, maxLength(CONSTANTS.TEXT_MAX_LENGTH)]"
@@ -324,6 +319,11 @@ const maxLength = (limit: number) => (value: string): string | true => value.len
 </script>
 
 <style scoped>
+:deep(.v-field--variant-plain) {
+    background-color: rgb(var(--v-theme-background-secondary));
+    border-radius: 8px;
+}
+
 :deep(.v-field--variant-plain .v-field__input) {
     padding-inline: 12px;
 }

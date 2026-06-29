@@ -91,7 +91,7 @@
                                             :placeholder="t('components.comment.typeComment')"
                                             :counter="CONSTANTS.TEXT_MAX_LENGTH"
                                             :rows="CONSTANTS.COMMENT_TEXTAREA_ROWS"
-                                            class="bg-background-secondary px-3"
+                                            class="px-3"
                                             variant="plain"
                                             flat
                                             clearable
@@ -348,5 +348,9 @@ const maxCharacters = (value: string): string | true => value.length <= CONSTANT
 
 .min-height {
     min-height: calc(100vh - 64px);
+}
+
+:deep(.v-field--variant-plain) {
+    background-color: rgb(var(--v-theme-background-secondary));
 }
 </style>

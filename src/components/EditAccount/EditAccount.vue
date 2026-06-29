@@ -39,7 +39,7 @@
                 <v-file-input
                     v-model="file"
                     variant="plain"
-                    class="bg-background-secondary flex-grow-1 rounded-lg"
+                    class="flex-grow-1"
                     density="comfortable"
                     hide-details="auto"
                     prepend-icon=""
@@ -70,7 +70,7 @@
                     v-model="displayName"
                     :placeholder="t('inputs.userName')"
                     variant="plain"
-                    class="bg-background-secondary mb-3 rounded-lg"
+                    class="mb-3"
                     density="comfortable"
                     single-line
                     hide-details="auto"
@@ -81,7 +81,6 @@
                     :placeholder="t('inputs.email')"
                     type="email"
                     variant="plain"
-                    class="bg-background-secondary rounded-lg"
                     density="comfortable"
                     single-line
                     hide-details="auto"
@@ -113,7 +112,7 @@
                     :append-inner-icon="currentPasswordVisibilityIcon"
                     :type="currentPasswordFieldType"
                     variant="plain"
-                    class="bg-background-secondary mb-3 rounded-lg"
+                    class="mb-3"
                     density="comfortable"
                     single-line
                     hide-details="auto"
@@ -126,7 +125,6 @@
                     :append-inner-icon="newPasswordVisibilityIcon"
                     :type="newPasswordFieldType"
                     variant="plain"
-                    class="bg-background-secondary rounded-lg"
                     density="comfortable"
                     single-line
                     hide-details="auto"
@@ -304,6 +302,11 @@ const updateProfilePicture = async (): Promise<void> => {
 </script>
 
 <style scoped>
+:deep(.v-field--variant-plain) {
+    background-color: rgb(var(--v-theme-background-secondary));
+    border-radius: 8px;
+}
+
 :deep(.v-field--variant-plain .v-field__input) {
     padding-inline: 12px;
 }

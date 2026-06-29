@@ -67,7 +67,6 @@
                             :placeholder="t('components.reply.typeReply')"
                             :counter="CONSTANTS.TEXT_MAX_LENGTH"
                             :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
-                            class="bg-background-secondary"
                             variant="plain"
                             flat
                             clearable
@@ -170,5 +169,9 @@ const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCa
 <style scoped>
 .custom-border {
     border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+}
+
+:deep(.v-field--variant-plain) {
+    background-color: rgb(var(--v-theme-background-secondary));
 }
 </style>

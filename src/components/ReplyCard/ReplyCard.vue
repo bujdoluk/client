@@ -67,7 +67,7 @@
                         :placeholder="t('components.reply.typeReply')"
                         :counter="CONSTANTS.TEXT_MAX_LENGTH"
                         :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
-                        class="bg-background-secondary px-3"
+                        class="px-3"
                         variant="plain"
                         flat
                         clearable
@@ -157,5 +157,9 @@ const onReplyClicked = (): void => {
     font-style: italic;
     letter-spacing: 0.03em;
     padding: 0 8px 8px 0;
+}
+
+:deep(.v-field--variant-plain) {
+    background-color: rgb(var(--v-theme-background-secondary));
 }
 </style>
