@@ -101,7 +101,7 @@
                                     />
                                 </v-col>
                             </v-row>
-                            <v-row v-if="feedbacks.length === 0">
+                            <v-row v-if="hasNoFeedbacks">
                                 <v-col>
                                     <EmptyFeedback />
                                 </v-col>
@@ -110,7 +110,7 @@
                     </div>
                     <div class="d-flex flex-shrink-0 ga-2 justify-end pagination-row pt-3">
                         <v-btn
-                            v-show="!showSkeleton && !loading && page > 0"
+                            v-show="showPrevButton"
                             variant="tonal"
                             color="purple"
                             data-cy="pagination-prev-btn"
@@ -119,7 +119,7 @@
                             {{ t('buttons.prev') }}
                         </v-btn>
                         <v-btn
-                            v-show="!showSkeleton && !loading && hasMore"
+                            v-show="showNextButton"
                             variant="flat"
                             color="purple"
                             data-cy="pagination-next-btn"
@@ -169,11 +169,16 @@ const users = ref<Array<User>>([]);
 const showSkeleton = ref(false);
 let skeletonTimer: ReturnType<typeof setTimeout> | undefined;
 
+const hasNoFeedbacks = computed<boolean>(() => feedbacks.value.length === 0);
+
 // Pagination
 const currentSort = ref<string>('descU');
 const page = ref<number>(0);
 const hasMore = ref<boolean>(false);
 let pageCursors: Array<QueryDocSnap | null> = [null];
+
+const showPrevButton = computed<boolean>(() => !showSkeleton.value && !loading.value && page.value > 0);
+const showNextButton = computed<boolean>(() => !showSkeleton.value && !loading.value && hasMore.value);
 
 const sortMap: Record<string, { dir: 'asc' | 'desc'; field: string }> = {
     ascC: { dir: 'asc', field: 'comments' },

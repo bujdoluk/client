@@ -19,7 +19,7 @@
                     class="font-weight-bold text-caption"
                     color="blue"
                     density="compact"
-                    :variant="isActiveVote ? 'flat' : 'tonal'"
+                    :variant="upvoteVariant"
                     size="40"
                     data-cy="feedback-upvote-btn"
                     @click.stop="updateFeedBack"
@@ -57,7 +57,7 @@
                 <v-btn
                     variant="plain"
                     color="purple"
-                    :icon="props.feedback.pinned ? mdiPin : mdiPinOutline"
+                    :icon="pinIcon"
                     data-cy="feedback-pin-btn"
                     @click.stop="updatePinnedFeedBack"
                 />
@@ -88,6 +88,8 @@ const emits = defineEmits<{
 
 const isActiveVote = ref<boolean>(false);
 const loading = computed(() => props.loading);
+const upvoteVariant = computed<'flat' | 'tonal'>(() => (isActiveVote.value ? 'flat' : 'tonal'));
+const pinIcon = computed<string>(() => (props.feedback.pinned ? mdiPin : mdiPinOutline));
 
 const updateFeedBack = (): void => {
     isActiveVote.value = !isActiveVote.value;

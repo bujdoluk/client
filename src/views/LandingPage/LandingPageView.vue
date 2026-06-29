@@ -581,8 +581,9 @@
             align="center"
             class="legal-bg footer-section py-4"
         >
-            <v-col>
+            <v-col class="d-flex flex-column">
                 <span class="text-caption text-content">{{ t('views.landingPage.footer.feedbackApp') }}</span>
+                <span class="text-caption text-content">{{ t('views.landingPage.footer.copyright', { year: currentYear }) }}</span>
             </v-col>
             <v-col
                 cols="auto"
@@ -592,6 +593,8 @@
                     variant="text"
                     color="content"
                     size="small"
+                    data-cy="footer-terms-btn"
+                    :to="{ name: 'terms' }"
                 >
                     {{ t('views.landingPage.footer.terms') }}
                 </v-btn>
@@ -657,6 +660,8 @@ import {
 } from '@mdi/js';
 
 const { t } = useI18n();
+
+const currentYear = new Date().getFullYear();
 
 const scrollTo = (id: string): void => {
     const el = document.getElementById(id);

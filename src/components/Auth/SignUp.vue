@@ -15,17 +15,29 @@
                 lg="5"
                 xl="4"
             >
-                <v-btn
-                    color="on-surface"
-                    variant="text"
-                    size="small"
-                    :prepend-icon="mdiChevronLeft"
-                    class="mb-4 pl-0"
-                    data-cy="signup-back-btn"
-                    @click="redirect"
-                >
-                    {{ t('buttons.back') }}
-                </v-btn>
+                <div class="align-center d-flex justify-space-between mb-4">
+                    <v-btn
+                        color="on-surface"
+                        variant="text"
+                        size="small"
+                        :prepend-icon="mdiChevronLeft"
+                        class="pl-0"
+                        data-cy="signup-back-btn"
+                        @click="redirect"
+                    >
+                        {{ t('buttons.back') }}
+                    </v-btn>
+                    <v-btn
+                        color="on-surface"
+                        variant="text"
+                        size="small"
+                        :append-icon="mdiSkipNext"
+                        data-cy="signup-skip-btn"
+                        @click="onSkipButtonClicked"
+                    >
+                        {{ t('buttons.skip') }}
+                    </v-btn>
+                </div>
 
                 <v-form
                     ref="form"
@@ -80,8 +92,8 @@
                         <v-text-field
                             v-model="password"
                             density="comfortable"
-                            :append-inner-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
-                            :type="showPassword ? 'text' : 'password'"
+                            :append-inner-icon="passwordVisibilityIcon"
+                            :type="passwordFieldType"
                             :label="t('inputs.password')"
                             variant="outlined"
                             :prepend-inner-icon="mdiLockOutline"
@@ -124,11 +136,12 @@
  * @file SignUp component.
  * @description User registration.
  */
-import { ref } from 'vue';
-import { useSignup } from '@/plugins/auth';
+import { computed, ref } from 'vue';
+import { useSignup, useSkipAuth } from '@/plugins/auth';
 import { useI18n } from 'vue-i18n';
 import {
     mdiChevronLeft,
+    mdiSkipNext,
     mdiEyeOutline,
     mdiEyeOffOutline,
     mdiAccountPlus,
@@ -143,11 +156,14 @@ import { handleError } from '@/plugins/error';
 const { t } = useI18n();
 const appStore = useAppStore();
 const { signup, errorMessage } = useSignup();
+const { skipAuth } = useSkipAuth();
 const userName = ref<string>('');
 const email = ref<string>('');
 const password = ref<string>('');
 const isFormValid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
+const passwordVisibilityIcon = computed<string>(() => (showPassword.value ? mdiEyeOutline : mdiEyeOffOutline));
+const passwordFieldType = computed<'text' | 'password'>(() => (showPassword.value ? 'text' : 'password'));
 
 const submit = async (): Promise<void> => {
     try {
@@ -156,6 +172,18 @@ const submit = async (): Promise<void> => {
         if (!errorMessage.value) {
             await router.push({ name: 'login' });
         }
+    } catch (error: unknown) {
+        handleError(error);
+    } finally {
+        appStore.isLoading = false;
+    }
+};
+
+const onSkipButtonClicked = async (): Promise<void> => {
+    try {
+        appStore.isLoading = true;
+        await skipAuth();
+        await router.push({ name: 'suggestions' });
     } catch (error: unknown) {
         handleError(error);
     } finally {

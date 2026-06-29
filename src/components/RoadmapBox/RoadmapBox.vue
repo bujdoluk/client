@@ -8,7 +8,7 @@
         v-else
         class="pa-5"
     >
-        <div class="align-center d-flex" :class="{ 'mb-4': statuses.length > 0 }">
+        <div class="align-center d-flex" :class="{ 'mb-4': hasStatuses }">
             <span class="font-weight-bold text-dark-blue text-subtitle-1">
                 {{ t('views.suggestions.roadmap.title') }}
             </span>
@@ -70,6 +70,8 @@ const statuses = computed(() => [
     { count: inProgressCount.value, dotClass: 'dot--pink', label: t('views.suggestions.roadmap.inProgress') },
     { count: liveCount.value, dotClass: 'dot--teal', label: t('views.suggestions.roadmap.live') }
 ]);
+
+const hasStatuses = computed<boolean>(() => statuses.value.length > 0);
 
 const onRedirect = async (): Promise<void> => {
     await router.push({ name: 'roadmap' });

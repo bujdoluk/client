@@ -4,27 +4,26 @@
  */
 
 import { ref } from 'vue';
-import { auth } from '@/firebase/init';
+import { auth, firebase } from '@/firebase/init';
 
 const errorMessage = ref<string | null>(null);
 const isPending = ref<boolean>(false);
 
-const login = async (email: string, password: string) => {
+const login = async (email: string, password: string): Promise<void> => {
     errorMessage.value = null;
     isPending.value = true;
 
     try {
-        const res = await auth().signInWithEmailAndPassword(email, password);
+        await auth().signInWithEmailAndPassword(email, password);
         errorMessage.value = (null);
         isPending.value = false;
-        return res;
     } catch(error: any) {
         errorMessage.value = error.message;
         isPending.value = false;
     }
 };
 
-const logout = async () => {
+const logout = async (): Promise<void> => {
     errorMessage.value = (null);
     isPending.value = true;
 
@@ -37,7 +36,7 @@ const logout = async () => {
     }
 };
 
-const signup = async (email: string, password: string, displayName: string) => {
+const signup = async (email: string, password: string, displayName: string): Promise<void> => {
     errorMessage.value = (null);
     isPending.value = true;
 
@@ -51,8 +50,21 @@ const signup = async (email: string, password: string, displayName: string) => {
         }
         errorMessage.value = (null);
         isPending.value = false;
+    } catch(error: any) {
+        errorMessage.value = error.message;
+        isPending.value = false;
+    }
+};
 
-        return res;
+const skipAuth = async (): Promise<void> => {
+    errorMessage.value = (null);
+    isPending.value = true;
+
+    try {
+        await auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        await auth().signInAnonymously();
+        errorMessage.value = (null);
+        isPending.value = false;
     } catch(error: any) {
         errorMessage.value = error.message;
         isPending.value = false;
@@ -62,5 +74,6 @@ const signup = async (email: string, password: string, displayName: string) => {
 const useSignup = () => ({ errorMessage, isPending, signup });
 const useLogin = () => ({ errorMessage, isPending, login });
 const useLogout = () => ({ errorMessage, isPending, logout });
+const useSkipAuth = () => ({ errorMessage, isPending, skipAuth });
 
-export { useLogin, useLogout, useSignup };
+export { useLogin, useLogout, useSignup, useSkipAuth };

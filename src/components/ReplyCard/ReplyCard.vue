@@ -8,10 +8,7 @@
             <v-col cols="auto">
                 <v-avatar
                     size="large"
-                    :image="
-                        props.reply.picture
-                            ? props.reply.picture
-                            : '../../../src//assets/avatar.png'"
+                    :image="avatarImage"
                 />
             </v-col>
             <v-col>
@@ -43,7 +40,7 @@
                     data-cy="reply-toggle-btn"
                     @click="onReplyClicked"
                 >
-                    {{ showReply ? t('buttons.hide') : t('buttons.reply') }}
+                    {{ replyToggleLabel }}
                 </v-btn>
             </v-col>
         </v-row>
@@ -105,6 +102,7 @@ import type { VForm } from 'vuetify/components';
 import { CONSTANTS } from '@/constants/index';
 import type { Comment, Reply } from '@/types/index.ts';
 import { useAppStore } from '@/stores/useAppStore';
+import avatarFallback from '@/assets/avatar.png';
 
 const props = defineProps<{
     comment: Comment;
@@ -124,6 +122,8 @@ const formId = computed(() => `reply-${props.reply.docId}`);
 const showReply = computed(() => isFormOpen(formId.value));
 
 const formattedDate = computed(() => new Date((props.reply.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
+const avatarImage = computed<string>(() => props.reply.picture || avatarFallback);
+const replyToggleLabel = computed<string>(() => (showReply.value ? t('buttons.hide') : t('buttons.reply')));
 const required = (value: string): string | true => !!value.trim() || t('validations.required');
 const maxCharacters = (value: string): string | true => value.length <= CONSTANTS.TEXT_MAX_LENGTH || t('validations.maxCharacters');
 const capitalizeFirstLetter = (name: string): string => name.charAt(0).toUpperCase() + name.slice(1);

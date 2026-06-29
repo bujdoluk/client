@@ -3,7 +3,10 @@
     "allow": [
       "Bash(npx skills *)",
       "Bash(Remove-Item \"d:\\\\Projekty\\\\client\\\\src\\\\components\\\\Dialogs\\\\AddFeedback.vue\")",
-      "Bash(Remove-Item \"d:\\\\Projekty\\\\client\\\\src\\\\components\\\\Dialogs\\\\EditFeedback.vue\")"
+      "Bash(Remove-Item \"d:\\\\Projekty\\\\client\\\\src\\\\components\\\\Dialogs\\\\EditFeedback.vue\")",
+      "Bash(npx eslint *)",
+      "Bash(npx vue-tsc *)",
+      "Bash(npm run *)"
     ]
   }
 }

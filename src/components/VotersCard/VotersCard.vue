@@ -8,7 +8,10 @@
         v-else
         class="pa-5"
     >
-        <div class="align-center d-flex" :class="{ 'mb-4': props.users.length > 0 }">
+        <div
+            class="align-center d-flex"
+            :class="{ 'mb-4': hasUsers }"
+        >
             <span class="font-weight-bold text-dark-blue text-subtitle-1">
                 {{ t('components.VotersCard.title') }}
             </span>
@@ -41,6 +44,7 @@
 
 <script setup lang="ts">
 /** @file VotersCard component. */
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { User } from '@/types/index.ts';
 import avatarFallback from '@/assets/avatar.png';
@@ -51,6 +55,7 @@ const props = defineProps<{
 }>();
 
 const { t } = useI18n();
+const hasUsers = computed<boolean>(() => props.users.length > 0);
 </script>
 
 <style scoped>

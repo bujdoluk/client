@@ -110,8 +110,8 @@
                 <v-text-field
                     v-model="password"
                     :placeholder="t('inputs.currentPassword')"
-                    :append-inner-icon="showCurrentPassword ? mdiEyeOutline : mdiEyeOffOutline"
-                    :type="showCurrentPassword ? 'text' : 'password'"
+                    :append-inner-icon="currentPasswordVisibilityIcon"
+                    :type="currentPasswordFieldType"
                     variant="plain"
                     class="bg-background-secondary mb-3 rounded-lg"
                     density="comfortable"
@@ -123,8 +123,8 @@
                 <v-text-field
                     v-model="newPassword"
                     :placeholder="t('inputs.newPassword')"
-                    :append-inner-icon="showNewPassword ? mdiEyeOutline : mdiEyeOffOutline"
-                    :type="showNewPassword ? 'text' : 'password'"
+                    :append-inner-icon="newPasswordVisibilityIcon"
+                    :type="newPasswordFieldType"
                     variant="plain"
                     class="bg-background-secondary rounded-lg"
                     density="comfortable"
@@ -177,7 +177,7 @@
  * @description Form for updating user profile information including name, picture and password.
  */
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { handleError } from '@/plugins/error';
 import { auth, db, firebase } from '@/firebase/init';
 import { mdiClose, mdiEyeOffOutline, mdiEyeOutline, mdiPaperclip } from '@mdi/js';
@@ -205,6 +205,10 @@ const loadingPicture = ref<boolean>(false);
 
 const showCurrentPassword = ref<boolean>(false);
 const showNewPassword = ref<boolean>(false);
+const currentPasswordVisibilityIcon = computed<string>(() => (showCurrentPassword.value ? mdiEyeOutline : mdiEyeOffOutline));
+const currentPasswordFieldType = computed<'text' | 'password'>(() => (showCurrentPassword.value ? 'text' : 'password'));
+const newPasswordVisibilityIcon = computed<string>(() => (showNewPassword.value ? mdiEyeOutline : mdiEyeOffOutline));
+const newPasswordFieldType = computed<'text' | 'password'>(() => (showNewPassword.value ? 'text' : 'password'));
 
 const open = (): void => {
     dialog.value = true;

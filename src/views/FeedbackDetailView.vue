@@ -42,16 +42,14 @@
                     />
                 </template>
                 <v-card
-                    v-else-if="filteredComments.length + filteredReplies.length > 0"
+                    v-else-if="hasCommentsOrReplies"
                     data-cy="comments-card"
                 >
                     <v-container fluid>
-                        <v-row v-if="filteredComments.length + filteredReplies.length > 0">
+                        <v-row v-if="hasCommentsOrReplies">
                             <v-col class="font-weight-bold pl-10 text-dark-blue">
-                                {{ filteredComments.length + filteredReplies.length }}
-                                {{ filteredComments.length + filteredReplies.length === 1 
-                                    ? t('components.comment.oneComment') 
-                                    : t('components.comment.multipleComments') }}
+                                {{ commentsAndRepliesCount }}
+                                {{ commentsAndRepliesCountLabel }}
                             </v-col>
                         </v-row>
                         <v-row
@@ -154,6 +152,11 @@ const replies = ref<Array<Reply>>([]);
 const filteredComments = computed(() => comments.value.filter((comment) => comment.feedbackId === feedback.value?.docId));
 const filteredReplies = computed(() => replies.value.filter((reply) => reply.feedbackId === feedback.value?.docId));
 const loading = ref<boolean>(false);
+const commentsAndRepliesCount = computed<number>(() => filteredComments.value.length + filteredReplies.value.length);
+const hasCommentsOrReplies = computed<boolean>(() => commentsAndRepliesCount.value > 0);
+const commentsAndRepliesCountLabel = computed<string>(() => (commentsAndRepliesCount.value === 1
+    ? t('components.comment.oneComment')
+    : t('components.comment.multipleComments')));
 
 const fetchFeedback = async (feedbackID: string): Promise<void> => {
     try {

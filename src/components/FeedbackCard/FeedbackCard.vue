@@ -6,9 +6,9 @@
     >
         <v-row align="center">
             <v-col class="pb-3">
-                <span :class="lineColors(props.feedback.status)" />
+                <span :class="lineColorClass" />
                 <v-card-text>
-                    <span :class="statusColors(props.feedback.status)" /> 
+                    <span :class="statusColorClass" />
                     <span class="pl-2 text-content">{{ props.feedback.status }}</span>
                 </v-card-text>
                 <v-card-title 
@@ -29,7 +29,7 @@
             <v-col class="pt-0">
                 <v-btn
                     color="blue"
-                    :variant="isActiveVote ? 'flat' : 'tonal'"
+                    :variant="upvoteVariant"
                     @click.stop="onVote"
                 >
                     <v-icon :icon="mdiChevronUp" />
@@ -55,7 +55,7 @@
  * @file FeedbackCard component.
  * @description Card displaying a single feedback item with upvote button and comment count.
  */
-import { shallowRef } from 'vue';
+import { computed, shallowRef } from 'vue';
 import { mdiChat, mdiChevronUp } from '@mdi/js';
 import { type Feedback, Status } from '@/types/index.ts';
 import TagItem from '@/components/TagItem/TagItem.vue';
@@ -66,6 +66,7 @@ const props = defineProps<{
 }>();
 
 const isActiveVote = shallowRef(false);
+const upvoteVariant = computed<'flat' | 'tonal'>(() => (isActiveVote.value ? 'flat' : 'tonal'));
 
 const onVote = (): void => {
     isActiveVote.value = !isActiveVote.value;
@@ -80,7 +81,7 @@ const statusColors = (status: string): string | undefined => {
         return 'dot-orange';
     } else if (status === Status.InProgress) {
         return 'dot-pink';
-    } 
+    }
     return 'dot-teal';
 };
 
@@ -89,9 +90,12 @@ const lineColors = (status: string): string | undefined => {
         return 'top-line-orange';
     } else if (status === Status.InProgress) {
         return 'top-line-purple';
-    } 
+    }
     return 'top-line-teal';
 };
+
+const statusColorClass = computed<string | undefined>(() => statusColors(props.feedback.status));
+const lineColorClass = computed<string | undefined>(() => lineColors(props.feedback.status));
 
 </script>
 

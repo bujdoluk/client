@@ -14,6 +14,7 @@ const LogIn = async (): Promise<RouteComponent> => import('@/components/Auth/Log
 const SignUp = async (): Promise<RouteComponent> => import('@/components/Auth/SignUp.vue');
 const ErrorView = async (): Promise<RouteComponent> => import('@/views/ErrorView.vue');
 const ChangelogView = async (): Promise<RouteComponent> => import('@/views/ChangelogView.vue');
+const TermsOfUseView = async (): Promise<RouteComponent> => import('@/views/TermsOfUseView.vue');
 
 const authReady = new Promise((resolve) => {
     const unsubscribe = auth().onAuthStateChanged((user) => {
@@ -71,6 +72,11 @@ const router = createRouter({
             component: ErrorView,
             name: 'errorView',
             path: '/error'
+        },
+        {
+            component: TermsOfUseView,
+            name: 'terms',
+            path: '/terms'
         },
         {
             path: '/:pathMatch(.*)*',

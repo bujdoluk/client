@@ -194,6 +194,7 @@
                 "blog": "Blog",
                 "caseStudies": "Case Studies",
                 "compare": "Compare",
+                "copyright": "© {year} Feedback App. All rights reserved.",
                 "demo": "Demo",
                 "features": "Features",
                 "feedbackApp": "Feedback App - Built with love for product management 💛",
@@ -270,6 +271,10 @@
                 "sortBy": "Sort by:",
                 "suggestions": "Suggestions"
             }
+        },
+        "terms": {
+            "lastUpdated": "Last updated: {date}",
+            "title": "Terms of Use"
         }
     }
 }

@@ -18,7 +18,7 @@
                 <v-col cols="auto">
                     <v-avatar
                         size="large"
-                        :image="props.comment.picture || avatarFallback"
+                        :image="avatarImage"
                     />
                 </v-col>
                 <v-col>
@@ -45,7 +45,7 @@
                         data-cy="comment-reply-toggle-btn"
                         @click="onReplyClicked"
                     >
-                        {{ showReply ? t('buttons.hide') : t('buttons.reply') }}
+                        {{ replyToggleLabel }}
                     </v-btn>
                 </v-col>
             </v-row>
@@ -139,6 +139,8 @@ const showReply = computed(() => isFormOpen(formId.value));
 const filteredReplies = computed(() => props.replies.filter((reply) => reply.commentId === props.comment.docId));
 // createdAt is a Firestore Timestamp at runtime despite the string type in the interface
 const formattedDate = computed(() => new Date((props.comment.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
+const avatarImage = computed<string>(() => props.comment.picture || avatarFallback);
+const replyToggleLabel = computed<string>(() => (showReply.value ? t('buttons.hide') : t('buttons.reply')));
 
 const onReplyClicked = (): void => {
     replyText.value = '';

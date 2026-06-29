@@ -15,17 +15,29 @@
                 lg="5"
                 xl="4"
             >
-                <v-btn
-                    color="on-surface"
-                    variant="text"
-                    size="small"
-                    :prepend-icon="mdiChevronLeft"
-                    class="mb-4 pl-0"
-                    data-cy="login-back-btn"
-                    @click="redirect"
-                >
-                    {{ t('buttons.back') }}
-                </v-btn>
+                <div class="align-center d-flex justify-space-between mb-4">
+                    <v-btn
+                        color="on-surface"
+                        variant="text"
+                        size="small"
+                        :prepend-icon="mdiChevronLeft"
+                        class="pl-0"
+                        data-cy="login-back-btn"
+                        @click="redirect"
+                    >
+                        {{ t('buttons.back') }}
+                    </v-btn>
+                    <v-btn
+                        color="on-surface"
+                        variant="text"
+                        size="small"
+                        :append-icon="mdiSkipNext"
+                        data-cy="login-skip-btn"
+                        @click="onAnonymousButtonClicked"
+                    >
+                        {{ t('buttons.skip') }}
+                    </v-btn>
+                </div>
 
                 <v-form
                     ref="form"
@@ -118,8 +130,8 @@
                         <v-text-field
                             v-model="password"
                             density="comfortable"
-                            :append-inner-icon="showPassword ? mdiEyeOutline : mdiEyeOffOutline"
-                            :type="showPassword ? 'text' : 'password'"
+                            :append-inner-icon="passwordVisibilityIcon"
+                            :type="passwordFieldType"
                             :label="t('inputs.password')"
                             variant="outlined"
                             :prepend-inner-icon="mdiLockOutline"
@@ -161,13 +173,14 @@
  * @file LogIn component.
  * @description User log in with email/password, Google, Facebook, and anonymous auth.
  */
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useLogin } from '@/plugins/auth';
 import { useI18n } from 'vue-i18n';
 import { handleError } from '@/plugins/error';
 import router from '@/router';
 import {
     mdiChevronLeft,
+    mdiSkipNext,
     mdiEyeOutline,
     mdiEyeOffOutline,
     mdiAccountCircle,
@@ -190,6 +203,8 @@ const showPassword = ref<boolean>(false);
 const loading = ref<boolean>(false);
 const googleProvider = new auth.GoogleAuthProvider();
 const facebookProvider = new auth.FacebookAuthProvider();
+const passwordVisibilityIcon = computed<string>(() => (showPassword.value ? mdiEyeOutline : mdiEyeOffOutline));
+const passwordFieldType = computed<'text' | 'password'>(() => (showPassword.value ? 'text' : 'password'));
 
 const navigateAfterAuth = (): void => {
     const unsubscribe = auth().onAuthStateChanged(async (loggedInUser) => {

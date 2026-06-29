@@ -194,6 +194,7 @@
                 "blog": "Blog",
                 "caseStudies": "Prípadové štúdie",
                 "compare": "Porovnať",
+                "copyright": "© {year} Feedback App. Všetky práva vyhradené.",
                 "demo": "Demo",
                 "features": "Funkcie",
                 "feedbackApp": "Aplikácia Feedback – vytvorená s láskou k produktovému manažmentu 💛",
@@ -270,6 +271,10 @@
                 "sortBy": "Zoradiť podľa:",
                 "suggestions": "Návrhy"
             }
+        },
+        "terms": {
+            "lastUpdated": "Posledná aktualizácia: {date}",
+            "title": "Podmienky používania"
         }
     }
 }

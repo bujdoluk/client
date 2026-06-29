@@ -18,7 +18,7 @@
                     >
                         <v-avatar
                             size="large"
-                            :image=" picture ? picture : '../../../src//assets/avatar.png'"
+                            :image="avatarImage"
                         />
                     </v-btn>
                 </template>
@@ -32,7 +32,7 @@
                     <v-card-text class="pb-3 text-center">
                         <v-avatar
                             size="x-large"
-                            :image=" picture ? picture : '../../../src//assets/avatar.png'"
+                            :image="avatarImage"
                         />
                     </v-card-text>
                     <v-card-text class="pb-3 text-center">
@@ -74,7 +74,8 @@ import router from '@/router';
 import { auth } from '@/firebase/init';
 import { handleError } from '@/plugins/error';
 import EditAccount from '@/components/EditAccount/EditAccount.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import avatarFallback from '@/assets/avatar.png';
 
 const prop = defineProps<{
     user: any;
@@ -82,7 +83,8 @@ const prop = defineProps<{
 
 const loading = ref<boolean>(false);
 const { t } = useI18n();
-const picture = ref();
+const picture = ref<string>('');
+const avatarImage = computed<string>(() => picture.value || avatarFallback);
 
 const logout = async (): Promise<void> => {
     try {

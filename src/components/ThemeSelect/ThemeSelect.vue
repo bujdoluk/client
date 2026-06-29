@@ -1,6 +1,6 @@
 <template>
     <v-btn
-        :icon="isDark ? mdiLightbulb : mdiBrightness2"
+        :icon="themeIcon"
         variant="text"
         class="mr-3"
         @click="toggleTheme"
@@ -18,6 +18,7 @@ import { mdiBrightness2, mdiLightbulb } from '@mdi/js';
 
 const theme = useTheme();
 const isDark = computed(() => theme.global.name.value === 'dark');
+const themeIcon = computed<string>(() => (isDark.value ? mdiLightbulb : mdiBrightness2));
 
 const toggleTheme = (): void => {
     const next = isDark.value ? 'light' : 'dark';

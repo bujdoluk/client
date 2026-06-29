@@ -1,12 +1,12 @@
 <template>
     <v-btn
         variant="flat"
-        :color="isEditMode ? 'blue' : 'purple'"
-        :prepend-icon="isEditMode ? mdiPencil : mdiPlus"
+        :color="dialogTriggerColor"
+        :prepend-icon="dialogTriggerIcon"
         data-cy="open-feedback-dialog-btn"
         @click="open"
     >
-        {{ t(isEditMode ? 'buttons.edit' : 'buttons.add') }}
+        {{ dialogTriggerLabel }}
     </v-btn>
 
     <v-dialog
@@ -29,7 +29,7 @@
             >
                 <div class="align-center d-flex pb-6">
                     <span class="font-weight-bold text-h5">
-                        {{ isEditMode ? `Editing "${props.feedback?.title}"` : t('components.Dialog.title') }}
+                        {{ dialogTitle }}
                     </span>
                     <v-spacer />
                     <v-btn
@@ -181,7 +181,7 @@
                         data-cy="feedback-submit-btn"
                         @click="handleSubmit"
                     >
-                        {{ t(isEditMode ? 'buttons.submit' : 'buttons.add') }}
+                        {{ submitLabel }}
                     </v-btn>
                 </v-card-actions>
             </v-form>
@@ -229,6 +229,11 @@ const statuses = computed(() => [
 const isEditMode = computed(() => !!props.feedback);
 const dialog = ref(false);
 const loading = ref(false);
+const dialogTriggerColor = computed<'blue' | 'purple'>(() => (isEditMode.value ? 'blue' : 'purple'));
+const dialogTriggerIcon = computed<string>(() => (isEditMode.value ? mdiPencil : mdiPlus));
+const dialogTriggerLabel = computed<string>(() => t(isEditMode.value ? 'buttons.edit' : 'buttons.add'));
+const dialogTitle = computed<string>(() => (isEditMode.value ? `Editing "${props.feedback?.title}"` : t('components.Dialog.title')));
+const submitLabel = computed<string>(() => t(isEditMode.value ? 'buttons.submit' : 'buttons.add'));
 
 const createForm = (): FeedbackForm => ({
     category: props.feedback?.category ?? categories.value[0].value,

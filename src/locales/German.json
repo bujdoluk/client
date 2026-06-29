@@ -194,6 +194,7 @@
                 "blog": "Blog",
                 "caseStudies": "Fallstudien",
                 "compare": "Vergleichen",
+                "copyright": "© {year} Feedback App. Alle Rechte vorbehalten.",
                 "demo": "Demo",
                 "features": "Funktionen",
                 "feedbackApp": "Feedback-App – mit Liebe für das Produktmanagement erstellt 💛",
@@ -270,6 +271,10 @@
                 "sortBy": "Sortieren nach:",
                 "suggestions": "Vorschläge"
             }
+        },
+        "terms": {
+            "lastUpdated": "Zuletzt aktualisiert: {date}",
+            "title": "Nutzungsbedingungen"
         }
     }
 }
