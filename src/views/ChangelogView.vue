@@ -58,7 +58,7 @@
                                 {{ t('chips.released') }}
                             </v-chip>
                             <v-chip>
-                                {{ new Date(Number(feedback.createdAt) * 1000).toLocaleString() }}
+                                {{ formatCreatedAt(feedback) }}
                             </v-chip>
                         </v-card-text>
                         <v-card-title class="font-weight-bold text-dark-blue text-truncate">
@@ -86,12 +86,14 @@ import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { type Feedback, Status } from '@/types/index';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { formatFirestoreTimestamp } from '@/plugins/datetime';
 
 const { t } = useI18n();
 const liveFeedbacks = ref<Array<Feedback>>([]);
 const loading = ref<boolean>(false);
 const filteredByCreatedAtFeedbacs = (feedbacks: Array<Feedback>): Array<Feedback> =>
-    feedbacks.sort((a, b) => Number(b.createdAt) - Number(a.createdAt));
+    feedbacks.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+const formatCreatedAt = (feedback: Feedback): string => formatFirestoreTimestamp(feedback.createdAt);
 
 const fetchLiveFeedbacks = async (): Promise<void> => {
     try {

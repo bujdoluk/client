@@ -103,6 +103,7 @@ import { CONSTANTS } from '@/constants/index';
 import type { Comment, Reply } from '@/types/index.ts';
 import { useAppStore } from '@/stores/useAppStore';
 import avatarFallback from '@/assets/avatar.png';
+import { formatFirestoreTimestamp } from '@/plugins/datetime';
 
 const props = defineProps<{
     comment: Comment;
@@ -121,7 +122,7 @@ const replyText = ref<string>('');
 const formId = computed(() => `reply-${props.reply.docId}`);
 const showReply = computed(() => isFormOpen(formId.value));
 
-const formattedDate = computed(() => new Date((props.reply.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
+const formattedDate = computed(() => formatFirestoreTimestamp(props.reply.createdAt));
 const avatarImage = computed<string>(() => props.reply.picture || avatarFallback);
 const replyToggleLabel = computed<string>(() => (showReply.value ? t('buttons.hide') : t('buttons.reply')));
 const required = (value: string): string | true => !!value.trim() || t('validations.required');

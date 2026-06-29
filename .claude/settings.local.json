@@ -6,7 +6,12 @@
       "Bash(Remove-Item \"d:\\\\Projekty\\\\client\\\\src\\\\components\\\\Dialogs\\\\EditFeedback.vue\")",
       "Bash(npx eslint *)",
       "Bash(npx vue-tsc *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(rm /d/Projekty/client/src/types/temporal.d.ts && echo removed)",
+      "Bash(npm uninstall *)"
+    ],
+    "additionalDirectories": [
+      "D:\\Projekty\\client\\src\\types"
     ]
   }
 }

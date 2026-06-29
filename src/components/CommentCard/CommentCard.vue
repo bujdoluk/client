@@ -115,6 +115,7 @@ import { type Comment, type Reply, type Feedback } from '@/types/index.ts';
 import ReplyCard from '@/components/ReplyCard/ReplyCard.vue';
 import avatarFallback from '@/assets/avatar.png';
 import { useAppStore } from '@/stores/useAppStore';
+import { formatFirestoreTimestamp } from '@/plugins/datetime';
 
 const props = defineProps<{
     comment: Comment;
@@ -136,8 +137,7 @@ const formId = computed(() => `comment-reply-${props.comment.docId}`);
 const showReply = computed(() => isFormOpen(formId.value));
 
 const filteredReplies = computed(() => props.replies.filter((reply) => reply.commentId === props.comment.docId));
-// createdAt is a Firestore Timestamp at runtime despite the string type in the interface
-const formattedDate = computed(() => new Date((props.comment.createdAt as unknown as { seconds: number }).seconds * 1000).toLocaleString());
+const formattedDate = computed(() => formatFirestoreTimestamp(props.comment.createdAt));
 const avatarImage = computed<string>(() => props.comment.picture || avatarFallback);
 const replyToggleLabel = computed<string>(() => (showReply.value ? t('buttons.hide') : t('buttons.reply')));
 

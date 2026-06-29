@@ -2,6 +2,7 @@
     "all": "Všetky",
     "buttons": {
         "add": "Pridať spätnú väzbu",
+        "allowCookies": "Povoliť cookies",
         "back": "Späť",
         "backToApp": "Späť do aplikácie",
         "cancel": "Zrušiť",
@@ -9,6 +10,7 @@
         "close": "Zatvoriť",
         "darkMode": "Tmavý režim",
         "delete": "Zmazať",
+        "denyCookies": "Odmietnuť cookies",
         "edit": "Upraviť spätnú väzbu",
         "editAccount": "Upraviť účet",
         "goToLandingPage": "Späť na úvodnú stránku",
@@ -42,6 +44,9 @@
         "AppToolbar": {
             "alt": "Logo aplikácie Feedback",
             "title": "Feedback"
+        },
+        "CookieConsent": {
+            "message": "Používame cookies, aby sme si zapamätali vaše preferencie a pochopili, ako používate aplikáciu Feedback App. Nepovinné cookies môžete povoliť alebo odmietnuť."
         },
         "Dialog": {
             "categories": {

@@ -2,6 +2,7 @@
     "all": "Alle",
     "buttons": {
         "add": "Feedback hinzufügen",
+        "allowCookies": "Cookies erlauben",
         "back": "Zurück",
         "backToApp": "Zurück zur App",
         "cancel": "Abbrechen",
@@ -9,6 +10,7 @@
         "close": "Schließen",
         "darkMode": "Dunkelmodus",
         "delete": "Löschen",
+        "denyCookies": "Cookies ablehnen",
         "edit": "Feedback bearbeiten",
         "editAccount": "Konto bearbeiten",
         "goToLandingPage": "Zur Startseite",
@@ -42,6 +44,9 @@
         "AppToolbar": {
             "alt": "Feedback-App-Logo",
             "title": "Feedback"
+        },
+        "CookieConsent": {
+            "message": "Wir verwenden Cookies, um Ihre Einstellungen zu speichern und zu verstehen, wie Sie die Feedback App nutzen. Sie können nicht notwendige Cookies erlauben oder ablehnen."
         },
         "Dialog": {
             "categories": {

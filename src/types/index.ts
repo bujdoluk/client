@@ -1,8 +1,10 @@
 /**
  * @file Typescript interfaces and enums.
  */
+import type { firebase } from '@/firebase/init';
+
 export interface Comment {
-    createdAt: string;
+    createdAt: firebase.firestore.Timestamp;
     docId: string;
     email: string;
     feedbackId: string;
@@ -15,7 +17,7 @@ export interface Comment {
 export interface Reply {
     commentEmail: string;
     commentId: string;
-    createdAt: string;
+    createdAt: firebase.firestore.Timestamp;
     docId: string;
     email: string;
     feedbackId: string;
@@ -28,7 +30,7 @@ export interface Reply {
 export interface Feedback {
     category: string;
     comments: number;
-    createdAt: string;
+    createdAt: firebase.firestore.Timestamp;
     description: string;
     docId: string;
     pinned: boolean;

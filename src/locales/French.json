@@ -2,6 +2,7 @@
     "all": "Tout",
     "buttons": {
         "add": "Ajouter un retour",
+        "allowCookies": "Autoriser les cookies",
         "back": "Retour",
         "backToApp": "Retour à l'application",
         "cancel": "Annuler",
@@ -9,6 +10,7 @@
         "close": "Fermer",
         "darkMode": "Mode sombre",
         "delete": "Supprimer",
+        "denyCookies": "Refuser les cookies",
         "edit": "Modifier le retour",
         "editAccount": "Modifier le compte",
         "goToLandingPage": "Retour à la page d'accueil",
@@ -42,6 +44,9 @@
         "AppToolbar": {
             "alt": "Logo de l'application Feedback",
             "title": "Feedback"
+        },
+        "CookieConsent": {
+            "message": "Nous utilisons des cookies pour mémoriser vos préférences et comprendre comment vous utilisez Feedback App. Vous pouvez autoriser ou refuser les cookies non essentiels."
         },
         "Dialog": {
             "categories": {

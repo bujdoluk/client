@@ -636,6 +636,8 @@
                 </v-btn>
             </v-col>
         </v-row>
+
+        <CookieConsent />
     </v-container>
 </template>
 
@@ -662,10 +664,11 @@ import {
     mdiLinkVariant,
     mdiRocketLaunchOutline
 } from '@mdi/js';
+import CookieConsent from '@/components/CookieConsent/CookieConsent.vue';
 
 const { t } = useI18n();
 
-const currentYear = new Date().getFullYear();
+const currentYear = Temporal.Now.plainDateISO().year;
 
 const scrollTo = (id: string): void => {
     const el = document.getElementById(id);

@@ -2,6 +2,7 @@
     "all": "All",
     "buttons": {
         "add": "Add Feedback",
+        "allowCookies": "Allow Cookies",
         "back": "Go Back",
         "backToApp": "Back to App",
         "cancel": "Cancel",
@@ -9,6 +10,7 @@
         "close": "Close Dialog",
         "darkMode": "Dark mode",
         "delete": "Delete",
+        "denyCookies": "Deny Cookies",
         "edit": "Edit Feedback",
         "editAccount": "Edit Account",
         "goToLandingPage": "Go to landing page",
@@ -42,6 +44,9 @@
         "AppToolbar": {
             "alt": "Feedback App logo",
             "title": "Feedback"
+        },
+        "CookieConsent": {
+            "message": "We use cookies to remember your preferences and understand how you use Feedback App. You can allow or deny non-essential cookies."
         },
         "Dialog": {
             "categories": {
