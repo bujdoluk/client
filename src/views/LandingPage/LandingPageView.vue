@@ -603,6 +603,8 @@
                     variant="text"
                     color="content"
                     size="small"
+                    data-cy="footer-gdpr-btn"
+                    :to="{ name: 'gdpr' }"
                 >
                     {{ t('views.landingPage.footer.gdpr') }}
                 </v-btn>
@@ -611,6 +613,8 @@
                     variant="text"
                     color="content"
                     size="small"
+                    data-cy="footer-privacy-btn"
+                    :to="{ name: 'privacy' }"
                 >
                     {{ t('views.landingPage.footer.privacy') }}
                 </v-btn>

@@ -135,6 +135,10 @@
             "message": "Niečo sa pokazilo. Skúste to prosím znova.",
             "title": "Ojoj!"
         },
+        "gdpr": {
+            "lastUpdated": "Posledná aktualizácia: {date}",
+            "title": "GDPR"
+        },
         "landingPage": {
             "allFeedback": "Všetka spätná väzba od používateľov na jednom mieste",
             "blog": "Blog",
@@ -233,6 +237,10 @@
                 "title": "Plán rozvoje"
             },
             "trustedBy": "Dôverujú nám"
+        },
+        "privacy": {
+            "lastUpdated": "Posledná aktualizácia: {date}",
+            "title": "Zásady ochrany osobných údajov"
         },
         "roadmap": {
             "status": {

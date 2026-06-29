@@ -135,6 +135,10 @@
             "message": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
             "title": "Hoppla!"
         },
+        "gdpr": {
+            "lastUpdated": "Zuletzt aktualisiert: {date}",
+            "title": "DSGVO"
+        },
         "landingPage": {
             "allFeedback": "Alle Nutzerfeedbacks an einem Ort",
             "blog": "Blog",
@@ -233,6 +237,10 @@
                 "title": "Roadmap"
             },
             "trustedBy": "Von diesen vertraut"
+        },
+        "privacy": {
+            "lastUpdated": "Zuletzt aktualisiert: {date}",
+            "title": "Datenschutzrichtlinie"
         },
         "roadmap": {
             "status": {

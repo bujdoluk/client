@@ -135,6 +135,10 @@
             "message": "Quelque chose s'est mal passé. Veuillez réessayer.",
             "title": "Oups !"
         },
+        "gdpr": {
+            "lastUpdated": "Dernière mise à jour : {date}",
+            "title": "RGPD"
+        },
         "landingPage": {
             "allFeedback": "Tous les retours utilisateurs en un seul endroit",
             "blog": "Blog",
@@ -233,6 +237,10 @@
                 "title": "Feuille de route"
             },
             "trustedBy": "Ils nous font confiance"
+        },
+        "privacy": {
+            "lastUpdated": "Dernière mise à jour : {date}",
+            "title": "Politique de confidentialité"
         },
         "roadmap": {
             "status": {

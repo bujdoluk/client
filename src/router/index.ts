@@ -15,6 +15,8 @@ const SignUp = async (): Promise<RouteComponent> => import('@/components/Auth/Si
 const ErrorView = async (): Promise<RouteComponent> => import('@/views/ErrorView.vue');
 const ChangelogView = async (): Promise<RouteComponent> => import('@/views/ChangelogView.vue');
 const TermsOfUseView = async (): Promise<RouteComponent> => import('@/views/TermsOfUseView.vue');
+const GdprView = async (): Promise<RouteComponent> => import('@/views/GdprView.vue');
+const PrivacyPolicyView = async (): Promise<RouteComponent> => import('@/views/PrivacyPolicyView.vue');
 
 const authReady = new Promise((resolve) => {
     const unsubscribe = auth().onAuthStateChanged((user) => {
@@ -77,6 +79,16 @@ const router = createRouter({
             component: TermsOfUseView,
             name: 'terms',
             path: '/terms'
+        },
+        {
+            component: GdprView,
+            name: 'gdpr',
+            path: '/gdpr'
+        },
+        {
+            component: PrivacyPolicyView,
+            name: 'privacy',
+            path: '/privacy'
         },
         {
             path: '/:pathMatch(.*)*',

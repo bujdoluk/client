@@ -135,6 +135,10 @@
             "message": "Něco se pokazilo. Zkuste to prosím znovu.",
             "title": "Jejda!"
         },
+        "gdpr": {
+            "lastUpdated": "Poslední aktualizace: {date}",
+            "title": "GDPR"
+        },
         "landingPage": {
             "allFeedback": "Veškerá zpětná vazba od uživatelů na jednom místě",
             "blog": "Blog",
@@ -233,6 +237,10 @@
                 "title": "Plán rozvoje"
             },
             "trustedBy": "Důvěřují nám"
+        },
+        "privacy": {
+            "lastUpdated": "Poslední aktualizace: {date}",
+            "title": "Zásady ochrany osobních údajů"
         },
         "roadmap": {
             "status": {

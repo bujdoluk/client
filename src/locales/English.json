@@ -135,6 +135,10 @@
             "message": "Something went wrong. Please try again.",
             "title": "Oops!"
         },
+        "gdpr": {
+            "lastUpdated": "Last updated: {date}",
+            "title": "GDPR"
+        },
         "landingPage": {
             "allFeedback": "All of your user feedback in one single place",
             "blog": "Blog",
@@ -233,6 +237,10 @@
                 "title": "Roadmap"
             },
             "trustedBy": "As trusted by"
+        },
+        "privacy": {
+            "lastUpdated": "Last updated: {date}",
+            "title": "Privacy Policy"
         },
         "roadmap": {
             "status": {
