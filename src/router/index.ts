@@ -7,7 +7,7 @@ import { createRouter, createWebHistory, type RouteComponent, type RouteLocation
 import { auth } from '@/firebase/init';
 
 const FeedbackDetailView = async (): Promise<RouteComponent> => import('@/views/FeedbackDetailView.vue');
-const LandingPageView = async (): Promise<RouteComponent> => import('@/views/LandingPageView.vue');
+const LandingPageView = async (): Promise<RouteComponent> => import('@/views/LandingPage/LandingPageView.vue');
 const RoadmapView = async (): Promise<RouteComponent> => import('@/views/RoadmapView.vue');
 const SuggestionsView = async (): Promise<RouteComponent> => import('@/views/SuggestionsView.vue');
 const LogIn = async (): Promise<RouteComponent> => import('@/components/Auth/LogIn.vue');
