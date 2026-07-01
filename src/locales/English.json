@@ -45,6 +45,10 @@
             "alt": "Feedback App logo",
             "title": "Feedback"
         },
+        "ConfirmationDialog": {
+            "deleteFeedback": "Are you sure you want to delete this feedback? This action cannot be undone.",
+            "title": "Confirm deletion"
+        },
         "CookieConsent": {
             "message": "We use cookies to remember your preferences and understand how you use Feedback App. You can allow or deny non-essential cookies."
         },
@@ -147,6 +151,20 @@
         "landingPage": {
             "allFeedback": "All of your user feedback in one single place",
             "blog": "Blog",
+            "blogPosts": {
+                "post1": {
+                    "date": "May 12, 2026",
+                    "title": "How to Turn Raw User Feedback into a Winning Product Roadmap"
+                },
+                "post2": {
+                    "date": "Apr 3, 2026",
+                    "title": "5 Ways a Public Roadmap Builds Trust With Your Users"
+                },
+                "post3": {
+                    "date": "Feb 18, 2026",
+                    "title": "From Feature Requests to Shipped Features: A PM's Playbook"
+                }
+            },
             "buttons": {
                 "14dayFreeTrial": "14-day Free Trial",
                 "demo": "Demo",

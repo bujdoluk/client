@@ -168,6 +168,7 @@ const users = ref<Array<User>>([]);
 
 const showSkeleton = ref(false);
 let skeletonTimer: ReturnType<typeof setTimeout> | undefined;
+let sortDebounceTimer: ReturnType<typeof setTimeout> | undefined;
 
 const hasNoFeedbacks = computed<boolean>(() => feedbacks.value.length === 0);
 
@@ -211,6 +212,7 @@ watch(loading, (isLoading) => {
 
 onUnmounted(() => {
     clearTimeout(skeletonTimer);
+    clearTimeout(sortDebounceTimer);
 });
 
 const fetchFeedbacks = async (): Promise<void> => {
@@ -319,11 +321,14 @@ const updatePinnedFeedBack = async (feedback: Feedback): Promise<void> => {
     }
 };
 
-const onSelected = async (selectedValue: string): Promise<void> => {
+const onSelected = (selectedValue: string): void => {
     currentSort.value = selectedValue;
     activeCategory.value = 'All';
     resetPagination();
-    await fetchPage(0);
+    clearTimeout(sortDebounceTimer);
+    sortDebounceTimer = setTimeout(() => {
+        fetchPage(0); 
+    }, 500);
 };
 
 const applyTagPage = (targetPage: number): void => {

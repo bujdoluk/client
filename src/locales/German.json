@@ -45,6 +45,10 @@
             "alt": "Feedback-App-Logo",
             "title": "Feedback"
         },
+        "ConfirmationDialog": {
+            "deleteFeedback": "Möchten Sie dieses Feedback wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+            "title": "Löschen bestätigen"
+        },
         "CookieConsent": {
             "message": "Wir verwenden Cookies, um Ihre Einstellungen zu speichern und zu verstehen, wie Sie die Feedback App nutzen. Sie können nicht notwendige Cookies erlauben oder ablehnen."
         },
@@ -147,6 +151,20 @@
         "landingPage": {
             "allFeedback": "Alle Nutzerfeedbacks an einem Ort",
             "blog": "Blog",
+            "blogPosts": {
+                "post1": {
+                    "date": "12. Mai 2026",
+                    "title": "Wie Sie rohes Nutzerfeedback in eine erfolgreiche Produkt-Roadmap verwandeln"
+                },
+                "post2": {
+                    "date": "3. April 2026",
+                    "title": "5 Wege, wie eine öffentliche Roadmap das Vertrauen Ihrer Nutzer stärkt"
+                },
+                "post3": {
+                    "date": "18. Februar 2026",
+                    "title": "Von Feature-Anfragen zu veröffentlichten Features: Das Handbuch des Produktmanagers"
+                }
+            },
             "buttons": {
                 "14dayFreeTrial": "14-tägige kostenlose Testversion",
                 "demo": "Demo",

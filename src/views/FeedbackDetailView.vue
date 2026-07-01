@@ -8,12 +8,28 @@
                 <GoBackButton />
             </v-col>
             <v-spacer />
-            <v-col cols="auto">
+            <v-col
+                v-if="feedback"
+                cols="auto"
+                class="d-flex ga-3"
+            >
                 <FeedbackDialog
-                    v-if="feedback"
                     :feedback="feedback"
                     @edited="onEdited"
-                    @deleted="onDeleted"
+                />
+                <v-btn
+                    variant="flat"
+                    color="error"
+                    :prepend-icon="mdiDelete"
+                    data-cy="feedback-delete-btn"
+                    @click="confirmationDialog?.open()"
+                >
+                    {{ t('buttons.delete') }}
+                </v-btn>
+                <ConfirmationDialog
+                    ref="confirmationDialog"
+                    :message="t('components.ConfirmationDialog.deleteFeedback')"
+                    @confirm="onDeleted(feedback)"
                 />
             </v-col>
             <v-col cols="12">
@@ -127,10 +143,12 @@
  * @description Full detail page for a single feedback item showing comments, replies and vote count.
  */
 import { useI18n } from 'vue-i18n';
+import { mdiDelete } from '@mdi/js';
 import { handleError } from '@/plugins/error';
 import router from '@/router';
 import type { Reply, Comment, Feedback } from '@/types/index';
 import CommentCard from '@/components/CommentCard/CommentCard.vue';
+import ConfirmationDialog from '@/components/ConfirmationDialog/ConfirmationDialog.vue';
 import FeedbackDialog from '@/components/Dialogs/FeedbackDialog.vue';
 import GoBackButton from '@/components/GoBackButton/GoBackButton.vue';
 import { ref, shallowRef, onMounted, computed } from 'vue';
@@ -143,6 +161,7 @@ import { useSnackBarStore } from '@/stores/useSnackBarStore';
 const route = useRoute();
 const { t } = useI18n();
 const { show } = useSnackBarStore();
+const confirmationDialog = ref<InstanceType<typeof ConfirmationDialog>>();
 const comments = ref<Array<Comment>>([]);
 const feedback = ref<Feedback>();
 const form = shallowRef<InstanceType<typeof VForm>>();

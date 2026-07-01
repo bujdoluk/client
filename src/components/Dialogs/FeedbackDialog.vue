@@ -13,15 +13,7 @@
         v-model="dialog"
         :width="CONSTANTS.FEEDBACK_DIALOG_WIDTH"
     >
-        <v-skeleton-loader
-            v-if="loading"
-            boilerplate
-            type="heading, paragraph, actions"
-        />
-        <v-card
-            v-else
-            class="pa-6"
-        >
+        <v-card class="pa-6">
             <v-form
                 ref="form"
                 validate-on="submit"
@@ -162,15 +154,6 @@
                     </v-btn>
                     <v-spacer />
                     <v-btn
-                        v-if="isEditMode"
-                        variant="flat"
-                        color="error"
-                        data-cy="feedback-delete-btn"
-                        @click="handleDelete"
-                    >
-                        {{ t('buttons.delete') }}
-                    </v-btn>
-                    <v-btn
                         variant="flat"
                         color="purple"
                         data-cy="feedback-submit-btn"
@@ -194,18 +177,19 @@ import { db, auth, timestamp } from '@/firebase/init';
 import { type Feedback, type FeedbackForm, Status } from '@/types/index.ts';
 import { CONSTANTS } from '@/constants/index';
 import { handleError } from '@/plugins/error';
+import { useAppStore } from '@/stores/useAppStore';
 
 const props = defineProps<{
     feedback?: Feedback;
 }>();
 
 const emit = defineEmits<{
-    deleted: [feedback: Feedback];
     edited: [feedback: Feedback];
     feedbackAdded: [];
 }>();
 
 const { t } = useI18n();
+const appStore = useAppStore();
 
 const categories = computed(() => [
     { title: t('components.Dialog.categories.feature'), value: 'Feature' },
@@ -223,7 +207,6 @@ const statuses = computed(() => [
 ]);
 const isEditMode = computed(() => !!props.feedback);
 const dialog = ref(false);
-const loading = ref(false);
 const dialogTriggerColor = computed<'blue' | 'purple'>(() => (isEditMode.value ? 'blue' : 'purple'));
 const dialogTriggerIcon = computed<string>(() => (isEditMode.value ? mdiPencil : mdiPlus));
 const dialogTriggerLabel = computed<string>(() => t(isEditMode.value ? 'buttons.edit' : 'buttons.add'));
@@ -256,7 +239,7 @@ const close = (): void => {
 
 const addFeedback = async (): Promise<void> => {
     try {
-        loading.value = true;
+        appStore.isLoading = true;
         const docId = db.collection('feedbacks').doc().id;
         await db.collection('feedbacks').doc(docId).set({
             category: formData.value.category,
@@ -275,14 +258,14 @@ const addFeedback = async (): Promise<void> => {
         handleError(error);
     } finally {
         close();
-        loading.value = false;
+        appStore.isLoading = false;
     }
 };
 
 const editFeedback = async (): Promise<void> => {
     if (!props.feedback) return;
     try {
-        loading.value = true;
+        appStore.isLoading = true;
         await db.collection('feedbacks').doc(props.feedback.docId).update({
             category: formData.value.category,
             description: formData.value.description,
@@ -294,7 +277,7 @@ const editFeedback = async (): Promise<void> => {
         handleError(error);
     } finally {
         close();
-        loading.value = false;
+        appStore.isLoading = false;
     }
 };
 
@@ -306,12 +289,6 @@ const handleSubmit = async (): Promise<void> => {
     } else {
         await addFeedback();
     }
-};
-
-const handleDelete = (): void => {
-    if (!props.feedback) return;
-    emit('deleted', props.feedback);
-    dialog.value = false;
 };
 
 const required = (value: string): string | true => !!value.trim() || t('validations.required');

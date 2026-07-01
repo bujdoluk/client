@@ -383,12 +383,14 @@
                             color="purple"
                         />
                     </v-sheet>
-                    <v-card-text class="pt-4 text-content text-overline">
-                        {{ post.date }}
-                    </v-card-text>
-                    <v-card-title class="font-weight-bold text-body-1 text-dark-blue">
-                        {{ post.title }}
-                    </v-card-title>
+                    <div class="pa-4">
+                        <p class="mb-2 text-content text-overline">
+                            {{ post.date }}
+                        </p>
+                        <p class="font-weight-bold text-body-1 text-dark-blue">
+                            {{ post.title }}
+                        </p>
+                    </div>
                 </v-card>
             </v-col>
         </v-row>
@@ -646,6 +648,7 @@
  * @file Landing Page View.
  * @description Displays the full landing page: navbar, hero, trusted-by, overview, features, blog and footer sections.
  */
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
     mdiTwitter,
@@ -715,11 +718,23 @@ const featureCards = [
     { bg: 'background-secondary', color: 'warning', icon: mdiAccountPlusOutline, subtitleKey: 'views.landingPage.card8.subtitle', titleKey: 'views.landingPage.card8.title' }
 ];
 
-const posts = [
-    { date: 'Feb 9, 2024', icon: mdiChartLineVariant, title: 'Impact of Dynamic Pricing on Customer Behavior and Loyalty' },
-    { date: 'Jan 15, 2024', icon: mdiLinkVariant, title: '4 Tips for Effective B2B Link Building' },
-    { date: 'Nov 8, 2023', icon: mdiRocketLaunchOutline, title: 'Scaling Your Remote SaaS Business: 6 Tactics for Growth' }
-];
+const posts = computed(() => [
+    {
+        date: t('views.landingPage.blogPosts.post1.date'),
+        icon: mdiChartLineVariant,
+        title: t('views.landingPage.blogPosts.post1.title')
+    },
+    {
+        date: t('views.landingPage.blogPosts.post2.date'),
+        icon: mdiLinkVariant,
+        title: t('views.landingPage.blogPosts.post2.title')
+    },
+    {
+        date: t('views.landingPage.blogPosts.post3.date'),
+        icon: mdiRocketLaunchOutline,
+        title: t('views.landingPage.blogPosts.post3.title')
+    }
+]);
 </script>
 
 <style scoped>

@@ -10,6 +10,7 @@ declare module 'vue' {
     AppToolbar: typeof import('./../components/AppToolbar/AppToolbar.vue')['default']
     AvatarMenu: typeof import('./../components/AvatarMenu/AvatarMenu.vue')['default']
     CommentCard: typeof import('./../components/CommentCard/CommentCard.vue')['default']
+    ConfirmationDialog: typeof import('./../components/ConfirmationDialog/ConfirmationDialog.vue')['default']
     CookieConsent: typeof import('./../components/CookieConsent/CookieConsent.vue')['default']
     EditAccount: typeof import('./../components/EditAccount/EditAccount.vue')['default']
     EmptyFeedback: typeof import('./../components/EmptyFeedback/EmptyFeedback.vue')['default']

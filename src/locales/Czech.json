@@ -45,6 +45,10 @@
             "alt": "Logo aplikace Feedback",
             "title": "Feedback"
         },
+        "ConfirmationDialog": {
+            "deleteFeedback": "Opravdu chcete tuto zpětnou vazbu smazat? Tuto akci nelze vrátit zpět.",
+            "title": "Potvrdit smazání"
+        },
         "CookieConsent": {
             "message": "Používáme cookies, abychom si pamatovali vaše preference a pochopili, jak používáte aplikaci Feedback App. Nepovinné cookies můžete povolit nebo odmítnout."
         },
@@ -147,6 +151,20 @@
         "landingPage": {
             "allFeedback": "Veškerá zpětná vazba od uživatelů na jednom místě",
             "blog": "Blog",
+            "blogPosts": {
+                "post1": {
+                    "date": "12. května 2026",
+                    "title": "Jak proměnit nezpracovanou zpětnou vazbu v úspěšný produktový plán"
+                },
+                "post2": {
+                    "date": "3. dubna 2026",
+                    "title": "5 způsobů, jak veřejný plán rozvoje buduje důvěru uživatelů"
+                },
+                "post3": {
+                    "date": "18. února 2026",
+                    "title": "Od požadavků na funkce ke spuštěným funkcím: příručka produktového manažera"
+                }
+            },
             "buttons": {
                 "14dayFreeTrial": "14denní zkušební verze zdarma",
                 "demo": "Demo",

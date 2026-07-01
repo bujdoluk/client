@@ -45,6 +45,10 @@
             "alt": "Logo de l'application Feedback",
             "title": "Feedback"
         },
+        "ConfirmationDialog": {
+            "deleteFeedback": "Êtes-vous sûr de vouloir supprimer ce retour ? Cette action est irréversible.",
+            "title": "Confirmer la suppression"
+        },
         "CookieConsent": {
             "message": "Nous utilisons des cookies pour mémoriser vos préférences et comprendre comment vous utilisez Feedback App. Vous pouvez autoriser ou refuser les cookies non essentiels."
         },
@@ -147,6 +151,20 @@
         "landingPage": {
             "allFeedback": "Tous les retours utilisateurs en un seul endroit",
             "blog": "Blog",
+            "blogPosts": {
+                "post1": {
+                    "date": "12 mai 2026",
+                    "title": "Comment transformer les retours bruts des utilisateurs en une feuille de route produit gagnante"
+                },
+                "post2": {
+                    "date": "3 avril 2026",
+                    "title": "5 façons dont une feuille de route publique renforce la confiance de vos utilisateurs"
+                },
+                "post3": {
+                    "date": "18 février 2026",
+                    "title": "Des demandes de fonctionnalités aux fonctionnalités livrées : le guide du chef de produit"
+                }
+            },
             "buttons": {
                 "14dayFreeTrial": "Essai gratuit de 14 jours",
                 "demo": "Démo",
