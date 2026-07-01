@@ -8,7 +8,10 @@
         v-else
         class="pa-5"
     >
-        <div class="align-center d-flex" :class="{ 'mb-4': hasStatuses }">
+        <div
+            class="align-center d-flex"
+            :class="{ 'mb-4': hasStatuses }"
+        >
             <span class="font-weight-bold text-dark-blue text-subtitle-1">
                 {{ t('views.suggestions.roadmap.title') }}
             </span>
@@ -24,7 +27,14 @@
             </v-btn>
         </div>
 
-        <div class="mb-4 separator" />
+        <div class="mb-2 separator" />
+
+        <apexchart
+            type="donut"
+            height="220"
+            :options="chartOptions"
+            :series="chartSeries"
+        />
 
         <div class="d-flex flex-column ga-3">
             <div
@@ -50,6 +60,8 @@
 <script setup lang="ts">
 /** @file RoadmapBox component. */
 import { computed } from 'vue';
+import VueApexCharts from 'vue3-apexcharts';
+import { useTheme } from 'vuetify';
 import { type Feedback, Status } from '@/types/index.ts';
 import router from '@/router';
 import { useI18n } from 'vue-i18n';
@@ -59,7 +71,11 @@ const props = defineProps<{
     loading: boolean;
 }>();
 
+const apexchart = VueApexCharts;
+
 const { t } = useI18n();
+const theme = useTheme();
+const textColor = computed(() => (theme.current.value.dark ? '#ffffff' : '#373d3f'));
 
 const plannedCount = computed(() => props.feedbacks.filter((f) => f.status === Status.Planned).length);
 const inProgressCount = computed(() => props.feedbacks.filter((f) => f.status === Status.InProgress).length);
@@ -72,6 +88,56 @@ const statuses = computed(() => [
 ]);
 
 const hasStatuses = computed<boolean>(() => statuses.value.length > 0);
+
+const chartSeries = computed(() => [plannedCount.value, inProgressCount.value, liveCount.value]);
+
+const totalCount = computed(() => plannedCount.value + inProgressCount.value + liveCount.value);
+const livePercentage = computed(() => (totalCount.value > 0
+    ? Math.round((liveCount.value / totalCount.value) * 100)
+    : 0));
+
+const chartOptions = computed(() => ({
+    chart: { foreColor: textColor.value, toolbar: { show: false }, type: 'donut' as const },
+    colors: ['#F49F85', '#AD1FEA', '#62BCFA'],
+    dataLabels: { enabled: false },
+    labels: [
+        t('views.suggestions.roadmap.planned'),
+        t('views.suggestions.roadmap.inProgress'),
+        t('views.suggestions.roadmap.live')
+    ],
+    legend: { show: false },
+    plotOptions: {
+        pie: {
+            donut: {
+                labels: {
+                    name: {
+                        color: textColor.value,
+                        fontSize: '14px',
+                        fontWeight: 500,
+                        offsetY: 28,
+                        show: true
+                    },
+                    show: true,
+                    total: {
+                        formatter: (): string => `${livePercentage.value}%`,
+                        label: t('views.suggestions.roadmap.live'),
+                        show: true,
+                        showAlways: true
+                    },
+                    value: {
+                        color: textColor.value,
+                        fontSize: '42px',
+                        fontWeight: 700,
+                        offsetY: -12,
+                        show: true
+                    }
+                }
+            }
+        }
+    },
+    stroke: { width: 0 },
+    tooltip: { y: { formatter: (val: number): string => String(val) } }
+}));
 
 const onRedirect = async (): Promise<void> => {
     await router.push({ name: 'roadmap' });
