@@ -289,8 +289,12 @@ const onFeedbackAdded = async (): Promise<void> => {
 const fetchPinnedFeedbacks = async (): Promise<void> => {
     try {
         pinnedLoading.value = true;
-        const res = await db.collection('feedbacks').orderBy('pinned', 'desc').get();
-        filteredFeedbacks.value = res.docs.map((doc) => doc.data() as Feedback);
+        const res = await db.collection('feedbacks').orderBy('pinned', 'desc').limit(CONSTANTS.PAGE_SIZE + 1).get();
+        const { docs } = res;
+        hasMore.value = docs.length > CONSTANTS.PAGE_SIZE;
+        filteredFeedbacks.value = docs.slice(0, CONSTANTS.PAGE_SIZE).map((doc) => doc.data() as Feedback);
+        page.value = 0;
+        pageCursors = [null];
     } catch (error: unknown) {
         handleError(error);
     } finally {

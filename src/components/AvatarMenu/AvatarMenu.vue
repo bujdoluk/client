@@ -36,17 +36,17 @@
                         />
                     </v-card-text>
                     <v-card-text class="pb-3 text-center">
-                        <h3>{{ prop.user.displayName }}</h3>
+                        <h3>{{ displayName }}</h3>
                     </v-card-text>
                     <v-card-text class="pb-3 text-center">
-                        {{ prop.user.email }}
+                        {{ userEmail }}
                     </v-card-text>
-                    <v-card-text class="pb-3">
+                    <div class="pb-3">
                         <EditAccount
                             @downloaded="(value) => onPictureDownloaded(value)"
                         />
-                    </v-card-text>
-                    <v-card-text>
+                    </div>
+                    <div>
                         <v-btn
                             variant="flat"
                             color="purple"
@@ -57,7 +57,7 @@
                         >
                             {{ t('buttons.logout') }}
                         </v-btn>
-                    </v-card-text>
+                    </div>
                 </v-card>
             </v-menu>
         </v-row>
@@ -72,19 +72,22 @@
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { auth } from '@/firebase/init';
+import type { firebase } from '@/firebase/init';
 import { handleError } from '@/plugins/error';
 import EditAccount from '@/components/EditAccount/EditAccount.vue';
 import { computed, ref } from 'vue';
 import avatarFallback from '@/assets/avatar.png';
 
 const prop = defineProps<{
-    user: any;
+    user: firebase.User;
 }>();
 
 const loading = ref<boolean>(false);
 const { t } = useI18n();
 const picture = ref<string>('');
 const avatarImage = computed<string>(() => picture.value || avatarFallback);
+const displayName = computed<string>(() => prop.user.displayName ?? 'Anonymous');
+const userEmail = computed<string>(() => prop.user.email ?? 'anonymous@anonymous.com');
 
 const logout = async (): Promise<void> => {
     try {

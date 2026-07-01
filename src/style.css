@@ -59,6 +59,10 @@
   cursor: pointer;
 }
 
+.v-field--variant-plain .v-field__input {
+    padding-inline: 12px;
+}
+
 .v-input .v-field {
     border-radius: 8px;
     transition: background-color 0.15s ease, box-shadow 0.15s ease;

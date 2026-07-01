@@ -67,7 +67,6 @@
                         :placeholder="t('components.reply.typeReply')"
                         :counter="CONSTANTS.TEXT_MAX_LENGTH"
                         :rows="CONSTANTS.REPLY_TEXTAREA_ROWS"
-                        class="px-3"
                         variant="plain"
                         flat
                         clearable

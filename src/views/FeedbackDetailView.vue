@@ -98,16 +98,15 @@
                                     class="pa-6"
                                     data-cy="add-comment-card"
                                 >
-                                    <v-card-text class="font-weight-bold py-3 text-dark-blue text-h6">
+                                    <v-card-text class="font-weight-bold px-3 py-3 text-dark-blue text-h6">
                                         {{ t('components.comment.addComment') }}
                                     </v-card-text>
-                                    <v-card-text>
+                                    <v-card-text class="px-0">
                                         <v-textarea
                                             v-model="text"
                                             :placeholder="t('components.comment.typeComment')"
                                             :counter="CONSTANTS.TEXT_MAX_LENGTH"
                                             :rows="CONSTANTS.COMMENT_TEXTAREA_ROWS"
-                                            class="px-3"
                                             variant="plain"
                                             flat
                                             clearable
@@ -116,7 +115,7 @@
                                             data-cy="comment-textarea"
                                         />
                                     </v-card-text>
-                                    <v-card-actions class="pr-0 pt-3">
+                                    <v-card-actions class="px-3 pt-3">
                                         <v-spacer />
                                         <v-btn
                                             variant="flat"
