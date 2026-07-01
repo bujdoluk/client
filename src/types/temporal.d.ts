@@ -6,14 +6,7 @@
  * @see https://tc39.es/proposal-temporal/docs/
  */
 declare namespace Temporal {
-    class Instant {
-        /**
-         * Creates a Temporal.Instant from a number of milliseconds since the Unix epoch.
-         * @param epochMilliseconds - Number of milliseconds since the Unix epoch.
-         * @returns A new Temporal.Instant representing that point in time.
-         */
-        static fromEpochMilliseconds(epochMilliseconds: number): Instant;
-
+    interface Instant {
         /**
          * Formats this instant as a locale-aware date/time string.
          * @param locales - A locale or list of locales to format with.
@@ -23,7 +16,16 @@ declare namespace Temporal {
         toLocaleString(locales?: string | Array<string>, options?: Intl.DateTimeFormatOptions): string;
     }
 
-    class PlainDate {
+    namespace Instant {
+        /**
+         * Creates a Temporal.Instant from a number of milliseconds since the Unix epoch.
+         * @param epochMilliseconds - Number of milliseconds since the Unix epoch.
+         * @returns A new Temporal.Instant representing that point in time.
+         */
+        function fromEpochMilliseconds(epochMilliseconds: number): Instant;
+    }
+
+    interface PlainDate {
         /** The calendar year. */
         readonly year: number;
 
@@ -34,7 +36,7 @@ declare namespace Temporal {
         readonly day: number;
     }
 
-    class ZonedDateTime {
+    interface ZonedDateTime {
         /** The UTC offset of this zoned date-time, e.g. "+02:00". */
         readonly offset: string;
     }
